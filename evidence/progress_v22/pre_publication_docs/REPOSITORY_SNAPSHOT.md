@@ -1,18 +1,13 @@
 # GitHub 工程快照说明
 
-目标账号：`jupiternaut`，仓库：`map-denoise-research`。2026-09-13 核实为 **PUBLIC（公开）**。
-提交源为 liekkas 上当前工程本身，非替代工作树。
+目标账号：`jupiternaut`，仓库：`map-denoise-research`，默认私有。提交源为 liekkas 上当前工程本身，非替代工作树。
 
 ## 范围
 
-包含当前 `map-denoise-dataset-pilot-v1` 可提交源码与文本材料：V1/V2数据接入与修复、V3–V22构造，
+包含当前 `map-denoise-dataset-pilot-v1` 全部可提交源码与文本材料：V1/V2数据接入与修复、V3–V18构造，
 公开3DGS/网格模型适配实验、测试、协议、报告和既有图片。缓存和敏感文件不纳入版本控制。
 为避免只有代码没有结果，另导出各轮紧凑结果表、摘要、审计、时序与清单到 `evidence/runs/`。
 每个导出文件的原路径、字节数和SHA256记录于 `evidence/EXPORT_MANIFEST.json`。
-
-V19–V22 新增证据单独位于 `evidence/progress_v22/`，对应独立的 `EXPORT_MANIFEST.json`，
-不覆盖初次快照。进展与验证例外见 [PROGRESS_V22.md](PROGRESS_V22.md)。
-AgentRx 部分仅发布本项目的适配审计与来源元数据，不再分发第三方论文PDF、全文或页面图片。
 
 `legacy_sources/` 是三个显式旧依赖项目的源码/说明副本：correlation、six-track、t2-boundary。
 原件保持只读；本次没有改写其导入路径，也没有将副本运行成功冒充原目标复现。
@@ -21,7 +16,7 @@ AgentRx 部分仅发布本项目的适配审计与来源元数据，不再分发
 ## 不上传的内容
 
 - 原始数据与下载资产：`/srv/slam-research/grf/map-denoise/datasets/`。
-- 完整实验输入/逐点预测/中间优化记录：`/srv/slam-research/grf/map-denoise/runs/`（未作为整树导出）。
+- 完整实验输入/逐点预测/中间优化记录：`/srv/slam-research/grf/map-denoise/runs/`（本工程主运行树约1.7GB）。
 - Python虚拟环境、安装包、GPU模型权重、登录凭据和缓存。
 
 因此这是**完整当前代码工程及精选证据快照**，不是整个磁盘或全部原始实验数据的异地灾备。
@@ -43,4 +38,4 @@ PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m uni
 这不需要外部原始点云下载；但完整历史实验入口包含 liekkas 主机检查、绝对运行路径及已暴露检查点依赖，
 迁移到Windows/Mac或其他Linux前需要单独配置，不能盲跑下载/恢复脚本。
 
-本次上传不新增开放源代码许可证或替第三方数据重新授权。仓库公开不等于第三方数据、论文与依赖可以任意再分发；使用仍须遵循各自许可。
+本次上传不新增开放源代码许可证或替第三方数据重新授权。仓库私有，公开前应另核对来源、依赖许可和数据再分发条件。

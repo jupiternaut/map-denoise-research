@@ -1,0 +1,329 @@
+{
+  "audit": "AgentRx-inspired retrospective evidence audit",
+  "created": "2026-09-13",
+  "host": "liekkas",
+  "project": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1",
+  "official_agentrx_run": false,
+  "full_raw_trace_annotation": false,
+  "global_first_unrecoverable_step": null,
+  "method_notes": [
+    "事件为目的性选择而非全体事件随机抽样，不能据此估计各类失败占比。",
+    "类别为审计映射候选，不是官方模型输出。无合适类别时采用注明的领域扩展。",
+    "hypothesis rejected不是agent failure；每条保留恢复状态与反事实支持范围。",
+    "只使用可定位的源码/报告/保存数据；不捏造原始会话时刻或先前已知约束。"
+  ],
+  "events": [
+    {
+      "id": "QCE_SEMANTIC_INTERVENTION",
+      "phase": "QCE-0",
+      "status": "interpretation_corrected",
+      "type": "attribution_error",
+      "observed": "s0539没有新增边，仅删除(801,753)；1000个八点样本语义均发生变化。",
+      "constraint": "声称只改变证据访问时，必须追踪真实edge-ID而非集合局部下标。",
+      "constraint_origin": "对原机制主张的事后操作化检查，不冒充当时已有自动断言。",
+      "category_candidate": "Misinterpretation of Tool Output",
+      "strength": "报告、保存JSON及消融源码互证；未重跑SLAM",
+      "cause_limit": "适用于该witness；不能否定全部访问恢复机制。",
+      "evidence": [
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-04/fable-5-1-qce-0-home/work/qce0_archive_analysis.json",
+          "line": 76
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-04/fable-5-1-qce-0-home/work/qce_minimal/audit_s0539_identity.py",
+          "line": 97
+        }
+      ],
+      "raw_trajectory_step": null
+    },
+    {
+      "id": "QCE_HISTORY_CAUSAL_ORDER",
+      "phase": "QCE-0",
+      "status": "hypothesis_rejected_for_observed_event",
+      "type": "scientific_negative",
+      "observed": "该witness在新anchor后第一current；207帧比较未见tracked明显变差。",
+      "constraint": "累积反馈锁死解释需要失败历史先于其所解释的事件。",
+      "constraint_origin": "机制本身的必要时间前提。",
+      "category_candidate": null,
+      "strength": "报告与保存汇总；时间次序未重新追原始运行",
+      "cause_limit": "提出并检验错误假说不是agent错误；若忽略反证继续当事实才是。",
+      "evidence": [
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-04/fable-5-1-qce-0-home/outputs/最小数学系统与逐级消融.md",
+          "line": 234
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-04/fable-5-1-qce-0-home/work/qce_feedback/out/summary.json",
+          "line": 2
+        }
+      ],
+      "raw_trajectory_step": null
+    },
+    {
+      "id": "PILOT_EXISTING_BIAS",
+      "phase": "V1→V2",
+      "status": "corrected_in_v2",
+      "type": "code_fact_plan_mismatch",
+      "observed": "V1建议增加帧截距，旧scalar_reference已有逐帧b=a-mu0。",
+      "constraint": "提出补缺功能前核对实际被调用代码是否已经实现。",
+      "constraint_origin": "已存在源码与原报告主张直接矛盾。",
+      "category_candidate": "Misinterpretation of Tool Output / Intent–Plan Misalignment; exact conversational classification unresolved",
+      "strength": "直接源码与失效报告对照",
+      "cause_limit": "说明漏读实际模型能力，不证明旧模型对现实偏差正确。",
+      "evidence": [
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/PILOT_REPORT.md",
+          "line": 100
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-11/map-denoise-t2-boundary-v1/baseline/scalar_reference.py",
+          "line": 113
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/evidence/runs/repair-v2-oyuie4pl/REPORT_V2.md",
+          "line": 87
+        }
+      ],
+      "raw_trajectory_step": null
+    },
+    {
+      "id": "PILOT_ZERO_INTERVENTION",
+      "phase": "V1→V2",
+      "status": "corrected_in_v2",
+      "type": "causal_confound",
+      "observed": "fast零注入改写42.4432mm，固定坐标平移后42.5597mm。",
+      "constraint": "注入恢复、算法自身改写及其交叉项应分开评价。",
+      "constraint_origin": "V2追溯性补充，不把后来规则说成先前已明令违反。",
+      "category_candidate": "Misinterpretation of Tool Output",
+      "strength": "保存报告与分解评价源码；未重算逐点输出",
+      "cause_limit": "测量云不是干净真值；不能说42mm均是物理损伤。",
+      "evidence": [
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/evidence/runs/repair-v2-oyuie4pl/REPORT_V2.md",
+          "line": 68
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/repair_pilot_v2.py",
+          "line": 84
+        }
+      ],
+      "raw_trajectory_step": null
+    },
+    {
+      "id": "V7_OBJECTIVE_ACTION",
+      "phase": "V6→V7",
+      "status": "partially_recovered",
+      "type": "scientific_negative_with_mechanism_localization",
+      "observed": "硬拟合0.561227mm→同状态直接投影0.403107mm，仍差于旧0.205928mm。",
+      "constraint": "软目标下降的保证不能无条件传递到硬重拟合后的几何。",
+      "constraint_origin": "数学与动作范围检查；不宣称原报告所有推断均错误。",
+      "category_candidate": null,
+      "strength": "只读分支重汇总CSV并核对动作源码",
+      "cause_limit": "只改动作改善不证明所有关联已正确，也不意味着已超过旧法。",
+      "evidence": [
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v7/REPORT.md",
+          "line": 33
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v7/decision/soft_map.py",
+          "line": 33
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v7/decision/REPORT.md",
+          "line": 1
+        }
+      ],
+      "raw_trajectory_step": null
+    },
+    {
+      "id": "V12_V13_WINDOWS",
+      "phase": "V12→V13",
+      "status": "partial_structural_recovery",
+      "type": "scientific_exploration",
+      "observed": "平板V12局部窗口0.251046mm→V13共享方向0.104811mm，V11仍0.086802mm；强曲率V13有收益。",
+      "constraint": "同时改变窗口、方向和层选择时不能做唯一因素归因；恢复上一版不等于系统胜出。",
+      "constraint_origin": "报告已经明确承认的交互。",
+      "category_candidate": null,
+      "strength": "只读分支CSV重汇总及源码",
+      "cause_limit": "正常探索，不标agent失败；不能按真值挑不同形状的赢家。",
+      "evidence": [
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v12/REPORT.md",
+          "line": 54
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v13/atlas.py",
+          "line": 19
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v13/REPORT.md",
+          "line": 1
+        }
+      ],
+      "raw_trajectory_step": null
+    },
+    {
+      "id": "REPRESENTATION_TRANSFER",
+      "phase": "published outputs v1–v3",
+      "status": "real_transfer_not_established",
+      "type": "task_contract_change",
+      "observed": "无来源网格改用XYZ几何子模块；scan24局部距离0.498070→0.520884mm；room仅有原渲染保真。",
+      "constraint": "输入信息、表示、输出或参考改变时，研究命题须重新标注。",
+      "constraint_origin": "用户真实几何目标与成品模型测试协议已明确的差别。",
+      "category_candidate": "Intent–Plan Misalignment only if capability transfer is claimed; experiment itself is legitimate",
+      "strength": "报告、源码与只读分支CSV重汇总",
+      "cause_limit": "不能否定来源算法在不同输入上的全部收益；scan24坐标与局部支持仍有限制。",
+      "evidence": [
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/published_outputs_v1/REPORT.md",
+          "line": 5
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/published_outputs_v3/model_test.py",
+          "line": 63
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/published_outputs_v3/REPORT.md",
+          "line": 58
+        }
+      ],
+      "raw_trajectory_step": null
+    },
+    {
+      "id": "V15_BASELINE_CHALLENGE",
+      "phase": "V15",
+      "status": "specific_objections_answered",
+      "type": "positive_recovery",
+      "observed": "强恒定0.468114mm、空间0.199154mm、RIMLS0.389471mm；扩大RIMLS搜索后最优仍8。",
+      "constraint": "已答复的具体质疑标记关闭；空间精度与RIMLS结构优势分别保留。",
+      "constraint_origin": "冻结开发选择与新种子确认协议。",
+      "category_candidate": null,
+      "strength": "主代理独立重汇总确认CSV；尺度由报告及分支重汇总开发CSV",
+      "cause_limit": "不是恒定族全局最优证明，也不是RIMLS全配置穷尽或真实地图胜出。",
+      "evidence": [
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v15/REPORT.md",
+          "line": 94
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v15/REPORT.md",
+          "line": 112
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/research_audits/agentrx_20260913/CHECK_RESULTS.json",
+          "line": 1
+        }
+      ],
+      "raw_trajectory_step": null
+    },
+    {
+      "id": "V17_V18_RETENTION",
+      "phase": "V17→V18",
+      "status": "known_cases_recovered",
+      "type": "candidate_search_regression",
+      "observed": "旧空间解未进候选池；V18恢复五例，但新确认几乎不变。",
+      "constraint": "同信息同目标的更好可行解已存在时，不应被较差候选覆盖。",
+      "constraint_origin": "候选搜索诊断；不等于几何风险单调。",
+      "category_candidate": "domain_extension: candidate-search regression",
+      "strength": "报告、代码、分支CSV重汇总",
+      "cause_limit": "已知例修复与泛化收益分开，不要求算法永远保持同一模型。",
+      "evidence": [
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v17/v17_operator.py",
+          "line": 140
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v18/v18_operator.py",
+          "line": 16
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v18/REPORT.md",
+          "line": 88
+        }
+      ],
+      "raw_trajectory_step": null
+    },
+    {
+      "id": "V19A_GATE_RECURRENCE",
+      "phase": "V19A",
+      "status": "unrepaired_in_algorithm_diagnosis_strengthened",
+      "type": "experimental_design_search_regression",
+      "observed": "四例同样本gate的同目标损失比现有V18解高584.881–672.805；参数族与特征坐标相同。",
+      "constraint": "同样本机制控制先确认同目标搜索未退化；交叉折不得注入含留出高度的全数据候选。",
+      "constraint_origin": "审计建议；12起点符合既有协议，不是违反协议。",
+      "category_candidate": "domain_extension: diagnostic-control/search regression",
+      "strength": "主代理独立评价保存参数；脚本无工程算法导入、无拟合",
+      "cause_limit": "不证明哪一暖启动缺失贡献最大，不证明修复后crossfit提精度；最终geometry本来就有V18初值。",
+      "evidence": [
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v19/track_a/operator.py",
+          "line": 35
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v19/track_a/operator.py",
+          "line": 109
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/research_audits/agentrx_20260913/CHECK_RESULTS.json",
+          "line": 1
+        }
+      ],
+      "raw_trajectory_step": null
+    },
+    {
+      "id": "V19B_EXPORT_SCOPE",
+      "phase": "V19B",
+      "status": "precision_expectation_rejected_optional_export_retained",
+      "type": "scientific_negative_and_representation_tradeoff",
+      "observed": "真双层K1：9/96、8/72、14/32；固定K1时导出不能增加第二个面；quota仅小幅分布收益。",
+      "constraint": "区分选定模型内部q(k|x,H)与多模型P(H|D)，导出不为未提供表面创造证据。",
+      "constraint_origin": "B协议已明确固定拟合，非实现违约。",
+      "category_candidate": null,
+      "strength": "主代理重汇总CSV；分支核对导出源码与K1结果一致",
+      "cause_limit": "不是后验表示一般无效，也不是K1输出不变证明新识层能力。",
+      "evidence": [
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v19/track_b/PROTOCOL.md",
+          "line": 7
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v19/track_b/operator.py",
+          "line": 63
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v19/REPORT.md",
+          "line": 112
+        }
+      ],
+      "raw_trajectory_step": null
+    },
+    {
+      "id": "V19_CANDIDATE_LOGGING",
+      "phase": "V19",
+      "status": "missing_historical_detail",
+      "type": "diagnostic_observability_gap",
+      "observed": "306缓存均只保存selected baseline；48有旧完整diagnostic引用，其余258未经当前链保存完整pool。",
+      "constraint": "如下一步要结算候选选择余量，应保留计算中已经生成的候选与分数。",
+      "constraint_origin": "新提出的轻量记录要求；不冒充B当时承诺了全池落盘。",
+      "category_candidate": "domain_extension: provenance/diagnostic gap",
+      "strength": "主代理遍历306缓存，核对JSON schema；分支检查V18历史568诊断",
+      "cause_limit": "不表示选择器一定是瓶颈、不代表数据伪造；补跑须另标时间与来源。",
+      "evidence": [
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v19/common.py",
+          "line": 37
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v19/run.py",
+          "line": 65
+        },
+        {
+          "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/research_audits/agentrx_20260913/CHECK_RESULTS.json",
+          "line": 1
+        }
+      ],
+      "raw_trajectory_step": null
+    }
+  ]
+}
