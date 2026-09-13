@@ -1,0 +1,42 @@
+\documentclass[border=4pt,varwidth=170mm]{standalone}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setmonofont{Consolas}[Scale=0.9]
+\usepackage{amsmath,amssymb,xcolor,booktabs,array,graphicx,fvextra}
+\usepackage{listings}
+\definecolor{ink}{HTML}{252A30}
+\definecolor{blue}{HTML}{3778A8}
+\definecolor{orange}{HTML}{CB7736}
+\definecolor{muted}{HTML}{60666C}
+\definecolor{rulegray}{HTML}{BCC4CA}
+\color{ink}
+\setlength{\parindent}{0pt}
+\newcommand{\figtitle}[2]{{\fontsize{12}{14}\selectfont\bfseries #1}\par\vspace{3pt}{\fontsize{8.5}{11}\selectfont\color{muted}#2}\par\vspace{9pt}}
+\begin{document}
+\begin{minipage}{167.1883mm}
+\figtitle{V22: the implemented multiscale correction}{Verbatim source excerpt: reconstruction\_v22/operator.py, lines 119--138.}
+\lstset{language=Python,basicstyle=\ttfamily\fontsize{8}{10.7}\selectfont,
+  keywordstyle=\color{blue},commentstyle=\color{muted},stringstyle=\color{orange},
+  breaklines=true,breakatwhitespace=true,breakautoindent=true,
+  postbreak=\mbox{\textcolor{muted}{\tiny$\hookrightarrow$}\space},
+  keepspaces=true,showstringspaces=false,columns=fullflexible,
+  frame=single,rulecolor=\color{rulegray},framerule=0.35pt,framesep=6pt,
+  xleftmargin=6pt,xrightmargin=6pt,numbers=none,tabsize=4}
+\lstinputlisting{data/operator_excerpt.py}
+\vspace{5pt}
+{\fontsize{10}{13}\selectfont
+The applied displacement is $\alpha_i d_i\boldsymbol n_{i,64}$, where
+\[\alpha_i=\frac{v_{n,i}}{v_{n,i}+v_{p,i}+v_{s,i}+\varepsilon_i}.\]
+Shared observations are not treated as independent evidence: prediction variance is not divided
+by the number of scales. The factor $\alpha$ is heuristic damping, not a calibrated probability or a rejection gate.}
+\vspace{9pt}\par
+{\fontsize{9}{12}\selectfont\textbf{Published comparison against identity}\quad\textcolor{muted}{SUMMARY.json / results.confirmation.comparisons}}
+\vspace{4pt}
+\VerbatimInput[fontsize=\footnotesize,frame=single,rulecolor=\color{rulegray},
+  framesep=6pt,breaklines=true,breakanywhere=true,tabsize=2]{data/identity_comparison.json}
+\vspace{5pt}\par
+{\fontsize{8.5}{11}\selectfont\texttt{passed: false} means the predeclared composite improvement criterion was not met;
+it does not mean execution failed. Gains and recall differences in this JSON are fractions, not percentages.}
+
+\end{minipage}
+\end{document}

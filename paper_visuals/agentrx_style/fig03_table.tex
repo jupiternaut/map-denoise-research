@@ -1,0 +1,48 @@
+\documentclass[border=4pt,varwidth=170mm]{standalone}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setmonofont{Consolas}[Scale=0.9]
+\usepackage{amsmath,amssymb,xcolor,booktabs,array,graphicx,fvextra}
+\usepackage{listings}
+\definecolor{ink}{HTML}{252A30}
+\definecolor{blue}{HTML}{3778A8}
+\definecolor{orange}{HTML}{CB7736}
+\definecolor{muted}{HTML}{60666C}
+\definecolor{rulegray}{HTML}{BCC4CA}
+\color{ink}
+\setlength{\parindent}{0pt}
+\newcommand{\figtitle}[2]{{\fontsize{12}{14}\selectfont\bfseries #1}\par\vspace{3pt}{\fontsize{8.5}{11}\selectfont\color{muted}#2}\par\vspace{9pt}}
+\begin{document}
+\begin{minipage}{167.1883mm}
+\figtitle{Scan37: geometry and coverage across nine methods}{One new scene; 24 disjoint source-vertex patches, 1,024 input points per patch.}
+{\fontsize{9}{12}\selectfont
+\setlength{\tabcolsep}{5.3pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrr@{}}
+\toprule
+\textbf{Method} & \shortstack{\textbf{MAE}$\downarrow$\\mm} & \shortstack{\textbf{Recall}$\uparrow$\\\% at 1 mm} & \shortstack{\textbf{F-score}$\uparrow$\\at 1 mm} & \shortstack{\textbf{Move RMS}\\mm} \\
+\midrule
+Identity & 0.437246 & 92.358 & 0.912854 & 0.000000 \\
+Frozen V18 & 0.459480 & 87.688 & 0.887500 & 0.376979 \\
+APSS2 & 0.436517 & 92.169 & 0.912036 & 0.034471 \\
+RIMLS2 & 0.437229 & 92.219 & 0.912017 & 0.030153 \\
+Local plane, $k=64$ & 0.431515 & 91.414 & 0.908295 & 0.155598 \\
+Local quadratic, $k=64$ & 0.434305 & 92.109 & 0.911920 & 0.097220 \\
+Multiscale, full update & 0.433563 & 91.975 & 0.911316 & 0.088351 \\
+\textcolor{blue}{\textbf{V22 consensus (primary)}} & \textcolor{blue}{\textbf{0.434631}} & \textcolor{blue}{\textbf{92.025}} & \textcolor{blue}{\textbf{0.911513}} & \textcolor{blue}{\textbf{0.060456}} \\
+Matched-RMS constant damping & 0.434344 & 92.037 & 0.911430 & 0.060456 \\
+\bottomrule
+\end{tabular*}}\par
+\vspace{8pt}
+{\fontsize{8.5}{11.5}\selectfont
+\textcolor{blue}{Blue identifies the preselected primary method, not the best score.}
+Every metric is averaged equally over the 24 patches. Evaluation uses the fixed observed local region;
+scored point counts can differ from the 1,024-point input. Recall measures reference coverage within 1 mm.
+These are local patch results, not official full-scene DTU scores.}\par
+\vspace{9pt}\par
+{\fontsize{9}{12}\selectfont\textbf{Paired reading.}
+Against identity, the primary method reduces mean MAE by 0.598\%, while recall decreases by
+0.333 percentage points. Matched-RMS constant damping has a slightly lower MAE than the primary method.}
+
+\end{minipage}
+\end{document}

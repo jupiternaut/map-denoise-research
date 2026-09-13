@@ -1,0 +1,29 @@
+{
+  "analytical_question": "On all 24 frozen scan37 confirmation patches, how do the primary multiscale consensus candidate and its RMS-matched constant-damping control change local MAE and coverage relative to identity?",
+  "takeaway": "The primary candidate has a small mean MAE reduction with a small recall loss; it does not improve mean MAE over the matched-displacement control.",
+  "family": ["Comparison", "Relationship"],
+  "variant": "Paired per-patch delta dot plots plus all-method mean MAE/recall scatter and explicitly labelled detail view",
+  "renderer": "Matplotlib static vector PDF/SVG with PNG review export",
+  "source": "evidence/progress_v22/runs/reconstruction-v22-qayc8gft/confirmation_RESULTS.json",
+  "expected_rows": 216,
+  "expected_patches": 24,
+  "expected_methods": 9,
+  "scatter_grain": "One point per method; equal-weight mean of all 24 patches",
+  "temporal_axis": false,
+  "selection": "All confirmation rows with strict validation of expected complete case-method cross product; numeric case order; no post-hoc exclusion",
+  "reference": "identity for both per-patch delta panels",
+  "metrics": {
+    "accuracy_mm": "Mean nearest-neighbour output-to-reference distance over a fixed input-derived local observed mask; lower is better",
+    "recall_pct": "100 times the fraction of fixed local reference points within 1 mm of any output point; higher is better",
+    "delta_recall_pp": "100 times method recall minus identity recall, in percentage points",
+    "aggregate": "Unweighted arithmetic mean of 24 per-patch metrics, never pooled point weighting"
+  },
+  "palette_policy": "hard two-root cap",
+  "palette": {"primary": "#3778A8", "matched": "#CB7736", "context": "#737373", "ink": "#292929", "guides": "#D9D9D9"},
+  "non_color_encoding": "Filled blue circles for primary; open orange squares for matched; hollow grey circles/diamonds for context; a solid zero benchmark and paired grey connectors",
+  "footprint_mm": [170, 178],
+  "font": "Times New Roman; vector PDF Type 42 font embedding; SVG editable text",
+  "exports": ["fig02_confirmation.pdf", "fig02_confirmation.svg", "fig02_confirmation.png"],
+  "qa": "Recompute means and comparisons from stored rows; assert match to SUMMARY.json; inspect exported PNG; record source hash and exact derived values",
+  "limitations": ["One confirmation scene, sampled local patches, not a full-scene DTU score", "No error bars or significance claim because patch-level variability is not an independent cross-scene replication", "The all-method scatter has a separate labelled detail panel; no hidden axis break", "This rendering reuses stored metrics and does not rerun geometric experiments"]
+}

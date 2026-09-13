@@ -8,6 +8,15 @@ GitHub 更新：2026-09-13。最新入口：[V19–V22 进展与证据索引](PR
 V18 仍是受控薄板族中的内部参考，不是已经证实适用于真实地图的默认滤波器。
 历史方法见 [V18 报告](exploration_v18/REPORT.md) 与 [V17 报告](exploration_v17/REPORT.md)。
 
+### V22 论文图件与作图方法
+
+[四页矢量 PDF 图集](paper_visuals/agentrx_style/map-denoise-visual-atlas.pdf) ·
+[四类图、源码与复现说明](paper_visuals/agentrx_style/README.md) ·
+[科研作图方法与书单](paper_visuals/agentrx_style/科研作图方法与书单.md)
+
+包含 TikZ 流程图、Matplotlib 多面板数据图、LaTeX 三线表和真实源码/JSON 代码块，
+并提供独立 PDF、SVG、PNG 及数据来源记录。基于已发布的 scan37 确认结果重新制图，未新增实验或改写研究结论。
+
 - 本仓库包含当前工程源码、各轮协议/报告/测试、公开输出模型的实验适配器，以及 `evidence/` 中的结果表与校验记录。
 - 原始点云、下载模型、Python 环境、逐点输出大包不在 Git 中；它们没有被删除。位置与范围见 [仓库快照说明](REPOSITORY_SNAPSHOT.md)。
 - `legacy_sources/` 保留三个显式旧依赖的源码副本，不修改原始检查点。历史脚本仍可能要求原绝对路径。
