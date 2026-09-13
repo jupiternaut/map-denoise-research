@@ -1,0 +1,13 @@
+{
+  "changes": [
+    {
+      "path": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v16/run.py",
+      "before": "eed545209026d4bcb907ed362a285fb31f9a179f23dbff4e57a55e7600080ec4",
+      "after": "86fc2e6031a0c1474005da8a76859fea6917011de75f68f028e28abb0eb96b81",
+      "scope": "dict.update reporting-only fix, after 560 model outputs sealed, before any scoring completed",
+      "diff": "--- \n+++ \n@@ -140,7 +140,8 @@\n                 if extra:\n                     npzsave(dest/'diagnostics'/f'{r[\"case\"]}__{r[\"method\"]}.npz', extra)\n             else:\n-                row.update(score_new(inp, truth, art), dependence_diagnostics(inp, truth))\n+                row.update(score_new(inp, truth, art))\n+                row.update(dependence_diagnostics(inp, truth))\n         rows.append(row)\n     name = 'replay' if replay else 'mechanism'\n     v14.save(dest/f'{name}_ROWS.json', rows)\n"
+    }
+  ],
+  "model_refits": 0,
+  "method_changes": 0
+}

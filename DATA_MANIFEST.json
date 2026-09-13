@@ -1,0 +1,234 @@
+{
+  "host": "liekkas",
+  "date": "2026-09-12",
+  "project": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1",
+  "datasets_root": "/srv/slam-research/grf/map-denoise/datasets/multiscan-pilot-v1",
+  "runs_root": "/srv/slam-research/grf/map-denoise/runs/multiscan-pilot-v1",
+  "old_checkpoint_readonly": "/home/grf/Documents/Codex/2026-09-11/map-denoise-correlation-v1",
+  "local_hash_is_not_official_signature": true,
+  "notes": [
+    "raw and clean ETH3D scans are the same scanner source; clean is a cleaned copy, not independent millimetre GT",
+    "IFC / BIM is not present this round and would not be independent millimetre GT",
+    "thin-layer labels were not invented",
+    "UCL station IDs were not invented",
+    "TUM-TLS-24 was not downloaded"
+  ],
+  "eth3d": {
+    "official_page": "https://www.eth3d.net/datasets",
+    "documentation": "https://www.eth3d.net/documentation",
+    "license": "CC BY-NC-SA 4.0 (stated on https://www.eth3d.net/)",
+    "retrieved_utc": "2026-09-12T00:38:24.481419+00:00",
+    "download_log": "/srv/slam-research/grf/map-denoise/runs/multiscan-pilot-v1/logs/eth3d_download.json",
+    "archives": [
+      {
+        "name": "courtyard_scan_raw.7z",
+        "url": "https://www.eth3d.net/data/courtyard_scan_raw.7z",
+        "path": "/srv/slam-research/grf/map-denoise/datasets/multiscan-pilot-v1/eth3d/downloads/courtyard_scan_raw.7z",
+        "bytes": 353925800,
+        "sha256": "32331ebadab16a4afee42b77763174a7c2e84d62ad72c9dccd37f917b158937d",
+        "status": "already_present"
+      },
+      {
+        "name": "courtyard_scan_clean.7z",
+        "url": "https://www.eth3d.net/data/courtyard_scan_clean.7z",
+        "path": "/srv/slam-research/grf/map-denoise/datasets/multiscan-pilot-v1/eth3d/downloads/courtyard_scan_clean.7z",
+        "bytes": 304294338,
+        "sha256": "7bb61a7758cbaa25fc686a86c1156178722421cc5659009c096ad846a1c0cc66",
+        "status": "downloaded"
+      },
+      {
+        "name": "delivery_area_scan_raw.7z",
+        "url": "https://www.eth3d.net/data/delivery_area_scan_raw.7z",
+        "path": "/srv/slam-research/grf/map-denoise/datasets/multiscan-pilot-v1/eth3d/downloads/delivery_area_scan_raw.7z",
+        "bytes": 398284446,
+        "sha256": "0fa52224fe50920f8c30ddafb2bab9b0d636b154cf97fc96fef567622e91ff55",
+        "status": "downloaded"
+      },
+      {
+        "name": "delivery_area_scan_clean.7z",
+        "url": "https://www.eth3d.net/data/delivery_area_scan_clean.7z",
+        "path": "/srv/slam-research/grf/map-denoise/datasets/multiscan-pilot-v1/eth3d/downloads/delivery_area_scan_clean.7z",
+        "bytes": 381363091,
+        "sha256": "cd3f41c563911fcc630241f04bd2e0ac5e9e0091bb298c2a74873f3dca837436",
+        "status": "downloaded"
+      }
+    ],
+    "scenes": {
+      "delivery_area": {
+        "n_stations": 2,
+        "station_files": ["scan1.ply", "scan2.ply"],
+        "alignment": "scan_alignment.mlp",
+        "usable_for_frame_bias": true,
+        "pose_note": "PLY stays scanner-local; apply T_world_from_scan once",
+        "max_stations_in_0.1m_voxel": 2,
+        "clean_used_for_patches": true,
+        "clean_mlp_sha256": "043cae5e2a0c195df27174f35a131e0b3d856a2306968e5617bd80fd399cd5f5",
+        "clean_stations": [
+          {
+            "scan_id": 1,
+            "ply": "/srv/slam-research/grf/map-denoise/datasets/multiscan-pilot-v1/eth3d/extracted/delivery_area/clean/delivery_area/scan_clean/scan1.ply",
+            "ply_sha256": "50921768d263ef1b9b9b5f4e644dd39e5aa579893d3f343097bffa9723658d32",
+            "ply_bytes": 393718314,
+            "n_points": 26247836
+          },
+          {
+            "scan_id": 2,
+            "ply": "/srv/slam-research/grf/map-denoise/datasets/multiscan-pilot-v1/eth3d/extracted/delivery_area/clean/delivery_area/scan_clean/scan2.ply",
+            "ply_sha256": "baccb3a83b8d13a452f20fb94e5a67617669051b40d8f96e08491aa423c7bab0",
+            "ply_bytes": 394095969,
+            "n_points": 26273013
+          }
+        ]
+      },
+      "courtyard": {
+        "n_stations": 2,
+        "station_files": ["scan1.ply", "scan2.ply"],
+        "alignment": "scan_alignment.mlp",
+        "usable_for_frame_bias": true,
+        "pose_note": "PLY stays scanner-local; apply T_world_from_scan once",
+        "max_stations_in_0.1m_voxel": 2,
+        "clean_used_for_patches": true,
+        "clean_mlp_sha256": "41bb95c984ea7f16acdf968745ecbae839e7cef5ec2691103d6e2648b3f8fed5",
+        "clean_stations": [
+          {
+            "scan_id": 1,
+            "ply": "/srv/slam-research/grf/map-denoise/datasets/multiscan-pilot-v1/eth3d/extracted/courtyard/clean/courtyard/scan_clean/scan1.ply",
+            "ply_sha256": "668633be101f3d3fa63db48b2de2266012774cdcf0f54e1312df52066ff9b07f",
+            "ply_bytes": 284384019,
+            "n_points": 18958883
+          },
+          {
+            "scan_id": 2,
+            "ply": "/srv/slam-research/grf/map-denoise/datasets/multiscan-pilot-v1/eth3d/extracted/courtyard/clean/courtyard/scan_clean/scan2.ply",
+            "ply_sha256": "ddff79f8803db2d7f086b536c9525284744ed365d16dbd5ab784ffae4ba24499",
+            "ply_bytes": 282557379,
+            "n_points": 18837107
+          }
+        ]
+      }
+    }
+  },
+  "ucl_basic_corridor": {
+    "status": "blocked",
+    "official_page": "https://indoor-bench.github.io/indoor-bench/",
+    "paper": "https://isprs-archives.copernicus.org/articles/XL-5/581/2014/",
+    "official_download_href": "https://1drv.ms/u/s!AuBuZXi2cbwhnCe-A4jdfGqHRgzM",
+    "e57_status": "not_downloaded",
+    "usable_for_frame_bias": false,
+    "blocker": "official OneDrive share; anonymous API 401 or login.live.com; no public direct zip",
+    "evidence": [
+      "/srv/slam-research/grf/map-denoise/runs/multiscan-pilot-v1/logs/ucl_probe.json",
+      "/srv/slam-research/grf/map-denoise/datasets/multiscan-pilot-v1/ucl/downloads/BLOCKER.json"
+    ],
+    "not_done": [
+      "no unknown mirror",
+      "no borrowed account",
+      "no invented station IDs",
+      "old env was not upgraded for pye57"
+    ],
+    "ifc_note": "IFC is a human model from Faro scans, not independent millimetre GT; many thicknesses in the paper are arbitrary"
+  },
+  "tum_tls24": {
+    "status": "metadata_only",
+    "official_page": "https://tum2t.win/datasets/pc-tls",
+    "downloaded": false,
+    "reason": "task forbids the ~95 GB full download this round",
+    "published_links": {
+      "subsampled": "https://syncandshare.lrz.de/getlink/fiFJdYFr5An7eFSPBnvuHz/Subsampled",
+      "original": "https://syncandshare.lrz.de/getlink/fiXaEmh77xC2ma8FonxAtq/Original",
+      "complete_tum_tls_24": "https://syncandshare.lrz.de/getlink/fiE7GWMPeB4FiBoWaNR5Eh/TUM-TLS-24"
+    },
+    "z_offset_note": "official page: TLS clouds need +0.7551 m in Z to align with other TUM2TWIN models",
+    "evidence": "/srv/slam-research/grf/map-denoise/datasets/multiscan-pilot-v1/tum_metadata/TUM_TLS24_METADATA.json"
+  },
+  "synthetics": {
+    "n_cases": 27,
+    "seeds_used": [912101, 912113, 912127],
+    "hold_out_seeds_not_used": [912201, 912211, 912223],
+    "target_stations": 8,
+    "target_points": 768,
+    "sigma_mm": 1.0,
+    "root": "/srv/slam-research/grf/map-denoise/runs/multiscan-pilot-v1/synthetics",
+    "summary": "/srv/slam-research/grf/map-denoise/runs/multiscan-pilot-v1/synthetics/SUMMARY.json"
+  },
+  "gpu_check": {
+    "log": "/srv/slam-research/grf/map-denoise/runs/multiscan-pilot-v1/logs/gpu_check.json",
+    "nvidia_smi": "NVML Driver/library version mismatch; library 595.91; returncode 18",
+    "torch": "2.5.1+cu121",
+    "torch_cuda_is_available": true,
+    "tiny_tensor_cpu_gpu_agree": true,
+    "claimed_gpu_operator": false
+  },
+  "old_checkpoint_sha256": {
+    "operators.py": "1240562f61aa98bcca4d54837fe11b6295386efe908420c952e96c406845ae59",
+    "experiment.py": "40df63459fe620788acb714f44bd794757f8197542eb03411e685e33ad384f57",
+    "scalar_reference.py": "ebc82a17ed431ee10056ef3c64113e8897f10821c673c4c0c99e469ef1773a9a"
+  },
+  "patches": {
+    "variant": "clean",
+    "load_stride": 12,
+    "selection": "overlap histogram geometry, not method scores",
+    "report": "/srv/slam-research/grf/map-denoise/runs/multiscan-pilot-v1/patches/EXTRACT_REPORT.json",
+    "items": [
+      {
+        "patch_id": "da_wall",
+        "scene": "delivery_area",
+        "geometry_role": "wall_slab",
+        "n_points": 1600,
+        "station_counts": {"1": 800, "2": 800},
+        "extent_m": [0.30, 8.00, 4.61]
+      },
+      {
+        "patch_id": "da_junction",
+        "scene": "delivery_area",
+        "geometry_role": "same_axis_second_slab",
+        "kind_note": "not a verified multi-surface junction; not a thin-layer label",
+        "n_points": 1591,
+        "station_counts": {"1": 800, "2": 791},
+        "extent_m": [0.30, 2.12, 4.61]
+      },
+      {
+        "patch_id": "da_thin",
+        "scene": "delivery_area",
+        "geometry_role": "local_end_slab",
+        "thin_layer_label": "not_invented",
+        "n_points": 1529,
+        "station_counts": {"1": 729, "2": 800},
+        "extent_m": [0.30, 1.20, 4.61]
+      },
+      {
+        "patch_id": "cy_wall",
+        "scene": "courtyard",
+        "geometry_role": "wall_slab",
+        "n_points": 1600,
+        "station_counts": {"1": 800, "2": 800},
+        "extent_m": [0.30, 8.00, 9.80]
+      },
+      {
+        "patch_id": "cy_junction",
+        "scene": "courtyard",
+        "geometry_role": "orthogonal_crossing",
+        "n_points": 1600,
+        "station_counts": {"1": 800, "2": 800},
+        "extent_m": [2.40, 2.40, 2.40]
+      },
+      {
+        "patch_id": "cy_thin",
+        "scene": "courtyard",
+        "geometry_role": "local_end_slab",
+        "thin_layer_label": "not_invented",
+        "n_points": 414,
+        "station_counts": {"1": 29, "2": 385},
+        "extent_m": [0.30, 1.20, 9.80],
+        "note": "two real stations but unbalanced"
+      }
+    ]
+  },
+  "pilot": {
+    "csv_project": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/PILOT_RESULTS.csv",
+    "csv_runs": "/srv/slam-research/grf/map-denoise/runs/multiscan-pilot-v1/pilot/PILOT_RESULTS.csv",
+    "n_rows": 444,
+    "n_ok": 444,
+    "n_fail": 0
+  }
+}
