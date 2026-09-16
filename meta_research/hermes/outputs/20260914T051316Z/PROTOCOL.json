@@ -1,0 +1,42 @@
+{
+  "N": 64,
+  "N_INIT": 3,
+  "INIT_X": [
+    0,
+    32,
+    16
+  ],
+  "BUDGETS": [
+    8,
+    16
+  ],
+  "CAUSES": [
+    "model",
+    "transient",
+    "persistent"
+  ],
+  "costs_ASSUMED": {
+    "query": 1,
+    "retest": 1,
+    "expand": 1
+  },
+  "H0": 51,
+  "H1": 12801,
+  "policies": [
+    "expand_first",
+    "retest_first",
+    "diagnose"
+  ],
+  "diagnose": "retest highest-impact restoring observation, else expand, else covering query",
+  "delivery": "first live row of active family (H0 until expand, else H1); else nearest observed",
+  "code_sha256": "4ae2977cb07299aa1cf694ce09f1a79e9635eccfab82bb9c443711d40e3b4735",
+  "note": "rules locked after 30-task development; eval uses new seeds",
+  "parameter_provenance": {
+    "library_ranges": "ASSUMED inherited from mismatch_experiment",
+    "INIT_X": "ASSUMED covering prefix of length 3",
+    "dirty_offset": "ASSUMED",
+    "action_costs": "ASSUMED",
+    "isolation": "MEASURED",
+    "metrics": "MEASURED"
+  }
+}

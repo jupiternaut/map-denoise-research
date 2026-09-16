@@ -1,0 +1,494 @@
+{
+  "episode": {
+    "domain": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "budget_steps": 8,
+    "query_cost": 1,
+    "external_purpose": "minimize L1 on the whole domain; never rewritten",
+    "unknowns": [
+      "Representation",
+      "OptimizationObjective",
+      "EffectiveAlgorithm"
+    ],
+    "proxy": "L1 on x in {0..7}",
+    "parameter_provenance": {
+      "DOMAIN": "ASSUMED",
+      "target": "ASSUMED",
+      "PROXY_SUPPORT": "ASSUMED",
+      "BUDGET": "ASSUMED",
+      "hole_ranges": "ASSUMED",
+      "policy_utilities": "MEASURED",
+      "independent_checks": "MEASURED"
+    }
+  },
+  "policies": [
+    {
+      "policy": "fixed_proxy_linear",
+      "family": "linear",
+      "phi": [
+        0,
+        2
+      ],
+      "external_l1": 28,
+      "proxy_l1": 0,
+      "cost": 8,
+      "utility": -30.0,
+      "perfect": false,
+      "n_actions": 8,
+      "traj": [
+        {
+          "action": "Observe",
+          "x": 0,
+          "y": 2
+        },
+        {
+          "action": "Observe",
+          "x": 1,
+          "y": 2
+        },
+        {
+          "action": "Observe",
+          "x": 2,
+          "y": 2
+        },
+        {
+          "action": "Observe",
+          "x": 3,
+          "y": 2
+        },
+        {
+          "action": "Observe",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "action": "Observe",
+          "x": 5,
+          "y": 2
+        },
+        {
+          "action": "Observe",
+          "x": 6,
+          "y": 2
+        },
+        {
+          "action": "ConstructAlgorithm",
+          "family": "linear"
+        }
+      ]
+    },
+    {
+      "policy": "random_then_linear",
+      "family": "linear",
+      "phi": [
+        0,
+        2
+      ],
+      "external_l1": 28,
+      "proxy_l1": 0,
+      "cost": 8,
+      "utility": -30.0,
+      "perfect": false,
+      "n_actions": 8,
+      "traj": [
+        {
+          "action": "Observe",
+          "x": 0,
+          "y": 2
+        },
+        {
+          "action": "Observe",
+          "x": 5,
+          "y": 2
+        },
+        {
+          "action": "Observe",
+          "x": 8,
+          "y": 2
+        },
+        {
+          "action": "Observe",
+          "x": 11,
+          "y": 5
+        },
+        {
+          "action": "Observe",
+          "x": 15,
+          "y": 9
+        },
+        {
+          "action": "Observe",
+          "x": 3,
+          "y": 2
+        },
+        {
+          "action": "Observe",
+          "x": 9,
+          "y": 3
+        },
+        {
+          "action": "ConstructAlgorithm",
+          "family": "linear"
+        }
+      ]
+    },
+    {
+      "policy": "proxy_then_holdout_linear",
+      "family": "linear",
+      "phi": [
+        0,
+        2
+      ],
+      "external_l1": 28,
+      "proxy_l1": 0,
+      "cost": 8,
+      "utility": -30.0,
+      "perfect": false,
+      "n_actions": 8,
+      "traj": [
+        {
+          "action": "Observe",
+          "x": 0,
+          "y": 2,
+          "role": "proxy"
+        },
+        {
+          "action": "Observe",
+          "x": 1,
+          "y": 2,
+          "role": "proxy"
+        },
+        {
+          "action": "Observe",
+          "x": 2,
+          "y": 2,
+          "role": "proxy"
+        },
+        {
+          "action": "Observe",
+          "x": 3,
+          "y": 2,
+          "role": "proxy"
+        },
+        {
+          "action": "ConstructAlgorithm",
+          "family": "linear",
+          "objective": "proxy",
+          "phi": [
+            0,
+            2
+          ]
+        },
+        {
+          "action": "Observe",
+          "x": 12,
+          "y": 6,
+          "role": "holdout"
+        },
+        {
+          "action": "ReviseOptimizationObjective",
+          "from": "proxy",
+          "to": "all_observed"
+        },
+        {
+          "action": "ConstructAlgorithm",
+          "family": "linear",
+          "objective": "all_observed",
+          "phi": [
+            0,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "policy": "cegis_linear_fixed",
+      "family": "linear",
+      "phi": [
+        1,
+        -6
+      ],
+      "external_l1": 36,
+      "proxy_l1": 36,
+      "cost": 8,
+      "utility": -38.0,
+      "perfect": false,
+      "n_actions": 7,
+      "traj": [
+        {
+          "action": "Observe",
+          "x": 0,
+          "y": 2,
+          "role": "seed"
+        },
+        {
+          "action": "ConstructAlgorithm",
+          "family": "linear",
+          "phi": [
+            0,
+            2
+          ],
+          "n_obs": 1
+        },
+        {
+          "action": "Observe",
+          "x": 15,
+          "y": 9,
+          "role": "counterexample"
+        },
+        {
+          "action": "ConstructAlgorithm",
+          "family": "linear",
+          "phi": [
+            0,
+            2
+          ],
+          "n_obs": 2
+        },
+        {
+          "action": "Observe",
+          "x": 14,
+          "y": 8,
+          "role": "counterexample"
+        },
+        {
+          "action": "ConstructAlgorithm",
+          "family": "linear",
+          "phi": [
+            1,
+            -6
+          ],
+          "n_obs": 3
+        },
+        {
+          "action": "Observe",
+          "note": "budget_exhausted_before_validate"
+        }
+      ]
+    },
+    {
+      "policy": "cegis_piecewise_fixed",
+      "family": "piecewise",
+      "phi": [
+        8,
+        2,
+        1,
+        -6
+      ],
+      "external_l1": 0,
+      "proxy_l1": 0,
+      "cost": 6,
+      "utility": -1.5,
+      "perfect": true,
+      "n_actions": 5,
+      "traj": [
+        {
+          "action": "Observe",
+          "x": 0,
+          "y": 2,
+          "role": "seed"
+        },
+        {
+          "action": "ConstructAlgorithm",
+          "family": "piecewise",
+          "phi": [
+            6,
+            2,
+            0,
+            2
+          ],
+          "n_obs": 1
+        },
+        {
+          "action": "Observe",
+          "x": 15,
+          "y": 9,
+          "role": "counterexample"
+        },
+        {
+          "action": "ConstructAlgorithm",
+          "family": "piecewise",
+          "phi": [
+            8,
+            2,
+            1,
+            -6
+          ],
+          "n_obs": 2
+        },
+        {
+          "action": "Observe",
+          "result": "validated"
+        }
+      ]
+    },
+    {
+      "policy": "cegis_refine_families",
+      "family": "linear",
+      "phi": [
+        0,
+        2
+      ],
+      "external_l1": 28,
+      "proxy_l1": 0,
+      "cost": 8,
+      "utility": -30.0,
+      "perfect": false,
+      "n_actions": 7,
+      "traj": [
+        {
+          "action": "Observe",
+          "x": 0,
+          "y": 2,
+          "role": "seed"
+        },
+        {
+          "action": "ConstructAlgorithm",
+          "family": "constant",
+          "phi": [
+            2
+          ],
+          "n_obs": 1
+        },
+        {
+          "action": "Observe",
+          "x": 15,
+          "y": 9,
+          "role": "counterexample"
+        },
+        {
+          "action": "ReviseRepresentation",
+          "family": "linear"
+        },
+        {
+          "action": "ConstructAlgorithm",
+          "family": "linear",
+          "phi": [
+            0,
+            2
+          ],
+          "n_obs": 2
+        },
+        {
+          "action": "Observe",
+          "x": 14,
+          "y": 8,
+          "role": "counterexample"
+        },
+        {
+          "action": "SelectNextAction",
+          "note": "sketch_unsat_no_refine"
+        }
+      ]
+    }
+  ],
+  "ranking_by_utility": [
+    "cegis_piecewise_fixed",
+    "cegis_refine_families",
+    "fixed_proxy_linear",
+    "proxy_then_holdout_linear",
+    "random_then_linear",
+    "cegis_linear_fixed"
+  ],
+  "independent_checks": {
+    "all_ok": true,
+    "checks": [
+      {
+        "name": "target_left",
+        "ok": true,
+        "detail": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "name": "target_right",
+        "ok": true,
+        "detail": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "name": "piecewise_can_express",
+        "ok": true,
+        "detail": {
+          "n_exact": 2,
+          "example": [
+            8,
+            2,
+            1,
+            -6
+          ]
+        }
+      },
+      {
+        "name": "linear_cannot_express",
+        "ok": true,
+        "detail": {
+          "n_exact": 0,
+          "best_l1": 28,
+          "phi": [
+            0,
+            2
+          ]
+        }
+      },
+      {
+        "name": "proxy_perfect_constant2",
+        "ok": true,
+        "detail": {
+          "external_l1": 28
+        }
+      },
+      {
+        "name": "proxy_mismatch",
+        "ok": true,
+        "detail": 28
+      }
+    ]
+  },
+  "negative_results": [
+    "fixed_proxy_linear can have proxy_l1=0 and large external_l1",
+    "cegis_linear_fixed cannot reach external_l1=0 because the sketch is incomplete",
+    "revising only the objective, keeping a linear family, cannot express the target"
+  ],
+  "timing_s": 0.016247723004198633,
+  "executed": [
+    "all six policies",
+    "independent_checks"
+  ],
+  "not_executed": [
+    "original CEGAR TACAS 2000 PDF retrieval (HTTP 404/429 this session)",
+    "context ablation over prior-project context (host must supply new sessions)",
+    "model checking of TASK.tla"
+  ]
+}

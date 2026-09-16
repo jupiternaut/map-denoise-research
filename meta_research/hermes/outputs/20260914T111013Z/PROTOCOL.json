@@ -1,0 +1,47 @@
+{
+  "N": 8,
+  "H0": 6,
+  "H1": 66,
+  "BUDGETS": [
+    3,
+    4,
+    5,
+    6
+  ],
+  "MAX_BUDGET": 6,
+  "CAUSES": [
+    "model",
+    "transient",
+    "persistent"
+  ],
+  "policies_primary": [
+    "cover",
+    "retest_then_cover",
+    "optimal"
+  ],
+  "costs_ASSUMED": {
+    "query": 1,
+    "retest": 1,
+    "isolate": 0
+  },
+  "prior_ASSUMED": "uniform over locked catalog worlds",
+  "fitter": "isolate-cap-1, competing live rows kept, rank fewer isol then H0",
+  "orig_vs_cur": "orig first-write; retest edits cur only",
+  "lookahead_ASSUMED": {
+    "P_TRANSIENT_RETEST": 0.5
+  },
+  "forbidden_init": [
+    0,
+    4
+  ],
+  "catalog_bundles": 6,
+  "holdout_bundles": 6,
+  "code_sha256": "792dd99cb0405c505bd62b421dc9ebd6890c1a8578a403b3b250c3527627d6bb",
+  "parameter_provenance": {
+    "libraries": "ASSUMED mini",
+    "catalog": "ASSUMED generator",
+    "dp_prior": "ASSUMED uniform catalog",
+    "isolation": "MEASURED",
+    "metrics": "MEASURED"
+  }
+}

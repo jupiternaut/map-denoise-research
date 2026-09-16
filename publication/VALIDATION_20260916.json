@@ -1,0 +1,104 @@
+{
+  "date": "2026-09-16",
+  "snapshot_checks": {
+    "passed": true,
+    "snapshot_files": 904,
+    "snapshot_bytes": 80221652,
+    "python_parsed": 131,
+    "json_parsed": 623,
+    "errors": [],
+    "scope": "hashes, syntax, JSON and high-confidence secret patterns; not a security proof or full scientific rerun"
+  },
+  "jobs": [
+    {
+      "name": "oracle_units",
+      "cwd": "research_snapshots/2026-09-16/pnp-oracle-lab-20260916T112018Z",
+      "command": [
+        "/usr/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "publication/oracle_units.log"
+    },
+    {
+      "name": "oracle_audit",
+      "cwd": "research_snapshots/2026-09-16/pnp-oracle-lab-20260916T112018Z",
+      "command": [
+        "/usr/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "audit_checks",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "publication/oracle_audit.log"
+    },
+    {
+      "name": "loss_alignment_v23",
+      "cwd": ".",
+      "command": [
+        "/srv/slam-research/grf/map-denoise/envs/open3d-019/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "loss_alignment_v23",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "publication/loss_alignment_v23.log"
+    },
+    {
+      "name": "field_budget_v24",
+      "cwd": ".",
+      "command": [
+        "/srv/slam-research/grf/map-denoise/envs/open3d-019/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "field_budget_v24",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "publication/field_budget_v24.log"
+    },
+    {
+      "name": "real_support_bridge_v1",
+      "cwd": ".",
+      "command": [
+        "/srv/slam-research/grf/map-denoise/envs/open3d-019/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "real_support_bridge_v1",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "publication/real_support_bridge_v1.log"
+    }
+  ],
+  "scope": "Publication integrity and selected unit/audit tests, not a full rerun of all experiments. Geometry tests use the existing local environment; old absolute dependencies remain.",
+  "not_run": [
+    "V25 full experiment",
+    "E0/E0-D/E0-E/E0-F full experiments",
+    "Hermes/open-world full experiments",
+    "cold-machine portability"
+  ],
+  "passed": true
+}

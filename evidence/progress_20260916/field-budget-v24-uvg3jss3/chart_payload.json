@@ -1,0 +1,112 @@
+{
+  "title": "V24：等位移预算下的表面距离变化",
+  "subtitle": "三种修正场的排序依场景而变；距离改善需同时查看覆盖代价。",
+  "source": {
+    "label": "V24 / 42 exposed patches / frozen output evaluation",
+    "path": "/srv/slam-research/grf/map-denoise/runs/field-budget-v24-uvg3jss3/RESULTS.json",
+    "query": {
+      "engine": "SQLite (in memory)",
+      "language": "sql",
+      "sql": "\nSELECT a.scene, a.field, COUNT(*) AS n_patches,\n       AVG(a.accuracy_mm) AS accuracy_mm,\n       AVG(i.accuracy_mm - a.accuracy_mm) AS mae_gain_mm,\n       AVG(a.recall) * 100.0 AS recall_percent,\n       AVG(a.recall - i.recall) * 100.0 AS recall_change_pp,\n       AVG(a.actual_budget_mm) AS actual_budget_mm\nFROM v24_results AS a\nJOIN v24_results AS i ON a.case_id=i.case_id AND i.method='native__identity'\nWHERE a.kind='budget' AND a.allocation='uniform'\n  AND a.requested_budget_mm=0.025\nGROUP BY a.scene,a.field\nORDER BY a.scene,a.field\n",
+      "description": "同片输入与输出距离差，按场景及修正场等权平均；0.025 mm预算未触发上限。",
+      "tables_used": [
+        "v24_results"
+      ],
+      "metric_definitions": {
+        "mae_gain_mm": "mean_patch(identity MAE - candidate MAE), positive=lower error; mm",
+        "recall_change_pp": "mean_patch(candidate recall - identity recall)*100; percentage points"
+      }
+    }
+  },
+  "table": {
+    "rows": [
+      {
+        "scene": "scan24",
+        "field": "local_plane64",
+        "n_patches": 18,
+        "accuracy_mm": 0.5392040211827861,
+        "mae_gain_mm": 0.0003408647756199164,
+        "recall_percent": 97.94290836016314,
+        "recall_change_pp": -0.045925628617465235,
+        "actual_budget_mm": 0.025
+      },
+      {
+        "scene": "scan24",
+        "field": "multiscale_full",
+        "n_patches": 18,
+        "accuracy_mm": 0.5387862181171295,
+        "mae_gain_mm": 0.0007586678412764882,
+        "recall_percent": 97.94764584293276,
+        "recall_change_pp": -0.041188145847835686,
+        "actual_budget_mm": 0.025
+      },
+      {
+        "scene": "scan24",
+        "field": "quadratic64",
+        "n_patches": 18,
+        "accuracy_mm": 0.5387997428342548,
+        "mae_gain_mm": 0.0007451431241512177,
+        "recall_percent": 97.95713812231303,
+        "recall_change_pp": -0.031695866467570014,
+        "actual_budget_mm": 0.025
+      },
+      {
+        "scene": "scan37",
+        "field": "local_plane64",
+        "n_patches": 24,
+        "accuracy_mm": 0.4351184452825703,
+        "mae_gain_mm": 0.0021273350451242665,
+        "recall_percent": 92.26608925796779,
+        "recall_change_pp": -0.09163346429794153,
+        "actual_budget_mm": 0.025000000000000005
+      },
+      {
+        "scene": "scan37",
+        "field": "multiscale_full",
+        "n_patches": 24,
+        "accuracy_mm": 0.435930339781513,
+        "mae_gain_mm": 0.0013154405461816056,
+        "recall_percent": 92.26738418197885,
+        "recall_change_pp": -0.09033854028688582,
+        "actual_budget_mm": 0.025000000000000005
+      },
+      {
+        "scene": "scan37",
+        "field": "quadratic64",
+        "n_patches": 24,
+        "accuracy_mm": 0.4360942061800442,
+        "mae_gain_mm": 0.0011515741476504648,
+        "recall_percent": 92.28198249159587,
+        "recall_change_pp": -0.07574023066986035,
+        "actual_budget_mm": 0.025000000000000005
+      }
+    ],
+    "row_count": 6,
+    "truncated": false
+  },
+  "chart": {
+    "type": "bar",
+    "fields": {
+      "x": {
+        "field": "scene"
+      },
+      "y": {
+        "field": "mae_gain_mm"
+      },
+      "color": {
+        "field": "field"
+      }
+    },
+    "options": {
+      "grouping": "grouped",
+      "orientation": "vertical"
+    }
+  },
+  "display": {
+    "baseline": 0,
+    "controls": true,
+    "unit": "mm",
+    "x_axis_title": "场景（已暴露诊断）",
+    "y_axis_title": "MAE 降低量（mm，越高越好）"
+  }
+}

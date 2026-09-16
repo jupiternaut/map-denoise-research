@@ -1,0 +1,5374 @@
+{
+  "parameter_provenance": {
+    "library_ranges": "ASSUMED",
+    "covering_order": "ASSUMED",
+    "N_INIT": "ASSUMED",
+    "BUDGETS": "ASSUMED",
+    "task_generators": "ASSUMED",
+    "isolation": "MEASURED",
+    "dev_and_eval_metrics": "MEASURED"
+  },
+  "locked_after_dev": {
+    "N": 64,
+    "A_RANGE": [
+      -1,
+      0,
+      1
+    ],
+    "B_RANGE": [
+      -8,
+      -7,
+      -6,
+      -5,
+      -4,
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "T_RANGE": [
+      16,
+      24,
+      32,
+      40,
+      48
+    ],
+    "N_INIT": 2,
+    "BUDGETS": [
+      4,
+      8,
+      12,
+      16
+    ],
+    "COVER_HEAD": [
+      0,
+      32,
+      16,
+      48,
+      8,
+      24,
+      40,
+      56,
+      4,
+      12,
+      20,
+      28,
+      36,
+      44,
+      52,
+      60
+    ],
+    "disagreement": "max nunique among live C0 else C1; ties -> min x; zero disagreement -> random",
+    "delivery": "first live H0 row else first live H1 row else nearest observed",
+    "random_repeats": 3,
+    "note": "rules locked after dev; eval uses new seeds"
+  },
+  "sanity": {
+    "all_ok": true,
+    "checks": [
+      {
+        "name": "cover_len",
+        "ok": true,
+        "detail": 64
+      },
+      {
+        "name": "init",
+        "ok": true,
+        "detail": [
+          0,
+          32
+        ]
+      },
+      {
+        "name": "h1_size",
+        "ok": true,
+        "detail": {
+          "h0": 51,
+          "h1": 12801
+        }
+      },
+      {
+        "name": "type0_in_h0",
+        "ok": true,
+        "detail": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      {
+        "name": "type1_not_in_h0",
+        "ok": true,
+        "detail": [
+          -7,
+          -7,
+          -7,
+          -7,
+          -7,
+          -7,
+          -7,
+          -7
+        ]
+      },
+      {
+        "name": "type2_not_in_h1",
+        "ok": true,
+        "detail": [
+          -3,
+          -3,
+          -3,
+          -3,
+          -3,
+          -3,
+          -3,
+          -3
+        ]
+      },
+      {
+        "name": "h0_subset_h1",
+        "ok": true,
+        "detail": null
+      }
+    ]
+  },
+  "isolation": {
+    "n": 36,
+    "n_fail": 0,
+    "all_ok": true
+  },
+  "dev": {
+    "split": "dev",
+    "n_tasks": 30,
+    "library": {
+      "n_h0": 51,
+      "n_h1": 12801,
+      "n_h1_pieces": 12750
+    },
+    "by_type": {
+      "0": {
+        "n_tasks": 10,
+        "budgets": {
+          "4": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 10
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 10
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 10
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            }
+          },
+          "8": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 10
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 10
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 10
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            }
+          },
+          "12": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 10
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 10
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 10
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            }
+          },
+          "16": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 10
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 10
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 10
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            }
+          }
+        }
+      },
+      "1": {
+        "n_tasks": 10,
+        "budgets": {
+          "4": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 68.4,
+                "sd": 146.11350230404975,
+                "se": 46.20514641850575
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 3.0,
+                "sd": 1.0540925533894598,
+                "se": 0.3333333333333333
+              },
+              "n_found": 10
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 0.8333333333333334,
+                "sd": 0.17568209223157666,
+                "se": 0.05555555555555556
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 176.0,
+                "sd": 155.09646540217128,
+                "se": 49.045808771236416
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 3.033333333333333,
+                "sd": 1.0937533068733079,
+                "se": 0.3458751648060751
+              },
+              "n_found": 10
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.5,
+                "sd": 0.5270462766947299,
+                "se": 0.16666666666666666
+              },
+              "n_found": 10
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 10,
+              "mean": 0.16666666666666669,
+              "sd": 0.17568209223157666,
+              "se": 0.05555555555555556,
+              "n_pos": 5,
+              "n_neg": 0,
+              "n_tie": 5
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 10,
+              "mean": 68.4,
+              "sd": 146.11350230404975,
+              "se": 46.20514641850575,
+              "n_pos": 3,
+              "n_neg": 0,
+              "n_tie": 7
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 10,
+              "mean": 176.0,
+              "sd": 155.09646540217128,
+              "se": 49.045808771236416,
+              "n_pos": 9,
+              "n_neg": 0,
+              "n_tie": 1
+            }
+          },
+          "8": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 3.0,
+                "sd": 1.0540925533894598,
+                "se": 0.3333333333333333
+              },
+              "n_found": 10
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 102.8,
+                "sd": 166.97210530689634,
+                "se": 52.801215848328034
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 3.033333333333333,
+                "sd": 1.0937533068733079,
+                "se": 0.3458751648060751
+              },
+              "n_found": 10
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.5,
+                "sd": 0.5270462766947299,
+                "se": 0.16666666666666666
+              },
+              "n_found": 10
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 10,
+              "mean": 102.8,
+              "sd": 166.97210530689634,
+              "se": 52.801215848328034,
+              "n_pos": 5,
+              "n_neg": 0,
+              "n_tie": 5
+            }
+          },
+          "12": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 3.0,
+                "sd": 1.0540925533894598,
+                "se": 0.3333333333333333
+              },
+              "n_found": 10
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 81.86666666666666,
+                "sd": 164.48071672034843,
+                "se": 52.01336960132414
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 3.033333333333333,
+                "sd": 1.0937533068733079,
+                "se": 0.3458751648060751
+              },
+              "n_found": 10
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.5,
+                "sd": 0.5270462766947299,
+                "se": 0.16666666666666666
+              },
+              "n_found": 10
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 10,
+              "mean": 81.86666666666666,
+              "sd": 164.48071672034843,
+              "se": 52.01336960132414,
+              "n_pos": 5,
+              "n_neg": 0,
+              "n_tie": 5
+            }
+          },
+          "16": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 3.0,
+                "sd": 1.0540925533894598,
+                "se": 0.3333333333333333
+              },
+              "n_found": 10
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 4.933333333333334,
+                "sd": 11.692352676476668,
+                "se": 3.697446566363212
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 3.033333333333333,
+                "sd": 1.0937533068733079,
+                "se": 0.3458751648060751
+              },
+              "n_found": 10
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 2.5,
+                "sd": 0.5270462766947299,
+                "se": 0.16666666666666666
+              },
+              "n_found": 10
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 10,
+              "mean": 4.933333333333334,
+              "sd": 11.692352676476668,
+              "se": 3.697446566363212,
+              "n_pos": 2,
+              "n_neg": 0,
+              "n_tie": 8
+            }
+          }
+        }
+      },
+      "2": {
+        "n_tasks": 10,
+        "budgets": {
+          "4": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 0.6,
+                "sd": 0.5163977794943223,
+                "se": 0.16329931618554522
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 66.2,
+                "sd": 49.247222143882276,
+                "se": 15.573339041094844
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 5.5,
+                "sd": 2.173067468400883,
+                "se": 0.6871842709362768
+              },
+              "n_found": 6
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 0.5333333333333333,
+                "sd": 0.2810913475705226,
+                "se": 0.08888888888888889
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 73.0,
+                "sd": 15.539674432930743,
+                "se": 4.914076530554661
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 5.15,
+                "sd": 2.37586891187619,
+                "se": 0.7513157183514632
+              },
+              "n_found": 9
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 0.2,
+                "sd": 0.42163702135578396,
+                "se": 0.13333333333333333
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 86.5,
+                "sd": 57.66811173526589,
+                "se": 18.236258144452528
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 4.7,
+                "sd": 0.6749485577105528,
+                "se": 0.21343747458109494
+              },
+              "n_found": 2
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 10,
+              "mean": -0.4,
+              "sd": 0.6992058987801011,
+              "se": 0.22110831935702666,
+              "n_pos": 1,
+              "n_neg": 5,
+              "n_tie": 4
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 10,
+              "mean": -0.3333333333333333,
+              "sd": 0.6478835438717001,
+              "se": 0.20487876571761973,
+              "n_pos": 2,
+              "n_neg": 8,
+              "n_tie": 0
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 10,
+              "mean": -20.3,
+              "sd": 79.76082302038319,
+              "se": 25.222586879400154,
+              "n_pos": 3,
+              "n_neg": 5,
+              "n_tie": 2
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 10,
+              "mean": -13.500000000000004,
+              "sd": 55.075537353845355,
+              "se": 17.416414139583427,
+              "n_pos": 6,
+              "n_neg": 4,
+              "n_tie": 0
+            }
+          },
+          "8": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 21.9,
+                "sd": 10.22469776787776,
+                "se": 3.2333333333333334
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 5.5,
+                "sd": 2.173067468400883,
+                "se": 0.6871842709362768
+              },
+              "n_found": 10
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 0.9,
+                "sd": 0.31622776601683794,
+                "se": 0.09999999999999999
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 36.6,
+                "sd": 15.795608078447035,
+                "se": 4.995009855524824
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 5.15,
+                "sd": 2.37586891187619,
+                "se": 0.7513157183514632
+              },
+              "n_found": 9
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 33.1,
+                "sd": 18.549932614432866,
+                "se": 5.866003750424986
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 4.7,
+                "sd": 0.6749485577105528,
+                "se": 0.21343747458109494
+              },
+              "n_found": 10
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 10,
+              "mean": 0.1,
+              "sd": 0.31622776601683794,
+              "se": 0.09999999999999999,
+              "n_pos": 1,
+              "n_neg": 0,
+              "n_tie": 9
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 10,
+              "mean": -11.2,
+              "sd": 17.59292787204879,
+              "se": 5.563372278673351,
+              "n_pos": 2,
+              "n_neg": 7,
+              "n_tie": 1
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 10,
+              "mean": 3.5,
+              "sd": 21.267984401297344,
+              "se": 6.725527194903215,
+              "n_pos": 5,
+              "n_neg": 5,
+              "n_tie": 0
+            }
+          },
+          "12": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 12.9,
+                "sd": 9.433392225964576,
+                "se": 2.983100549577384
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 5.5,
+                "sd": 2.173067468400883,
+                "se": 0.6871842709362768
+              },
+              "n_found": 10
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 0.9333333333333332,
+                "sd": 0.21081851067789195,
+                "se": 0.06666666666666667
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 19.733333333333334,
+                "sd": 12.863768623924972,
+                "se": 4.0678808145012875
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 5.15,
+                "sd": 2.37586891187619,
+                "se": 0.7513157183514632
+              },
+              "n_found": 10
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 27.3,
+                "sd": 16.878981011897608,
+                "se": 5.337602458033007
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 4.7,
+                "sd": 0.6749485577105528,
+                "se": 0.21343747458109494
+              },
+              "n_found": 10
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 10,
+              "mean": 0.06666666666666668,
+              "sd": 0.210818510677892,
+              "se": 0.06666666666666668,
+              "n_pos": 1,
+              "n_neg": 0,
+              "n_tie": 9
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 10,
+              "mean": -14.4,
+              "sd": 11.625642156696358,
+              "se": 3.676350847723263,
+              "n_pos": 0,
+              "n_neg": 9,
+              "n_tie": 1
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 10,
+              "mean": -7.566666666666667,
+              "sd": 18.10398632864194,
+              "se": 5.724983152705816,
+              "n_pos": 3,
+              "n_neg": 7,
+              "n_tie": 0
+            }
+          },
+          "16": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 6.7,
+                "sd": 4.056544780420347,
+                "se": 1.2827920936595905
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 5.5,
+                "sd": 2.173067468400883,
+                "se": 0.6871842709362768
+              },
+              "n_found": 10
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 0.9666666666666666,
+                "sd": 0.10540925533894599,
+                "se": 0.03333333333333333
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 19.266666666666666,
+                "sd": 8.293683450987576,
+                "se": 2.62269298975662
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 5.15,
+                "sd": 2.37586891187619,
+                "se": 0.7513157183514632
+              },
+              "n_found": 10
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 10,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 10,
+                "mean": 15.1,
+                "sd": 10.58772874605314,
+                "se": 3.348133808556641
+              },
+              "discovery_cost_when_found": {
+                "n": 10,
+                "mean": 4.7,
+                "sd": 0.6749485577105528,
+                "se": 0.21343747458109494
+              },
+              "n_found": 10
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 10,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 10
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 10,
+              "mean": 0.03333333333333334,
+              "sd": 0.105409255338946,
+              "se": 0.03333333333333334,
+              "n_pos": 1,
+              "n_neg": 0,
+              "n_tie": 9
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 10,
+              "mean": -8.4,
+              "sd": 9.879271228182775,
+              "se": 3.1240998703626617,
+              "n_pos": 0,
+              "n_neg": 7,
+              "n_tie": 3
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 10,
+              "mean": 4.166666666666666,
+              "sd": 13.956944375338617,
+              "se": 4.413573340234602,
+              "n_pos": 6,
+              "n_neg": 3,
+              "n_tie": 1
+            }
+          }
+        }
+      }
+    },
+    "rows_compact": [
+      {
+        "task": "dev-t0-000",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t0-001",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t0-002",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t0-003",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t0-004",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t0-005",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t0-006",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t0-007",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t0-008",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t0-009",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t1-000",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t1-001",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t1-002",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 36.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t1-003",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t1-004",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t1-005",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t1-006",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t1-007",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 13.333333333333334,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t1-008",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t1-009",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "dev-t2-000",
+        "typ": 2,
+        "fixed_final_l1": 14,
+        "dis_final_l1": 14,
+        "random_final_l1": 37.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "dev-t2-001",
+        "typ": 2,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 4,
+        "random_final_l1": 16.333333333333332,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 3,
+        "dis_mis_at": 3
+      },
+      {
+        "task": "dev-t2-002",
+        "typ": 2,
+        "fixed_final_l1": 7,
+        "dis_final_l1": 11,
+        "random_final_l1": 10.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "dev-t2-003",
+        "typ": 2,
+        "fixed_final_l1": 11,
+        "dis_final_l1": 37,
+        "random_final_l1": 13.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "dev-t2-004",
+        "typ": 2,
+        "fixed_final_l1": 8,
+        "dis_final_l1": 8,
+        "random_final_l1": 14.666666666666666,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "dev-t2-005",
+        "typ": 2,
+        "fixed_final_l1": 4,
+        "dis_final_l1": 12,
+        "random_final_l1": 29.333333333333332,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "dev-t2-006",
+        "typ": 2,
+        "fixed_final_l1": 6,
+        "dis_final_l1": 16,
+        "random_final_l1": 16.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "dev-t2-007",
+        "typ": 2,
+        "fixed_final_l1": 5,
+        "dis_final_l1": 31,
+        "random_final_l1": 20.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 4
+      },
+      {
+        "task": "dev-t2-008",
+        "typ": 2,
+        "fixed_final_l1": 3,
+        "dis_final_l1": 9,
+        "random_final_l1": 14.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "dev-t2-009",
+        "typ": 2,
+        "fixed_final_l1": 9,
+        "dis_final_l1": 9,
+        "random_final_l1": 22.333333333333332,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      }
+    ]
+  },
+  "eval": {
+    "split": "eval",
+    "n_tasks": 180,
+    "library": {
+      "n_h0": 51,
+      "n_h1": 12801,
+      "n_h1_pieces": 12750
+    },
+    "by_type": {
+      "0": {
+        "n_tasks": 60,
+        "budgets": {
+          "4": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 60
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 60
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 60
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            }
+          },
+          "8": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 60
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 60
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 60
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            }
+          },
+          "12": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 60
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 60
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 60
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            }
+          },
+          "16": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 60
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 60
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "n_found": 60
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            }
+          }
+        }
+      },
+      "1": {
+        "n_tasks": 60,
+        "budgets": {
+          "4": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 151.73333333333332,
+                "sd": 207.18205100801325,
+                "se": 26.74708777290436
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.8833333333333333,
+                "sd": 0.993054979389558,
+                "se": 0.1282028465681369
+              },
+              "n_found": 60
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 0.85,
+                "sd": 0.16723068407118133,
+                "se": 0.02158938847941864
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 303.7111111111111,
+                "sd": 306.4824887036512,
+                "se": 39.5667191551148
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.9944444444444445,
+                "sd": 1.1241094682783097,
+                "se": 0.14512190833186558
+              },
+              "n_found": 60
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 0.9833333333333333,
+                "sd": 0.12909944487358058,
+                "se": 0.016666666666666666
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 8.266666666666667,
+                "sd": 64.03332465729596,
+                "se": 8.266666666666667
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.4833333333333334,
+                "sd": 0.5963637459756623,
+                "se": 0.07699022854818702
+              },
+              "n_found": 59
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 60,
+              "mean": -0.016666666666666666,
+              "sd": 0.12909944487358058,
+              "se": 0.016666666666666666,
+              "n_pos": 0,
+              "n_neg": 1,
+              "n_tie": 59
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 60,
+              "mean": 0.13333333333333333,
+              "sd": 0.19600530374468242,
+              "se": 0.025304175905716042,
+              "n_pos": 26,
+              "n_neg": 1,
+              "n_tie": 33
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 60,
+              "mean": 143.46666666666667,
+              "sd": 214.188849562334,
+              "se": 27.65166157660818,
+              "n_pos": 31,
+              "n_neg": 1,
+              "n_tie": 28
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 60,
+              "mean": 295.44444444444446,
+              "sd": 313.4503247551994,
+              "se": 40.46626292133979,
+              "n_pos": 58,
+              "n_neg": 1,
+              "n_tie": 1
+            }
+          },
+          "8": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.8833333333333333,
+                "sd": 0.993054979389558,
+                "se": 0.1282028465681369
+              },
+              "n_found": 60
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 0.9944444444444446,
+                "sd": 0.04303314829119352,
+                "se": 0.005555555555555556
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 122.97777777777779,
+                "sd": 155.93177641252714,
+                "se": 20.130705773008536
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.9944444444444445,
+                "sd": 1.1241094682783097,
+                "se": 0.14512190833186558
+              },
+              "n_found": 60
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.4833333333333334,
+                "sd": 0.5963637459756623,
+                "se": 0.07699022854818702
+              },
+              "n_found": 60
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 60,
+              "mean": 0.005555555555555556,
+              "sd": 0.04303314829119352,
+              "se": 0.005555555555555556,
+              "n_pos": 1,
+              "n_neg": 0,
+              "n_tie": 59
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 60,
+              "mean": 122.97777777777779,
+              "sd": 155.93177641252714,
+              "se": 20.130705773008536,
+              "n_pos": 46,
+              "n_neg": 0,
+              "n_tie": 14
+            }
+          },
+          "12": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.8833333333333333,
+                "sd": 0.993054979389558,
+                "se": 0.1282028465681369
+              },
+              "n_found": 60
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 101.93333333333335,
+                "sd": 153.0508673119303,
+                "se": 19.758782007390238
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.9944444444444445,
+                "sd": 1.1241094682783097,
+                "se": 0.14512190833186558
+              },
+              "n_found": 60
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.4833333333333334,
+                "sd": 0.5963637459756623,
+                "se": 0.07699022854818702
+              },
+              "n_found": 60
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 60,
+              "mean": 101.93333333333335,
+              "sd": 153.0508673119303,
+              "se": 19.758782007390238,
+              "n_pos": 40,
+              "n_neg": 0,
+              "n_tie": 20
+            }
+          },
+          "16": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.8833333333333333,
+                "sd": 0.993054979389558,
+                "se": 0.1282028465681369
+              },
+              "n_found": 60
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 5.711111111111111,
+                "sd": 14.766158013285677,
+                "se": 1.9063028024307542
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.9944444444444445,
+                "sd": 1.1241094682783097,
+                "se": 0.14512190833186558
+              },
+              "n_found": 60
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 2.4833333333333334,
+                "sd": 0.5963637459756623,
+                "se": 0.07699022854818702
+              },
+              "n_found": 60
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 60,
+              "mean": 5.711111111111111,
+              "sd": 14.766158013285677,
+              "se": 1.9063028024307542,
+              "n_pos": 14,
+              "n_neg": 0,
+              "n_tie": 46
+            }
+          }
+        }
+      },
+      "2": {
+        "n_tasks": 60,
+        "budgets": {
+          "4": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 0.5833333333333334,
+                "sd": 0.4971671160112442,
+                "se": 0.06418399868645065
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 68.16666666666667,
+                "sd": 48.3802616519808,
+                "se": 6.245864922109299
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 5.366666666666666,
+                "sd": 2.0333379642440548,
+                "se": 0.26250280242428387
+              },
+              "n_found": 35
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 0.48333333333333334,
+                "sd": 0.27048815465359954,
+                "se": 0.034919870610658904
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 108.77777777777777,
+                "sd": 48.189975071857425,
+                "se": 6.221299030248479
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 5.694444444444444,
+                "sd": 2.2821601313305178,
+                "se": 0.2946256060673875
+              },
+              "n_found": 53
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 0.3,
+                "sd": 0.4621247905424446,
+                "se": 0.059660053921349286
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 117.3,
+                "sd": 99.31584610793784,
+                "se": 12.821620599684731
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 5.416666666666667,
+                "sd": 2.947516430377383,
+                "se": 0.3805227349174779
+              },
+              "n_found": 18
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 60,
+              "mean": -0.2833333333333333,
+              "sd": 0.7152495514881185,
+              "se": 0.09233832004319358,
+              "n_pos": 9,
+              "n_neg": 26,
+              "n_tie": 25
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 60,
+              "mean": -0.18333333333333326,
+              "sd": 0.6678661525636053,
+              "se": 0.0862211495458155,
+              "n_pos": 18,
+              "n_neg": 42,
+              "n_tie": 0
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 60,
+              "mean": -49.13333333333333,
+              "sd": 109.88074686255752,
+              "se": 14.185543422250603,
+              "n_pos": 15,
+              "n_neg": 27,
+              "n_tie": 18
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 60,
+              "mean": -8.522222222222224,
+              "sd": 92.85400254066445,
+              "se": 11.98740018228982,
+              "n_pos": 33,
+              "n_neg": 27,
+              "n_tie": 0
+            }
+          },
+          "8": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 25.3,
+                "sd": 18.395190970671045,
+                "se": 2.3748089426571335
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 5.366666666666666,
+                "sd": 2.0333379642440548,
+                "se": 0.26250280242428387
+              },
+              "n_found": 60
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 0.7944444444444444,
+                "sd": 0.30123203803835463,
+                "se": 0.03888888888888888
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 57.45555555555555,
+                "sd": 40.188162270646025,
+                "se": 5.188269439629776
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 5.694444444444444,
+                "sd": 2.2821601313305178,
+                "se": 0.2946256060673875
+              },
+              "n_found": 57
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 0.9,
+                "sd": 0.30253169045376643,
+                "se": 0.039056673294247155
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 37.71666666666667,
+                "sd": 32.00693339435589,
+                "se": 4.132077333317013
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 5.416666666666667,
+                "sd": 2.947516430377383,
+                "se": 0.3805227349174779
+              },
+              "n_found": 54
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 60,
+              "mean": -0.1,
+              "sd": 0.30253169045376643,
+              "se": 0.039056673294247155,
+              "n_pos": 0,
+              "n_neg": 6,
+              "n_tie": 54
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 60,
+              "mean": 0.10555555555555556,
+              "sd": 0.4093615748123303,
+              "se": 0.052848352060846565,
+              "n_pos": 18,
+              "n_neg": 6,
+              "n_tie": 36
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 60,
+              "mean": -12.416666666666666,
+              "sd": 28.625750921490408,
+              "se": 3.695568553053799,
+              "n_pos": 24,
+              "n_neg": 33,
+              "n_tie": 3
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 60,
+              "mean": 19.738888888888887,
+              "sd": 48.19526711987191,
+              "se": 6.221982230709393,
+              "n_pos": 43,
+              "n_neg": 17,
+              "n_tie": 0
+            }
+          },
+          "12": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 19.333333333333332,
+                "sd": 14.372368341766517,
+                "se": 1.855464774440681
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 5.366666666666666,
+                "sd": 2.0333379642440548,
+                "se": 0.26250280242428387
+              },
+              "n_found": 60
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 0.861111111111111,
+                "sd": 0.23201132080524722,
+                "se": 0.02995253272034363
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 39.91111111111111,
+                "sd": 28.474184076454883,
+                "se": 3.6760013574984725
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 5.694444444444444,
+                "sd": 2.2821601313305178,
+                "se": 0.2946256060673875
+              },
+              "n_found": 60
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 0.9166666666666666,
+                "sd": 0.27871780678530217,
+                "se": 0.03598231413236439
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 32.3,
+                "sd": 28.108928553162244,
+                "se": 3.6288470722043837
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 5.416666666666667,
+                "sd": 2.947516430377383,
+                "se": 0.3805227349174779
+              },
+              "n_found": 55
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 60,
+              "mean": -0.08333333333333333,
+              "sd": 0.27871780678530217,
+              "se": 0.03598231413236439,
+              "n_pos": 0,
+              "n_neg": 5,
+              "n_tie": 55
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 60,
+              "mean": 0.055555555555555566,
+              "sd": 0.33144474400749613,
+              "se": 0.042789332457633764,
+              "n_pos": 14,
+              "n_neg": 5,
+              "n_tie": 41
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 60,
+              "mean": -12.966666666666667,
+              "sd": 21.940572020003756,
+              "se": 2.832515667991299,
+              "n_pos": 17,
+              "n_neg": 40,
+              "n_tie": 3
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 60,
+              "mean": 7.611111111111111,
+              "sd": 36.23371335757065,
+              "se": 4.677752280170812,
+              "n_pos": 37,
+              "n_neg": 23,
+              "n_tie": 0
+            }
+          },
+          "16": {
+            "fixed": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 12.133333333333333,
+                "sd": 9.432124455890753,
+                "se": 1.2176820312340193
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 5.366666666666666,
+                "sd": 2.0333379642440548,
+                "se": 0.26250280242428387
+              },
+              "n_found": 60
+            },
+            "random": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 0.9499999999999998,
+                "sd": 0.12002824526342519,
+                "se": 0.015495579832658167
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 26.04444444444444,
+                "sd": 18.764821302600208,
+                "se": 2.4225280133176255
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 5.694444444444444,
+                "sd": 2.2821601313305178,
+                "se": 0.2946256060673875
+              },
+              "n_found": 60
+            },
+            "disagreement": {
+              "discovery_rate": {
+                "n": 60,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "global_l1": {
+                "n": 60,
+                "mean": 20.116666666666667,
+                "sd": 15.432841568228985,
+                "se": 1.9923712792802803
+              },
+              "discovery_cost_when_found": {
+                "n": 60,
+                "mean": 5.416666666666667,
+                "sd": 2.947516430377383,
+                "se": 0.3805227349174779
+              },
+              "n_found": 60
+            },
+            "paired_discovery_disagreement_minus_fixed": {
+              "n": 60,
+              "mean": 0.0,
+              "sd": 0.0,
+              "se": 0.0,
+              "n_pos": 0,
+              "n_neg": 0,
+              "n_tie": 60
+            },
+            "paired_discovery_disagreement_minus_random": {
+              "n": 60,
+              "mean": 0.05000000000000001,
+              "sd": 0.12002824526342519,
+              "se": 0.015495579832658167,
+              "n_pos": 9,
+              "n_neg": 0,
+              "n_tie": 51
+            },
+            "paired_l1_fixed_minus_disagreement": {
+              "n": 60,
+              "mean": -7.983333333333333,
+              "sd": 11.439585844504393,
+              "se": 1.4768441821091873,
+              "n_pos": 7,
+              "n_neg": 40,
+              "n_tie": 13
+            },
+            "paired_l1_random_minus_disagreement": {
+              "n": 60,
+              "mean": 5.927777777777777,
+              "sd": 18.690671779006063,
+              "se": 2.412955350983981,
+              "n_pos": 36,
+              "n_neg": 23,
+              "n_tie": 1
+            }
+          }
+        }
+      }
+    },
+    "rows_compact": [
+      {
+        "task": "eval-t0-000",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-001",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-002",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-003",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-004",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-005",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-006",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-007",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-008",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-009",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-010",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-011",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-012",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-013",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-014",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-015",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-016",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-017",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-018",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-019",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-020",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-021",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-022",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-023",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-024",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-025",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-026",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-027",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-028",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-029",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-030",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-031",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-032",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-033",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-034",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-035",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-036",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-037",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-038",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-039",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-040",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-041",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-042",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-043",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-044",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-045",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-046",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-047",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-048",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-049",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-050",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-051",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-052",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-053",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-054",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-055",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-056",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-057",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-058",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t0-059",
+        "typ": 0,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "C0_alive",
+        "dis_diag": "C0_alive",
+        "fixed_h0_at": null,
+        "dis_h0_at": null,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-000",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-001",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-002",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-003",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-004",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-005",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 13.333333333333334,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-006",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-007",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 10.666666666666666,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-008",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-009",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-010",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-011",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-012",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-013",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-014",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 49.333333333333336,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-015",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-016",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 33.333333333333336,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-017",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-018",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-019",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-020",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 5.333333333333333,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-021",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 62.666666666666664,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-022",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-023",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-024",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 2.6666666666666665,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-025",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 49.333333333333336,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-026",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-027",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-028",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-029",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-030",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-031",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-032",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-033",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 5.333333333333333,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-034",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 2.6666666666666665,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-035",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-036",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-037",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-038",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-039",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-040",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-041",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 24.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-042",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-043",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 18.666666666666668,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-044",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-045",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-046",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-047",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 5.333333333333333,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-048",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-049",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-050",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-051",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 3,
+        "dis_h0_at": 5,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-052",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-053",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-054",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-055",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-056",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-057",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-058",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 60.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t1-059",
+        "typ": 1,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 0.0,
+        "fixed_diag": "H0_refuted",
+        "dis_diag": "H0_refuted",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": null,
+        "dis_mis_at": null
+      },
+      {
+        "task": "eval-t2-000",
+        "typ": 2,
+        "fixed_final_l1": 13,
+        "dis_final_l1": 13,
+        "random_final_l1": 22.666666666666668,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-001",
+        "typ": 2,
+        "fixed_final_l1": 10,
+        "dis_final_l1": 32,
+        "random_final_l1": 26.666666666666668,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-002",
+        "typ": 2,
+        "fixed_final_l1": 4,
+        "dis_final_l1": 14,
+        "random_final_l1": 8.333333333333334,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 5,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-003",
+        "typ": 2,
+        "fixed_final_l1": 19,
+        "dis_final_l1": 19,
+        "random_final_l1": 36.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 6,
+        "dis_mis_at": 4
+      },
+      {
+        "task": "eval-t2-004",
+        "typ": 2,
+        "fixed_final_l1": 4,
+        "dis_final_l1": 22,
+        "random_final_l1": 17.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-005",
+        "typ": 2,
+        "fixed_final_l1": 14,
+        "dis_final_l1": 20,
+        "random_final_l1": 20.666666666666668,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 3,
+        "dis_mis_at": 3
+      },
+      {
+        "task": "eval-t2-006",
+        "typ": 2,
+        "fixed_final_l1": 30,
+        "dis_final_l1": 8,
+        "random_final_l1": 23.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 4
+      },
+      {
+        "task": "eval-t2-007",
+        "typ": 2,
+        "fixed_final_l1": 12,
+        "dis_final_l1": 6,
+        "random_final_l1": 9.333333333333334,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-008",
+        "typ": 2,
+        "fixed_final_l1": 6,
+        "dis_final_l1": 12,
+        "random_final_l1": 87.33333333333333,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 3,
+        "dis_mis_at": 3
+      },
+      {
+        "task": "eval-t2-009",
+        "typ": 2,
+        "fixed_final_l1": 16,
+        "dis_final_l1": 14,
+        "random_final_l1": 27.333333333333332,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-010",
+        "typ": 2,
+        "fixed_final_l1": 18,
+        "dis_final_l1": 40,
+        "random_final_l1": 31.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-011",
+        "typ": 2,
+        "fixed_final_l1": 34,
+        "dis_final_l1": 34,
+        "random_final_l1": 56.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-012",
+        "typ": 2,
+        "fixed_final_l1": 18,
+        "dis_final_l1": 40,
+        "random_final_l1": 24.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 7,
+        "dis_mis_at": 4
+      },
+      {
+        "task": "eval-t2-013",
+        "typ": 2,
+        "fixed_final_l1": 1,
+        "dis_final_l1": 16,
+        "random_final_l1": 10.333333333333334,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-014",
+        "typ": 2,
+        "fixed_final_l1": 5,
+        "dis_final_l1": 15,
+        "random_final_l1": 22.666666666666668,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 14
+      },
+      {
+        "task": "eval-t2-015",
+        "typ": 2,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 0,
+        "random_final_l1": 23.666666666666668,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-016",
+        "typ": 2,
+        "fixed_final_l1": 5,
+        "dis_final_l1": 2,
+        "random_final_l1": 8.666666666666666,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 3,
+        "dis_mis_at": 3
+      },
+      {
+        "task": "eval-t2-017",
+        "typ": 2,
+        "fixed_final_l1": 6,
+        "dis_final_l1": 32,
+        "random_final_l1": 15.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 3,
+        "dis_mis_at": 3
+      },
+      {
+        "task": "eval-t2-018",
+        "typ": 2,
+        "fixed_final_l1": 6,
+        "dis_final_l1": 17,
+        "random_final_l1": 11.333333333333334,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-019",
+        "typ": 2,
+        "fixed_final_l1": 28,
+        "dis_final_l1": 40,
+        "random_final_l1": 98.66666666666667,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 9
+      },
+      {
+        "task": "eval-t2-020",
+        "typ": 2,
+        "fixed_final_l1": 9,
+        "dis_final_l1": 9,
+        "random_final_l1": 36.333333333333336,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-021",
+        "typ": 2,
+        "fixed_final_l1": 4,
+        "dis_final_l1": 2,
+        "random_final_l1": 6.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 3,
+        "dis_mis_at": 3
+      },
+      {
+        "task": "eval-t2-022",
+        "typ": 2,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 8,
+        "random_final_l1": 7.333333333333333,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-023",
+        "typ": 2,
+        "fixed_final_l1": 16,
+        "dis_final_l1": 34,
+        "random_final_l1": 26.333333333333332,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 15
+      },
+      {
+        "task": "eval-t2-024",
+        "typ": 2,
+        "fixed_final_l1": 13,
+        "dis_final_l1": 24,
+        "random_final_l1": 13.666666666666666,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-025",
+        "typ": 2,
+        "fixed_final_l1": 10,
+        "dis_final_l1": 23,
+        "random_final_l1": 13.333333333333334,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-026",
+        "typ": 2,
+        "fixed_final_l1": 31,
+        "dis_final_l1": 55,
+        "random_final_l1": 49.333333333333336,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-027",
+        "typ": 2,
+        "fixed_final_l1": 5,
+        "dis_final_l1": 5,
+        "random_final_l1": 8.666666666666666,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-028",
+        "typ": 2,
+        "fixed_final_l1": 10,
+        "dis_final_l1": 0,
+        "random_final_l1": 6.333333333333333,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 4
+      },
+      {
+        "task": "eval-t2-029",
+        "typ": 2,
+        "fixed_final_l1": 16,
+        "dis_final_l1": 18,
+        "random_final_l1": 19.666666666666668,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 6,
+        "dis_mis_at": 4
+      },
+      {
+        "task": "eval-t2-030",
+        "typ": 2,
+        "fixed_final_l1": 10,
+        "dis_final_l1": 36,
+        "random_final_l1": 16.666666666666668,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-031",
+        "typ": 2,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 8,
+        "random_final_l1": 5.333333333333333,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-032",
+        "typ": 2,
+        "fixed_final_l1": 10,
+        "dis_final_l1": 14,
+        "random_final_l1": 22.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-033",
+        "typ": 2,
+        "fixed_final_l1": 8,
+        "dis_final_l1": 10,
+        "random_final_l1": 10.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 7,
+        "dis_mis_at": 4
+      },
+      {
+        "task": "eval-t2-034",
+        "typ": 2,
+        "fixed_final_l1": 1,
+        "dis_final_l1": 13,
+        "random_final_l1": 4.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-035",
+        "typ": 2,
+        "fixed_final_l1": 50,
+        "dis_final_l1": 87,
+        "random_final_l1": 66.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-036",
+        "typ": 2,
+        "fixed_final_l1": 15,
+        "dis_final_l1": 22,
+        "random_final_l1": 30.333333333333332,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 3,
+        "dis_mis_at": 3
+      },
+      {
+        "task": "eval-t2-037",
+        "typ": 2,
+        "fixed_final_l1": 10,
+        "dis_final_l1": 19,
+        "random_final_l1": 25.333333333333332,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-038",
+        "typ": 2,
+        "fixed_final_l1": 10,
+        "dis_final_l1": 10,
+        "random_final_l1": 45.333333333333336,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-039",
+        "typ": 2,
+        "fixed_final_l1": 9,
+        "dis_final_l1": 9,
+        "random_final_l1": 20.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-040",
+        "typ": 2,
+        "fixed_final_l1": 22,
+        "dis_final_l1": 0,
+        "random_final_l1": 17.333333333333332,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 4
+      },
+      {
+        "task": "eval-t2-041",
+        "typ": 2,
+        "fixed_final_l1": 13,
+        "dis_final_l1": 16,
+        "random_final_l1": 41.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-042",
+        "typ": 2,
+        "fixed_final_l1": 11,
+        "dis_final_l1": 11,
+        "random_final_l1": 48.333333333333336,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-043",
+        "typ": 2,
+        "fixed_final_l1": 14,
+        "dis_final_l1": 36,
+        "random_final_l1": 20.666666666666668,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-044",
+        "typ": 2,
+        "fixed_final_l1": 0,
+        "dis_final_l1": 16,
+        "random_final_l1": 10.333333333333334,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 4
+      },
+      {
+        "task": "eval-t2-045",
+        "typ": 2,
+        "fixed_final_l1": 17,
+        "dis_final_l1": 17,
+        "random_final_l1": 31.666666666666668,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-046",
+        "typ": 2,
+        "fixed_final_l1": 3,
+        "dis_final_l1": 15,
+        "random_final_l1": 24.333333333333332,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 3,
+        "dis_mis_at": 3
+      },
+      {
+        "task": "eval-t2-047",
+        "typ": 2,
+        "fixed_final_l1": 19,
+        "dis_final_l1": 29,
+        "random_final_l1": 41.666666666666664,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 15
+      },
+      {
+        "task": "eval-t2-048",
+        "typ": 2,
+        "fixed_final_l1": 18,
+        "dis_final_l1": 22,
+        "random_final_l1": 35.333333333333336,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-049",
+        "typ": 2,
+        "fixed_final_l1": 27,
+        "dis_final_l1": 55,
+        "random_final_l1": 19.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-050",
+        "typ": 2,
+        "fixed_final_l1": 15,
+        "dis_final_l1": 39,
+        "random_final_l1": 15.333333333333334,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 3,
+        "dis_mis_at": 3
+      },
+      {
+        "task": "eval-t2-051",
+        "typ": 2,
+        "fixed_final_l1": 22,
+        "dis_final_l1": 22,
+        "random_final_l1": 55.333333333333336,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 3,
+        "dis_mis_at": 3
+      },
+      {
+        "task": "eval-t2-052",
+        "typ": 2,
+        "fixed_final_l1": 6,
+        "dis_final_l1": 14,
+        "random_final_l1": 12.666666666666666,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-053",
+        "typ": 2,
+        "fixed_final_l1": 6,
+        "dis_final_l1": 6,
+        "random_final_l1": 26.333333333333332,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-054",
+        "typ": 2,
+        "fixed_final_l1": 6,
+        "dis_final_l1": 10,
+        "random_final_l1": 16.666666666666668,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-055",
+        "typ": 2,
+        "fixed_final_l1": 8,
+        "dis_final_l1": 14,
+        "random_final_l1": 13.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 4
+      },
+      {
+        "task": "eval-t2-056",
+        "typ": 2,
+        "fixed_final_l1": 9,
+        "dis_final_l1": 11,
+        "random_final_l1": 14.333333333333334,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 4,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-057",
+        "typ": 2,
+        "fixed_final_l1": 8,
+        "dis_final_l1": 30,
+        "random_final_l1": 34.333333333333336,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 2,
+        "dis_h0_at": 2,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 5
+      },
+      {
+        "task": "eval-t2-058",
+        "typ": 2,
+        "fixed_final_l1": 15,
+        "dis_final_l1": 15,
+        "random_final_l1": 39.333333333333336,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 14
+      },
+      {
+        "task": "eval-t2-059",
+        "typ": 2,
+        "fixed_final_l1": 3,
+        "dis_final_l1": 27,
+        "random_final_l1": 34.0,
+        "fixed_diag": "library_mismatch",
+        "dis_diag": "library_mismatch",
+        "fixed_h0_at": 4,
+        "dis_h0_at": 3,
+        "fixed_mis_at": 8,
+        "dis_mis_at": 15
+      }
+    ]
+  },
+  "timing_s": 10.918728918011766,
+  "executed": [
+    "library_sanity",
+    "isolation_48_trials",
+    "dev_30_tasks",
+    "eval_180_tasks"
+  ],
+  "not_executed": [
+    "perfect-validator strategy in main ranking",
+    "noisy labels",
+    "open-ended hypothesis invention"
+  ]
+}

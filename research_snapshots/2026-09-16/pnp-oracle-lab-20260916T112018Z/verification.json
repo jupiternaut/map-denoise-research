@@ -1,0 +1,110 @@
+{
+  "host": "liekkas",
+  "workspace": "/home/grf/Documents/Codex/2026-09-16/pnp-oracle-lab-20260916T112018Z",
+  "utc": "2026-09-16T11:37:47.373341+00:00",
+  "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+  "frozen_checksums": {
+    "/home/grf/Documents/Codex/2026-09-16/pnp-oracle-lab-20260916T112018Z/research_plan.md": "c06d34af5ba8637f19565d46cd6d91b36376b608697870f3a5b46516a97842f0",
+    "/home/grf/Documents/Codex/2026-09-16/pnp-oracle-lab-20260916T112018Z/COMPOSITION_PROTOCOL.md": "c37484eb9d2416ddd43d1a93a8eee19f4c9d5eca4409d81db0f4e3cc55a6b359",
+    "/home/grf/.hermes/attachments/outputs/20260914T142434Z/CHECKPOINT.md": "86cea9000349650e4a51c7ffa25ea3e09e9a7354bd00d5bfb932d8343ca1eb1b"
+  },
+  "commands": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-v"
+      ],
+      "exit_code": 0,
+      "seconds": 0.4296253339998657,
+      "tests": 29
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "audit_checks.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.4129537210010312,
+      "tests": 10
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "learning.py",
+        "--output-dir",
+        "/home/grf/Documents/Codex/2026-09-16/pnp-oracle-lab-20260916T112018Z/reproduction/fresh-jo2ws928"
+      ],
+      "exit_code": 0,
+      "seconds": 2.674862130999827,
+      "tests": null
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "planning.py",
+        "--output",
+        "/home/grf/Documents/Codex/2026-09-16/pnp-oracle-lab-20260916T112018Z/reproduction/fresh-jo2ws928"
+      ],
+      "exit_code": 0,
+      "seconds": 0.37007888199877925,
+      "tests": null
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "composition.py",
+        "--input",
+        "/home/grf/Documents/Codex/2026-09-16/pnp-oracle-lab-20260916T112018Z/reproduction/fresh-jo2ws928/learning_rows.csv",
+        "--output",
+        "/home/grf/Documents/Codex/2026-09-16/pnp-oracle-lab-20260916T112018Z/reproduction/fresh-jo2ws928"
+      ],
+      "exit_code": 0,
+      "seconds": 0.9221942040003341,
+      "tests": null
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "tie_audit.py",
+        "--source",
+        "/home/grf/Documents/Codex/2026-09-16/pnp-oracle-lab-20260916T112018Z/reproduction/fresh-jo2ws928/composition_rows.csv",
+        "--output",
+        "/home/grf/Documents/Codex/2026-09-16/pnp-oracle-lab-20260916T112018Z/reproduction/fresh-jo2ws928"
+      ],
+      "exit_code": 0,
+      "seconds": 0.31108907499947236,
+      "tests": null
+    }
+  ],
+  "replay_directory": "/home/grf/Documents/Codex/2026-09-16/pnp-oracle-lab-20260916T112018Z/reproduction/fresh-jo2ws928",
+  "reproducibility": {
+    "learning_rows.csv": {
+      "rows_equal": 27648,
+      "ignored_fields": [
+        "fit_seconds"
+      ]
+    },
+    "planning_rows.csv": {
+      "rows_equal": 3630,
+      "ignored_fields": [
+        "runtime_seconds"
+      ]
+    },
+    "planning_traces.csv": {
+      "rows_equal": 58080,
+      "ignored_fields": []
+    },
+    "composition_rows.csv": {
+      "rows_equal": 82944,
+      "ignored_fields": []
+    },
+    "tie_audit_pairs.csv": {
+      "rows_equal": 131,
+      "ignored_fields": []
+    }
+  },
+  "passed": true
+}

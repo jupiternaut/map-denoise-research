@@ -1,0 +1,5 @@
+{"id":"v1_atlas","假说":"多峰ZNCC+最多3面可变支撑优于identity和单面","改动":"cpu plane-sweep + sequential RANSAC atlas","输入与候选hash":"runs/2026-09-14T165314Z/SEALED_v1.json","主结果":"8个父ROI上v25_atlas的E_sym全部差于identity","控制损伤":"stone变差; wall上atlas也差于identity","决策":"保留失败,改机制","重开条件":"有新的匹配证据表明深度本身已准"}
+{"id":"v2_no_alias","假说":"第二峰值是砖墙/金属周期纹理假峰","改动":"v25_wta_atlas只用WTA","输入与候选hash":"同bundle,新ply","主结果":"结构区仍差; wall_control上2.202<identity 2.494(单点)","控制损伤":"stone仍差","决策":"假峰不是唯一主因","重开条件":"在无周期纹理且深度已核验的区域重测"}
+{"id":"v2_depth_cc","假说":"深度跳跃分裂比全局3平面更能保留多层","改动":"v25_depth_cc","主结果":"仍差于identity","控制损伤":"stone 0.91>0.58","决策":"表示层单独不够","重开条件":"WTA深度先通过合成与稀疏核验"}
+{"id":"v2_gated","假说":"只移动3-12mm不一致的旧点可修复且不毁控制","改动":"v25_gated_move","主结果":"接近identity,无20%结构收益","控制损伤":"stone持平,wall略好","决策":"最小伤害对照,不升级","重开条件":"门控改用已验证的深度而不是当前ZNCC"}
+{"id":"v3_core","假说":"大AABB使256裁块过粗","改动":"全体ROI缩到最近40%输入网格点并重建evidence","主结果":"identity往往更好;替换式仍差","控制损伤":"core wall上identity已降到0.98,融合反而变差","决策":"缩小支撑不能挽救当前匹配","重开条件":"换匹配代价或官方MVS"}

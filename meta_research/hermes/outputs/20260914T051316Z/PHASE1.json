@@ -1,0 +1,58 @@
+{
+  "isolation": {
+    "honest_must_pass": true,
+    "cheat_must_fail": true,
+    "by_policy": {
+      "fixed": {
+        "n": 12,
+        "n_fail": 0,
+        "all_ok": true,
+        "envs_distinct": true
+      },
+      "random": {
+        "n": 12,
+        "n_fail": 0,
+        "all_ok": true,
+        "envs_distinct": true
+      },
+      "disagreement": {
+        "n": 12,
+        "n_fail": 0,
+        "all_ok": true,
+        "envs_distinct": true
+      },
+      "cheat": {
+        "n": 12,
+        "n_fail": 6,
+        "all_ok": false,
+        "envs_distinct": true
+      }
+    },
+    "note": "Two Env objects; mutated copy is a second environment. Honest selectors never receive hidden labels. Cheat peeks via env.label on unqueried x."
+  },
+  "alignment": {
+    "0": {
+      "n": 20,
+      "frac_same_until_h0_refute": 1.0,
+      "mean_true_disagreement": 0.0,
+      "mean_random_fallback": 14.0,
+      "n_h0_never_refuted": 20
+    },
+    "1": {
+      "n": 20,
+      "frac_same_until_h0_refute": 1.0,
+      "mean_true_disagreement": 1.45,
+      "mean_random_fallback": 12.55,
+      "n_h0_never_refuted": 0
+    },
+    "2": {
+      "n": 20,
+      "frac_same_until_h0_refute": 1.0,
+      "mean_true_disagreement": 1.65,
+      "mean_random_fallback": 12.35,
+      "n_h0_never_refuted": 0
+    }
+  },
+  "elapsed_s": 0.5708629470000233,
+  "pass": true
+}

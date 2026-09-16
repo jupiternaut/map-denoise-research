@@ -1,0 +1,2125 @@
+{
+  "protocol": {
+    "horizons": [
+      4,
+      6
+    ],
+    "fitter": "imported frozen isolate-cap-1 from 20260914T111013Z",
+    "catalog": "exhaustive enumeration of public generator; confirm sampled, not used to pick worlds",
+    "n_instances": 780,
+    "n_worlds": 2340,
+    "prior": "ASSUMED uniform over enumerated worlds",
+    "openloop": "sequence chosen at init from catalog posterior; not revised",
+    "adaptive": "ExactDP on same catalog; replans after each outcome",
+    "empty_catalog": "support_failed + covering fallback",
+    "belief": "orig first-look + retest outcome",
+    "confirm_seed0": 40000,
+    "confirm_bundles": 30,
+    "code_sha256": "8f0e71efcf3681f51804f2eda84fc02517c2db819b73075cea0d492d28f47920",
+    "parameter_provenance": {
+      "generator": "ASSUMED inherited public rules",
+      "catalog_prior": "ASSUMED uniform",
+      "metrics": "MEASURED"
+    }
+  },
+  "support_complete": {
+    "n": 2340,
+    "missing_true_world_after_init": 0,
+    "empty_after_init": 0,
+    "empty_after_cover_h6": 0,
+    "support_min": 11,
+    "support_max": 90,
+    "support_mean": 52.0974358974359
+  },
+  "history_unit": {
+    "ok": true,
+    "example": {
+      "wid": 1,
+      "cause": "transient",
+      "orig": {
+        "0": -1,
+        "3": 0
+      },
+      "cur": {
+        "0": -1,
+        "3": -1
+      },
+      "y0": 0,
+      "y2": -1,
+      "n_cur_only": 346,
+      "n_tape": 3,
+      "orig_unchanged": true,
+      "cur_changed": true
+    }
+  },
+  "generator_cover_sample": {
+    "n": 20,
+    "hits": 20,
+    "all_in": true
+  },
+  "unit_adapt_leq_openloop": {
+    "n_ids": 90,
+    "v_adaptive": 0.0,
+    "v_openloop": 0.0,
+    "adaptive_first": [
+      "query",
+      1
+    ],
+    "openloop_seq": [
+      [
+        "query",
+        1
+      ],
+      [
+        "query",
+        2
+      ],
+      [
+        "query",
+        3
+      ],
+      [
+        "query",
+        6
+      ]
+    ],
+    "openloop_states": 352,
+    "ok": true
+  },
+  "isolation": {
+    "honest_must_pass": true,
+    "cheat_must_fail": true,
+    "by_policy": {
+      "cover": {
+        "n": 9,
+        "n_fail": 0,
+        "all_ok": true
+      },
+      "retest_then_cover": {
+        "n": 9,
+        "n_fail": 0,
+        "all_ok": true
+      },
+      "openloop": {
+        "n": 9,
+        "n_fail": 0,
+        "all_ok": true
+      },
+      "adaptive": {
+        "n": 9,
+        "n_fail": 0,
+        "all_ok": true
+      },
+      "cheat": {
+        "n": 9,
+        "n_fail": 9,
+        "all_ok": false
+      }
+    }
+  },
+  "dp": {
+    "n_states": 225426,
+    "n_calls": 225426
+  },
+  "openloop_cache": 876,
+  "deliver_cache": 24636,
+  "catalog_distinct_targets": 336,
+  "confirm_distinct_targets": 81,
+  "catalog": {
+    "4": {
+      "horizon": 4,
+      "n": 2340,
+      "by_cause": {
+        "model": {
+          "n": 780,
+          "policies": {
+            "cover": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "retest_then_cover": {
+              "mae": {
+                "n": 780,
+                "mean": 0.31185897435897436,
+                "sd": 0.44649045732424875,
+                "se": 0.015986922880328158
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "openloop": {
+              "mae": {
+                "n": 780,
+                "mean": 0.03076923076923077,
+                "sd": 0.09819643448331261,
+                "se": 0.003515996365556942
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "adaptive": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            }
+          },
+          "paired_openloop_minus_adaptive": {
+            "n": 780,
+            "mean": 0.03076923076923077,
+            "sd": 0.09819643448331261,
+            "se": 0.003515996365556942,
+            "n_pos": 72,
+            "n_neg": 0,
+            "n_tie": 708
+          },
+          "paired_cover_minus_adaptive": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "paired_retest_minus_adaptive": {
+            "n": 780,
+            "mean": 0.31185897435897436,
+            "sd": 0.44649045732424875,
+            "se": 0.015986922880328158,
+            "n_pos": 342,
+            "n_neg": 0,
+            "n_tie": 438
+          },
+          "paired_cover_minus_openloop": {
+            "n": 780,
+            "mean": -0.03076923076923077,
+            "sd": 0.09819643448331261,
+            "se": 0.003515996365556942,
+            "n_pos": 0,
+            "n_neg": 72,
+            "n_tie": 708
+          },
+          "paired_retest_minus_openloop": {
+            "n": 780,
+            "mean": 0.2810897435897436,
+            "sd": 0.42998540697981286,
+            "se": 0.015395947277907149,
+            "n_pos": 312,
+            "n_neg": 0,
+            "n_tie": 468
+          },
+          "adaptive_support_failed_rate": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "openloop_support_failed_rate": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "adaptive_fallback_steps": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "frac_adapt_seq_differs_openloop": {
+            "n": 780,
+            "mean": 0.3,
+            "sd": 0.45855160710652215,
+            "se": 0.01641878131818333
+          }
+        },
+        "transient": {
+          "n": 780,
+          "policies": {
+            "cover": {
+              "mae": {
+                "n": 780,
+                "mean": 1.3182692307692307,
+                "sd": 1.056428401367718,
+                "se": 0.037826204578856146
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.1358974358974359,
+                "sd": 0.3428994991085931,
+                "se": 0.012277771580616739
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "retest_then_cover": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "openloop": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "adaptive": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            }
+          },
+          "paired_openloop_minus_adaptive": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "paired_cover_minus_adaptive": {
+            "n": 780,
+            "mean": 1.3182692307692307,
+            "sd": 1.056428401367718,
+            "se": 0.037826204578856146,
+            "n_pos": 674,
+            "n_neg": 0,
+            "n_tie": 106
+          },
+          "paired_retest_minus_adaptive": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "paired_cover_minus_openloop": {
+            "n": 780,
+            "mean": 1.3182692307692307,
+            "sd": 1.056428401367718,
+            "se": 0.037826204578856146,
+            "n_pos": 674,
+            "n_neg": 0,
+            "n_tie": 106
+          },
+          "paired_retest_minus_openloop": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "adaptive_support_failed_rate": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "openloop_support_failed_rate": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "adaptive_fallback_steps": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "frac_adapt_seq_differs_openloop": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          }
+        },
+        "persistent": {
+          "n": 780,
+          "policies": {
+            "cover": {
+              "mae": {
+                "n": 780,
+                "mean": 1.3182692307692307,
+                "sd": 1.056428401367718,
+                "se": 0.037826204578856146
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.1358974358974359,
+                "sd": 0.3428994991085931,
+                "se": 0.012277771580616739
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "retest_then_cover": {
+              "mae": {
+                "n": 780,
+                "mean": 1.9483974358974359,
+                "sd": 1.1992010320498443,
+                "se": 0.04293828480071661
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "openloop": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "adaptive": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            }
+          },
+          "paired_openloop_minus_adaptive": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "paired_cover_minus_adaptive": {
+            "n": 780,
+            "mean": 1.3182692307692307,
+            "sd": 1.056428401367718,
+            "se": 0.037826204578856146,
+            "n_pos": 674,
+            "n_neg": 0,
+            "n_tie": 106
+          },
+          "paired_retest_minus_adaptive": {
+            "n": 780,
+            "mean": 1.9483974358974359,
+            "sd": 1.1992010320498443,
+            "se": 0.04293828480071661,
+            "n_pos": 780,
+            "n_neg": 0,
+            "n_tie": 0
+          },
+          "paired_cover_minus_openloop": {
+            "n": 780,
+            "mean": 1.3182692307692307,
+            "sd": 1.056428401367718,
+            "se": 0.037826204578856146,
+            "n_pos": 674,
+            "n_neg": 0,
+            "n_tie": 106
+          },
+          "paired_retest_minus_openloop": {
+            "n": 780,
+            "mean": 1.9483974358974359,
+            "sd": 1.1992010320498443,
+            "se": 0.04293828480071661,
+            "n_pos": 780,
+            "n_neg": 0,
+            "n_tie": 0
+          },
+          "adaptive_support_failed_rate": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "openloop_support_failed_rate": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "adaptive_fallback_steps": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "frac_adapt_seq_differs_openloop": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          }
+        }
+      },
+      "expected_mae_uniform": {
+        "cover": {
+          "n": 2340,
+          "mean": 0.8788461538461538,
+          "sd": 1.0628929893878598,
+          "se": 0.021972608305908928
+        },
+        "retest_then_cover": {
+          "n": 2340,
+          "mean": 0.7534188034188034,
+          "sd": 1.1295371004894283,
+          "se": 0.023350305744645056
+        },
+        "openloop": {
+          "n": 2340,
+          "mean": 0.010256410256410256,
+          "sd": 0.058497089062191455,
+          "se": 0.0012092784860117012
+        },
+        "adaptive": {
+          "n": 2340,
+          "mean": 0.0,
+          "sd": 0.0,
+          "se": 0.0
+        }
+      },
+      "delta_adapt_openloop_minus_adaptive": 0.010256410256410256,
+      "acceptance_adaptive_leq_openloop": true,
+      "acceptance_adaptive_leq_cover": true,
+      "acceptance_adaptive_leq_retest": true
+    },
+    "6": {
+      "horizon": 6,
+      "n": 2340,
+      "by_cause": {
+        "model": {
+          "n": 780,
+          "policies": {
+            "cover": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "retest_then_cover": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "openloop": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "adaptive": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            }
+          },
+          "paired_openloop_minus_adaptive": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "paired_cover_minus_adaptive": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "paired_retest_minus_adaptive": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "paired_cover_minus_openloop": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "paired_retest_minus_openloop": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "adaptive_support_failed_rate": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "openloop_support_failed_rate": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "adaptive_fallback_steps": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "frac_adapt_seq_differs_openloop": {
+            "n": 780,
+            "mean": 0.3,
+            "sd": 0.45855160710652215,
+            "se": 0.01641878131818333
+          }
+        },
+        "transient": {
+          "n": 780,
+          "policies": {
+            "cover": {
+              "mae": {
+                "n": 780,
+                "mean": 0.4153846153846154,
+                "sd": 0.8406706050876984,
+                "se": 0.03010083622355155
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.7230769230769231,
+                "sd": 0.4477652617540273,
+                "se": 0.016032568201010948
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "retest_then_cover": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "openloop": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "adaptive": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            }
+          },
+          "paired_openloop_minus_adaptive": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "paired_cover_minus_adaptive": {
+            "n": 780,
+            "mean": 0.4153846153846154,
+            "sd": 0.8406706050876984,
+            "se": 0.03010083622355155,
+            "n_pos": 216,
+            "n_neg": 0,
+            "n_tie": 564
+          },
+          "paired_retest_minus_adaptive": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "paired_cover_minus_openloop": {
+            "n": 780,
+            "mean": 0.4153846153846154,
+            "sd": 0.8406706050876984,
+            "se": 0.03010083622355155,
+            "n_pos": 216,
+            "n_neg": 0,
+            "n_tie": 564
+          },
+          "paired_retest_minus_openloop": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "adaptive_support_failed_rate": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "openloop_support_failed_rate": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "adaptive_fallback_steps": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "frac_adapt_seq_differs_openloop": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          }
+        },
+        "persistent": {
+          "n": 780,
+          "policies": {
+            "cover": {
+              "mae": {
+                "n": 780,
+                "mean": 0.4153846153846154,
+                "sd": 0.8406706050876984,
+                "se": 0.03010083622355155
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.7230769230769231,
+                "sd": 0.4477652617540273,
+                "se": 0.016032568201010948
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "retest_then_cover": {
+              "mae": {
+                "n": 780,
+                "mean": 1.3182692307692307,
+                "sd": 1.056428401367718,
+                "se": 0.037826204578856146
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 0.1358974358974359,
+                "sd": 0.3428994991085931,
+                "se": 0.012277771580616739
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "openloop": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "adaptive": {
+              "mae": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 780,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 780,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            }
+          },
+          "paired_openloop_minus_adaptive": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 780
+          },
+          "paired_cover_minus_adaptive": {
+            "n": 780,
+            "mean": 0.4153846153846154,
+            "sd": 0.8406706050876984,
+            "se": 0.03010083622355155,
+            "n_pos": 216,
+            "n_neg": 0,
+            "n_tie": 564
+          },
+          "paired_retest_minus_adaptive": {
+            "n": 780,
+            "mean": 1.3182692307692307,
+            "sd": 1.056428401367718,
+            "se": 0.037826204578856146,
+            "n_pos": 674,
+            "n_neg": 0,
+            "n_tie": 106
+          },
+          "paired_cover_minus_openloop": {
+            "n": 780,
+            "mean": 0.4153846153846154,
+            "sd": 0.8406706050876984,
+            "se": 0.03010083622355155,
+            "n_pos": 216,
+            "n_neg": 0,
+            "n_tie": 564
+          },
+          "paired_retest_minus_openloop": {
+            "n": 780,
+            "mean": 1.3182692307692307,
+            "sd": 1.056428401367718,
+            "se": 0.037826204578856146,
+            "n_pos": 674,
+            "n_neg": 0,
+            "n_tie": 106
+          },
+          "adaptive_support_failed_rate": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "openloop_support_failed_rate": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "adaptive_fallback_steps": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "frac_adapt_seq_differs_openloop": {
+            "n": 780,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          }
+        }
+      },
+      "expected_mae_uniform": {
+        "cover": {
+          "n": 2340,
+          "mean": 0.27692307692307694,
+          "sd": 0.7135181147725177,
+          "se": 0.014750171665066937
+        },
+        "retest_then_cover": {
+          "n": 2340,
+          "mean": 0.4394230769230769,
+          "sd": 0.8706583414171135,
+          "se": 0.017998646049258687
+        },
+        "openloop": {
+          "n": 2340,
+          "mean": 0.0,
+          "sd": 0.0,
+          "se": 0.0
+        },
+        "adaptive": {
+          "n": 2340,
+          "mean": 0.0,
+          "sd": 0.0,
+          "se": 0.0
+        }
+      },
+      "delta_adapt_openloop_minus_adaptive": 0.0,
+      "acceptance_adaptive_leq_openloop": true,
+      "acceptance_adaptive_leq_cover": true,
+      "acceptance_adaptive_leq_retest": true
+    }
+  },
+  "confirm_NEW_SEEDS": {
+    "4": {
+      "horizon": 4,
+      "n": 90,
+      "by_cause": {
+        "model": {
+          "n": 30,
+          "policies": {
+            "cover": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "retest_then_cover": {
+              "mae": {
+                "n": 30,
+                "mean": 0.36666666666666664,
+                "sd": 0.46532030742892266,
+                "se": 0.08495547628135322
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "openloop": {
+              "mae": {
+                "n": 30,
+                "mean": 0.07916666666666666,
+                "sd": 0.14856835959000275,
+                "se": 0.027124747292994494
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "adaptive": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            }
+          },
+          "paired_openloop_minus_adaptive": {
+            "n": 30,
+            "mean": 0.07916666666666666,
+            "sd": 0.14856835959000275,
+            "se": 0.027124747292994494,
+            "n_pos": 7,
+            "n_neg": 0,
+            "n_tie": 23
+          },
+          "paired_cover_minus_adaptive": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "paired_retest_minus_adaptive": {
+            "n": 30,
+            "mean": 0.36666666666666664,
+            "sd": 0.46532030742892266,
+            "se": 0.08495547628135322,
+            "n_pos": 17,
+            "n_neg": 0,
+            "n_tie": 13
+          },
+          "paired_cover_minus_openloop": {
+            "n": 30,
+            "mean": -0.07916666666666666,
+            "sd": 0.14856835959000275,
+            "se": 0.027124747292994494,
+            "n_pos": 0,
+            "n_neg": 7,
+            "n_tie": 23
+          },
+          "paired_retest_minus_openloop": {
+            "n": 30,
+            "mean": 0.2875,
+            "sd": 0.4573984718699501,
+            "se": 0.08350915360385461,
+            "n_pos": 13,
+            "n_neg": 0,
+            "n_tie": 17
+          },
+          "adaptive_support_failed_rate": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "openloop_support_failed_rate": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "adaptive_fallback_steps": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "frac_adapt_seq_differs_openloop": {
+            "n": 30,
+            "mean": 0.3333333333333333,
+            "sd": 0.47946330148538413,
+            "se": 0.0875376219064817
+          }
+        },
+        "transient": {
+          "n": 30,
+          "policies": {
+            "cover": {
+              "mae": {
+                "n": 30,
+                "mean": 1.2708333333333333,
+                "sd": 1.0282032230138611,
+                "se": 0.18772336631473557
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.1,
+                "sd": 0.30512857662936466,
+                "se": 0.055708601453115555
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "retest_then_cover": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "openloop": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "adaptive": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            }
+          },
+          "paired_openloop_minus_adaptive": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "paired_cover_minus_adaptive": {
+            "n": 30,
+            "mean": 1.2708333333333333,
+            "sd": 1.0282032230138611,
+            "se": 0.18772336631473557,
+            "n_pos": 27,
+            "n_neg": 0,
+            "n_tie": 3
+          },
+          "paired_retest_minus_adaptive": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "paired_cover_minus_openloop": {
+            "n": 30,
+            "mean": 1.2708333333333333,
+            "sd": 1.0282032230138611,
+            "se": 0.18772336631473557,
+            "n_pos": 27,
+            "n_neg": 0,
+            "n_tie": 3
+          },
+          "paired_retest_minus_openloop": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "adaptive_support_failed_rate": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "openloop_support_failed_rate": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "adaptive_fallback_steps": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "frac_adapt_seq_differs_openloop": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          }
+        },
+        "persistent": {
+          "n": 30,
+          "policies": {
+            "cover": {
+              "mae": {
+                "n": 30,
+                "mean": 1.2708333333333333,
+                "sd": 1.0282032230138611,
+                "se": 0.18772336631473557
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.1,
+                "sd": 0.30512857662936466,
+                "se": 0.055708601453115555
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "retest_then_cover": {
+              "mae": {
+                "n": 30,
+                "mean": 2.0083333333333333,
+                "sd": 1.172573307268906,
+                "se": 0.2140816169065387
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "openloop": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "adaptive": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            }
+          },
+          "paired_openloop_minus_adaptive": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "paired_cover_minus_adaptive": {
+            "n": 30,
+            "mean": 1.2708333333333333,
+            "sd": 1.0282032230138611,
+            "se": 0.18772336631473557,
+            "n_pos": 27,
+            "n_neg": 0,
+            "n_tie": 3
+          },
+          "paired_retest_minus_adaptive": {
+            "n": 30,
+            "mean": 2.0083333333333333,
+            "sd": 1.172573307268906,
+            "se": 0.2140816169065387,
+            "n_pos": 30,
+            "n_neg": 0,
+            "n_tie": 0
+          },
+          "paired_cover_minus_openloop": {
+            "n": 30,
+            "mean": 1.2708333333333333,
+            "sd": 1.0282032230138611,
+            "se": 0.18772336631473557,
+            "n_pos": 27,
+            "n_neg": 0,
+            "n_tie": 3
+          },
+          "paired_retest_minus_openloop": {
+            "n": 30,
+            "mean": 2.0083333333333333,
+            "sd": 1.172573307268906,
+            "se": 0.2140816169065387,
+            "n_pos": 30,
+            "n_neg": 0,
+            "n_tie": 0
+          },
+          "adaptive_support_failed_rate": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "openloop_support_failed_rate": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "adaptive_fallback_steps": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "frac_adapt_seq_differs_openloop": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          }
+        }
+      },
+      "expected_mae_uniform": {
+        "cover": {
+          "n": 90,
+          "mean": 0.8472222222222222,
+          "sd": 1.02561604154243,
+          "se": 0.10810942320266503
+        },
+        "retest_then_cover": {
+          "n": 90,
+          "mean": 0.7916666666666666,
+          "sd": 1.1356394525958207,
+          "se": 0.1197069090316537
+        },
+        "openloop": {
+          "n": 90,
+          "mean": 0.02638888888888889,
+          "sd": 0.09273929805236797,
+          "se": 0.00977558034835667
+        },
+        "adaptive": {
+          "n": 90,
+          "mean": 0.0,
+          "sd": 0.0,
+          "se": 0.0
+        }
+      },
+      "delta_adapt_openloop_minus_adaptive": 0.02638888888888889,
+      "acceptance_adaptive_leq_openloop": true,
+      "acceptance_adaptive_leq_cover": true,
+      "acceptance_adaptive_leq_retest": true
+    },
+    "6": {
+      "horizon": 6,
+      "n": 90,
+      "by_cause": {
+        "model": {
+          "n": 30,
+          "policies": {
+            "cover": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "retest_then_cover": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "openloop": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "adaptive": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            }
+          },
+          "paired_openloop_minus_adaptive": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "paired_cover_minus_adaptive": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "paired_retest_minus_adaptive": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "paired_cover_minus_openloop": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "paired_retest_minus_openloop": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "adaptive_support_failed_rate": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "openloop_support_failed_rate": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "adaptive_fallback_steps": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "frac_adapt_seq_differs_openloop": {
+            "n": 30,
+            "mean": 0.3333333333333333,
+            "sd": 0.47946330148538413,
+            "se": 0.0875376219064817
+          }
+        },
+        "transient": {
+          "n": 30,
+          "policies": {
+            "cover": {
+              "mae": {
+                "n": 30,
+                "mean": 0.3375,
+                "sd": 0.8376576022580405,
+                "se": 0.1529346547408064
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.7666666666666667,
+                "sd": 0.43018306715207627,
+                "se": 0.07854032324531728
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "retest_then_cover": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "openloop": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "adaptive": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            }
+          },
+          "paired_openloop_minus_adaptive": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "paired_cover_minus_adaptive": {
+            "n": 30,
+            "mean": 0.3375,
+            "sd": 0.8376576022580405,
+            "se": 0.1529346547408064,
+            "n_pos": 7,
+            "n_neg": 0,
+            "n_tie": 23
+          },
+          "paired_retest_minus_adaptive": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "paired_cover_minus_openloop": {
+            "n": 30,
+            "mean": 0.3375,
+            "sd": 0.8376576022580405,
+            "se": 0.1529346547408064,
+            "n_pos": 7,
+            "n_neg": 0,
+            "n_tie": 23
+          },
+          "paired_retest_minus_openloop": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "adaptive_support_failed_rate": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "openloop_support_failed_rate": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "adaptive_fallback_steps": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "frac_adapt_seq_differs_openloop": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          }
+        },
+        "persistent": {
+          "n": 30,
+          "policies": {
+            "cover": {
+              "mae": {
+                "n": 30,
+                "mean": 0.3375,
+                "sd": 0.8376576022580405,
+                "se": 0.1529346547408064
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.7666666666666667,
+                "sd": 0.43018306715207627,
+                "se": 0.07854032324531728
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "retest_then_cover": {
+              "mae": {
+                "n": 30,
+                "mean": 1.2708333333333333,
+                "sd": 1.0282032230138611,
+                "se": 0.18772336631473557
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 0.1,
+                "sd": 0.30512857662936466,
+                "se": 0.055708601453115555
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "openloop": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            },
+            "adaptive": {
+              "mae": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "isolate_rate": {
+                "n": 30,
+                "mean": 1.0,
+                "sd": 0.0,
+                "se": 0.0
+              },
+              "wrong_isolate_rate": {
+                "n": 30,
+                "mean": 0.0,
+                "sd": 0.0,
+                "se": 0.0
+              }
+            }
+          },
+          "paired_openloop_minus_adaptive": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0,
+            "n_pos": 0,
+            "n_neg": 0,
+            "n_tie": 30
+          },
+          "paired_cover_minus_adaptive": {
+            "n": 30,
+            "mean": 0.3375,
+            "sd": 0.8376576022580405,
+            "se": 0.1529346547408064,
+            "n_pos": 7,
+            "n_neg": 0,
+            "n_tie": 23
+          },
+          "paired_retest_minus_adaptive": {
+            "n": 30,
+            "mean": 1.2708333333333333,
+            "sd": 1.0282032230138611,
+            "se": 0.18772336631473557,
+            "n_pos": 27,
+            "n_neg": 0,
+            "n_tie": 3
+          },
+          "paired_cover_minus_openloop": {
+            "n": 30,
+            "mean": 0.3375,
+            "sd": 0.8376576022580405,
+            "se": 0.1529346547408064,
+            "n_pos": 7,
+            "n_neg": 0,
+            "n_tie": 23
+          },
+          "paired_retest_minus_openloop": {
+            "n": 30,
+            "mean": 1.2708333333333333,
+            "sd": 1.0282032230138611,
+            "se": 0.18772336631473557,
+            "n_pos": 27,
+            "n_neg": 0,
+            "n_tie": 3
+          },
+          "adaptive_support_failed_rate": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "openloop_support_failed_rate": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "adaptive_fallback_steps": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          },
+          "frac_adapt_seq_differs_openloop": {
+            "n": 30,
+            "mean": 0.0,
+            "sd": 0.0,
+            "se": 0.0
+          }
+        }
+      },
+      "expected_mae_uniform": {
+        "cover": {
+          "n": 90,
+          "mean": 0.225,
+          "sd": 0.6948850038238886,
+          "se": 0.07324731079927672
+        },
+        "retest_then_cover": {
+          "n": 90,
+          "mean": 0.4236111111111111,
+          "sd": 0.8410747631325808,
+          "se": 0.08865706446618571
+        },
+        "openloop": {
+          "n": 90,
+          "mean": 0.0,
+          "sd": 0.0,
+          "se": 0.0
+        },
+        "adaptive": {
+          "n": 90,
+          "mean": 0.0,
+          "sd": 0.0,
+          "se": 0.0
+        }
+      },
+      "delta_adapt_openloop_minus_adaptive": 0.0,
+      "acceptance_adaptive_leq_openloop": true,
+      "acceptance_adaptive_leq_cover": true,
+      "acceptance_adaptive_leq_retest": true
+    }
+  },
+  "timing_s": 49.8601789319946
+}

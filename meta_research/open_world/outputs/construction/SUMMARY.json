@@ -1,0 +1,269 @@
+{
+  "protocol": {
+    "kind": "construction_v0",
+    "trusted_algorithm_experiment": true,
+    "os_sandbox": false,
+    "pysindy": false,
+    "pysr": false,
+    "llm_aces_official": "not runnable here (needs pysr + LLM API)",
+    "code_sha256_session": "2a9e9ad5340ee434bce70e4f2375b3209f5e30b5049f6682be662e13bb04db75",
+    "holdout_menu_locked": true,
+    "max_actions": 8,
+    "timing_s": 24.683345621997432,
+    "file_sha256": {
+      "session": "2a9e9ad5340ee434bce70e4f2375b3209f5e30b5049f6682be662e13bb04db75",
+      "candidates": "9bc9a713b9af47a553ffd1bdb21d7dfc2dbf01a2635db220f7dfe30cf123b054",
+      "score": "20e411812f8aa44827fc3242762c28d90f0ef7aa303137d6679bc737deb3b88a",
+      "four": "9dd59b78fd688dd2a899ca2877d92c4161d3661186556e9f54969c9b7d77fa39",
+      "plant": "f942736b13ea6d83614ee3bcd81d5778e408f913aecad630030b2eb8191f09b9"
+    }
+  },
+  "systems": [
+    {
+      "system_id": "C0_linear",
+      "mismatch": "none",
+      "policies": {
+        "A": {
+          "nmse": 0.00013186127892059099,
+          "family": "nl2",
+          "cost": 8,
+          "n_commit": 0
+        },
+        "B": {
+          "nmse": 0.00014180292848067105,
+          "family": "nl2",
+          "cost": 8,
+          "n_commit": 7
+        },
+        "C": {
+          "nmse": 0.00013186127892059099,
+          "family": "nl2",
+          "cost": 8,
+          "n_commit": 0
+        },
+        "D": {
+          "nmse": 0.00013186127892059256,
+          "family": "nl2",
+          "cost": 8,
+          "n_commit": 7
+        },
+        "ridge": {
+          "nmse": 0.0005715355910991992,
+          "family": "ridge_lag1",
+          "cost": 8,
+          "n_commit": 0
+        }
+      },
+      "strongest": "A",
+      "D_minus_C": 1.5720931501039814e-18,
+      "D_minus_A": 1.5720931501039814e-18,
+      "C_minus_A": 0.0,
+      "B_minus_A": 9.941649560080059e-06
+    },
+    {
+      "system_id": "C1_cubic_damp",
+      "mismatch": "dynamics",
+      "policies": {
+        "A": {
+          "nmse": 0.00010550362015242518,
+          "family": "nl2",
+          "cost": 8,
+          "n_commit": 0
+        },
+        "B": {
+          "nmse": 0.00011135624121206005,
+          "family": "nl2",
+          "cost": 8,
+          "n_commit": 7
+        },
+        "C": {
+          "nmse": 0.00010550362015242518,
+          "family": "nl2",
+          "cost": 8,
+          "n_commit": 0
+        },
+        "D": {
+          "nmse": 0.00011096931262820795,
+          "family": "nl2",
+          "cost": 8,
+          "n_commit": 7
+        },
+        "ridge": {
+          "nmse": 0.0006241463345251096,
+          "family": "ridge_lag1",
+          "cost": 8,
+          "n_commit": 0
+        }
+      },
+      "strongest": "A",
+      "D_minus_C": 5.465692475782773e-06,
+      "D_minus_A": 5.465692475782773e-06,
+      "C_minus_A": 0.0,
+      "B_minus_A": 5.85262105963487e-06
+    },
+    {
+      "system_id": "C2_memory",
+      "mismatch": "memory",
+      "policies": {
+        "A": {
+          "nmse": 0.7229697425606807,
+          "family": "nl2",
+          "cost": 8,
+          "n_commit": 0
+        },
+        "B": {
+          "nmse": 0.5335598181839879,
+          "family": "nl2",
+          "cost": 8,
+          "n_commit": 7
+        },
+        "C": {
+          "nmse": 0.2332519709578095,
+          "family": "memory3",
+          "cost": 8,
+          "n_commit": 0
+        },
+        "D": {
+          "nmse": 0.23329792439380698,
+          "family": "memory3",
+          "cost": 8,
+          "n_commit": 7
+        },
+        "ridge": {
+          "nmse": 0.6260075394741691,
+          "family": "ridge_lag1",
+          "cost": 8,
+          "n_commit": 0
+        }
+      },
+      "strongest": "C",
+      "D_minus_C": 4.595343599747559e-05,
+      "D_minus_A": -0.4896718181668737,
+      "C_minus_A": -0.4897177716028712,
+      "B_minus_A": -0.1894099243766928
+    },
+    {
+      "system_id": "C3_drift",
+      "mismatch": "observation",
+      "policies": {
+        "A": {
+          "nmse": 0.37469848113640614,
+          "family": "linear2",
+          "cost": 8,
+          "n_commit": 0
+        },
+        "B": {
+          "nmse": 0.3824605468614683,
+          "family": "linear2",
+          "cost": 8,
+          "n_commit": 7
+        },
+        "C": {
+          "nmse": 0.2882180997269216,
+          "family": "memory3",
+          "cost": 8,
+          "n_commit": 0
+        },
+        "D": {
+          "nmse": 0.2882180997269216,
+          "family": "memory3",
+          "cost": 8,
+          "n_commit": 7
+        },
+        "ridge": {
+          "nmse": 0.12263908231103098,
+          "family": "ridge_lag1",
+          "cost": 8,
+          "n_commit": 0
+        }
+      },
+      "strongest": "ridge",
+      "D_minus_C": 0.0,
+      "D_minus_A": -0.08648038140948455,
+      "C_minus_A": -0.08648038140948455,
+      "B_minus_A": 0.007762065725062162
+    },
+    {
+      "system_id": "C4_memory_pair_B",
+      "mismatch": "memory",
+      "policies": {
+        "A": {
+          "nmse": 1.2364201314372658,
+          "family": "linear2",
+          "cost": 8,
+          "n_commit": 0
+        },
+        "B": {
+          "nmse": 1.0429973663336223,
+          "family": "linear2",
+          "cost": 8,
+          "n_commit": 7
+        },
+        "C": {
+          "nmse": 1.3077318164406209,
+          "family": "obs_drift",
+          "cost": 8,
+          "n_commit": 0
+        },
+        "D": {
+          "nmse": 1.3077318164406209,
+          "family": "obs_drift",
+          "cost": 8,
+          "n_commit": 7
+        },
+        "ridge": {
+          "nmse": 0.8774743295025363,
+          "family": "ridge_lag1",
+          "cost": 8,
+          "n_commit": 0
+        }
+      },
+      "strongest": "ridge",
+      "D_minus_C": 0.0,
+      "D_minus_A": 0.07131168500335505,
+      "C_minus_A": 0.07131168500335505,
+      "B_minus_A": -0.19342276510364353
+    },
+    {
+      "system_id": "C5_unrepresentable",
+      "mismatch": "representation",
+      "policies": {
+        "A": {
+          "nmse": 0.36152156624872456,
+          "family": "linear2",
+          "cost": 8,
+          "n_commit": 0
+        },
+        "B": {
+          "nmse": 0.42850152841672584,
+          "family": "nl2",
+          "cost": 8,
+          "n_commit": 7
+        },
+        "C": {
+          "nmse": 0.2168973249790948,
+          "family": "memory3",
+          "cost": 8,
+          "n_commit": 0
+        },
+        "D": {
+          "nmse": 0.2707429125036156,
+          "family": "memory3",
+          "cost": 8,
+          "n_commit": 7
+        },
+        "ridge": {
+          "nmse": 0.3532832315648443,
+          "family": "ridge_lag1",
+          "cost": 8,
+          "n_commit": 0
+        }
+      },
+      "strongest": "C",
+      "D_minus_C": 0.05384558752452079,
+      "D_minus_A": -0.09077865374510896,
+      "C_minus_A": -0.14462424126962975,
+      "B_minus_A": 0.06697996216800128
+    }
+  ]
+}
