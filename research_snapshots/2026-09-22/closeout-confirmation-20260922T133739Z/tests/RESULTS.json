@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "tests": 7,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "test_wall_seconds": 11.785,
+  "host": "liekkas",
+  "python": "3.12.13",
+  "threads": 1,
+  "gpu_used": false,
+  "archive_fold_replay": {
+    "cases": 24,
+    "point_rows": 1181301,
+    "prediction_models_per_case": 3,
+    "decision_policies_per_case": 4,
+    "agreement": "bitwise equality",
+    "uses": "archived fold models, not newly trained combined-scene models"
+  },
+  "cached_evidence_replay": {
+    "cases": ["scan24_window_left__native", "scan37_scissor_cross__native"],
+    "arms": ["A_all", "B_all", "A_fit", "B_fit"],
+    "full_offsets": "bitwise equality",
+    "post_feature_columns_8_to_63": "bitwise equality",
+    "pre_feature_columns_0_to_7": "allclose rtol=2e-7 atol=1e-6 (archived float32 anchors)"
+  },
+  "runtime_checks": [
+    "strict positive acceptance and KEEP/A/B tie order",
+    "hashed model loading and repeatable serialization",
+    "count-matched random control and exact KEEP rows",
+    "bad feature shape rejection",
+    "camera-array construction on synthetic unsupported constant images",
+    "no old-workspace, scene-loader or evaluator imports"
+  ],
+  "independent_scene_validation": false,
+  "clean_environment_installation_tested": false,
+  "new_dataset_adapter_ready": false
+}
