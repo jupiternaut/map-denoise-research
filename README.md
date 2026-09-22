@@ -1,5 +1,8 @@
 # 几何滤波与元研究实验（历史探索 / V28 条件恢复确认）
 
+**Windows / RTX 5080 开发交接：** [架构与任务入口](handoffs/v28-windows-5080/README.md) · [给 Codex 的启动提示词](handoffs/v28-windows-5080/START_WINDOWS.md) · [下载完整 ZIP](https://github.com/jupiternaut/map-denoise-research/raw/refs/heads/main/handoffs/v28-windows-5080.zip)。
+将 ZIP 解压后在该目录打开 Windows Codex，使用启动提示词执行；当前发布的是设计和 CPU 参考包，CUDA 后端尚待实现。
+
 最新更新：**2026-09-22**。[收尾确认与公开范围](publication/CLOSEOUT_20260922.md)。
 冻结主方法在三个新场景的 ±3 mm 射线偏移恢复上，MSE 分别改善 36.08% / 33.79%；
 原始输入则恶化 8.12%，12 个 ROI 均未改善。保留条件恢复结论，原始输入默认仍为 identity。
