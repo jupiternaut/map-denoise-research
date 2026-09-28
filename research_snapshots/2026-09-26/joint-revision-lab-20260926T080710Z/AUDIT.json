@@ -1,0 +1,225 @@
+{
+  "status": "PASS",
+  "host": "liekkas",
+  "workspace": "/home/grf/Documents/Codex/2026-09-26/joint-revision-lab-20260926T080710Z",
+  "historical_contract": {
+    "source_sha256": {
+      "/home/grf/Documents/Codex/2026-09-22/v28-surface-experts-20260922T125505Z/selector_pipeline.py": "a7e2c7c37550d88404a9ebdc33b7800c76f362e614232905d767dfe2509058a7",
+      "/home/grf/Documents/Codex/2026-09-22/v28-surface-experts-20260922T125505Z/SELECTOR_PROTOCOL.md": "0825af7e5da1a66c5d9a44d5100f003b8277765f0fbb9a317415ccdd045b6f59",
+      "/home/grf/Documents/Codex/2026-09-22/closeout-confirmation-20260922T133739Z/prepare_release.py": "1d93980e44d18af618c81112ecbc94b171e11ea3279085c8a2510bc1e3692d56",
+      "/home/grf/Documents/Codex/2026-09-22/closeout-confirmation-20260922T133739Z/package/v28_closeout/runtime.py": "1ad02c1d2cfa6f2092bfb6d8a4dc628153301f8e4a245460b180e556a32e0585",
+      "/home/grf/Documents/Codex/2026-09-22/closeout-confirmation-20260922T133739Z/package/v28_closeout/models/MODEL_LOCK.json": "995020b288b952d20f84c9282414540336f5531c4af988df0c0dee549487fd1e"
+    },
+    "old_decision": "argmax(0, post_A, post_B); ties KEEP then A",
+    "old_target": "raw source NN squared-error gain e0-eA/B in mm2",
+    "old_features": "separate candidate-specific cached64 post features",
+    "old_fit": "two independent unweighted squared-error HGB regressors",
+    "package_rows_per_regressor": 79594,
+    "novelty_limit": "KEEP/A/B selection and raw mm2 gains already existed. This experiment changes shared pair context, candidate support and case/base-loss weighting; it is a method ablation, not established literature novelty."
+  },
+  "development_alignment": {
+    "status": "PASS",
+    "rows": 79594,
+    "calibration_rows": 78598,
+    "scenes": [
+      24,
+      37
+    ],
+    "case_count": 24,
+    "metadata_equal": [
+      "scene",
+      "condition",
+      "case_id",
+      "row_id",
+      "calibration_support",
+      "e0"
+    ],
+    "cached_A_B_different_rows": 79594,
+    "loss_columns": [
+      "KEEP_e0",
+      "A_e1",
+      "B_e1"
+    ],
+    "loss_unit": "mm2",
+    "records": [
+      {
+        "case": "scan24_gable_center__minus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan24_gable_center__native",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan24_gable_center__plus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan24_turret_join__minus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan24_turret_join__native",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan24_turret_join__plus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan24_wall_control__minus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan24_wall_control__native",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan24_wall_control__plus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan24_window_left__minus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan24_window_left__native",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan24_window_left__plus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan37_clamp_jaw__minus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan37_clamp_jaw__native",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan37_clamp_jaw__plus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan37_driver_handle__minus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan37_driver_handle__native",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan37_driver_handle__plus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan37_scissor_cross__minus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan37_scissor_cross__native",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan37_scissor_cross__plus3",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan37_stone_control__minus3",
+        "rows": 3154,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan37_stone_control__native",
+        "rows": 3333,
+        "feature_dim": 128
+      },
+      {
+        "case": "scan37_stone_control__plus3",
+        "rows": 3114,
+        "feature_dim": 128
+      }
+    ]
+  },
+  "pure_router_tests": {
+    "status": "PASS",
+    "tests_run": 14
+  },
+  "sealed_model_contract": {
+    "status": "PASS",
+    "model_dimensions": {
+      "independent_absolute": 96,
+      "joint_common": 196,
+      "joint_support": 260
+    },
+    "initial_prediction_mm2": {
+      "independent_absolute": [
+        -0.5600174080568637,
+        -0.3763549705309924
+      ],
+      "joint_common": [
+        -0.4681861892939284
+      ],
+      "joint_support": [
+        -0.4681861892939284
+      ]
+    },
+    "weighted_raw_gain_mean_verified": true,
+    "fit_rows": 78598,
+    "fit_rows_by_scene": {
+      "24": 39774,
+      "37": 38824
+    },
+    "actual_model_swap_rows": 1536,
+    "actual_model_swap_scores_and_outputs_exact": true,
+    "calibration_policies_recomputed": 15,
+    "all_natural_policies_are_strict_zero_threshold": true,
+    "source_hashes_verified": 11
+  },
+  "reference_interface_review": {
+    "status": "PASS",
+    "source_sha256": {
+      "router.py": "9ed511bbbcee2a773750393e2dc74a24ff1dfac02b55f9a741f120a175628e74",
+      "infer.py": "fec51fb6f76ff90fa2dfbe510438bb5cf8f8aa76b12b73e52e7b9aee30e0fd8a",
+      "support_features.py": "44b76dfa62423ca281f46d8991a36903e849d8e6b1e1a107f6377a1d0c2f0480",
+      "extract_support.py": "cac542072d85d57475c86aec4786b91f84deeb140ac18c6a05d92922ca2dc43a"
+    },
+    "scope": "Reviewed array scorer and observation extraction/inference sources; no replay-reference path, nearest-reference query or evaluator import. Development loss labels are consumed only by training/calibration."
+  },
+  "new_replay_outcomes_read_by_audit": false,
+  "replay_scenes_are_exposed": [
+    55,
+    65,
+    69
+  ],
+  "method_files_sha256": {
+    "common.py": "5470e875f1814a5e4d484469d7bf1cf3aa2e39655a2ec04c5ff8fb8d38b215dc",
+    "router.py": "9ed511bbbcee2a773750393e2dc74a24ff1dfac02b55f9a741f120a175628e74",
+    "train.py": "6449e686ce9a2832f34ed8fefcfade2cfe8e6ebe387fb786174c08d98ccc2eb1",
+    "infer.py": "fec51fb6f76ff90fa2dfbe510438bb5cf8f8aa76b12b73e52e7b9aee30e0fd8a"
+  },
+  "training_seal_sha256": "e77e71dcf8dd1780952d1ec946ef3fb459f170a033ad7ea74ac6fa41490db5bd"
+}

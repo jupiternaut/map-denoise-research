@@ -1,10 +1,10 @@
 # Map Denoise Research
 
-**多视图几何修复、收益筛选与科研决策实验。** 更新于 **2026-09-22**。
+**多视图证据驱动的多假设几何修订。** 更新于 **2026-09-28**。
 
-本仓库保存算法源码、冻结协议、正负结果、测试及修订记录。目前的几何主线是：利用照片与相机标定构造局部几何修正，再预测修正收益，选择移动或保留原点。
+本仓库保存算法源码、冻结协议、正负结果、测试及修订记录。目前的几何主线是：利用照片与相机标定构造几种可能的表面解释，再决定保留原点还是接受修正。最近已实现收益选择、连续射线位置搜索，以及局部一／双表面逆深度混合回归。
 
-当前结果支持**有条件的偏移恢复**，不支持默认开启的通用滤波器。Windows / RTX 5080 交接包已发布，**CUDA 后端尚待实现**。
+当前结果支持**有条件的偏移恢复**，不支持默认开启的通用滤波器；部署默认仍为 `identity`。最新多表面场没有超过旧恢复器，但实验把候选空间、曲面拟合与输出选择的缺口分开了。Windows / RTX 5080 交接包仍对应 9 月 22 日 CPU 版本，**不包含后续实验的 GPU 移植，CUDA 后端尚待实现**。
 
 ## 从这里开始
 
@@ -12,12 +12,53 @@
 |---|---|
 | 在 Windows 上交给 Codex 开发 | [启动提示词](handoffs/v28-windows-5080/START_WINDOWS.md) · [完整交接 ZIP](https://github.com/jupiternaut/map-denoise-research/raw/8666e3ffee09a3a1a105fa523ed94ae2218fde01/handoffs/v28-windows-5080.zip) |
 | 看工具架构与验收范围 | [架构](handoffs/v28-windows-5080/ARCHITECTURE.md) · [实施任务](handoffs/v28-windows-5080/TASK.md) · [验收标准](handoffs/v28-windows-5080/ACCEPTANCE.md) |
-| 看最新几何实验 | [完整报告](research_snapshots/2026-09-22/closeout-confirmation-20260922T133739Z/EXPERIMENT_REPORT.md) · [协议](research_snapshots/2026-09-22/closeout-confirmation-20260922T133739Z/EXPERIMENT_PROTOCOL.md) · [执行口径补充](research_snapshots/2026-09-22/closeout-confirmation-20260922T133739Z/EXECUTION_NOTE.md) |
-| 复查原始指标 | [METRICS.csv](research_snapshots/2026-09-22/closeout-confirmation-20260922T133739Z/evaluation/METRICS.csv) · [汇总](research_snapshots/2026-09-22/closeout-confirmation-20260922T133739Z/evaluation/SUMMARY.json) |
+| 看最近七轮实验及发布范围 | [9 月 26 日实验导航与 9 月 28 日发布说明](publication/REPLAY_20260928.md) |
+| 看最新多表面构造 | [报告](research_snapshots/2026-09-26/multisurface-field-lab-20260926T102842Z/REPORT.md) · [数学模型](research_snapshots/2026-09-26/multisurface-field-lab-20260926T102842Z/MODEL.md) · [机制分类与数学定位](publication/METHOD_POSITIONING_20260928.md) |
+| 复查最新原始指标 | [METRICS.csv](research_snapshots/2026-09-26/multisurface-field-lab-20260926T102842Z/run_evidence/evaluation/METRICS.csv) · [汇总](research_snapshots/2026-09-26/multisurface-field-lab-20260926T102842Z/run_evidence/evaluation/SUMMARY.json) |
+| 看先前冻结方法的确认实验 | [9 月 22 日完整报告](research_snapshots/2026-09-22/closeout-confirmation-20260922T133739Z/EXPERIMENT_REPORT.md) · [协议](research_snapshots/2026-09-22/closeout-confirmation-20260922T133739Z/EXPERIMENT_PROTOCOL.md) · [执行口径](research_snapshots/2026-09-22/closeout-confirmation-20260922T133739Z/EXECUTION_NOTE.md) |
 | 阅读当前 CPU 实现 | [包说明](handoffs/v28-windows-5080/reference/package/README.md) · [运行时](handoffs/v28-windows-5080/reference/package/v28_closeout/runtime.py) · [表面假设评分](handoffs/v28-windows-5080/reference/package/v28_closeout/surfacelet.py) |
 | 阅读元研究与历史探索 | [元研究导航](meta_research/README.md) · [V23–V25 / CPR / 精确搜索](PROGRESS_20260916.md) · [V19–V22](PROGRESS_V22.md) |
 
-## 最新结果：跨场景条件恢复
+## 最新进展：从候选位置到共享多表面
+
+9 月 26 日的七轮实验使用 scan55/65/69 × 每场景四个 ROI × 五种输入状态，共 **60 案例**。这些场景已经看过，属于**旧场景开发回放，不是新的独立确认**。后续拟合使用的照片也不再算作该方法的留出验证视图。
+
+下面是相对不处理的 **MSE 降幅**；正数改善，负数恶化。它不是“正确点比例”，也不是课题完成进度。
+
+| 可执行方法 | 原始输入 | −1 mm | +1 mm | −3 mm | +3 mm |
+|---|---:|---:|---:|---:|---:|
+| 旧恢复器，开发锁定的偏重恢复工作点 | −7.67% | 1.16% | 10.04% | 46.99% | 39.02% |
+| 同路由、照片网格步长 | −6.40% | 3.18% | 9.81% | 47.21% | 38.55% |
+| 新双表面场，本轮主方法 | −83.35% | −84.10% | −41.00% | 23.89% | 21.95% |
+
+**已获得的具体内容：**
+
+- 旧恢复器在 ±3 mm 回放条件均改善 12/12 个 ROI，但原始输入仍全部退化；没有把恢复收益当成原始数据上的净收益。
+- 连续线段 Oracle 有解析计算与检索核验；实际照片选步长仅有小幅条件收益，没有全面升级。
+- 新增共享曲面模块：局部六参数逆深度场、EM 候选—表面归属、可见性及局部图选择。双面相对单面在 −3/+3 mm 有 11/12、12/12 个 ROI 更好，但整个系统仍弱于旧恢复器。
+- 保留了表示／拟合与选择的分项诊断，以及可以独立检查的表格、源码、机制测试和科研图。
+
+### Oracle 是诊断，不是可部署成绩
+
+| 候选域：用激光参考逐点选最好位置 | −3 mm | +3 mm |
+|---|---:|---:|
+| 原 KEEP/A/B 三个位置 | 69.94% | 63.27% |
+| 原位置之间的连续线段 | 74.69% | 64.99% |
+| 扩大为九个射线位置，不含新曲面 | 90.66% | 92.57% |
+| 九位置 + 新拟合曲面 | 90.95% | 92.75% |
+| 新池与原连续位置的并集 | 91.94% | 93.10% |
+
+**主要上限增量来自更宽的位置搜索。** 在九位置池之外，新曲面只再增加约 0.28/0.18 个百分点，不能把 91.94%/93.10% 全归功于“场空间”。仅 KEEP/K2 两张场候选的 [Oracle 事后诊断](research_snapshots/2026-09-26/multisurface-field-lab-20260926T102842Z/run_evidence/posthoc_field_capacity/SUMMARY.json)为 62.69%/62.66%，说明曲面拟合未保留宽池里的全部有用坐标，当前选择也未兑现自身候选潜力。候选不一定满足实际方法的有效视图／KEEP 条件；这些数不是物理极限，也不证明可直接实现。
+
+![多表面场实际表现与真值诊断分开展示](research_snapshots/2026-09-26/multisurface-field-lab-20260926T102842Z/figures/multisurface_gain.png)
+
+### 原始输入到底差多少？
+
+同一固定支持下，原始输入到激光参考最近点的区域等权 **MAE 为 0.562 mm，MSE 为 0.753 mm²，汇总 MSE 开方为 0.868 mm，1 mm 内比例为 90.18%**。这不是整数据集逐点混合统计，也不是激光参考无误差的证明。单向最近邻误差不单独保证覆盖、薄层身份或拓扑。
+
+下一步优先检验**观测是否足以识别已有好候选**：保留逐视图证据，比较位置与曲面法线联合解释，以及未参与候选拟合的视图。这里是研究方向，不是已经完成的新实验。[发布范围与复现限制](publication/REPLAY_20260928.md)
+
+## 先前确认：9 月 22 日冻结方法的跨场景条件恢复
 
 固定主方法为 `post_A_keep`，模型使用旧开发场景 scan24/37 的归档样本训练。scan40 只作工程适配；scan55/65/69 为三个同来源确认场景，每场景四个 ROI。所有构造输出封存后才获取并打开独立几何参考，未依据确认结果改模型或阈值。
 
@@ -43,7 +84,7 @@
 - 参考支持范围与照片 ROI 不完全一致，完整性指标另有[支持范围诊断](research_snapshots/2026-09-22/closeout-confirmation-20260922T133739Z/SUPPORT_DIAGNOSTIC.json)。该诊断不撤销原始输入的负结果，也不能证明完整性误差全由窗口造成。
 - 尚未证明真实薄层身份保持或优于成熟外部方法。详见[验收判定](research_snapshots/2026-09-22/closeout-confirmation-20260922T133739Z/EXPERIMENT_DECISION.json)。
 
-## 方法与输入
+## 已发布 CPU 参考方法与输入
 
 ```text
 已有几何 + 参考照片/相机 + 四张有序来源照片/相机
@@ -54,7 +95,7 @@
   → KEEP / 修正点 + 决策记录
 ```
 
-当前实现基于 NumPy、SciPy 和 scikit-learn，核心 API 为 `construct`、`apply_arrays`。输入需要可靠的单位、相机与图像坐标约定；**仅提供任意 PLY 不足以运行同一方法**。模型预测的是平方误差收益，不是校准后的安全概率。推理不读取评价真值。
+这份 9 月 22 日参考实现基于 NumPy、SciPy 和 scikit-learn，核心 API 为 `construct`、`apply_arrays`。输入需要可靠的单位、相机与图像坐标约定；**仅提供任意 PLY 不足以运行同一方法**。模型预测的是平方误差收益，不是校准后的安全概率。推理不读取评价真值。9 月 26 日新曲面模块入口为 [`fit_local_fields`](research_snapshots/2026-09-26/multisurface-field-lab-20260926T102842Z/field_model.py)，实验适配器仍依赖原机归档路径，不是该参考包的即插即用更新。
 
 ## Windows / WSL2 / RTX 5080
 
@@ -71,6 +112,14 @@ GUI / TUI / MCP 预留共享应用 API，不是第一版前置要求。文档中
 ZIP SHA-256：`6c4f5c1aea8ed74960c3271f164ec75eed7a97a4a81f3a29367bdf4be7cd3139`。
 
 ## 最小检查与复现状态
+
+最新公开快照可以只用 Python 标准库检查文件哈希、720 行主指标、汇总及 README 关键数值，无需原始数据或原机路径：
+
+```bash
+python -B publication/verify_replay_20260928.py
+```
+
+这是**归档与表格复算**，不重新执行几何推理。可独立运行的曲面／图机制测试，以及整场回放所缺的数据与依赖，见[本次发布说明](publication/REPLAY_20260928.md)。
 
 在仓库根目录，有 Python 即可核对交接包文件哈希，不会加载模型或运行实验：
 
@@ -91,12 +140,13 @@ python -B handoffs/v28-windows-5080/reference/tests/test_runtime.py
 |---|---|
 | 冻结 CPU 算法、模型与契约测试 | 已发布；原机验证 |
 | 三个同来源新场景的条件恢复实验 | 已完成；正负结果均公开 |
+| 后续七轮旧场景回放、连续搜索与多表面场 | 已完成；源码与指标公开，未升级默认 |
 | Windows / WSL2 架构与 Codex 交接包 | 已发布 |
 | CUDA 后端与 RTX 5080 等价/速度测试 | 待实现、待实测 |
 | 对口成熟外部基线 | 待补；官方 COLMAP 本轮未运行 |
 | 干净环境从数据到结果的完整复现 | 待补 |
 
-**本轮几何确认实验已经结束。** 后两项属于研究收尾证据；GPU 移植属于工程任务。新的灵敏度实验需另立范围，不能把每个新任务都当成本轮尚未完成。
+**9 月 22 日确认实验与 9 月 26 日回放批次均已结束。** 外部基线与干净环境完整复现属于研究收尾证据；GPU 移植属于工程任务。新构造需另立范围，不能把每个新任务都当成旧批次尚未完成。
 
 ## 两条研究线与历史入口
 
@@ -110,7 +160,8 @@ python -B handoffs/v28-windows-5080/reference/tests/test_runtime.py
 | 位置 | 内容 |
 |---|---|
 | `handoffs/v28-windows-5080/` | 当前工程交接及可独立核验的 CPU 参考包 |
-| `research_snapshots/2026-09-22/` | 最新确认实验源码、协议、指标及封存记录 |
+| `research_snapshots/2026-09-26/` | 七轮回放源码、协议、轻量结果、图与审计；`run_evidence/` 对应外部运行目录的公开子集 |
+| `research_snapshots/2026-09-22/` | 先前冻结方法的确认实验源码、协议、指标及封存记录 |
 | `research_snapshots/2026-09-15/`、`2026-09-16/` | V25、CPR、后续机制和有限精确搜索快照 |
 | `meta_research/` | Hermes 与受限开放模型挑战 |
 | `exploration_v*/`、`reconstruction_v22/` 等 | 历史几何实验与实现 |
@@ -118,6 +169,6 @@ python -B handoffs/v28-windows-5080/reference/tests/test_runtime.py
 
 这是研究与工程交接仓库，不是全部磁盘数据的备份。原始点云/照片、第三方数据包、运行环境及大部分逐点二进制输出未收录；完整历史回放仍可能需要原机材料和路径配置。冻结模型已包含在当前参考包中。
 
-文件来源、哈希和排除范围见 [确认实验发布清单](publication/CLOSEOUT_20260922_MANIFEST.json)、[Windows 交接发布说明](publication/WINDOWS_HANDOFF_20260922.md)及[旧公开快照说明](publication/README.md)。历史封存清单可能包含未发布文件，不能把“公开子集完整”当作“所有原始运行材料齐备”。
+文件来源、哈希和排除范围见 [最新回放发布清单](publication/REPLAY_20260928_MANIFEST.json)、[确认实验发布清单](publication/CLOSEOUT_20260922_MANIFEST.json)、[Windows 交接发布说明](publication/WINDOWS_HANDOFF_20260922.md)及[旧公开快照说明](publication/README.md)。历史封存清单可能包含未发布文件，不能把“公开子集完整”当作“所有原始运行材料齐备”。
 
 原始协议、报告及负结果不覆盖；README 只负责导航与当前状态。第三方代码、数据和模型仍遵循其各自许可，本页不新增授权或许可。

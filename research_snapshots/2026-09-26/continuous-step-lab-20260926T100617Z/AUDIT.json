@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "host": "liekkas",
+  "scope": "independent numerical and metric-contract audit, not independent scene confirmation",
+  "synthetic_exhaustive": {
+    "segments": 692,
+    "reference_points_per_case": 257,
+    "total_projected_pairs": 177844,
+    "zero_length_segments": 28,
+    "max_lambda_difference": 2.220446049250313e-16,
+    "max_squared_distance_absolute_difference": 4.656612873077393e-10,
+    "relative_tolerance": 1e-12,
+    "absolute_tolerance": 1e-12,
+    "passed": true
+  },
+  "real_exhaustive": {
+    "case": "scan55_roi0__minus3",
+    "sampled_support_rows": 32,
+    "branches": 2,
+    "full_reference_rows": 97914,
+    "total_projected_pairs": 6266496,
+    "max_squared_distance_difference_mm2": 2.220446049250313e-16,
+    "max_lambda_difference": 2.220446049250313e-16,
+    "passed": true
+  },
+  "observation_artifacts": {
+    "cases": 6,
+    "active_rows": 117330,
+    "accepted_quadratic_rows": 15139,
+    "common_source_grid_reproduction": true,
+    "fresh_quadratic_cost_decreased": true
+  },
+  "csv_summary": {
+    "unique_rows": 600,
+    "recomputed_metric_cells": 600,
+    "max_absolute_difference": 5.329070518200751e-15,
+    "weights": "four ROI equally within each scene, three scenes equally",
+    "union_oracle_le_discrete_all_cases": true,
+    "selected_oracle_le_prior_recovery_all_cases": true
+  },
+  "fixed_issue": "constant controls omitted interior-step metric arrays; corrected before evaluation; primary MSE unaffected",
+  "notes": [
+    "GT references are evaluator-only; all actual inference stages were sealed before new evaluation reference access.",
+    "Selected-route oracle need not improve on unrestricted discrete A/B oracle.",
+    "New move_RMS_mm uses fixed support; prior visibility RMS used all rows.",
+    "Reverse MAE compares cropped reference to supported output footprint, not official full-scene completeness.",
+    "Continuous oracle is exact over finite reference samples and fixed line segments, not continuous physical surface truth."
+  ],
+  "sha256": {
+    "segment_oracle.py": "23de897b32bee440359a3a66f6fc8bf826adf7a41877eb814a51bb129a2bafd6",
+    "step_observation.py": "0acc9a66028d21d65074d1c0fc0ac57eec9de74670b12bbe7536ebffa00545c7",
+    "evaluate.py": "10ac07158831d4ab84931fbe832d4babc80f17793270c17c756b5778ba77b7ee",
+    "/srv/slam-research/grf/map-denoise/runs/continuous-step-20260926T100617Z/evaluation/SEALED.json": "9b0dbd2711615ef40fc7bc47ba85dc341a071bc831ba91c01eeaf9df84a05b76",
+    "/srv/slam-research/grf/map-denoise/runs/continuous-step-20260926T100617Z/evaluation/METRICS.csv": "bdc70f0ca8571ea6fd410a02a4a47c3d0d4e4643796cc19a69f700c2120795e6",
+    "/srv/slam-research/grf/map-denoise/runs/continuous-step-20260926T100617Z/evaluation/SUMMARY.json": "ac052445b2d99c9c93f797dd1fee7bf180c6bfd91305f29c0cefe5a48f4382e7"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "host": "liekkas",
+  "stage_files": {
+    "evidence/scan24": 28,
+    "evidence/scan37": 28,
+    "evidence/scan55": 44,
+    "evidence/scan65": 44,
+    "evidence/scan69": 44,
+    "training": 7,
+    "inference/scan55": 142,
+    "inference/scan65": 142,
+    "inference/scan69": 142,
+    "evaluation": 124
+  },
+  "prior_final_seal_files_unchanged": 540,
+  "audits": {
+    "AUDIT_EVIDENCE.json": "PASS",
+    "AUDIT_SELECTION.json": "PASS",
+    "AUDIT_METRICS.json": "PASS",
+    "figures/VALIDATION.json": "PASS",
+    "evaluation/REPRODUCTION.json": "PASS"
+  },
+  "tests": {
+    "command": [
+      "/srv/slam-research/grf/map-denoise/envs/open3d-019/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "test_paired_features.py"
+    ],
+    "returncode": 0,
+    "output": "test_candidate_swap (test_paired_features.PairedFeaturesTest.test_candidate_swap) ... ok\ntest_disjoint_one_sided_validity_has_empty_paired_support (test_paired_features.PairedFeaturesTest.test_disjoint_one_sided_validity_has_empty_paired_support) ... ok\ntest_empty_points (test_paired_features.PairedFeaturesTest.test_empty_points) ... ok\ntest_exact_aggregation_and_gate (test_paired_features.PairedFeaturesTest.test_exact_aggregation_and_gate) ... ok\ntest_feature_schema (test_paired_features.PairedFeaturesTest.test_feature_schema) ... ok\ntest_invalid_gate_inputs_rejected (test_paired_features.PairedFeaturesTest.test_invalid_gate_inputs_rejected) ... ok\ntest_invalid_scores_rejected (test_paired_features.PairedFeaturesTest.test_invalid_scores_rejected) ... ok\ntest_missing_support_is_not_favorable_evidence (test_paired_features.PairedFeaturesTest.test_missing_support_is_not_favorable_evidence) ... ok\ntest_no_mutation_alias_or_edit_for_identical_candidates (test_paired_features.PairedFeaturesTest.test_no_mutation_alias_or_edit_for_identical_candidates) ... ok\ntest_range_tolerance_clips_without_mutation (test_paired_features.PairedFeaturesTest.test_range_tolerance_clips_without_mutation) ... ok\ntest_row_and_view_permutation (test_paired_features.PairedFeaturesTest.test_row_and_view_permutation) ... ok\ntest_zero_is_valid_but_ties_abstain (test_paired_features.PairedFeaturesTest.test_zero_is_valid_but_ties_abstain) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.026s\n\nOK\n"
+  },
+  "evaluation_rows": 2460,
+  "exported_ply": 240,
+  "wall_seconds": 1.069519829005003,
+  "scope": "EXPOSED_REPLAY_NOT_GLOBAL_ARCHITECTURE_OPTIMALITY"
+}

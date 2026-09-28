@@ -1,0 +1,68 @@
+{
+  "status": "PASS",
+  "scope": "Implementation and numerical audit, not a positive method efficacy verdict",
+  "host": "liekkas",
+  "out": "/srv/slam-research/grf/map-denoise/runs/multisurface-field-20260926T102842Z",
+  "primary": "multi_field",
+  "data_role": "exposed_replay",
+  "cases": 60,
+  "actual_PLY_count": 420,
+  "metric_rows": 720,
+  "unique_metric_rows": 720,
+  "all_inference_sealed_before_reference_access": true,
+  "fixed_native_row_support": true,
+  "reference_voxel_mm": 0.8,
+  "aggregation": "ROI equally, then scene equally",
+  "unit_tests": {"runner": "unittest", "passed": 6, "failed": 0, "initial_pytest_attempt": "Not installed; no installation, switched to the test file's native unittest runner"},
+  "main_aggregation": {"independently_recomputed_cells": 660, "max_absolute_difference": 3.552713678800501e-15},
+  "recorded_reproduction": {"historical_metric_checks": 240, "independent_NN_checks": 120, "sampled_rows_per_NN_check": 64, "max_absolute_difference": 0.0},
+  "separate_oracle_materialization_audit": {
+    "case": "scan55_roi0__minus3", "sampled_rows": 64, "pool_candidates": 12,
+    "backend": "Open3D compute_point_cloud_distance",
+    "max_distance_difference_mm": 9.96425164601078e-15,
+    "max_coordinate_set_difference_mm": 1.464821375527116e-14,
+    "n_reference": 97914, "n_source": 70954
+  },
+  "condition_order": ["native", "minus1", "plus1", "minus3", "plus3"],
+  "MSE_gain_percent": {
+    "identity": [0, 0, 0, 0, 0],
+    "prior_recovery": [-7.673237, 1.163938, 10.035850, 46.994378, 39.022162],
+    "point_wta": [-106.267551, -82.891620, -44.542575, 33.678536, 27.725703],
+    "single_field": [-70.215665, -92.360705, -41.588256, 12.210743, 10.132031],
+    "multi_field": [-83.351583, -84.097294, -41.000108, 23.886587, 21.947919],
+    "multi_field_visibility": [-94.434472, -99.309478, -51.325363, 19.059498, 15.939951],
+    "multi_field_graph": [-80.117129, -88.662843, -43.732873, 21.032878, 18.794923],
+    "oracle_discrete": [32.601952, 38.872898, 43.897085, 69.942709, 63.266963],
+    "oracle_continuous": [38.969977, 49.612518, 49.463267, 74.690546, 64.985326],
+    "oracle_proposals": [64.221388, 65.854433, 73.316114, 90.664803, 92.574102],
+    "oracle_all_layers": [65.357945, 67.406928, 74.703313, 90.945169, 92.750772],
+    "oracle_expanded": [67.636917, 70.642546, 76.317523, 91.944188, 93.102518]
+  },
+  "paired_ROI_wins_ties_losses_vs_prior_recovery": {
+    "multi_field": [[1,0,11],[2,0,10],[1,0,11],[3,0,9],[3,0,9]],
+    "multi_field_visibility": [[1,0,11],[2,0,10],[1,0,11],[3,0,9],[3,0,9]],
+    "multi_field_graph": [[1,0,11],[2,0,10],[1,0,11],[3,0,9],[3,0,9]]
+  },
+  "posthoc_field_capacity": {
+    "status": "PASS", "post_hoc": true, "metric_rows": 120,
+    "independently_recomputed_cells": 70, "max_aggregation_difference": 8.881784197001252e-16,
+    "actual_output_membership_checks": 120, "max_coordinate_error_mm": 0.0,
+    "wall_seconds": 19.436331878008787,
+    "oracle_K1_only_gain_percent": [26.380813,25.728396,29.121384,45.814972,47.421348],
+    "oracle_K2_only_gain_percent": [44.491416,43.515570,44.152983,62.691334,62.657286],
+    "scope": "Pointwise GT choice only among exported KEEP/K1 or KEEP/K2a/K2b; ignores fresh common-view validity, so it is not an attainable bound under the current hard-KEEP rule or a deployed selector"
+  },
+  "fixed_pre_inference_defect": "Explicitly excluded self indices from graph neighbors under duplicate UV; full inference uses corrected version",
+  "timing_note": "scan69_roi0__minus1 evaluation wall time 70.45s includes scheduler SIGSTOP pause; do not treat as pure compute runtime",
+  "metric_notes": [
+    "Movement RMS denominator is fixed support, not all PLY rows or moved-only rows",
+    "Reverse MAE reflects cropped reference versus source footprint, not official full-scene completeness",
+    "Finite oracle pools may contain photometrically invalid positions and cannot be treated as attainable by the current observation rule",
+    "All-layers oracle is not the K2 selector's restricted capacity; use separate posthoc K2-only diagnostic",
+    "point_wta and field outputs have different candidate-set common-view masks, so their difference is not a regularization-only ablation"
+  ],
+  "main_seal_sha256": "15dd0f7688ab730162df19af76d1d28795eefe0066827a837037cce00c3189ff",
+  "posthoc_seal_sha256": "33e25b3f8fa87773886c91eb3981caebc3f468fe0377347fa2b5155a67603b97",
+  "evaluate_py_sha256": "0e774947a251ade2177714967586c155e4fbabcc401735b32aede4d08964c2b0",
+  "posthoc_py_sha256": "61f613b3d5997ebff53667003e75108609e487ba7801f72cef587d95c3721563"
+}

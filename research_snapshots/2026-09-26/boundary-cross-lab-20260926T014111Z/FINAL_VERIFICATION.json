@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "host": "liekkas",
+  "stage_files": {
+    "data": 3,
+    "evidence/scan24": 28,
+    "evidence/scan37": 28,
+    "evidence/scan55": 44,
+    "evidence/scan65": 44,
+    "evidence/scan69": 44,
+    "training": 7,
+    "inference/scan55": 122,
+    "inference/scan65": 122,
+    "inference/scan69": 122,
+    "evaluation": 125
+  },
+  "prior_final_seal_files_unchanged": {
+    "/home/grf/Documents/Codex/2026-09-26/reserved-evidence-lab-20260926T011717Z": 786,
+    "/home/grf/Documents/Codex/2026-09-26/relative-gain-lab-20260926T004220Z": 540
+  },
+  "audits": {
+    "AUDIT_PROVENANCE.json": "PASS",
+    "AUDIT_DATA.json": "PASS",
+    "AUDIT_EVIDENCE.json": "PASS",
+    "AUDIT_SELECTION.json": "PASS",
+    "AUDIT_METRICS.json": "PASS",
+    "AUDIT_HASHES.json": "PASS",
+    "data/B_LABEL_REPRODUCTION.json": "PASS",
+    "evaluation/REPRODUCTION.json": "PASS",
+    "figures/VALIDATION.json": "PASS",
+    "figures/VISUAL_REVIEW.json": "PASS"
+  },
+  "tests": {
+    "command": [
+      "/srv/slam-research/grf/map-denoise/envs/open3d-019/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "test_candidate_contract.py"
+    ],
+    "returncode": 0,
+    "output": "test_default_and_explicit_candidate_features_are_b (test_candidate_contract.CandidateContractTests.test_default_and_explicit_candidate_features_are_b) ... ok\ntest_fit_passes_candidate_specific_normalized_gain_and_rows (test_candidate_contract.CandidateContractTests.test_fit_passes_candidate_specific_normalized_gain_and_rows) ... ok\ntest_missing_proposal_does_not_become_positive_evidence (test_candidate_contract.CandidateContractTests.test_missing_proposal_does_not_become_positive_evidence) ... ok\ntest_pair_margin_is_proposal_minus_incumbent_correlation (test_candidate_contract.CandidateContractTests.test_pair_margin_is_proposal_minus_incumbent_correlation) ... ok\ntest_replay_feature_filename_keeps_candidate_identity (test_candidate_contract.CandidateContractTests.test_replay_feature_filename_keeps_candidate_identity) ... ok\ntest_threshold_is_strict_and_actions_are_exact (test_candidate_contract.CandidateContractTests.test_threshold_is_strict_and_actions_are_exact) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.511s\n\nOK\n"
+  },
+  "evaluation_rows": 2640,
+  "evaluation_arms": 44,
+  "replay_cases": 60,
+  "exported_ply": 180,
+  "wall_seconds": 3.2210468930134084,
+  "scope": "EXPOSED_REPLAY_CANDIDATE_EVIDENCE_CROSS_NOT_GLOBAL_OPTIMALITY"
+}
