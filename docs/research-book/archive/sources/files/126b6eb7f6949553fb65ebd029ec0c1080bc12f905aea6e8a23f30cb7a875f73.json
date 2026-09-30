@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "claims": [
+    {
+      "id": "P01",
+      "title": "输出、损失与支持身份",
+      "status": "definition_contract",
+      "statement": "同一语义输出在同一评价协议中得同一分数；损失、参考、支持与单位固定。",
+      "assumptions": [
+        "评价器版本固定或给全部输出统一重评分"
+      ],
+      "falsifier_or_boundary": "相同XYZ因模型层数标签得到不同评分。",
+      "limits": "不是自然规律，也不选择哪一种任务损失。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "P02",
+      "title": "观测不可辨识下界",
+      "status": "proved_conditional_classical",
+      "statement": "目标±d、等先验且允许记录同分布时，平方风险至少d²。",
+      "assumptions": [
+        "两世界同记录分布",
+        "目标与平方损失固定"
+      ],
+      "falsifier_or_boundary": "新增许可实验使两世界观测分布不同，则旧信息下界不适用。",
+      "limits": "同一当前记录不等于所有未来实验不可区分。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "P03",
+      "title": "四缺口风险分解",
+      "status": "proved_conditional_identity",
+      "statement": "总风险差=表示+构造+信息+决策实现，嵌套与共同风险条件下各项非负。",
+      "assumptions": [
+        "共同P与L",
+        "F包含全部可用构造信息",
+        "有限非空嵌套集合或可测选择与可积条件",
+        "策略F可测且输出属于候选"
+      ],
+      "falsifier_or_boundary": "集合不嵌套、方法支持不同或风险不一致时不能沿用账本。真值流入F会改变信息问题并使部署归因失效，但不破坏恒等式本身。",
+      "limits": "Oracle差距不自动都是选择器可解决的差距；不作因果百分比。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "P04",
+      "title": "候选包含与输出可达性",
+      "status": "proved_conditional_elementary",
+      "statement": "嵌套候选的同损失Oracle不变差；固定输出映射不能产生像外结果。",
+      "assumptions": [
+        "旧输出坐标/语义/支持全部保留",
+        "同一损失"
+      ],
+      "falsifier_or_boundary": "新集合丢失旧输出或改变评价支持。",
+      "limits": "实际评分选择无单调性保证。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "P05",
+      "title": "校准排序与几何风险的两段桥梁",
+      "status": "proved_conditional_elementary",
+      "statement": "平方评分扰动≤2Mε+ε²；间隔>2δ保序；几何选择遗憾≤2(δ_cal+δ_align)/κ。",
+      "assumptions": [
+        "固定候选和观测",
+        "有限均匀误差界",
+        "κ>0及候选无关常数c",
+        "同一对应关系用于比较"
+      ],
+      "falsifier_or_boundary": "实际候选依赖校准却未固定；校准准确但错关联令δ_align大。",
+      "limits": "真相机排序不等于真几何最优；诊断界不冒充在线证书。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "P06",
+      "title": "后验估计与输出目标区分",
+      "status": "proved_conditional_classical",
+      "statement": "条件均值最小化平方坐标损失，但可落在两真实表面之间。",
+      "assumptions": [
+        "平方损失",
+        "有限二阶矩"
+      ],
+      "falsifier_or_boundary": "改为表面、分布或结构损失，均值最优结论不再适用。",
+      "limits": "MAP/quota/mean不可互相担保多终点。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "P07",
+      "title": "混合风险与选择收益",
+      "status": "proved_identity",
+      "statement": "总损失变化是各总体条件变化按比例加权，胜率不决定净收益。",
+      "assumptions": [
+        "互斥总体覆盖评价域",
+        "共同损失、计权与KEEP基准"
+      ],
+      "falsifier_or_boundary": "混用逐点与集合损失或重定义总体/权重。",
+      "limits": "KEEP仅相对损伤为零；筛选可能同时失去收益。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "P08",
+      "title": "连续凸投影与选择条件化",
+      "status": "proved_conditional_classical",
+      "statement": "真值在同一闭凸集合内时投影平方误差不增；边际覆盖不给被移动组同样风险界。",
+      "assumptions": [
+        "欧氏平方误差",
+        "非空闭凸集合",
+        "覆盖检验与投影同一集合",
+        "只投影或KEEP"
+      ],
+      "falsifier_or_boundary": "离散到首个网格、非凸多峰、错层真值或选后分母改变。",
+      "limits": "无损伤幅度、点集覆盖、拓扑或FDR自动保证。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "P09",
+      "title": "修复能力与反馈分账",
+      "status": "proved_conditional_inclusion",
+      "statement": "同信息/工具/成本且策略类包含时，最优自适应Bayes风险不大于最优初始条件化开环。",
+      "assumptions": [
+        "共同真实分布",
+        "同工具与初始信息",
+        "可执行策略包含",
+        "同预算/时域"
+      ],
+      "falsifier_or_boundary": "只求一个终点却比较另一个时刻；增加工具后归因于反馈。",
+      "limits": "严格收益和跨机制迁移需要实验。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "P10",
+      "title": "选择关联与证据相关性",
+      "status": "proved_counterexample",
+      "statement": "零均值高斯按符号分组后条件均值非零；不同视图来源不保证独立。",
+      "assumptions": [
+        "例子中的高斯与符号选择",
+        "相关性需按真实生成机制检查"
+      ],
+      "falsifier_or_boundary": "若某具体选择独立于噪声则该反例不直接适用。",
+      "limits": "反例否定通用推断，不证明所有真实失败都由选择偏差。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "P11",
+      "title": "历史、支持与接口充分性",
+      "status": "definition_and_conditional_information",
+      "statement": "cur替代完整H需充分性；空支持不是零风险；隐藏初态缺少观测可产生不可辨识。",
+      "assumptions": [
+        "定义完整历史及允许信息",
+        "明确空集回退与成本"
+      ],
+      "falsifier_or_boundary": "后验只用当前标签漏掉可区分历史；初始化隐藏答案未入接口。",
+      "limits": "TLA仅保证其已编码性质。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "H01",
+      "title": "可见性/关联是部分误修机制",
+      "status": "pending_real_mechanism",
+      "statement": "独立核验表面归属可改善部分候选选择。",
+      "assumptions": [
+        "独立可见性/对应证据",
+        "冻结候选及其他因素"
+      ],
+      "falsifier_or_boundary": "关联核验后风险未降，或结果由候选/标定同时变化解释。",
+      "limits": "已有反例和现象，不是全历史唯一根因。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "H02",
+      "title": "空间层比例与斜率混淆",
+      "status": "supported_controlled_pending_transfer",
+      "statement": "位置相关层支持可被恒定关联误解释成倾斜；空间关联利用该关系。",
+      "assumptions": [
+        "给定平行层族",
+        "可控层身份依赖与斜率"
+      ],
+      "falsifier_or_boundary": "去掉位置依赖/给真斜率后增益不按预测变化；新机制上不迁移。",
+      "limits": "V15/V16条件证据不证明普适曲面能力。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "H03",
+      "title": "目标外标定恢复排序",
+      "status": "synthetic_prediction_pending_real",
+      "statement": "可辨识独立参考对适用的相机误差进行修正，可恢复固定候选的部分排序与几何收益。",
+      "assumptions": [
+        "参考正确且可辨识",
+        "相机误差模型适用",
+        "目标关联/评分有几何信息"
+      ],
+      "falsifier_or_boundary": "退化参考、错关联或真实照片独立确认失败。",
+      "limits": "本轮精确投影不等于真实ZNCC/SfM改善。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    },
+    {
+      "id": "H04",
+      "title": "按缺口选修订动作优于固定流程",
+      "status": "pending_policy_construction",
+      "statement": "同信息/工具下，识别修订对象的外层规则可在部分预算与机制下获得增量。",
+      "assumptions": [
+        "冻结外层策略",
+        "共同工具与信息",
+        "未知机制新确认"
+      ],
+      "falsifier_or_boundary": "共享新修复器后反馈无增量或跨机制未迁移。",
+      "limits": "符号统一不等于已执行跨领域策略。",
+      "theory_file": "UNIFIED_THEORY.md",
+      "novel_theorem_claimed": false
+    }
+  ]
+}

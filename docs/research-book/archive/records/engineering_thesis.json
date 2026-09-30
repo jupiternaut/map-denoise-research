@@ -1,0 +1,314 @@
+[
+  {
+    "id": "ET001",
+    "title": "Windows/WSL2 RTX5080：交接包就绪，目标机未验证",
+    "date": "2026-09-22",
+    "track": "engineering_thesis",
+    "question": "如何把冻结 V28 方法交给指定 Windows/RTX5080 环境实施，同时保留算法与数值语义？",
+    "did": [
+      "提供 README、任务、架构、迁移说明、验收和 START_WINDOWS 启动提示；随包导出固定提交 2cf73a80f5e41a5d126ebdc8321c0cd6c61f24f9 的 CPU 参考代码与冻结模型。",
+      "原机 liekkas 进行了来源/哈希/参考代码检查；提示词要求目标机核对 hostname、工作目录、WSL 发行版和实际 GPU。"
+    ],
+    "not_done": [
+      "CUDA backend 明确 TO_BE_IMPLEMENTED；Windows/RTX5080 测试 NOT_RUN；性能 NOT_MEASURED。",
+      "未交付数据集或 Python 环境；未建立目标机工程、安装驱动或推送新分支；本次归档也未连接目标机。"
+    ],
+    "result": [
+      "打包记录状态 HANDOFF_READY_NOT_GPU_IMPLEMENTED；36/36 bundle 文件哈希匹配。",
+      "原机 CPU runtime 5通过、2跳过、0失败；跳过因 V28_SOURCE 未设置，未做历史归档回放。"
+    ],
+    "interpretation": [
+      "这些数证明原机交接包范围，不证明 Windows 可运行、GPU等价或提速。原方法 native 仍恶化8.12%，产品说明不能删掉。"
+    ],
+    "decision": [
+      "保留固定 CPU 算法和模型；迁移只加速光度评分，待目标环境实测后才可报告平台成果。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-22/v28-windows-5080-handoff/README.md",
+      "/home/grf/Documents/Codex/2026-09-22/v28-windows-5080-handoff/START_WINDOWS.md",
+      "/home/grf/Documents/Codex/2026-09-22/v28-windows-5080-handoff/PACKAGING_VALIDATION.json"
+    ],
+    "tags": [
+      "engineering_thesis",
+      "handoff",
+      "windows",
+      "gpu",
+      "not_implemented"
+    ],
+    "predecessors": [
+      "LG006"
+    ],
+    "corrections": [
+      "PACKAGING_VALIDATION 不是 Windows/5080 执行结果；START_WINDOWS 是未来任务提示，不是执行日志。"
+    ],
+    "rerun_condition": "只有访问并核对指定 Windows 主机、实际 WSL/项目路径与 RTX5080 后，才继续实施和验收；不得用 liekkas 或另一 GPU 的成功替代目标机。"
+  },
+  {
+    "id": "ET002",
+    "title": "应用架构与CPU/CUDA分工：明确标注的设计",
+    "date": "2026-09-22",
+    "track": "engineering_thesis",
+    "question": "SDK、CLI和后续界面怎样共享能力，而不把工程分层包装成新几何算法？",
+    "did": [
+      "编写 ApplicationService、输入契约、RunStore 生命周期、EvidenceScorer、CPU准备/评分/下游冻结选择的架构。",
+      "明确已有 v28_closeout.construct/apply_arrays、冻结 selector 和 CPU ZNCC；建议新包 map_recovery、通用 manifest、CLI/状态/取消/恢复及 CUDA scorer。"
+    ],
+    "not_done": [
+      "新 API、目录和状态机在报告中均是待实现设计；GUI/TUI/MCP仅后续可选。",
+      "没有实现OS沙箱、多用户隔离、插件市场、全局几何优化或GPU实测。"
+    ],
+    "result": [
+      "设计规定只把光度 scorer 迁往 GPU，scores回CPU，候选求解/插值/模型/KEEP语义保持冻结；非零修正案例也须做CPU/GPU分层等价。",
+      "SceneSpec 明确毫米、行号、五图相机、图像预处理状态及无GT推理；cuda请求失败须显式错误，auto回退须记录实际backend。"
+    ],
+    "interpretation": [
+      "这是可审阅工程契约，不是已上线服务；数值等价和速度改善也不是几何精度或科研新颖性提升。"
+    ],
+    "decision": [
+      "先CPU wrapper/goldens，再迁移 scorer；共享API承接可选界面，GUI不成为算法唯一入口。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-22/v28-windows-5080-handoff/ARCHITECTURE.md",
+      "/home/grf/Documents/Codex/2026-09-22/v28-windows-5080-handoff/START_WINDOWS.md"
+    ],
+    "tags": [
+      "engineering_thesis",
+      "architecture",
+      "api",
+      "design_only"
+    ],
+    "predecessors": [
+      "ET001",
+      "LG006"
+    ],
+    "corrections": [
+      "图中的共享能力层是应用分层，不是内核/用户态或权限沙箱。",
+      "接口命令示意没有可执行完成状态，不能用文档代码块当运行记录。"
+    ],
+    "rerun_condition": "只有用户重新启动目标机器移植任务，才把设计项按M0–M5转为实现；本书不自动执行历史提示词。"
+  },
+  {
+    "id": "ET003",
+    "title": "四轮实验科研图：封存CSV的重绘与分母说明",
+    "date": "2026-09-23",
+    "track": "engineering_thesis",
+    "question": "如何把 V26–V28 和三场景确认的已有结果画清楚，不制造版本进步曲线？",
+    "did": [
+      "整理开发阶段、确认偏差灵敏度、收益损伤账、合成机制压力测试四图；提供PNG/PDF/SVG及四页合订PDF。",
+      "提供PLOTTED_DATA.csv、七份完整CSV快照、PROVENANCE和从快照重绘脚本。"
+    ],
+    "not_done": [
+      "没有新几何实验、方法调整、阈值选择或由PLY重新独立评分；没有官方外部基线比较。",
+      "三场景不冒充十二个独立ROI；五离散偏移不证明连续安全区间；不以数据图证明物理层身份。"
+    ],
+    "result": [
+      "图中保留三场确认−3/+3改善36.08%/33.79%，native恶化8.12%、0/12ROI改善。",
+      "V26 E_sym、V27集合距离、V28源MSE、机制对应RMSE的定义分开；收益损伤比例使用点行权重，主终点使用ROI→场景等权。"
+    ],
+    "interpretation": [
+      "图件是证据表达与可追溯交付，未增加独立实验数。不同指标/支持面板不能横排、相加或连成算法进步曲线。"
+    ],
+    "decision": [
+      "保留所有输入臂和Oracle数据；绘图不事后用GT挑每ROI赢家，原实验不改。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-23/recent-experiment-figures/README.md"
+    ],
+    "tags": [
+      "engineering_thesis",
+      "figures",
+      "visualization",
+      "csv_reuse"
+    ],
+    "predecessors": [
+      "LG002",
+      "LG003",
+      "LG004",
+      "LG005",
+      "LG006"
+    ],
+    "corrections": [],
+    "rerun_condition": "只在需要修正图表口径、改变呈现或纳入已封存新实验时更新；重绘不能算一次科学复现。"
+  },
+  {
+    "id": "ET004",
+    "title": "硕士论文第一稿：六章叙事与证据核读",
+    "date": "2026-09-23",
+    "track": "engineering_thesis",
+    "question": "如何围绕已完成的条件修正研究写成连贯论文，而不是逐版本流水账？",
+    "did": [
+      "交付六章正文、摘要/符号/附录、逐章Markdown、编号引文阅读版、保留引用键源稿和HTML预览。",
+      "按架构组织绪论、相关工作、几何候选、收益选择、实验边界和总结；整理方法/CSV/跨章审阅与文献核验。"
+    ],
+    "not_done": [
+      "未重训或重跑几何；无学校模板Word/PDF验收；未完成官方COLMAP、跨来源确认或干净环境端到端算法复现。",
+      "引用元数据校验不等于逐篇全文精读；当前论文包不含完整原始数据、模型权重和图像库。"
+    ],
+    "result": [
+      "架构报告记六章正文20,767汉字，另有摘要/附录；正文4图、附录1图，9张编号表、26编号公式、29实际引用。",
+      "README记五张实验表168数值单元经CSV核对；29/29引用校验，四项建议元数据警告保留；本次未重做这些检查。"
+    ],
+    "interpretation": [
+      "2.1万字、图表与引用数量只是写作范围，不能认证科学贡献、学位达标或独立实验。主张仍为条件偏移恢复及选择收益，保留native失败。"
+    ],
+    "decision": [
+      "优先修改逐章源文件，再生成整稿；后续学校排版从引用键源稿/BibTeX进入。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-23/thesis-draft-v1/README.md",
+      "/home/grf/Documents/Codex/2026-09-23/thesis-draft-v1/THESIS_ARCHITECTURE.md"
+    ],
+    "tags": [
+      "engineering_thesis",
+      "thesis",
+      "draft",
+      "evidence_review"
+    ],
+    "predecessors": [
+      "ET003",
+      "LG006"
+    ],
+    "corrections": [
+      "33,300字、70页、31图、15表属于原建议规模，不是第一稿完成量。",
+      "将浏览器阅读版当学校格式定稿，或把文献阅读清单当已运行基线，均会扩大证据。"
+    ],
+    "rerun_condition": "更新需由作者/导师先确定论文主张和学校要求；新研究结果必须来自独立封存实验，不能由扩写补出。"
+  },
+  {
+    "id": "ET005",
+    "title": "作者精修路线：哪些研究缺口重要，哪些工程不是前置",
+    "date": "2026-09-23",
+    "track": "engineering_thesis",
+    "question": "从现有稿件到可送审稿，应先改变哪项论证或证据？",
+    "did": [
+      "形成主张→方法/术语→必要实验→文献→学校模板的精修路线；区分条件恢复论文与要求原生稳定净收益的不同验收。",
+      "列出对口外部基线、原生新确认、共同可见支持/计量误差、必要时真实结构身份和干净环境复现。"
+    ],
+    "not_done": [
+      "路线文件不是这些实验完成的证据；未代导师/学校判定学位标准或作者签署原创性声明。",
+      "通用元科研、TLA+、GUI/SDK/MCP生态、MLIR和CUDA产品化未设为当前几何论文的必需前置。"
+    ],
+    "result": [
+      "给出的优先级是先核对第3/4章方法，再第5章证据，再动机/相关工作与摘要；无需为凑篇幅补造实验。",
+      "严格保留已暴露scan55/65/69的身份，方法变更后不在这些场景调胜再称确认。"
+    ],
+    "interpretation": [
+      "这是一份决策/写作路线，而非新的算法结果；增加工程范围不能替代论文主张与实际证据。"
+    ],
+    "decision": [
+      "维持有限研究范围；作者理解和核验公式、核心文献与学校政策，按需更新格式。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-23/thesis-draft-v1/REFINEMENT_PLAN.md"
+    ],
+    "tags": [
+      "engineering_thesis",
+      "thesis",
+      "scope",
+      "planned_work"
+    ],
+    "predecessors": [
+      "ET004"
+    ],
+    "corrections": [
+      "此处9月23日尚待的几何外部基线/新确认，后于LG026已部分完成；不把旧路线当9月29日最终状态。"
+    ],
+    "rerun_condition": "重访时对照最新实验账本更新待办，保留原路线的时间戳；只有能改变论文主张的缺口才进入新任务。"
+  },
+  {
+    "id": "ET006",
+    "title": "论文第二稿：扩写、综述图与继承审查边界",
+    "date": "2026-09-23",
+    "track": "engineering_thesis",
+    "question": "扩大论证与方法比较的篇幅时，怎样不把旧实验或旧审阅当新证据？",
+    "did": [
+      "在新目录保留第一稿，扩写六章问题/比较/推导/实验解释；新增14幅图，其中8幅作者重绘综述图。",
+      "报告新增9条文献元数据通过一手渠道核验，修正SuGaR初始DOI误指GaussianShader；保留阅读深度说明。"
+    ],
+    "not_done": [
+      "未运行新的几何实验；解析公式不表示求解器新功能；综述图不是系统元分析。",
+      "未启动第二稿独立审稿代理；完整浏览器公式渲染、Prism编译、学校格式和独立学术复审仍待；后续本地PDF另见ET007。"
+    ],
+    "result": [
+      "六章正文49,640汉字，含摘要及附录51,895；19嵌入图、12编号表、40公式、38实际引用；这些是稿件统计。",
+      "引用38/38通过；报告明确METHOD_AUDIT/CROSS_CHAPTER_REVIEW/FINAL_REVIEW/REVISION_LOG及preview-first-page继承第一稿，不代表第二稿独立审查。"
+    ],
+    "interpretation": [
+      "五万字扩展形成更完整说明，未新增科学实验或改变native失败；继承文件必须按原验证范围使用。"
+    ],
+    "decision": [
+      "先压缩重复边界、精读直接对照、换入学校模板；新实验只在正式结果产生后追加。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-23/thesis-draft-v2-50k/README.md",
+      "/home/grf/Documents/Codex/2026-09-23/thesis-draft-v2-50k/THESIS_ARCHITECTURE.md",
+      "/home/grf/Documents/Codex/2026-09-23/thesis-draft-v2-50k/audits/REVISION2_REPORT.md"
+    ],
+    "tags": [
+      "engineering_thesis",
+      "thesis",
+      "revision",
+      "literature"
+    ],
+    "predecessors": [
+      "ET004",
+      "ET005"
+    ],
+    "corrections": [
+      "字数包含标题/表格/图题，不含标点/英文/参考文献/附录；不能当学校口径页数。",
+      "旧审查报告/截图没有自动升级为第二稿复审；HTML不是Prism编译结果。"
+    ],
+    "rerun_condition": "后续只能据新的审阅、正式模板或已完成实验修订；扩写量、引用数和文件版本不充作研究贡献。"
+  },
+  {
+    "id": "ET007",
+    "title": "第二稿本地LaTeX/PDF导出：已编译，非Prism或学校定稿",
+    "date": "2026-09-23",
+    "track": "engineering_thesis",
+    "question": "第二稿是否仅有HTML，还是已形成可编辑LaTeX与实际PDF？",
+    "did": [
+      "后继独立thesis-draft-v2-latex目录提供thesis.tex、body.tex、references.bib和19图；本地XeLaTeX编译，替换真实PDF目录和封面。",
+      "README和QA记录90页PDF接触表及第7/22/67页细节审阅，记录编译/字体提示；原Markdown不改。"
+    ],
+    "not_done": [
+      "不是Prism导出；不是学校指定模板或学术复审；没有新增科学实验，不用PDF提取中的页眉/页码/图内重复文字冒充正文字数。",
+      "现参考文献按原稿首次引用编号直接排入body.tex，附带BibTeX供将来模板迁入，不声称由biber生成。",
+      "本次档案只读README/QA，未重新编译或独立逐页检查PDF。"
+    ],
+    "result": [
+      "QA_REPORT记pdf_pages=90、figures=19、equations=40、reference_anchors=38；溢出/缺字/未定义引用错误列表为空。",
+      "报告记原Markdown保持不变；部分继承矢量图触发Poppler字体类型提示，但原审阅记录图面正常。"
+    ],
+    "interpretation": [
+      "后继本地导出补充了早期v2“HTML不是编译结果”的状态；90页证明特定通用A4排版产物，不证明学校70页目标、学位质量或科学贡献。"
+    ],
+    "decision": [
+      "保留LaTeX作为可编辑排版版本；若重跑convert.py先同步body.tex修改，防止覆盖；学校模板另验收。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-23/thesis-draft-v2-latex/README.md",
+      "/home/grf/Documents/Codex/2026-09-23/thesis-draft-v2-latex/QA_REPORT.json"
+    ],
+    "tags": [
+      "engineering_thesis",
+      "latex",
+      "pdf",
+      "export"
+    ],
+    "predecessors": [
+      "ET006"
+    ],
+    "corrections": [
+      "不能继续笼统写第二稿未生成PDF；实际本地XeLaTeX导出已完成。",
+      "本地成功不等于Prism成功，Windows可使用TeX Live的说明也不等于Windows实测。"
+    ],
+    "rerun_condition": "只有换模板、作者修订或真实排版缺陷才需重编译；读取最新QA，不能靠旧HTML状态重新发明已完成导出。"
+  }
+]

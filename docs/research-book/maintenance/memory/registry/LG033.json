@@ -1,0 +1,123 @@
+{
+  "id": "LG033",
+  "title": "普通构造与 ARIS 计划驱动先导：16 个有效程序，开发排序与原始输入缺口",
+  "date": "2026-09-30",
+  "track": "late_geometry",
+  "question": "在相同真实照片 KEEP/A/B 候选、225 维观测、两场景开发协议和各 8 提案预算下，普通构造与 ARIS 计划驱动能否交付有增量的新选择程序？",
+  "did": [
+    "在 liekkas 的 research-skill-comparison-20260930T065500 工作区复用 scan24/37 的冻结 KEEP/A/B 坐标与 225 维照片观测，只构造选择器，不生成新几何。",
+    "普通与 ARIS 两条线各提交 8 个新程序，16/16 完成开发评价；两折分别用固定 8000 行训练，在另一场景全部支持行评价，单 CPU 线程、每评价 180 秒上限。",
+    "按 case/scene/condition 等权聚合绝对 MSE 后计算一次相对 KEEP 比值；79,594 查询行中 78,598 行为冻结支持集。",
+    "普通最佳为共享收益/损伤分解，ARIS 最佳新程序为自身证据 ExtraTrees；各自按开发反馈选定后在同一 16,000 行联合样本上拟合并封存模型。",
+    "ARIS 使用 experiment-plan 锚定问题并记录逐轮构造和反馈，实际交付代码、分数和拟合模型。",
+    "后续接口按案例分别调用；既有两个导出模型的整场景/逐案例得分差为 0、路线一致；旧评价器和原成绩均保留。"
+  ],
+  "not_done": [
+    "本记录限定于此前 REPORT.md / FINAL_RECEIPT.json 封存阶段：当时 Shinka 仅完成准备，尚未运行，六场景共同回放尚未执行；后续实跑由 LG034 接续登记。",
+    "没有运行完整 ARIS 外部审稿循环，也没有将全部新装 Skill 用于算法实验。",
+    "没有相同 token/上下文预算下的 Skill 因果比较；普通预先设计、ARIS 逐轮反馈且后期接收普通线进度，不能作一般排名。",
+    "没有独立新场景确认、完整拓扑/覆盖验收、部署默认升级、GPU 工作、付费 API 或 GitHub 推送。",
+    "没有重拟合并重评全部 16 程序来声称接口修正后的新成绩；ARIS 最终拟合计时回执缺失，保持 null。"
+  ],
+  "result": [
+    "开发相对 KEEP 总体 MSE 降幅：共同起点 26.99%，普通最佳 28.97%，ARIS 最佳新程序 26.89%；普通比共同起点增加 1.98 个百分点。",
+    "普通最佳开发条件降幅：native −6.05%、minus3 +35.68%、plus3 +34.78%；ARIS 最佳新程序：−5.79%/+36.88%/+29.49%。",
+    "开发 KEEP 总体 MSE 2.29226 mm²、普通最佳 1.62824 mm²；普通原始输入由 1.03443 升至 1.09701 mm²，原始保护仍未闭合。",
+    "普通最佳移动 40,390/78,598 支持点，28,190 个误差下降、12,200 个误差上升；0.1 mm 变化带下改善 25,388、损伤 9,038。",
+    "普通 8 次评价合计 298.21 秒、ARIS 381.35 秒；普通最终拟合 80.50 秒，ARIS 最终拟合时长未保留。"
+  ],
+  "interpretation": [
+    "普通共享收益/损伤程序在此冻结开发协议下有增量；共享方式与特征同时改变，未消融，不能将增量全部归因于正负分解。",
+    "ARIS 实际构造了可执行算法，但其最佳新程序未超过共同起点；若以开发总体选正式赢家，应保留共同起点回退。",
+    "反复使用两场景 held-out 开发反馈参与选型，最佳开发成绩不是独立确认；总体正收益仍主要来自人工位移条件。"
+  ],
+  "decision": [
+    "保存两条线全部程序、失败边界、开发分数和冻结最佳模型，后续用共同回放核验。",
+    "不替换部署默认；Shinka 是否已经运行以及六场景结果以接续 LG034 的日期作用域为准，保留旧 REPORT.md 原貌。"
+  ],
+  "evidence_level": "artifact_checked",
+  "sources": [
+    "/srv/slam-research/grf/research-skill-comparison-20260930T065500/REPORT.md",
+    "/srv/slam-research/grf/research-skill-comparison-20260930T065500/RESULTS.csv",
+    "/srv/slam-research/grf/research-skill-comparison-20260930T065500/FINAL_RECEIPT.json",
+    "/srv/slam-research/grf/research-skill-comparison-20260930T065500/TASK.md",
+    "/srv/slam-research/grf/research-skill-comparison-20260930T065500/PROTOCOL.md",
+    "/srv/slam-research/grf/research-skill-comparison-20260930T065500/CASE_SEPARATION_CHECK.json",
+    "/srv/slam-research/grf/research-skill-comparison-20260930T065500/refine-logs/EXPERIMENT_RESULTS.md",
+    "/srv/slam-research/grf/research-skill-comparison-20260930T065500/ordinary/selection.json",
+    "/srv/slam-research/grf/research-skill-comparison-20260930T065500/aris/selection.json"
+  ],
+  "tags": [
+    "geometry",
+    "ordinary",
+    "ARIS",
+    "skill",
+    "utility",
+    "harm",
+    "KEEP",
+    "development",
+    "225features"
+  ],
+  "predecessors": [
+    "LG032",
+    "LG031",
+    "LG026"
+  ],
+  "corrections": [
+    "REPORT.md 中“Shinka 未运行／六场景未回放”是普通/ARIS 先导封存时事实，不是最新状态；后续由 LG034 追加更正，不覆盖原文件。"
+  ],
+  "rerun_condition": "新的可辨识信息或机制、明确同预算工作流对照或独立未暴露场景；重复当前两场景开发表、把同一最佳反馈当独立确认不构成新实验。",
+  "claims": [
+    "两条线各完成 8 个可评价程序；普通最佳在本轮共同开发指标超过起点，ARIS 最佳新程序没有。",
+    "原始输入净修复尚未通过；先导结果只支持后续候选核验，不支持部署或一般 Skill 排名。"
+  ],
+  "evaluation_scope": "scan24/37 固定候选与观测的重复开发反馈；本记录不包含后续六场景回放，不是独立确认或全 ROI 几何证明。",
+  "source_checks": [
+    {
+      "path": "/srv/slam-research/grf/research-skill-comparison-20260930T065500/REPORT.md",
+      "sha256": "6b5ae92fc8ec21e7f535f73a56080ddb8d306b6b870a70ed5729758efeb937ae",
+      "bytes": 6136
+    },
+    {
+      "path": "/srv/slam-research/grf/research-skill-comparison-20260930T065500/RESULTS.csv",
+      "sha256": "68552fe357e2c5ae43e221bc713f2c3085f27308460789bf913cb4f7877aee4e",
+      "bytes": 3711
+    },
+    {
+      "path": "/srv/slam-research/grf/research-skill-comparison-20260930T065500/FINAL_RECEIPT.json",
+      "sha256": "ce81005058931880959bd54665f3222e8f941edeb8d5c180d6d29a36ddcc1ac5",
+      "bytes": 7714
+    },
+    {
+      "path": "/srv/slam-research/grf/research-skill-comparison-20260930T065500/TASK.md",
+      "sha256": "ad4357847e1da4eadbf6aeb5c9d5b208e74048823a9d93280a94653f0c595364",
+      "bytes": 1706
+    },
+    {
+      "path": "/srv/slam-research/grf/research-skill-comparison-20260930T065500/PROTOCOL.md",
+      "sha256": "e1ba065a274b4277fda8b8c848b77599261883aa8c524f6b560dda914efb4cc2",
+      "bytes": 2348
+    },
+    {
+      "path": "/srv/slam-research/grf/research-skill-comparison-20260930T065500/CASE_SEPARATION_CHECK.json",
+      "sha256": "02c01e73fbf1a667bf00ecaaa35c8e8ee8d8ee2fa527253d9960e478f41531f7",
+      "bytes": 2075
+    },
+    {
+      "path": "/srv/slam-research/grf/research-skill-comparison-20260930T065500/refine-logs/EXPERIMENT_RESULTS.md",
+      "sha256": "c9f7bade0b5b1aabef873d255e3340183ff98b85c91b04b585274a27c5bff9df",
+      "bytes": 5219
+    },
+    {
+      "path": "/srv/slam-research/grf/research-skill-comparison-20260930T065500/ordinary/selection.json",
+      "sha256": "50568f38ef141f0536bdf7e63c1b00543239d558776cf0b3e83f9eb2b5d84ef9",
+      "bytes": 7269
+    },
+    {
+      "path": "/srv/slam-research/grf/research-skill-comparison-20260930T065500/aris/selection.json",
+      "sha256": "cb7f78328d35b1813b1d6747789ee24603a2e577ab9e171e0e3f8889f8846cf1",
+      "bytes": 1323
+    }
+  ],
+  "registered_utc": "2026-09-30T07:52:07.461610+00:00"
+}

@@ -1,0 +1,1212 @@
+[
+  {
+    "id": "META001",
+    "title": "Hermes mismatch：分歧采样没有稳定胜过覆盖式失配发现",
+    "date": "unknown/not documented",
+    "track": "meta-research",
+    "question": "同库、同拟合器、同初始观测时，按候选分歧查询是否更快发现模型失配？",
+    "did": [
+      "历史实验：64位置、H0/H1、180新任务，按三种模型充分性分层；random每任务3次重复。",
+      "本次读取原报告，未重跑。"
+    ],
+    "not_done": [
+      "没有开放式发明新表示；没有在C1为空之后增加新修复族。",
+      "原始运行确切日期 unknown/not documented；晚于此项的审计为2026-09-14。"
+    ],
+    "result": [
+      "H1足够的type1在预算4时disagreement L1约8.3，covering约151.7；但发现率0.983低于covering 1.000。",
+      "连H1也错的type2预算4：covering发现率0.583、L1 68.2，disagreement为0.300、117.3。"
+    ],
+    "interpretation": [
+      "type1收益是足够类内主动采样的条件收益，不能外推为开放科研或稳定更强的失配发现。"
+    ],
+    "decision": [
+      "原报告停止推广disagreement作为研究诊断策略；若继续，研究候选耗尽后的修复动作。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/.hermes/attachments/outputs/MISMATCH_REPORT.md"
+    ],
+    "tags": [
+      "Hermes",
+      "mismatch",
+      "same-capability"
+    ],
+    "predecessors": [],
+    "corrections": [
+      "隔离与随机性归因随后由META002修正；原数值保留。"
+    ],
+    "rerun_condition": "只有新增失配机制、修复动作或明确改变的诊断终点才形成新问题；同生成器换选择器应先解释META002。"
+  },
+  {
+    "id": "META002",
+    "title": "Hermes phase-1审计：收益发生在H0被否定之后，隔离测试需要真实双环境",
+    "date": "2026-09-14",
+    "track": "meta-research",
+    "question": "早期收益是否真的来自否定旧模型前的分歧探索，原隔离测试是否有效？",
+    "did": [
+      "历史审计用共享随机种子检查每类20任务的查询对齐。",
+      "真实双环境改写未查询答案为17*x+3，加入读取隐藏标签的作弊正控。",
+      "本次读取PHASE1_CORRECTION.md。"
+    ],
+    "not_done": [
+      "不是新生成族确认；没有将所有原数值重算为独立复现。"
+    ],
+    "result": [
+      "H0被排空前random与disagreement查询相同比例1.00；真正分歧查询在H0为空后发生。",
+      "合法策略各12次全部不变；作弊策略12次中6次被发现。",
+      "旧隔离把改写数组保存到未使用字段，强度不足；常量平移也不能检出所有作弊。"
+    ],
+    "interpretation": [
+      "旧type1收益归因为H1内后续采样；隔离测试需要能影响作弊行为的干预正控。"
+    ],
+    "decision": [
+      "保留旧报告并追加更正，不以弱隔离测试作通用信息安全证明。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/.hermes/attachments/outputs/20260914T051316Z/PHASE1_CORRECTION.md"
+    ],
+    "tags": [
+      "correction",
+      "isolation",
+      "query-attribution"
+    ],
+    "predecessors": [
+      "META001"
+    ],
+    "corrections": [
+      "收窄META001的早期查询收益解释，纠正原隔离测试。"
+    ],
+    "rerun_condition": "重做隔离仅在接口、策略可访问字段或威胁模型改变时需要；不能靠再次通过同一有限测试声称OS隔离。"
+  },
+  {
+    "id": "META003",
+    "title": "Hermes conflict：复测、扩展与诊断在预算和污染机制上有不同表现",
+    "date": "2026-09-14",
+    "track": "meta-research",
+    "question": "同信息和修复工具下，按冲突选择retest或expand能否优于固定流程？",
+    "did": [
+      "历史实验比较expand_first、retest_first、diagnose，180新任务、三原因、预算8/16。",
+      "历史补充改动作成本及生成位置，不混入锁定主排名。",
+      "本次读取报告并结合后续更正解释。"
+    ],
+    "not_done": [
+      "没有软权重、没有第二类脏点修复；未发现新的模型族。"
+    ],
+    "result": [
+      "预算16主终点diagnose与retest逐原因一致，不能称额外主终点收益。",
+      "预算8等混合次级MAE：diagnose 3.607、expand 4.098、retest 4.130。",
+      "persistent上expand仍有残余，但比消耗多次无效复测的策略误差低。"
+    ],
+    "interpretation": [
+      "预算8混合收益可保留；未知原因策略不需要逐原因胜过事后挑出的每个专门基线才有价值。"
+    ],
+    "decision": [
+      "停止扩大冲突点排序器，检查拟合器是否能撤销错误约束。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/.hermes/attachments/outputs/20260914T051316Z/REPORT.md",
+      "/home/grf/.hermes/attachments/outputs/20260914T084840Z/CORRECTION.md"
+    ],
+    "tags": [
+      "conflict",
+      "retest",
+      "budget"
+    ],
+    "predecessors": [
+      "META002"
+    ],
+    "corrections": [
+      "原报告的无可区分动作、H1折衷拟合解释被META004取代；数值不撤销。"
+    ],
+    "rerun_condition": "必须改变可用修复或明确的新污染机制；若只是换冲突排序，先给出其可改变主终点的残余案例。"
+  },
+  {
+    "id": "META004",
+    "title": "Hermes纠错：同点复测等价不等于所有新位置查询等价",
+    "date": "2026-09-14",
+    "track": "meta-research",
+    "question": "persistent与model真的没有任何可用观测能够区分吗？",
+    "did": [
+      "历史更正从已有EVAL_TRAJ和原代码复核60对任务，不是新eval。",
+      "本次读取CORRECTION.md。"
+    ],
+    "not_done": [
+      "没有给新策略硬编码x=48的授权；没有证明一般可识别性。"
+    ],
+    "result": [
+      "全部60对在x=32初读和复测相同，但后来查询x=48的标签不同。",
+      "拟合器获得分裂观测后仍把脏标签保留为不可撤销硬约束。",
+      "expand的较低误差来自多查询改善最近邻回退，代码没有H1 compromise分支。"
+    ],
+    "interpretation": [
+      "失败是已有信息未被修复器使用；只对同点复测成立的观测等价不能扩大成所有允许实验的等价。"
+    ],
+    "decision": [
+      "下一步允许可逆isolate，之后才比较调度。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/.hermes/attachments/outputs/20260914T084840Z/CORRECTION.md"
+    ],
+    "tags": [
+      "correction",
+      "identifiability",
+      "interface"
+    ],
+    "predecessors": [
+      "META003"
+    ],
+    "corrections": [
+      "明确替代META003原报告的no available action separates与H1 compromise解释。"
+    ],
+    "rerun_condition": "只有允许观测集合或拟合约束改变时再论证辨识边界；必须逐项说明新证据是否被拟合器使用。"
+  },
+  {
+    "id": "META005",
+    "title": "Hermes fitter-first：固定历史后可逆隔离恢复持续污染任务",
+    "date": "2026-09-14",
+    "track": "meta-research",
+    "question": "不增加新观测，仅允许隔离一个错误约束，能修复多少旧失败？",
+    "did": [
+      "历史实验A冻结Q/QR历史，比较硬约束拟合器与H0/H1×isolate-cap-1。",
+      "隔离免费可逆、至少保留2个可信观测；枚举和排序规则均为设定。",
+      "本次读取报告。"
+    ],
+    "not_done": [
+      "没有两脏点能力、没有软权重；原记录不应被删除。"
+    ],
+    "result": [
+      "persistent的Q历史预算8/16：旧MAE 8.334/3.397，新均0。",
+      "transient的Q历史同样变为0；model类不误隔离且新旧一致。",
+      "QR预算8的persistent新MAE仍0.866，预算16归零。"
+    ],
+    "interpretation": [
+      "主要收益属于修复器能力，非无区分实验、非调度收益。"
+    ],
+    "decision": [
+      "采用可逆隔离能力，在共享拟合器后评价策略增量。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/.hermes/attachments/outputs/20260914T084840Z/REPORT.md"
+    ],
+    "tags": [
+      "repair-capability",
+      "isolate",
+      "frozen-history"
+    ],
+    "predecessors": [
+      "META004"
+    ],
+    "corrections": [
+      "该轮append-only实现及候选保留细节仍由META007后续清理。"
+    ],
+    "rerun_condition": "只有isolate-cap-1确实成为限制或新证据机制不同，才有新增软权重/隔离能力实验的理由。"
+  },
+  {
+    "id": "META006",
+    "title": "Hermes共享新拟合器：lookahead改了轨迹却未改善预算16终点",
+    "date": "2026-09-14",
+    "track": "meta-research",
+    "question": "修复器共享之后，主动选择下一实验还增加多少价值？",
+    "did": [
+      "历史实验B比较cover、短复测后cover、1步lookahead。",
+      "全部共享isolate拟合器和观察接口；本次读取报告。"
+    ],
+    "not_done": [
+      "lookahead先验与重测混合概率未被证明正确；不是一般科研策略。"
+    ],
+    "result": [
+      "预算16各原因三策略MAE均0，全60任务打平。",
+      "预算8 model：cover 0.397、lookahead 0.150；dirt对cover没有增量。",
+      "查询序列全部改变且评分更慢，改变轨迹不等于改变最终误差。"
+    ],
+    "interpretation": [
+      "修复能力和低预算调度是不同效应，主终点已被简单流程解决。"
+    ],
+    "decision": [
+      "保留有限预算次级收益，停止在此主终点下扩大战略宣传。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/.hermes/attachments/outputs/20260914T084840Z/REPORT.md"
+    ],
+    "tags": [
+      "scheduling",
+      "negative-result",
+      "same-fitter"
+    ],
+    "predecessors": [
+      "META005"
+    ],
+    "corrections": [
+      "后续META007修正lookahead概率及候选保留实现，不能将其作为精确最优基线。"
+    ],
+    "rerun_condition": "须明确未解决的预算和终点；新策略不能独占更强拟合器。"
+  },
+  {
+    "id": "META007",
+    "title": "Hermes早期ExactDP：18世界报告保留，终点和空支持解释已被替代",
+    "date": "2026-09-14",
+    "track": "meta-research",
+    "question": "共享isolate拟合器后，有限目录内精确规划是否还有价值？",
+    "did": [
+      "历史实验使用N=8、H0=6、H1=66、18世界目录及同族holdout。",
+      "分开orig/cur，保留多条live预测；TLC限于类型与日志契约。",
+      "本次读取报告。"
+    ],
+    "not_done": [
+      "TLC未证明数值MAE、作弊策略、活性或MaxClock；未实现通用开放科研。"
+    ],
+    "result": [
+      "原报告列出H6目录dirt归零、holdout退化及中预算cover优于optimal。",
+      "原报告的中预算对照截取长终点策略，空目录时停下，不能按同终点最优比较解释。"
+    ],
+    "interpretation": [
+      "原数据与过程历史保留，但中预算与迁移归因必须连同META008阅读。"
+    ],
+    "decision": [
+      "不据此推进软权重；先修正终点、belief和空支持契约。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/.hermes/attachments/outputs/20260914T111013Z/REPORT.md"
+    ],
+    "tags": [
+      "DP",
+      "superseded-interpretation",
+      "finite-catalog"
+    ],
+    "predecessors": [
+      "META005",
+      "META006"
+    ],
+    "corrections": [
+      "复测覆写、只留首候选与非概率lookahead权重的清理记在本轮；本轮DP比较又被META008纠正。"
+    ],
+    "rerun_condition": "复现此轮应作为冻结缺陷回归而非新策略确认；有效比较先使用META008以后契约。"
+  },
+  {
+    "id": "META008",
+    "title": "Hermes DP修复：按终点分别求解、完整历史条件化和空支持回退",
+    "date": "2026-09-14",
+    "track": "meta-research",
+    "question": "早期DP的负结果来自策略不足还是比较与回退实现？",
+    "did": [
+      "历史复现旧代码问题；H4/H6分别求解。",
+      "belief使用orig及复测结果；空支持标记support_failed并cover回退。",
+      "用新seed 20000+确认，未重用已看holdout；本次读取报告。"
+    ],
+    "not_done": [
+      "没有第二生成机制；新确认中大量空支持不证明目录Bayes迁移。"
+    ],
+    "result": [
+      "目录18世界H4/H6最优MAE均0；cover分别0.917/0.292。",
+      "新同族18世界确认H4最优0.583、H6为0；多数轨迹进入covering回退。",
+      "旧holdout空支持后停止改为cover：model 0.292→0，dirt 1.3125→0.625。"
+    ],
+    "interpretation": [
+      "旧预算4劣势不是该终点的精确最优失败；旧holdout崩溃包含stop-on-empty缺陷。"
+    ],
+    "decision": [
+      "策略问题尚未关闭；下一锁定应让目录支撑初始记录，而非继续在不完整支持上夸大最优性。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/.hermes/attachments/outputs/20260914T124618Z/REPORT.md"
+    ],
+    "tags": [
+      "correction",
+      "horizon",
+      "empty-support",
+      "history"
+    ],
+    "predecessors": [
+      "META007"
+    ],
+    "corrections": [
+      "替代META007中budget4精确DP较差和holdout退化独归于先验迁移的解释。"
+    ],
+    "rerun_condition": "任何有限最优比较必须同终点、同历史条件、非空支持或明示回退；重复只为验证这些契约。"
+  },
+  {
+    "id": "META009",
+    "title": "Hermes完整支持：2340世界与共用能力的开环/自适应对照",
+    "date": "2026-09-14",
+    "track": "meta-research",
+    "question": "目录完整后，使用目录的预计划与依据后续结果改计划能否分账？",
+    "did": [
+      "历史穷举公共生成器780实例、2340世界；同族30新bundle=90世界确认。",
+      "开环看目录和初始记录后锁序列；adaptive继续按新标签更新，能力和终点共享。",
+      "本次读取锁定报告。"
+    ],
+    "not_done": [
+      "没有第二生成器或软权重；确认不是新机制迁移。"
+    ],
+    "result": [
+      "目录初始及cover到预算6后真实世界均保留，初始空支持0。",
+      "确认初始支持20–90且不进入回退；catalog不同目标336、confirm 81，种子不等于目标数。",
+      "合法隔离36/36、作弊9/9被捕获为历史测试记录。"
+    ],
+    "interpretation": [
+      "完整有限目录可隔离后续反馈价值；目录知识本身的价值不等于反馈价值。"
+    ],
+    "decision": [
+      "用最优开环为强基线，不只用covering或短复测。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/.hermes/attachments/outputs/20260914T132630Z/REPORT.md"
+    ],
+    "tags": [
+      "support-complete",
+      "open-loop",
+      "shared-capability"
+    ],
+    "predecessors": [
+      "META008"
+    ],
+    "corrections": [
+      "修正小目录初始化即失去支持的比较前提。"
+    ],
+    "rerun_condition": "只有能力、观测机制、终点或任务族变化时再开启新科学比较；单独增加目录抽样种子属于同族确认。"
+  },
+  {
+    "id": "META010",
+    "title": "Hermes最终终点：H4严格自适应增量，H6开环已为零",
+    "date": "2026-09-14",
+    "track": "meta-research",
+    "question": "完整目录中后续标签改下一行动的终点收益是否严格为正？",
+    "did": [
+      "历史H4/H6分别求解；最终报告复述锁定数值并重解具名H4例子。",
+      "本次读取132630Z和142434Z报告，未重新运行DP。"
+    ],
+    "not_done": [
+      "最终审计未重跑H6；只解H4/H6，未证明H6是最小零误差预算。"
+    ],
+    "result": [
+      "2340世界H4：openloop 0.0102564、adaptive 0；72残余均model。",
+      "H6全部世界openloop=adaptive=0；同族确认H4增量0.0264、H6增量0。",
+      "具名初始记录后先query3，新标签决定query0或query6，最后行动实际改变。"
+    ],
+    "interpretation": [
+      "H4是真实而窄的预算依赖增量；H6主要收益由目录设计和足够预算解释。",
+      "cover在model类已0不取消未知原因混合策略增量；不可事后挑专门基线。"
+    ],
+    "decision": [
+      "冻结该生成器调度竞赛；保留H4事实，不称通用研究策略或迁移。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/.hermes/attachments/outputs/20260914T132630Z/REPORT.md",
+      "/home/grf/.hermes/attachments/outputs/20260914T142434Z/REPORT.md"
+    ],
+    "tags": [
+      "H4",
+      "H6",
+      "strict-adaptivity",
+      "stop"
+    ],
+    "predecessors": [
+      "META009"
+    ],
+    "corrections": [
+      "纠正fixed等于non-adaptive的混称：retest_then_cover已有反馈；openloop可用初始观测。"
+    ],
+    "rerun_condition": "H6同损失已0，新的调度器无法改善该终点；需要另定能力/信息/任务问题，不能只重赛。"
+  },
+  {
+    "id": "META011",
+    "title": "Hermes初始设计审计：位置生成机制改变部分计划但不改变H4残余",
+    "date": "2026-09-14",
+    "track": "meta-research",
+    "question": "初始位置由隐藏世界生成时，只条件化标签是否改变最终自适应结论？",
+    "did": [
+      "历史审计对438个不同初始历史重解H4开环，比较value-only与位置生成机制posterior。",
+      "本次读取最终报告中的独立审计段。"
+    ],
+    "not_done": [
+      "没有重跑H6或升级拟合器；未将该有限鲁棒性外推到所有观测设计。"
+    ],
+    "result": [
+      "位置条件化后36/438计划改变，覆盖108目录世界。",
+      "H4开环MAE仍0.0102564，残余仍72个model世界；改变计划的初始历史不含这72个。",
+      "某些初始历史的计划Bayes风险改变，目录实测终点却不变。"
+    ],
+    "interpretation": [
+      "位置本身也是可能携带信息的观测设计；需记明假设，当前审计不撤回H4增量。"
+    ],
+    "decision": [
+      "记录两种观测模型，保持原锁定数字与修正范围。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/.hermes/attachments/outputs/20260914T142434Z/REPORT.md"
+    ],
+    "tags": [
+      "initial-design",
+      "conditioning",
+      "audit"
+    ],
+    "predecessors": [
+      "META010"
+    ],
+    "corrections": [
+      "补充锁定filter仅按值、不按初始位置生成机制条件化的假设。"
+    ],
+    "rerun_condition": "若后续初始化政策或隐含选择机制改变，应重审posterior；重复现有438初态不构成新迁移。"
+  },
+  {
+    "id": "META012",
+    "title": "Open-world construction：四个预定义构造器跑通，未达盲评目标",
+    "date": "unknown/not documented",
+    "track": "meta-research",
+    "question": "离开完整目录后，增加模型结构与顺序干预分别能带来什么？",
+    "did": [
+      "历史建设运行六系统、五策略、预算8；四命名构造linear2/nl2/memory3/obs_drift。",
+      "A/C共享covering；C/D共享构造器；B/D执行承诺预测再干预。",
+      "本次读取construction报告与README。"
+    ],
+    "not_done": [
+      "12系统开发锁定、24系统盲评在所读材料中未完成；确切运行日期 unknown/not documented。",
+      "没有OS沙箱、没有官方LLM-ACES/PySR复现；不是闭卷LLM测试。"
+    ],
+    "result": [
+      "C在C2较A改善NMSE约0.490；C4反而较差。",
+      "D−C在C0–C4约0，C5更差约0.054；20%挑战未达成。",
+      "漂移/另一记忆初态上结构选错，ridge更强。"
+    ],
+    "interpretation": [
+      "四预定义构造与开放科学发明不同；系统能力收益不应算到调度。"
+    ],
+    "decision": [
+      "保留构造装置和条件性状态收益；不声称20%胜利、迁移或强基线复现完成。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/meta-research-open-world-challenge/outputs/construction/REPORT.md",
+      "/home/grf/Documents/meta-research-open-world-challenge/README.md"
+    ],
+    "tags": [
+      "open-world",
+      "construction",
+      "four-models"
+    ],
+    "predecessors": [
+      "META010",
+      "META011"
+    ],
+    "corrections": [
+      "旧README同时保留任务包未启动与六系统已运行文字，以运行报告限定阶段；当前能力由META014更新。"
+    ],
+    "rerun_condition": "先明确新模型原语和共享基线，再锁定新系统；旧六系统只能作开发/回归，不能改称盲评。"
+  },
+  {
+    "id": "META013",
+    "title": "Open-world旧记忆接口缺口：有状态表示仍从m0=0预测",
+    "date": "unknown/not documented",
+    "track": "meta-research",
+    "question": "增加隐藏记忆状态是否足以预测同可见初态下的不同未来？",
+    "did": [
+      "历史construction单列同(x,v)、同未来输入而不同隐藏记忆的两分支。",
+      "本次读取记忆诊断与失败解释。"
+    ],
+    "not_done": [
+      "未以真实m0直接输入方法；此处没有完成预驱动估计。"
+    ],
+    "result": [
+      "C2的memory3普通轨迹NMSE约0.0006–0.0017，两个记忆分支约0.59/0.57。",
+      "候选总从m0=0展开；C4带其他初始记忆时选错obs_drift。"
+    ],
+    "interpretation": [
+      "表示新增状态与接口可估计初态是两个条件；同可见瞬时状态不等于全部历史等价。"
+    ],
+    "decision": [
+      "将公开预驱动历史与初态估计列为合法下一修复，后续META014已部分执行。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/meta-research-open-world-challenge/outputs/construction/REPORT.md"
+    ],
+    "tags": [
+      "hidden-state",
+      "history",
+      "interface-gap"
+    ],
+    "predecessors": [
+      "META012"
+    ],
+    "corrections": [
+      "当前实现不能继续按旧m0=0限制描述，见META014。"
+    ],
+    "rerun_condition": "重查此问题前检查当前历史接口；仅重演旧初态缺口不构成新发现。"
+  },
+  {
+    "id": "META014",
+    "title": "Open-world capability_v1：16结构库存与历史初态修复已存在",
+    "date": "unknown/not documented",
+    "track": "meta-research",
+    "question": "当前代码是否仍限于旧四模型与零记忆初态，历史接口实际改善了吗？",
+    "did": [
+      "本次核对host/artifact.py的公开原语、legal_structures和DECAYS，以及保存SUMMARY.json。",
+      "只检查指定源码与保存汇总，未执行模拟、重新计算NMSE或检查全部数组。"
+    ],
+    "not_done": [
+      "完整运行日期 unknown/not documented；没有证明无界表达或开放科学新颖性。",
+      "本次未复验沙箱、隔离或全盲评。"
+    ],
+    "result": [
+      "两个可选动力学项×是否含记忆×两观测映射形成16结构，DECAYS为0.25/0.35/0.5/0.7。",
+      "保存汇总T2/library NMSE：无历史0.3967492388→有历史0.0017404743。",
+      "T4/library：0.3270157374→0.0022132049；真实m0不是直接参数。"
+    ],
+    "interpretation": [
+      "旧四类与当前可组合库存是不同版本；收益支持这些任务族上的历史利用，不等于一般可辨识或调度增量。"
+    ],
+    "decision": [
+      "以当前能力作为新实验基线，不重复把已修复的历史接口宣称为新机制。"
+    ],
+    "evidence_level": "artifact_checked",
+    "sources": [
+      "/home/grf/Documents/meta-research-open-world-challenge/host/artifact.py",
+      "/home/grf/Documents/meta-research-open-world-challenge/outputs/capability_v1/SUMMARY.json"
+    ],
+    "tags": [
+      "capability",
+      "16-structures",
+      "history-repair"
+    ],
+    "predecessors": [
+      "META013"
+    ],
+    "corrections": [
+      "更新META012/META013中只对construction成立的四命名构造与m0=0状态。"
+    ],
+    "rerun_condition": "若改历史可见范围、初态估计或原语库存，应分别隔离对照；已有T2/T4大收益不能再次记为新发现。"
+  },
+  {
+    "id": "META015",
+    "title": "Open-world残余：漂移未解决，library/propose共享覆盖采样",
+    "date": "unknown/not documented",
+    "track": "meta-research",
+    "question": "历史修复和更大结构库存是否等于漂移或自适应研究问题已解决？",
+    "did": [
+      "本次读取SUMMARY.json中T3及policies/capability.py全部策略包装。",
+      "核对library/propose都先covering(session)，再fit(all)/fit(propose)。"
+    ],
+    "not_done": [
+      "未独立重算动力学轨迹；未见12/24系统锁定盲评完成证据。"
+    ],
+    "result": [
+      "T3_drift library与propose均为有历史NMSE0.2546616806、无历史0.2485210275。",
+      "两策略共用实验计划，差异是候选搜索/选择；新增历史未改善此漂移分支。"
+    ],
+    "interpretation": [
+      "不能把候选提议与库搜索差异说成自适应采样；局部能力修复不表示整个open-world挑战结束。"
+    ],
+    "decision": [
+      "保留漂移残余，下一研究须说明改观测模型、历史接口还是调度。"
+    ],
+    "evidence_level": "artifact_checked",
+    "sources": [
+      "/home/grf/Documents/meta-research-open-world-challenge/outputs/capability_v1/SUMMARY.json",
+      "/home/grf/Documents/meta-research-open-world-challenge/policies/capability.py",
+      "/home/grf/Documents/meta-research-open-world-challenge/README.md"
+    ],
+    "tags": [
+      "drift",
+      "same-schedule",
+      "remaining-gap"
+    ],
+    "predecessors": [
+      "META014"
+    ],
+    "corrections": [
+      "收窄将capability收益统称为反馈/开放研究成功的解释。"
+    ],
+    "rerun_condition": "若只换proposer，要共享采样和原语；若测调度，必须真改变取证并给强开环基线同能力。"
+  },
+  {
+    "id": "META016",
+    "title": "9/15统一交接：三类研究动作与能力/反馈2×2是候选框架",
+    "date": "2026-09-15",
+    "track": "meta-research",
+    "question": "几何与动力学研究能否共享一套可检验的修订抽象？",
+    "did": [
+      "本次读取统一交接的对象映射、历史约束、分解与下一阶段建议。",
+      "历史文档对应隐藏世界、观测、表示、求解、输出和外层行动；提议新增证据/重用证据/修订表达。"
+    ],
+    "not_done": [
+      "该文档不是新实验；2×2与跨领域同外层策略确认未由文档本身执行。",
+      "未建立两领域同一损失或一个统一成功算法。"
+    ],
+    "result": [
+      "交接明确修复能力C−A与共用能力反馈D−C分账；不同领域MAE/NMSE不能相加。",
+      "提示旧四构造与当前16结构不同，历史修复已存在。"
+    ],
+    "interpretation": [
+      "这是可替代的研究框架和重复判断契约，不是科学答案或执行授权。"
+    ],
+    "decision": [
+      "保存候选与历史事实边界；后续主张必须有实际对照。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-15/UNIFIED_GEOMETRY_META_RESEARCH_HANDOFF.md"
+    ],
+    "tags": [
+      "unification",
+      "proposal",
+      "not-executed"
+    ],
+    "predecessors": [
+      "META010",
+      "META014",
+      "META015"
+    ],
+    "corrections": [
+      "统一框架不能被追写为已完成跨领域迁移，也不能把旧项目负结果合并成单一原因。"
+    ],
+    "rerun_condition": "重复2×2构想前查是否已有执行记录；新执行需固定共享能力、预算、终点和能改变的决策。"
+  },
+  {
+    "id": "META017",
+    "title": "9/16有限精确搜索：搜索收益、信息缺口与同分策略更正",
+    "date": "2026-09-16",
+    "track": "meta-research",
+    "question": "把规定范围内搜索误差消除后，哪些学习与反馈瓶颈仍存在？",
+    "did": [
+      "历史枚举3000个四位输入有限语义程序并保留表达式树；合成16世界反馈决策树。",
+      "比较完整/前32候选、最优固定观察子集/自适应，并串接学得模型；追加同分策略审计。",
+      "本次读取正式REPORT.md，未重新枚举或重算CSV。"
+    ],
+    "not_done": [
+      "没有证明P=NP或实现假设的多项式SAT算法；不是LLM权重学习、开放科学发现或硬实时保证。",
+      "保留竞争程序并付费取新标签的下一阶段尚未执行。"
+    ],
+    "result": [
+      "语法外完整搜索全域错误14.32%，未见输入49.15%；训练仅x3=0时未见支持错误仍50.00%/43.29%/50.33%。",
+      "预算2多路选择族最优固定25%、自适应0；预算3固定也0。",
+      "串接131个自适应较差配对全部模型最优风险并列；严格模型改善却实际变差为0。"
+    ],
+    "interpretation": [
+      "有限最优不能补观测支持或表示缺失；退化涉及错误模型与同分选择，不证明自适应策略类较弱。"
+    ],
+    "decision": [
+      "停止将更多计算当统一修复；按支持、语法与同分后果分别定实验。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-16/pnp-oracle-lab-20260916T112018Z/REPORT.md"
+    ],
+    "tags": [
+      "exact-search",
+      "P-vs-NP-boundary",
+      "tie-correction"
+    ],
+    "predecessors": [
+      "META010",
+      "META016"
+    ],
+    "corrections": [
+      "替代早期过程消息将131对统称为模型优化更好却真实更差的解释。"
+    ],
+    "rerun_condition": "只有新观测支持、语法扩展或可部署的同分判别机制才能回答新问题；重新穷举不构成P=NP证据。"
+  },
+  {
+    "id": "CPR001",
+    "title": "E0：旧守卫零报警是可触发性问题，不能充当安全证据",
+    "date": "2026-09-15",
+    "track": "CPR",
+    "question": "原CPR输出为何几乎不动，结构守卫为何从不触发？",
+    "did": [
+      "历史E0运行20,000点、24配置、9臂。",
+      "本次定向读取RESULTS_RAW开头装置、sanity计数，结合E0-D解释；未逐行重读1205行全部原表。"
+    ],
+    "not_done": [
+      "未重算原数组；零报警不证明几何不受损。"
+    ],
+    "result": [
+      "CPR2_G累计51255次候选移动、报警0；最小移动点NN距离0.8mm，守卫阈值0.4mm。",
+      "仅z移动且XY间距至少0.8mm，旧阈值几何不可达。"
+    ],
+    "interpretation": [
+      "旧计数保留，但没有诊断力的守卫不能用于默认安全论证。"
+    ],
+    "decision": [
+      "后续单独构造可触发守卫正控并隔离检验/投影/守卫模块。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-15/e0/RESULTS_RAW.md",
+      "/home/grf/Documents/Codex/2026-09-15/CPR2_E0D_FORMAL_REPORT_20260915/CPR2_E0D_TECHNICAL_REPORT.md"
+    ],
+    "tags": [
+      "E0",
+      "guard",
+      "reachability"
+    ],
+    "predecessors": [],
+    "corrections": [
+      "旧E0的BH最小p条件由CPR002修正；守卫计数本身未撤回。"
+    ],
+    "rerun_condition": "重复守卫实验前检查装置是否能触发阈值并有正控；旧零报警不算新证据。"
+  },
+  {
+    "id": "CPR002",
+    "title": "E0-D检验器：BH晚排序触发修正，扩校准未稳定恢复检出",
+    "date": "2026-09-15",
+    "track": "CPR",
+    "question": "离散p值限制与校准预算是否足以解释和修复不行动？",
+    "did": [
+      "历史固定观测、q=.1，比较嵌套校准2000/8000/32000，共18复用配置。",
+      "本次读取正式技术报告检验器及数学定义。"
+    ],
+    "not_done": [
+      "未建立复合容差原假设和空间依赖下FDR保证；未否定所有更大预算。"
+    ],
+    "result": [
+      "准确BH条件是存在k使p_(k)<=q*k/N；最小p处足够集中只是充分条件。",
+      "18配置17个零拒绝；唯一非零为76点，其中66个big，big检出约3.28%。",
+      "单点p<=.1的big检出82.11%–86.60%，容差内点拒绝10.80%–15.60%，后者不是FDR。"
+    ],
+    "interpretation": [
+      "嵌套扩样同时改变离散分辨率和尾部样本；未单独归因。"
+    ],
+    "decision": [
+      "不把继续扩校准视为已验证解决办法；单点阈值仅作另列诊断。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-15/CPR2_E0D_FORMAL_REPORT_20260915/CPR2_E0D_TECHNICAL_REPORT.md"
+    ],
+    "tags": [
+      "BH",
+      "calibration",
+      "correction"
+    ],
+    "predecessors": [
+      "CPR001"
+    ],
+    "corrections": [
+      "取代旧E0将最小p样本数量作为必要条件的解释；更正不撤销原拒绝数。"
+    ],
+    "rerun_condition": "仅当有新可证的分辨率/尾部机制或新校准条件时另设对照，不能重复扩样直到碰到非零。"
+  },
+  {
+    "id": "CPR003",
+    "title": "E0-D投影：同掩码24/24胜ARGMIN，只有3/24胜identity",
+    "date": "2026-09-15",
+    "track": "CPR",
+    "question": "准入固定后，保守投影终点是否有独立于检验器的收益？",
+    "did": [
+      "历史保留原BH链，并在共同eligible_no_bh掩码上比较identity、网格投影、ARGMIN。",
+      "本次读取技术报告投影表和范围。"
+    ],
+    "not_done": [
+      "no-BH不是完整CPR成绩；24配置不是24独立场景。"
+    ],
+    "result": [
+      "网格投影24/24 MAE低于ARGMIN，只3/24低于identity，均10%/exch/alpha_target=.2。",
+      "exch原BH链零移动，sfm有移动但差于identity。"
+    ],
+    "interpretation": [
+      "模块相对激进终点有收益，与完整方法不够部署可以同时成立。"
+    ],
+    "decision": [
+      "保留最小改动模块，不升级完整方法。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-15/CPR2_E0D_FORMAL_REPORT_20260915/CPR2_E0D_TECHNICAL_REPORT.md"
+    ],
+    "tags": [
+      "projection",
+      "ARGMIN",
+      "module-vs-system"
+    ],
+    "predecessors": [
+      "CPR002"
+    ],
+    "corrections": [
+      "连续边界后续由CPR004修复；对identity的3/24计数未改变。"
+    ],
+    "rerun_condition": "新投影比较必须同证据、同集合、同掩码，并同时保留identity与原批准链。"
+  },
+  {
+    "id": "CPR004",
+    "title": "E0-D集合一致性修复：连续覆盖与网格投影错配造成348次覆盖内损伤",
+    "date": "2026-09-15",
+    "track": "CPR",
+    "question": "覆盖成立时仍受损，是投影定理失败还是实际集合不同？",
+    "did": [
+      "历史事后数值诊断定位覆盖用插值集合、投影用网格节点。",
+      "只改阈值交点及投影端点，保持观测、分数、校准、阈值和掩码。",
+      "本次读取报告反例与修复结果。"
+    ],
+    "not_done": [
+      "不是独立确认；没有保证错误集合中的真实目标，也未建立点集或身份安全。"
+    ],
+    "result": [
+      "现任0、真值.015、集合[.01,2.01]：连续投影误差.005，网格.05误差.035。",
+      "复用24配置覆盖内累计有害移动348→0；胜identity仍3/24。",
+      "最大终点差0.0499998424mm不超过.05网格步长。"
+    ],
+    "interpretation": [
+      "标准凸投影性质要求同一个非空闭凸集合包含真值；348是重复配置事件数，0不是无条件零风险。"
+    ],
+    "decision": [
+      "保留连续边界实现和回归反例，不用数值修复包装成新去噪成功。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-15/CPR2_E0D_FORMAL_REPORT_20260915/CPR2_E0D_TECHNICAL_REPORT.md"
+    ],
+    "tags": [
+      "correction",
+      "set-mismatch",
+      "continuous-boundary"
+    ],
+    "predecessors": [
+      "CPR003"
+    ],
+    "corrections": [
+      "替代覆盖与投影同集合的错误实现假设；早期过程将348误写448已由正式报告更正。"
+    ],
+    "rerun_condition": "仅在集合定义、插值或输出实现变动时做回归；若要测净收益需新证据机制。"
+  },
+  {
+    "id": "CPR005",
+    "title": "E0-D新守卫：阻止错误合层，也阻止相同输入下的正确去重影",
+    "date": "2026-09-15",
+    "track": "CPR",
+    "question": "能触发的几何守卫是否真正识别了应保护的表面？",
+    "did": [
+      "历史用初始竖直间距收缩守卫，规定候选提议并设相同观测配对世界及碰撞正控。",
+      "本次读取正式报告守卫段。"
+    ],
+    "not_done": [
+      "规定候选不是自主重建；单遍回退不保证全局约束最终成立。"
+    ],
+    "result": [
+      "错误合层3600次全部阻止，相同观测的正确去重影3600次也全部阻止。",
+      "层内微噪/平移/斜面10800事件保留；同XY碰撞9点新旧均触发。"
+    ],
+    "interpretation": [
+      "守卫保护初始相对结构，不能仅凭该接口识别真实结构。"
+    ],
+    "decision": [
+      "作为特定保守模块保留，不默认启用为安全保证。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-15/CPR2_E0D_FORMAL_REPORT_20260915/CPR2_E0D_TECHNICAL_REPORT.md"
+    ],
+    "tags": [
+      "guard",
+      "paired-worlds",
+      "incumbent-structure"
+    ],
+    "predecessors": [
+      "CPR001",
+      "CPR004"
+    ],
+    "corrections": [
+      "纠正把可触发守卫等同真层身份识别的解释。"
+    ],
+    "rerun_condition": "新守卫必须同时保留真双层与应去重影反例，不能只增加错误合层保护率。"
+  },
+  {
+    "id": "CPR006",
+    "title": "E0-D辨识与理论边界：相同当前接口不等于全部取证无解",
+    "date": "2026-09-15",
+    "track": "CPR",
+    "question": "当前投影和配对世界能够支持什么形式的安全或不可辨识结论？",
+    "did": [
+      "本次读取技术报告投影条件、信息接口及元研究边界。",
+      "历史配对仅改评价真值，保持观测坐标与候选位移逐元素相同。"
+    ],
+    "not_done": [
+      "没有证明可靠来源、跨视图归属、公共参考加入后仍不可分；未建立方法空间投影定理。",
+      "没有不同科研策略的同信息同预算效率实验。"
+    ],
+    "result": [
+      "确定规则在相同允许输入下决定相同，不能同时保证相反修复目标。",
+      "边际覆盖不直接给每个数据集比例界或被移动点条件风险界。"
+    ],
+    "interpretation": [
+      "理论对象是固定分量坐标与已声明接口；不能扩张为所有点云方法不可能或科研策略统一成功。"
+    ],
+    "decision": [
+      "若继续，验证能打破身份歧义的新输入，并隔离其贡献。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-15/CPR2_E0D_FORMAL_REPORT_20260915/CPR2_E0D_TECHNICAL_REPORT.md"
+    ],
+    "tags": [
+      "identifiability",
+      "theory-scope",
+      "unification-limit"
+    ],
+    "predecessors": [
+      "CPR005",
+      "META004"
+    ],
+    "corrections": [
+      "限制任何从当前输入歧义推广至所有允许实验歧义的表述。"
+    ],
+    "rerun_condition": "不可辨识重复须明确完整允许行动集合；新观测进入后原反例不自动继承。"
+  },
+  {
+    "id": "CPR007",
+    "title": "E0-E实际构造：TEST与alpha_target不同，ACQUIRE仅记录未执行",
+    "date": "2026-09-16",
+    "track": "CPR",
+    "question": "单点准入、连续投影、次级谷否决组合实际是什么？",
+    "did": [
+      "历史实现并运行choose_outputs：单点TEST p<=.1、完整曲线次级谷VETO、连续投影。",
+      "原BH对照保留；目标标签不进入选择器，校准真值仅进入声明步骤。",
+      "本次读取报告构造与范围。"
+    ],
+    "not_done": [
+      "没有执行ACQUIRE、E2采集或元研究策略评测；TEST不能沿用BH的FDR声称。"
+    ],
+    "result": [
+      "alpha_test控制单点准入，alpha_target控制集合；VETO不只是数目标集合连通分量。",
+      "否决输出KEEP并标ACQUIRE；sigma_HF是粗糙度估计而非已验证相关噪声标准差。"
+    ],
+    "interpretation": [
+      "更换准入是方法差异必须明写；记录一个下一行动标签不等于取得新信息。"
+    ],
+    "decision": [
+      "保留原BH链和简单对照，分开准入、终点和否决。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-16/e0-e-selective-revision-20260915T160016Z/REPORT.md"
+    ],
+    "tags": [
+      "TEST",
+      "alpha-target",
+      "ACQUIRE-not-run"
+    ],
+    "predecessors": [
+      "CPR002",
+      "CPR004",
+      "CPR006"
+    ],
+    "corrections": [
+      "纠正将E0-E TEST当原BH或把ACQUIRE标签当实际采集收益的混称。"
+    ],
+    "rerun_condition": "若测试采集必须真实执行并计成本；仅改alpha_target不能当检验器alpha_test改进。"
+  },
+  {
+    "id": "CPR008",
+    "title": "E0-E选择性收益：削掉背层损伤的同时丢失约一半有效修复",
+    "date": "2026-09-16",
+    "track": "CPR",
+    "question": "次级谷否决是否在净收益和有效修复保留上都足够好？",
+    "did": [
+      "历史开发6总体和锁定同族6总体，共48复用配置、9方法、432方法块。",
+      "报告分开加权子集净损失、背层正损伤与big正修复。",
+      "本次读取报告。"
+    ],
+    "not_done": [
+      "同族种子不是独立真实场景；没有独立显著性/等效性或全面优于ARGMIN结论。"
+    ],
+    "result": [
+      "VETO对无否决TEST投影48/48更好，对identity 26/48更好。",
+      "同族exch/.2：10% MAE .647297→.531203；1% .207212→.212787。",
+      "削减约86–88%背层正损伤，只保留约47–50% big有效改善。"
+    ],
+    "interpretation": [
+      "错误比例改变加权损失符号；少动减损不是无条件净修复。"
+    ],
+    "decision": [
+      "未过升级门槛，默认identity，冻结原型。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-16/e0-e-selective-revision-20260915T160016Z/REPORT.md"
+    ],
+    "tags": [
+      "selective-revision",
+      "loss-ledger",
+      "tradeoff"
+    ],
+    "predecessors": [
+      "CPR007"
+    ],
+    "corrections": [
+      "不把相对无否决改善写成相对identity全面成功。"
+    ],
+    "rerun_condition": "必须保留低错误比例与高比例，正修复/正损伤/净收益并列；旧种子调阈值不能冒充确认。"
+  },
+  {
+    "id": "CPR009",
+    "title": "E0-E反例与门槛：次级谷不是物理层身份，E1/E2/E3未执行",
+    "date": "2026-09-16",
+    "track": "CPR",
+    "question": "次级谷是否足以保证保留真层并修好重影，是否值得进入下一阶段？",
+    "did": [
+      "历史运行16套配对证据压力观测，分别评分两个目标世界。",
+      "本次读取报告压力测试和继续门槛。"
+    ],
+    "not_done": [
+      "未渲染物理一致双世界；未测真实发生频率。",
+      "未自动进入E1真实修订、E2采集调度或E3元载体。"
+    ],
+    "result": [
+      "相同输入输出相同：无自身谷的真背层可被误移，伪次谷的重影可被误拦。",
+      "10%主条件未达0.15mm净改善预测；两比例都不差identity、背层损伤<=10%、修复保留>=80%均未满足。"
+    ],
+    "interpretation": [
+      "接口反例否定普遍身份保证，不撤回条件性收益；宽容差通过不等于优于identity。"
+    ],
+    "decision": [
+      "冻结结果，优先核对真实逐视图归属或中低对比度误拦机制。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-16/e0-e-selective-revision-20260915T160016Z/REPORT.md"
+    ],
+    "tags": [
+      "paired-evidence",
+      "not-executed",
+      "upgrade-failed"
+    ],
+    "predecessors": [
+      "CPR008"
+    ],
+    "corrections": [
+      "ACQUIRE不是新增证据；E1/E2/E3计划与实际执行分开。"
+    ],
+    "rerun_condition": "新实验须带新可区分证据或单独机制干预，不在同批结果上连续调阈值直到过门槛。"
+  },
+  {
+    "id": "CPR010",
+    "title": "E0-F局部守卫：恢复修复能力，但低错误比例与身份损伤仍失败",
+    "date": "2026-09-16",
+    "track": "CPR",
+    "question": "只保护当前位置附近的竞争谷能否找回被误拦的修复而维持结构安全？",
+    "did": [
+      "历史把全曲线VETO改为当前位置±1mm，±2mm预定敏感性；其余冻结。",
+      "开发101/102、确认701–704，24配置、6臂；本次读取报告。"
+    ],
+    "not_done": [
+      "未按确认结果选择±2mm为主候选；未升级默认或称真实场景成功。"
+    ],
+    "result": [
+      "确认10% MAE .643214→.451140mm，1% .210847→.237716mm，四确认种子符号一致。",
+      "10% big正收益保留88.23%，背层正损伤/no-BH 27.88%，门槛未过。",
+      "1% NN对称距离改善却来源坐标MAE变差；10%来源层翻转代理331→728，非拓扑真值。"
+    ],
+    "interpretation": [
+      "修复能力增加与身份判别成立是两件事；半径是有代价的先验，点集距离不能代替来源身份。"
+    ],
+    "decision": [
+      "默认identity，保留有条件开发候选，停止事后扫半径。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-16/e0-f-incumbent-support-20260916T060448Z/REPORT.md"
+    ],
+    "tags": [
+      "incumbent-support",
+      "metric-mismatch",
+      "upgrade-failed"
+    ],
+    "predecessors": [
+      "CPR008",
+      "CPR009"
+    ],
+    "corrections": [
+      "防止把正修复保留比例、背层损伤比例和有害点率混成同一概率。"
+    ],
+    "rerun_condition": "新增局部规则应说明先验尺度与新任务，保持预定主候选及低比例损伤终点。"
+  },
+  {
+    "id": "CPR011",
+    "title": "E0-F噪声反事实：定位一组误拒绝，但不能分摊全部因果贡献",
+    "date": "2026-09-16",
+    "track": "CPR",
+    "question": "中低对比度单峰有效点为何被全曲线守卫大量拒绝？",
+    "did": [
+      "历史仅开发集重建无噪曲线，冻结原TEST/投影/分层/校准粗糙度，仅替换守卫曲线。",
+      "本次读取报告反事实段。"
+    ],
+    "not_done": [
+      "使用生成器内部信息，非可部署方法、非新视图；未单独隔离宽度/prominence/粗糙度。"
+    ],
+    "result": [
+      "单峰big低/中对比度旧守卫噪声拒绝71/880，无噪均0。",
+      "曲线替换一起改变对比度、谷位置与主谷宽度。"
+    ],
+    "interpretation": [
+      "支持这些点的误拒绝由所加相关噪声触发，不能推出全部损伤唯一原因或精确百分比分解。"
+    ],
+    "decision": [
+      "将噪声误谷作为已定位机制保留，下一步才做独立机制分解。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-16/e0-f-incumbent-support-20260916T060448Z/REPORT.md"
+    ],
+    "tags": [
+      "noise-counterfactual",
+      "oracle-diagnostic",
+      "causal-scope"
+    ],
+    "predecessors": [
+      "CPR010"
+    ],
+    "corrections": [
+      "收窄把E0-E所有损伤归因噪声或单一估计模块的说法。"
+    ],
+    "rerun_condition": "只有单独操纵此前共同变化因素或新的真实噪声证据才增加归因信息。"
+  },
+  {
+    "id": "CPR012",
+    "title": "E0-F真实接入盘点：均值ZNCC不能恢复逐视图层支持",
+    "date": "2026-09-16",
+    "track": "CPR",
+    "question": "既有V25 bundle是否已包含能够检验前后层来源归属的证据？",
+    "did": [
+      "历史只读盘点turret_join、scissor_cross、wall_control、stone_control四bundle。",
+      "本次读取E0-F报告中的盘点结论，未再次打开这些原NPZ或重算逐源代价。"
+    ],
+    "not_done": [
+      "本条不是本次artifact_checked；没有新真实去噪、官方MVS、新确认场景或实际ACQUIRE。"
+    ],
+    "result": [
+      "zncc保存逐源算术均值，没有逐视图代价轴；n_valid_src统计投影/窗口有效数，非遮挡认证可见数。"
+    ],
+    "interpretation": [
+      "当前平均证据接口不能凭空恢复来源身份；接入新逐源证据是不同信息机制实验。"
+    ],
+    "decision": [
+      "需在新协议中从原图/相机计算逐源代价并声明遮挡处理；不把盘点算候选过门槛。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-16/e0-f-incumbent-support-20260916T060448Z/REPORT.md"
+    ],
+    "tags": [
+      "real-evidence-inventory",
+      "per-view-gap",
+      "not-executed"
+    ],
+    "predecessors": [
+      "CPR010",
+      "CPR011"
+    ],
+    "corrections": [
+      "防止将有效投影计数解释成已认证可见源，或将真实接口盘点解释为真实修复成绩。"
+    ],
+    "rerun_condition": "先查后续V26及9/26逐源实验是否已执行相关工作；只有新增输入机制或独立确认才值得再做。"
+  }
+]

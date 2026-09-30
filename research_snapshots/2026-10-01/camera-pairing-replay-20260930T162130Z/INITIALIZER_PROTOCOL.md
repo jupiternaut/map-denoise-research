@@ -1,0 +1,7 @@
+# 固定查询与上下文补充（运行前，尚未访问新GT指标）
+
+每ROI锁定旧128个半分辨率reference像素。仍在原ROI网格做Q-only plane sweep、原SIFT深度范围规则、1mm步长、ZNCC≥0.6、方差>1e-5和原抛物线细化。
+固定query若未通过同一质量阈值，则记construction failure，不替换。成功query优先纳入context；其余context按旧像素SHA256顺序补至384，最后整体hash排序。
+两U采用相同priority selector解释：U0固定query本来就在旧hash-top384中，因此优先保留再hash补齐及排序严格复现旧context；用独立检查验证。原流程先hash截384再linspace取query，U1新合格集则可能改变context成员。报告强制纳入query数及context交集/增删。U效应不称单独内参的因果效应，W对照仍完全固定context、法向、候选与模型输出。
+报告原512分母、成功数、共同有效集。少于64有效query的ROI记不完整，不伪造完整模型对照。±3mm沿各自U重建的reference单位射线。
+COLMAP角点坐标与数组整数中心转换由CAMERA_MAPPING.json定义；不依靠激光参考选择位移或半像素参数。

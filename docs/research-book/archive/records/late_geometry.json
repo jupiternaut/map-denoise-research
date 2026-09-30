@@ -1,0 +1,1196 @@
+[
+  {
+    "id": "LG001",
+    "title": "V25 多面再生：实现完成，替换式输出失败",
+    "date": "2026-09-14",
+    "track": "late_geometry",
+    "question": "同多视图证据下，多面与可变支持再估计能否恢复旧几何？",
+    "did": [
+      "共享证据 bundle；CPU ZNCC 融合、单面/旧点移动、多面 atlas、去第二峰、深度连通域、门控和 core 缩小对照；两开发场景八照片 ROI。"
+    ],
+    "not_done": [
+      "官方 COLMAP/OpenMVS 未运行；没有新确认场景、物理层身份认证或全局拓扑恢复。"
+    ],
+    "result": [
+      "v25_atlas 的 E_sym 在 8/8 父 ROI 差于 identity；替换式变体仍失败。",
+      "单面限制使 completeness 升至几十毫米；门控位移接近 identity，未达到结构区 20% 收益目标。"
+    ],
+    "interpretation": [
+      "多面再生已经做过；失败不只由第二峰假峰或 ROI 太大解释。E_sym 是双向集合距离，不可与后期固定源 MSE 排成同一榜。"
+    ],
+    "decision": [
+      "关闭 V25 作为部署默认；保留实现和负结果，默认 identity。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-15/map-denoise-v25-surface-regeneration/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "geometry/V24/field-budget"
+    ],
+    "corrections": [
+      "报告日期为 9月14日，归档目录位于 9月15日；不按目录名改写实验日期。",
+      "自研 fusion_wta 不是官方 COLMAP。"
+    ],
+    "rerun_condition": "只有具体改变证据模型、可靠深度或补上对口系统基线，并冻结评价支持时才重访；再加一张面不构成新问题。"
+  },
+  {
+    "id": "LG002",
+    "title": "V26 逐源证据、双视图支持与网格遮挡",
+    "date": "2026-09-22",
+    "track": "late_geometry",
+    "question": "保留源视图轴与遮挡先验能否让已有点安全修订？",
+    "did": [
+      "四个已暴露 ROI，平均/双视图支持×网格遮挡及零门槛对照；固定行、6 mm 范围；实际输出及评价专用候选诊断。"
+    ],
+    "not_done": [
+      "没有统计独立见证、真实表面身份或官方 MVS 基线；未证明所有逐源方法无用。"
+    ],
+    "result": [
+      "主法四 ROI E_sym 恶化 9.71%/3.27%/6.45%/32.26%；八处理臂×四 ROI 全部差于 identity。",
+      "输入遮挡先验减少损伤但未实现净收益；首轮移动中 9.01%–56.92% 来自不合格现任证据。"
+    ],
+    "interpretation": [
+      "双视图支持不是独立性或正确表面证书；首轮含未明说的最低分回退，不能当作始终有效前后比较的完整测试。"
+    ],
+    "decision": [
+      "不部署；将回退缺口单列新目录补测。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-22/per-view-geometry-v26-20260922T111059Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG001"
+    ],
+    "corrections": [
+      "不合格现任被置为最低分会制造移动优势；这是具体契约错误，不是浮点随机平局。"
+    ],
+    "rerun_condition": "重访须区分证据分辨率、前后评分契约与真正观测失配，不再把保留视图轴本身称新构造。"
+  },
+  {
+    "id": "LG003",
+    "title": "V26 守卫补测：撤销缺现任证据的移动",
+    "date": "2026-09-22",
+    "track": "late_geometry",
+    "question": "修正最低分回退能解释多少原有损伤？",
+    "did": [
+      "仅撤销现任证据不合格的移动；候选、排序、阈值和其余原选择不变；保留首轮封存。"
+    ],
+    "not_done": [
+      "未做同数量随机撤销比较；未认证微小差值的计量不确定度；补测 Oracle 未施加新守卫。"
+    ],
+    "result": [
+      "turret E_sym 0.496402→0.449664，对 identity 0.452474 微好 0.62%；另三 ROI 仍恶化 2.86%/4.46%/18.77%。",
+      "32 项测试和全部点×方法撤销规则核验为原报告所记；本书未重跑。"
+    ],
+    "interpretation": [
+      "回退移动造成部分净损伤，剩余失败不能全归一个 bug；实现修好不等于科学主假说通过。"
+    ],
+    "decision": [
+      "整体验收仍失败，默认 identity；不再把该漏项原样列为未做。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-22/per-view-geometry-v26-20260922T111059Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG002"
+    ],
+    "corrections": [
+      "旧首轮保留；这是事后开发修正，不是新场景确认。",
+      "沿用首轮 Oracle 不能评价守卫后可达最优。"
+    ],
+    "rerun_condition": "只有直接位置证据或新可辨识机制能改变剩余失配判断时重访。"
+  },
+  {
+    "id": "LG004",
+    "title": "V27 实际位置重评分与几何联合修正",
+    "date": "2026-09-22",
+    "track": "late_geometry",
+    "question": "绕开粗网格插值、直接取证，能否实际恢复偏移？",
+    "did": [
+      "0.25 mm 射线网格、直接 7×7 切平面 ZNCC；现任同路径评分；几何图联合臂；18 合成例、八真实 ROI 的 native/+3 mm。"
+    ],
+    "not_done": [
+      "没有连续全局最优、拓扑优化或新增点；合成仅纹理/Lambertian/正确标定等条件；真实注入不是盲确认。"
+    ],
+    "result": [
+      "合成对应 RMSE 2.825674→0.201321 mm，18/18 改善。",
+      "+3 mm 真实 E_sym 2.401151→1.855880 mm，8/8 改善；原测量对应恢复 RMSE 3→3.280272 mm；native E_sym 1.401654→1.704648。"
+    ],
+    "interpretation": [
+      "存在条件恢复能力；集合表面更近、逐点回到原测量、原生净改善是不同终点。八 ROI 只有两场景。"
+    ],
+    "decision": [
+      "保留直接取证主干；不升级通用滤波默认。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-22/v27-continuous-patch-field-20260922T115653Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG003"
+    ],
+    "corrections": [
+      "注入运行前获知 native 不利的定性消息，不能称盲测。",
+      "缺失候选代价规格差异的中性重放未改变主结果；局部能量下降不保证几何下降。"
+    ],
+    "rerun_condition": "新实验需明确改变方向/边界或归属证据，同时验 native 和扰动；只加更强平滑须与已有联合臂比。"
+  },
+  {
+    "id": "LG005",
+    "title": "V28 多方向半窗候选与候选后选择",
+    "date": "2026-09-22",
+    "track": "late_geometry",
+    "question": "竞争法向/窗口能否补足 A，候选后证据能否选择性保留收益？",
+    "did": [
+      "B 为四法向×五支持窗；A/B/KEEP 跨整场景监督筛选；fit/预留视图臂；72 合成机制例和两开发场景八 ROI×三输入。"
+    ],
+    "not_done": [
+      "B 与 A 非同计算预算；未识别真实失败主要物理原因；不是首次完成全局物理归属或新场景确认。"
+    ],
+    "result": [
+      "候选后 A/B/KEEP 的 +3 E_sym 1.8339 mm 对 identity 2.4012；native 1.5064 对 1.4017，仍差。",
+      "+3 候选后 A/KEEP 保留 51.61% 平方收益、7.87% 损伤；匹配决策数随机为 41.85%/35.21%。",
+      "小相机误差合成 A/B RMSE 3.8066/3.9587 对 identity 2.4495；预留 B 为 2.4787；零偏差预留 B 仍产生 0.2856 mm。"
+    ],
+    "interpretation": [
+      "候选互补和有用选择成立于所测条件；预留视图不保证零损伤；相机干预证据不等于真实主导根因。"
+    ],
+    "decision": [
+      "冻结固定清单，保留 A/B/验证/筛选，不部署，不按正负扰动拼赢家。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-22/v28-surface-experts-20260922T125505Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG004"
+    ],
+    "corrections": [
+      "学习器使用另一开发场景 GT 标签，不能称无监督。",
+      "历史已存在三选一路由，后续接路由不能再称首次。"
+    ],
+    "rerun_condition": "重访须使用明确新机制或未曝光确认，说明与已做多法向/半窗/预留验证的差分。"
+  },
+  {
+    "id": "LG006",
+    "title": "9月22日三场景冻结确认与评价足迹补充",
+    "date": "2026-09-22",
+    "track": "late_geometry",
+    "question": "冻结 post_A_keep 能否在未参与开发的同来源场景保护原生并恢复偏移？",
+    "did": [
+      "scan40 工程适配；scan55/65/69 三确认场景，每景四 ROI×五输入；输出先封存、后获取参考；固定源行 MSE。"
+    ],
+    "not_done": [
+      "没有官方 COLMAP、跨来源确认、独立计量不确定度或干净环境端到端复现。"
+    ],
+    "result": [
+      "native MSE 0.753165→0.814326，恶化 8.12%；−1 恶化 2.00%；+1 改善 9.74%；−3/+3 改善 36.08%/33.79%。",
+      "原生 0/12 ROI 改善；两种 3 mm 各 12/12 改善且预定恢复验收通过，原生验收失败。",
+      "事后发现 AABB 参考中 55.72%–83.20% 投影在照片 ROI 外，限制 completeness 解释；原评分未改。"
+    ],
+    "interpretation": [
+      "当时是同来源新确认；从这一轮后这些场景已暴露。局部覆盖参考窗口问题不撤销固定源 MSE 判定。"
+    ],
+    "decision": [
+      "默认 identity；不在确认数据调参后再称未见确认。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-22/closeout-confirmation-20260922T133739Z/EXPERIMENT_REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-22/closeout-confirmation-20260922T133739Z/EXECUTION_CHECKPOINT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG005"
+    ],
+    "corrections": [
+      "准备版 CHECKPOINT/README 不代表最终状态；EXECUTION_CHECKPOINT 明确完成。",
+      "补充只缩小 E_sym/recall 解释，不改成绩。"
+    ],
+    "rerun_condition": "只有新增冻结问题/未曝光场景或补成熟等信息基线才可形成新确认；旧场景重放仅作诊断。"
+  },
+  {
+    "id": "LG007",
+    "title": "9月26日相对收益、双头及校准工作点",
+    "date": "2026-09-26",
+    "track": "late_geometry",
+    "question": "同 A 候选与 64 维信息，改收益目标能否同时减损与修复？",
+    "did": [
+      "直接/归一化/收益损伤双头/概率幅度三头及置信对照；两开发场景 OOF 校准；三旧场景 60 案例回放；同数量/位移分箱随机诊断。"
+    ],
+    "not_done": [
+      "无新增观测；多头非等总容量；native-priority 网格不可行不证明所有策略不可能。"
+    ],
+    "result": [
+      "归一化 balanced：native 恶化 1.25%（旧 8.12%），−3/+3 改善 39.04%/32.06%；native 移动 0.377% 对旧 21.136%。",
+      "native 略差于匹配随机；大扰动优于随机。自然阈值 0 下 native 恶化 25.81%；11/11 native-priority 不可行后全 KEEP。"
+    ],
+    "interpretation": [
+      "双头学习早于 9月29日已做；低损伤工作点不等于原生修复；目标+训练/校准流程不可拆成公式单独功劳。"
+    ],
+    "decision": [
+      "保留条件工作点；不继续同信息头数竞赛，不改默认。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-26/relative-gain-lab-20260926T004220Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG006"
+    ],
+    "corrections": [
+      "额外损伤减少 84.65% 不是几何精度改善 84.65%。"
+    ],
+    "rerun_condition": "新增证据或明确同总预算学习问题才重访；更名双头不得称首次。"
+  },
+  {
+    "id": "LG008",
+    "title": "保留视图成对证据：恢复增量与原生损伤",
+    "date": "2026-09-26",
+    "track": "late_geometry",
+    "question": "排除构造源 ID 的照片能否更可靠比较 KEEP 与 A？",
+    "did": [
+      "冻结 A；新选四来源，现任/最终候选相同支持重评分；同 32 维旧构造视图对照；开发训练与 60 案例回放。"
+    ],
+    "not_done": [
+      "来源 ID 分离不保证统计独立或未参与原 MVS；没有补点、薄层身份认证或官方整场评价。"
+    ],
+    "result": [
+      "reserved balanced：−3/+3 MSE 改善 46.773%/37.120%，同旧视图对照 42.185%/34.747%；native 恶化 4.516%，12/12 ROI 败。",
+      "native_priority 仍微恶化 0.0403%，恢复降至 28.436%/21.045%；单光度门 native 恶化 53.747%。"
+    ],
+    "interpretation": [
+      "额外来源在该流程有条件增量；光度见证仍不能自动认证几何收益。"
+    ],
+    "decision": [
+      "保留分开构造/验收的接口，不部署、不再在已见案例搜阈值。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-26/reserved-evidence-lab-20260926T011717Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG007"
+    ],
+    "corrections": [
+      "旧缓存 heldout 对 A_all 并非真保留，A_all 已用全部四图。"
+    ],
+    "rerun_condition": "需要明确新来源内容或候选×证据交叉；再说用保留视图验收已重复。"
+  },
+  {
+    "id": "LG009",
+    "title": "候选 A/B × 保留视图交叉与互补收益",
+    "date": "2026-09-26",
+    "track": "late_geometry",
+    "question": "B 的互补位置能否被保留证据兑现？",
+    "did": [
+      "复用 V28 B；A/B×构造/保留四组，96 维同容量评分；固定原生支持、三旧场景 60 案例；候选池 Oracle 与毛互补捕获。"
+    ],
+    "not_done": [
+      "未部署归一化 A/B 分数直接取最大；验证仍用 PCA-k24 完整窗，未匹配 B 专属支持；无统计独立视图。"
+    ],
+    "result": [
+      "B_R：native 恶化 4.15%，−3/+3 改善 46.45%/36.36%；R 相对 F 五条件均减损，没有 B 特有稳定正交互。",
+      "native A/KEEP Oracle 改善 23.85%，A/B/KEEP 32.60%；B_R 仅捕获新增正收益 3.34%，未扣其他损伤。"
+    ],
+    "interpretation": [
+      "B 是有用互补坐标，但毛收益与实际净收益不同；有限池 Oracle 不能证明现信息足以识别。"
+    ],
+    "decision": [
+      "保留 B 和交叉证据，不升级；接共享比较器需承认 V28 已有路由。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-26/boundary-cross-lab-20260926T014111Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG005",
+      "LG008"
+    ],
+    "corrections": [
+      "候选增加后的 Oracle 弱单调是集合包含性质，实测贡献是增量幅度而非该性质。"
+    ],
+    "rerun_condition": "重访应改变候选支持匹配或比较尺度，并明确与已有联合选择器的不同。"
+  },
+  {
+    "id": "LG010",
+    "title": "共享比较器与候选专属支持",
+    "date": "2026-09-26",
+    "track": "late_geometry",
+    "question": "共享竞争上下文与 B 专属验证支持是否更会选 A/B/KEEP？",
+    "did": [
+      "固定三套坐标；绝对 mm² 收益标签；共享竞争评分与 A/B 交换不变性；构造图选支持、保留图验证；固定随机动作配额对照。"
+    ],
+    "not_done": [
+      "无新增几何候选；共享/独立树容量不等；动作数随机未匹配实际位移；B 增量不是删 B 重跑的因果消融。"
+    ],
+    "result": [
+      "主法 native 恶化 2.46%，−1 改善 4.35%，−3/+3 改善 43.55%/35.15%，未全面超过简单独立评分。",
+      "五条件优于全部十个动作配额随机；native B 毛互补捕获 1.18%，低于旧 3.34%。"
+    ],
+    "interpretation": [
+      "选择含有效信息；复杂共享结构未兑现更高互补捕获或原生净收益。"
+    ],
+    "decision": [
+      "保留接口和简单强对照，不部署。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-26/joint-revision-lab-20260926T080710Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG009"
+    ],
+    "corrections": [
+      "本轮新的是共享竞争与专属支持，不能称首次路由。"
+    ],
+    "rerun_condition": "只有可检验新观测差分或受控比较容量/校准问题时重访。"
+  },
+  {
+    "id": "LG011",
+    "title": "源视图可见性特征 × 学习容量",
+    "date": "2026-09-26",
+    "track": "late_geometry",
+    "question": "当前云 Z-buffer、竞争深度与光度交互能否改善候选决策？",
+    "did": [
+      "新增前表面深度、源行 ID、自支撑、逆深度残差、视差角等 80 维几何和 16 维交互；三证据×两容量、24 工作点；60 旧案例。"
+    ],
+    "not_done": [
+      "没有新独立测量或 ROI 外遮挡全模型；未唯一归因自支撑；同配额随机非位移匹配。"
+    ],
+    "result": [
+      "同浅模型零阈值下 +1 改善从 9.61% 到 12.54%，native 和大偏移没有共同改善。",
+      "开发四目标均选旧 base_shallow；recovery 工作点 −3/+3 改善 46.99%/39.02%，native 恶化 7.67%；这是旧模型换阈值而非新可见性收益。"
+    ],
+    "interpretation": [
+      "遮挡特征确实已训练和评价；有条件信息增量而非全面无用，也无原生安全证书。"
+    ],
+    "decision": [
+      "保留 +1 条件收益和恢复工作点，不升级默认。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-26/visibility-revision-lab-20260926T085529Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG010"
+    ],
+    "corrections": [
+      "全部 KEEP 的原生优先回退不算修复；事后各列最高分不可拼成一个方法。"
+    ],
+    "rerun_condition": "改变可区分表面的证据来源或可见性有效性，不能再泛称加入遮挡特征是新方案。"
+  },
+  {
+    "id": "LG012",
+    "title": "连续步长 Oracle 与固定路由照片搜索",
+    "date": "2026-09-26",
+    "track": "late_geometry",
+    "question": "连续化现任到 A/B 线段能增加多少候选能力，实际选步长能兑现多少？",
+    "did": [
+      "精确有限参考线段投影 Oracle；冻结旧分支后五步长照片搜索、重评分二次插值；常数 25/50/75% 强对照。"
+    ],
+    "not_done": [
+      "连续化只增射线深度、不增方向；没有自动保层或连续光度全局最优；源图已参与选择。"
+    ],
+    "result": [
+      "−3/+3 三点 Oracle 69.94%/63.27%→连续 74.69%/64.99%；固定旧路由连续 Oracle 仅 51.25%/40.80%。",
+      "主法 −3/+3 改善 47.21%/38.55%，native 恶化 6.40%；二次插值几乎无增量。"
+    ],
+    "interpretation": [
+      "大部分剩余候选空间须改分支/KEEP；嵌套风险差分是代数分账，不是各模块因果百分比。"
+    ],
+    "decision": [
+      "保留连续诊断和常数步长；停止只在固定路由堆高阶插值，不部署。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-26/continuous-step-lab-20260926T100617Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry",
+      "oracle"
+    ],
+    "predecessors": [
+      "LG011"
+    ],
+    "corrections": [
+      "74.69% 是真值诊断上界，不是已取得的实际算法恢复率。"
+    ],
+    "rerun_condition": "重访应同时改变分支/KEEP判断或独立信息，并检查薄层与覆盖，不重复加密步长。"
+  },
+  {
+    "id": "LG013",
+    "title": "局部多曲面场、层责任、Z-buffer 与图",
+    "date": "2026-09-26",
+    "track": "late_geometry",
+    "question": "共享一/两张曲面和归属/可见性是否让宽候选更可选？",
+    "did": [
+      "九射线位置→局部六参数 K1/K2 曲面 EM 与三新位置→光度重评分；双面+自渲染可见性+图对照；三场景 60 回放。"
+    ],
+    "not_done": [
+      "未做全局拓扑、增删点或全局 SDF；新场光度仍用输入 PCA 法向；局部层 ID 非持久物理身份。"
+    ],
+    "result": [
+      "双面主法 native 恶化 83.35%，−3/+3 改善 23.89%/21.95%，均未胜旧恢复器。",
+      "双面相对单面大扰动有收益；可见性臂五条件均值变差。九位置 Oracle −3/+3 90.66%/92.57%，加入场仅多约 0.28/0.18 个百分点。"
+    ],
+    "interpretation": [
+      "共享场已真正实现；高上界主要来自更宽位置，不能归为拓扑升级；模块收益不等于系统升级。"
+    ],
+    "decision": [
+      "保留宽池与双面接口，默认不升级；下一步需让新面直接预测方向与成像。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-26/multisurface-field-lab-20260926T102842Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG012"
+    ],
+    "corrections": [
+      "±3 网格与注入幅度重合，不能预支非网格迁移。",
+      "早期图自环实现错误在正式评分前修复，smoke 保留。"
+    ],
+    "rerun_condition": "只有面参数真正改变自身前向成像或新非网格验证时重访；K2+图+自渲染本身已做。"
+  },
+  {
+    "id": "LG014",
+    "title": "多曲面场专属 Oracle：拟合损失与选择损失并存",
+    "date": "2026-09-26",
+    "track": "late_geometry",
+    "question": "宽池中有答案是否意味着只剩路由？",
+    "did": [
+      "主结果后单列 KEEP/K1 和 KEEP/K2a/K2b Oracle；固定例检查未裁剪面预测与九候选距离。"
+    ],
+    "not_done": [
+      "没有当前硬准入规则下最优性或所有物理原因因果分摊；宽池与场池非嵌套。"
+    ],
+    "result": [
+      "K2 专属 Oracle −3/+3 改善 62.69%/62.66%，实际双面 23.89%/21.95%；宽九位置为 90.66%/92.57%。",
+      "scan55_roi0 native 两张面都离输入射线位置超过 6 mm 的点 42.53%；九候选任一到任一层仍超 6 mm 为 29.72%。"
+    ],
+    "interpretation": [
+      "拟合构造损失和选择决策缺口同时存在；全池 Oracle 与实际差不能全叫排序器损失。"
+    ],
+    "decision": [
+      "保留事后容量分解；不把诊断升级成预注册新方法成绩。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-26/multisurface-field-lab-20260926T102842Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry",
+      "oracle"
+    ],
+    "predecessors": [
+      "LG013"
+    ],
+    "corrections": [
+      "场专属 Oracle 没有 fresh-view 有效掩码，差距也含强制 KEEP 与准入；非纯排序损失。"
+    ],
+    "rerun_condition": "重访须报告同一输出域的能力界和观测准入，不能用宽池 Oracle 替场模型背书。"
+  },
+  {
+    "id": "LG015",
+    "title": "多视图共同解释：方向、来源与旧状态更正",
+    "date": "2026-09-28",
+    "track": "late_geometry",
+    "question": "冻结 12 坐标，让一个方向共同解释多图，能否恢复可靠评分？",
+    "did": [
+      "新增 W 视图规划；每候选两曲面方向；逐图非线性组合；开发六案例、五机制臂；锁定 60 replay+60 stress。"
+    ],
+    "not_done": [
+      "stress 没有完整阶段封存/评价；不得按旧运行中标题推断现在仍运行或已完成压力测试。"
+    ],
+    "result": [
+      "开发主 D native 恶化 41.04%，−3/+3 改善 41.32%/32.64%，弱于旧恢复器；新增视图相对匹配臂有模块收益。",
+      "后续 revision-theory 已明确 60 案例 replay 完成、2,934,480 点行复现；stress 仍不完整。"
+    ],
+    "interpretation": [
+      "共同方向与新增视图已做；方向自由度无普遍收益。两个开发场景结果不能充迁移证据。"
+    ],
+    "decision": [
+      "不升级默认；保存完成/未完成状态区别。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-28/multiview-witness-lab-20260928T065516Z/REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-28/revision-theory-lab-20260928T105028Z/REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-28/revision-theory-lab-20260928T105028Z/CHECKPOINT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG013"
+    ],
+    "corrections": [
+      "旧 REPORT/CHECKPOINT 的 P2 running 是时间切片，已被后续 replay 完成状态补充。"
+    ],
+    "rerun_condition": "只有明确补完原锁定 stress 或改变可区分机制才继续；须先核查当前封存，不自动重启。"
+  },
+  {
+    "id": "LG016",
+    "title": "修订理论：有限信息界与真实逐源冲突",
+    "date": "2026-09-28",
+    "track": "late_geometry",
+    "question": "候选有答案、证据可区分和实际决策的缺口能否分开？",
+    "did": [
+      "九世界精确策略穷举；线性几何/共同偏差的重复、参考校准、互补联合估计；60 暴露案例诊断。"
+    ],
+    "not_done": [
+      "未提升真实修复器；没有真实共同加性偏差的唯一归因；R/W 不是统计独立通道。"
+    ],
+    "result": [
+      "九世界重复同类观测最优风险均 4/9，互补通道 0；线性指定条件 MSE 约 1.00→校准 0.010/联合 0.0026。",
+      "native D 移动点 64.71% 有害；足够共同来源的有害 D 中 98.99% 有逐源正负冲突；R 单独选择的有害动作中 35.83% 被 W 偏好。"
+    ],
+    "interpretation": [
+      "不能用所有视图一致共同偏差概括真实失败；最优计算也可能不能克服有限观测不可区分。"
+    ],
+    "decision": [
+      "将相机偏差干预和表面关联拆开后再测；默认不变。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-28/revision-theory-lab-20260928T105028Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG015"
+    ],
+    "corrections": [
+      "R-only/W-fixed 检查为首个 GT 探针后的事后补充，不是预注册独立确认。",
+      "汇总顶层计数有宏平均值，不是 pooled 总数；不以行数充样本。"
+    ],
+    "rerun_condition": "只有物理可实现且可辨识的新证据干预，才可把线性/有限理论推进到真实归因。"
+  },
+  {
+    "id": "LG017",
+    "title": "统一理论历史矩阵与合成相机—关联桥梁",
+    "date": "2026-09-28",
+    "track": "late_geometry",
+    "question": "校准恢复评分排序后，何时能兑现宽候选几何收益？",
+    "did": [
+      "整理 93 历史条目/55 来源和更正链；固定透视几何、64 配对噪声重复；目标外参考估计二参数相机；窄/宽嵌套候选与 25% 错配。"
+    ],
+    "not_done": [
+      "不是 4,608 独立真实场景；已知参考几何增加信息；宽池预置逆注入修正；无真实照片标定或可部署关联修复。"
+    ],
+    "result": [
+      "正确对应±120 mm：KEEP MSE 14,400，校准宽池 1.042 mm²；25% 错配时校准宽池 18,000.521，劣于 KEEP。",
+      "正确对应主集，真相机排序不一致率 50.0326%→1.0851%；192/192 退化参考秩1并回退；零相机误差 native 校准引入额外噪声。"
+    ],
+    "interpretation": [
+      "校准误差与目标不一致必须分开；候选、信息、实现风险分解只在共同损失/嵌套条件成立。"
+    ],
+    "decision": [
+      "理论为可检验框架，未声称原创经典定理或真实稳定净收益；真实目标外标定作为后继问题。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-28/unified-revision-theory-20260928T114318Z/REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-28/unified-revision-theory-20260928T114318Z/PREDICTION_REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-28/unified-revision-theory-20260928T114318Z/HISTORY_LATE_META.md",
+      "/home/grf/Documents/Codex/2026-09-28/unified-revision-theory-20260928T114318Z/HISTORY_SUPPLEMENT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG016",
+      "geometry-meta/2026-09-15/unified-handoff"
+    ],
+    "corrections": [
+      "历史阅读不是本轮重跑；早期已有帧偏差/V10 联合纠偏/V28 相机干预，不能称首次发现相机因素。"
+    ],
+    "rerun_condition": "必须新增真实证据条件或具体理论反例；重算同合成装置不算跨场景验证。"
+  },
+  {
+    "id": "LG018",
+    "title": "真实照片相机校正 × 共享稀疏轨迹",
+    "date": "2026-09-28",
+    "track": "late_geometry",
+    "question": "目标外相机校正与候选无关的共享 track 能否改善真实选择？",
+    "did": [
+      "整轨迹排除目标 ROI，19 来源相机×三状态鲁棒 6DoF 拟合；共享锚点局部仿射两图转移；冻结 12 候选，54 组及匹配 2×2。"
+    ],
+    "not_done": [
+      "SfM 留出不是独立物理标定；稀疏身份不保证稠密物理面；仅三旧场景六 ROI 抽样回放。"
+    ],
+    "result": [
+      "19/19 原始及正负注入相机留出 RMS 均下降；注入约 8.82/9.33 px→0.9801 px。",
+      "共享证据仅 96/5523=1.74% 支持；联合主法 native 恶化 4.61%，−3 恶化 1.41%，+3 改善 0.94%；旧恢复器仍强。"
+    ],
+    "interpretation": [
+      "相机注入恢复链实际跑通，原生重投影好转不等于几何好转；覆盖是独立瓶颈。"
+    ],
+    "decision": [
+      "冻结相机模块，保留旧恢复器，不部署新联合法。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-28/camera-surface-joint-20260928T121545Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG017"
+    ],
+    "corrections": [
+      "小匹配子集 +3 宏改善 93.19% 不能替代全支持 0.94%；单点 ROI 过高权重可扭曲聚合。"
+    ],
+    "rerun_condition": "需要更稠密且同覆盖可比的新关联信息；不再把相机拟合完成当全系统完成。"
+  },
+  {
+    "id": "LG019",
+    "title": "稠密多峰、真实反向搜索与共享深度",
+    "date": "2026-09-28",
+    "track": "late_geometry",
+    "question": "提高关联覆盖并保留竞争峰，能否选好固定候选？",
+    "did": [
+      "65 深度取证、每来源最多三峰；来源射线重新搜索参考照片的 cycle；共享深度评分与 KEEP 优先；18 旧回放。"
+    ],
+    "not_done": [
+      "65 深度不是新增输出候选；未恢复真实层身份；cycle 不构成置信覆盖保证。"
+    ],
+    "result": [
+      "native 证据支持 96/5523→2138/5523=38.71%，非严格超集；主法 native 恶化 24.66%，−3/+3 改善 29.96%/22.08%，均弱于旧恢复器。",
+      "匹配相同来源/支持后，额外过滤非 cycle 峰没有 MSE 增量；部分收益来自支持筛选组合。"
+    ],
+    "interpretation": [
+      "稠密覆盖和扰动恢复成立，但更广支持也暴露好点于误移；不能把全部收益归于峰更正确。"
+    ],
+    "decision": [
+      "保存原始曲线/模块，不升级、不用小容差臂事后替换主法。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-28/dense-correspondence-20260928T125354Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG018"
+    ],
+    "corrections": [
+      "运行前将完全平坦曲线改为 unknown；首次评价重复字典键修复只涉及评价流程，旧失败目录保留。"
+    ],
+    "rerun_condition": "新构造需对跨像素共同表面解释作对照；多峰+往返一致已经做过。"
+  },
+  {
+    "id": "LG020",
+    "title": "共享 K1/K2 表面与普通平滑对照",
+    "date": "2026-09-28",
+    "track": "late_geometry",
+    "question": "固定照片 unary 与 12 候选，共享几何平面能否提供额外选择力？",
+    "did": [
+      "同两视图逐点、普通平滑、共享一/两面、打乱邻域；双面求解缺口先修复；封存后检查两图与激光。"
+    ],
+    "not_done": [
+      "拟合新法向未回写 unary，不是完整联合光度几何；无全局最优证明或物理层证书。"
+    ],
+    "result": [
+      "主共享表面 native/−3/+3 MSE 改善 −207.46%/+2.22%/−3.34%；比逐点好但不如普通平滑。",
+      "合成求解改后恢复 32/32，目标 4.600；真实同坐标拟合法向检查 NCC 下降 0.06578/0.07391/0.07349。"
+    ],
+    "interpretation": [
+      "求解不足已查到并修好一例，仍未解决观测一致性；自洽平面不能替代照片解释。"
+    ],
+    "decision": [
+      "保留算子和平滑强对照，不部署，不按激光调参。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-28/shared-surface-20260928T133800Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG019"
+    ],
+    "corrections": [
+      "旧求解目标 11.443 与修后 4.600 均保留；修一例不等于任意实例全局最优。"
+    ],
+    "rerun_condition": "只有同面参数真正控制位置/方向/可见性前向预测，才越过已测几何正则。"
+  },
+  {
+    "id": "LG021",
+    "title": "有限纹理表面元：动态遮挡的真实渲染闭环",
+    "date": "2026-09-28",
+    "track": "late_geometry",
+    "question": "几何→射线求交→最近命中→照片预测→几何更新能否恢复表面？",
+    "did": [
+      "有限矩形 surfel、固定 7×7 纹理和范围；位移+法向有限搜索；位置/联合/冻结归属三臂；18 输入、54 优化及实际坐标/法向输出。"
+    ],
+    "not_done": [
+      "无纹理来源修正、范围学习、增删点、外部完整遮挡或全局最优证书；旧 12 候选 Oracle 非此连续算子上界。"
+    ],
+    "result": [
+      "联合主法拟合照片 MSE 降低 24.16%–30.43%，native/−3/+3 几何 MSE 却恶化 46.25%/26.31%/1.83%。",
+      "检查照片覆盖丢失 5.13%–6.07%，含缺失罚的 MSE 恶化超过 100%；动态归属比冻结归属几何更差。"
+    ],
+    "interpretation": [
+      "渲染闭环确已做成，但 owner 是 primitive 行身份而非物理面；低照片损失不等于真实几何。"
+    ],
+    "decision": [
+      "保留渲染模块，默认不变；下一项应单独干预外观归属/范围/上下文有效性。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-28/surfel-rendering-20260928T142538Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry",
+      "rendering"
+    ],
+    "predecessors": [
+      "LG020"
+    ],
+    "corrections": [
+      "不能说所有损伤是把坏几何藏起来：主法损伤中两拟合视图均不可见贡献仅约 3.09%/3.78%/8.13%。"
+    ],
+    "rerun_condition": "重访须明确改变前向模型有效性并有匹配对照；再加法向自由度、动态遮挡或渲染器不算新方向。"
+  },
+  {
+    "id": "LG022",
+    "title": "106维渲染证据接回旧几何收益学习器",
+    "date": "2026-09-28",
+    "track": "late_geometry",
+    "question": "保留有效候选，让渲染归属证据帮助 KEEP/A/B 决策是否有效？",
+    "did": [
+      "旧 96 维+106 渲染特征=202 维；单点反事实、固定评分域、颜色/覆盖/抢占退让；两开发场景浅 HGB 与 18 案例抽样回放。"
+    ],
+    "not_done": [
+      "没有完整场景遮挡真值、真实物理身份、额外视图或新候选；不是新确认。"
+    ],
+    "result": [
+      "render balanced native/−3/+3 改善 −2.47%/+29.97%/+16.97%；同匹配 base 为 −2.09%/+33.29%/+21.57%。",
+      "已有三候选 Oracle 为 +25.46%/+64.39%/+55.04%，仅作诊断；强合并验收未通过。"
+    ],
+    "interpretation": [
+      "渲染特征已经送进学习器且实际输出过，不是只保存诊断；此浅模型没有兑现新特征增量。"
+    ],
+    "decision": [
+      "保留原恢复器，不升级默认。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-28/render-evidence-router-20260928T154224Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry",
+      "rendering",
+      "learning"
+    ],
+    "predecessors": [
+      "LG021",
+      "LG010"
+    ],
+    "corrections": [
+      "特征来源是原照片/相机，并未引入前轮修正相机；不要把多个分支自动拼成已运行系统。"
+    ],
+    "rerun_condition": "如重访需固定特征×容量或上下文对照，不能再提出泛称加渲染特征学习。"
+  },
+  {
+    "id": "LG023",
+    "title": "渲染特征 × 容量及错误邻居压制机制",
+    "date": "2026-09-29",
+    "track": "late_geometry",
+    "question": "新证据没信息，还是浅模型没用好？单点评分会否被错误邻居遮蔽？",
+    "did": [
+      "旧/渲染特征×浅/大 HGB 匹配；固定 18 回放；解析平面/有限前景夹具，单点/81点/整片/真实邻居 Oracle。"
+    ],
+    "not_done": [
+      "受控真邻居/正确共同修正不可部署；未证明真实全部损伤原因；未在本轮做真实邻域新证据训练。"
+    ],
+    "result": [
+      "同大容量渲染相对旧特征 +3 MSE 降 2.23%，native/−3 反而恶化 3.61%/4.41%；主法 native 仍恶化 5.73%。",
+      "无前景固定焦点：单点正确修正照片收益 −0.000001254；81 点共同正确修正 +0.002899045；真邻居下单点 +0.001254526。"
+    ],
+    "interpretation": [
+      "证据×容量存在条件交互；错误邻居可遮住正确候选的光度收益，但不是唯一真实归因。"
+    ],
+    "decision": [
+      "保留 +3 可利用信号，进入已指定的小群反事实问题，不部署。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-29/render-evidence-diagnosis-20260928T164309Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry",
+      "rendering"
+    ],
+    "predecessors": [
+      "LG022"
+    ],
+    "corrections": [
+      "uint8 KEEP 索引下溢与阈值命名空间在诊断中修正；空失败目录保留，未改模型参数。"
+    ],
+    "rerun_condition": "只有改变上下文的明确可执行对照，才能检验该反例在真实数据的增量；不要把同夹具再叫新机制。"
+  },
+  {
+    "id": "LG024",
+    "title": "同候选同证据：四类学习器与 pairwise 排序",
+    "date": "2026-09-29",
+    "track": "late_geometry",
+    "question": "旧证据是否仍可通过不同学习目标获得实际恢复增量？",
+    "did": [
+      "固定 KEEP/A/B、202 维；照片规则、浅/大收益回归、三对代价加权二分类+Borda；开发 OOF、18 暴露回放实际输出。"
+    ],
+    "not_done": [
+      "非单独损失函数消融；Borda 不是校准 mm²；同信息有增量不证明信息已足够或普适最优。"
+    ],
+    "result": [
+      "balanced 排序 native/−3/+3 改善 −2.67%/+36.51%/+25.43%；浅回归 −2.47%/+29.97%/+16.97%。",
+      "两扰动相对浅回归 6/6 ROI 更好；native 6/6 仍差于 identity，预定升级失败。"
+    ],
+    "interpretation": [
+      "学习器并未到头；原生保护仍未解决，不能以更多学习器代替约定的几何证据实验。"
+    ],
+    "decision": [
+      "保留排序器作为后继比较对象，不改默认。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-29/learner-comparison-20260928T190417Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry",
+      "learning"
+    ],
+    "predecessors": [
+      "LG023"
+    ],
+    "corrections": [
+      "natural/ balanced 分数语义不同，不能拼两个工作点赢家。"
+    ],
+    "rerun_condition": "重访需明确学习目标/信息/容量变量；与已有排序和双头做同候选可比对照。"
+  },
+  {
+    "id": "LG025",
+    "title": "固定像素邻域同臂反事实：已执行并训练",
+    "date": "2026-09-29",
+    "track": "late_geometry",
+    "question": "移动邻居能否使焦点候选获得更正确的评分？",
+    "did": [
+      "焦点+最多15像素邻居，各自取同臂 A/B；L00/L10/L01/L11 四状态；202+52 维群组特征及置乱对照；三旧场景 18 回放。"
+    ],
+    "not_done": [
+      "没有真实同面标签/正确邻居；最终输出仍逐点，不是全局一致整组地图；未严格同移动预算。"
+    ],
+    "result": [
+      "group balanced native/−3/+3 改善 −1.2519%/+34.1960%/+24.0552%，旧单点 −2.6693%/+36.5073%/+25.4336%。",
+      "+3 条件焦点光度 AUC 0.5958→0.4074，6/6 ROI 降；原生减损伴随更少修复，升级条件失败。"
+    ],
+    "interpretation": [
+      "允许邻居动不等于邻居正确；四状态分账防止把邻居光度收益记给焦点。"
+    ],
+    "decision": [
+      "结束此固定半径构造调参，保留旧单点恢复器。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-29/group-counterfactual-20260928T194617Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG024"
+    ],
+    "corrections": [
+      "后来 benefit-harm 把此实验写成未完成是错误；coherent-context 明确更正。"
+    ],
+    "rerun_condition": "只有可观测相容上下文或明确新增假设差分才重访；改半径或重述四状态不是新理论。"
+  },
+  {
+    "id": "LG026",
+    "title": "六个新场景与 RIMLS/PathNet 外部确认",
+    "date": "2026-09-29",
+    "track": "late_geometry",
+    "question": "冻结 ranker 与实际外部基线能否确认原生保护和±3恢复？",
+    "did": [
+      "scan83/97/105/106/110/114 每景两照片预定 ROI×三输入；全 ROI、七冻结臂、输出先封存后取参考；实际 RIMLS/PathNet。"
+    ],
+    "not_done": [
+      "同 DTU/GeoSVR 来源，非跨传感器；PathNet 预训练暴露 unknown/not documented；官方 COLMAP 仍未运行；几何-only 基线非同照片信息。"
+    ],
+    "result": [
+      "rank native MSE 恶化 10.73%，0/6 场景不恶化；−3/+3 改善 43.24%/29.92%，均 6/6，分别通过预定恢复验收。",
+      "PathNet native source MSE 改善 1.49%，recall 降约 0.48 个百分点；不支持主法全面领先或 PathNet 全面几何改善。"
+    ],
+    "interpretation": [
+      "联合主张失败，条件恢复的新同来源场景证据成立；完成外部基线不等于等信息系统比较闭合。"
+    ],
+    "decision": [
+      "冻结确认收尾，不调新场景阈值，不改默认；此后六景为已暴露回放。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-29/external-confirmation-20260928T213020Z/REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-29/external-confirmation-20260928T213020Z/CHECKPOINT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG024",
+      "LG025"
+    ],
+    "corrections": [
+      "目录时间戳始于 UTC 9月28日；报告/后续本地记录为 9月29日。",
+      "旧 group 报告的独立确认待办被本记录后续完成，不能继续复制旧状态。"
+    ],
+    "rerun_condition": "若再确认应使用未曝光场景或新机制，并保留失败原生端点；补 COLMAP 必须明确同信息预算。"
+  },
+  {
+    "id": "LG027",
+    "title": "收益/损伤双头：同树预算条件排序增量",
+    "date": "2026-09-29",
+    "track": "late_geometry",
+    "question": "分别学正收益与损伤，能否保护原生并保留扰动恢复？",
+    "did": [
+      "同 KEEP/A/B、202 维、相同行权重；直接两×160树与双头四×80树；两折整场景校准；六已暴露场景 36 全 ROI 回放和八配额诊断。"
+    ],
+    "not_done": [
+      "拆头不增加信息；同树数非同时间/有效容量；无新的盲确认、物理归属或概率校准保证。"
+    ],
+    "result": [
+      "dual protected native 恶化 6.64%，六景全败；−3/+3 改善 31.90%/24.50%，仅保留旧收益 73.78%/81.89%<90%。",
+      "+3 八个同移动比例上双头优于旧排序及直接回归；native 八非零比例无净改善。",
+      "native 已选支持点预测 b/h=2.7980/0.5485，实测 0.3594/1.5505 mm²，净收益符号相反。"
+    ],
+    "interpretation": [
+      "有条件候选排序增益；降低损伤不等于原生修复，选中集合校准仍失败。"
+    ],
+    "decision": [
+      "保留双头，不继续六景调 λ/阈值，不部署。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-29/benefit-harm-learning-20260929T043700Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry",
+      "learning"
+    ],
+    "predecessors": [
+      "LG007",
+      "LG026"
+    ],
+    "corrections": [
+      "protected 是开发联合条件不可行后的预注册回退，不是达标配置。",
+      "报告中单点/邻域实验未完成说法由 LG028 更正；LG025 已完成。"
+    ],
+    "rerun_condition": "后继必须针对已选错移动的可观测见证或明确学习机制；泛称把好坏分开学早已有前驱。"
+  },
+  {
+    "id": "LG028",
+    "title": "统一位移邻域与实际邻居几何分账",
+    "date": "2026-09-29",
+    "track": "late_geometry",
+    "question": "比同臂更一致的 rigid 上下文是否能识别旧模型已选坏动作？",
+    "did": [
+      "固定焦点/纹理/范围/相机；singleton、同臂 own、焦点位移驱动 rigid；六已暴露场景 36 案例，uniform/selected 查询与邻居真值仅评价分账。"
+    ],
+    "not_done": [
+      "不训练新模型；没有正确邻居或同面证据；局部重叠假设不是全局一致输出；同保留数非同位移。"
+    ],
+    "result": [
+      "native selected 宏 AUC 单点/own/rigid=0.530809/0.506954/0.490498；主终点失败。",
+      "25% 保留 rigid MSE 1.487561 比单点 1.535072 好，仍劣 KEEP 1.174828；native 邻居宏收益 own/rigid=−1.2777/−1.6208 mm²。"
+    ],
+    "interpretation": [
+      "共同位移不等于正确上下文；部分配额减损应保留但不能作净保护。宏 AUC 与混合 AUC 排序相反，不能事后挑汇总。"
+    ],
+    "decision": [
+      "不把 rigid 接为默认保护器；保存新分账。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-29/coherent-context-20260929T052300Z/REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-29/coherent-context-20260929T052300Z/CORRECTION.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG025",
+      "LG027"
+    ],
+    "corrections": [
+      "CORRECTION 明确同臂邻域并非首次执行，撤销旧未完成状态。",
+      "本报告泛称下一步首可见/竞争面、颜色遮挡分账又覆盖既有工作，LG029 再更正。"
+    ],
+    "rerun_condition": "先查 LG029 历史清单；只有改变尚未隔离的物理变量才继续。"
+  },
+  {
+    "id": "LG029",
+    "title": "归属历史核查与纹理来源×邻居小型干预",
+    "date": "2026-09-29",
+    "track": "late_geometry",
+    "question": "既有归属工作后，未单独隔离的是几何上下文还是参考纹理污染？",
+    "did": [
+      "核查 Z-buffer/track/多峰/K2/渲染/学习/群组谱系；旧解析夹具新增三个预定污染焦点；原/真邻居×旧/去前景串色纹理 2×2。"
+    ],
+    "not_done": [
+      "去串色使用合成额外信息；不是完整正确纹理 Oracle、真实供图模块或新几何净收益；未改 UV/法向/范围。"
+    ],
+    "result": [
+      "污染焦点12配对：真邻居条件支持正确修正 3/12→11/12；平均光度收益 0.0033878866→0.0036735944。",
+      "偏置邻居下改纹理仍无焦点最前命中贡献；几何/命中ID/深度/评分域前后逐字节同一。"
+    ],
+    "interpretation": [
+      "纹理来源与邻居可分干预且有交互；不是首次提出纹理因素，surfel 报告已有未执行建议。"
+    ],
+    "decision": [
+      "撤销笼统再加遮挡/层/学习器待办；只补具体缺失对照，不改默认。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-29/ownership-history-20260929T080556Z/REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-29/ownership-history-20260929T080556Z/HISTORY_REVIEW.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG021",
+      "LG023",
+      "LG028"
+    ],
+    "corrections": [
+      "问题未解决不等于未研究归属；owner/track/局部layer 不等于物理面身份。",
+      "同一确定性装置相关配对不是独立场景，不能作显著性或真实迁移主张。"
+    ],
+    "rerun_condition": "真正不同的后继须从真实照片合法取得纹理，并排除目标图自供纹理；保留旧模块对照。"
+  },
+  {
+    "id": "LG030",
+    "title": "真实照片纹理来源：排序有增量，几何未闭合",
+    "date": "2026-09-29",
+    "track": "late_geometry",
+    "question": "合法目标外纹理 donor 能否近似合成去串色信息并改进候选排序？",
+    "did": [
+      "固定候选和属性；reference/camera_donor/consensus_donor 三臂；评分目标图不能向自己供图；纹理在 K/A/B 固定；复用六景 9,203 查询行。"
+    ],
+    "not_done": [
+      "供图可见性来自有偏当前几何，非真实归属认证；目标排除仅本模块，不是全流程独立视图；只输出抽样点而非全 ROI。"
+    ],
+    "result": [
+      "native selected 宏 AUC reference/camera/consensus=0.530809/0.607796/0.579627；更强一致性同时胜两对照假说失败。",
+      "25% 同输入保留数时 camera MSE 1.301174 对 reference 1.535072，仍劣 KEEP 1.174828；支持内移动数未完全匹配。",
+      "uniform 直接照片决策 native 恶化 57.29%/56.46%/49.68%，六景全差；+3 donor 排序反而减弱。"
+    ],
+    "interpretation": [
+      "真实来源确有条件信息增量；更准确颜色、AUC 与实际几何净收益不能互代。"
+    ],
+    "decision": [
+      "保留三臂与真实供图实现，不直接以照片阈值替换旧法，不挑比例部署。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-29/real-texture-source-20260929T082249Z/REPORT.md"
+    ],
+    "tags": [
+      "geometry"
+    ],
+    "predecessors": [
+      "LG029"
+    ],
+    "corrections": [
+      "单 pilot 的替换比例不能代表整批；一致性回退不是可靠纹理证书。"
+    ],
+    "rerun_condition": "后继应同候选把证据差异接收益模型，同时验 native 和±3；此步骤随后由 LG031 完成。"
+  },
+  {
+    "id": "LG031",
+    "title": "纹理证据学习：局部选择增量与原生失败",
+    "date": "2026-09-29",
+    "track": "late_geometry",
+    "question": "真实 donor 证据接双头模型，能否兑现原生保护和扰动恢复？",
+    "did": [
+      "同 K/A/B、训练行/标签/权重/树参数；old202/camera225/combined248 维；24 开发案例，两场景 OOF 校准；六暴露场景36查询案例八臂实际输出。"
+    ],
+    "not_done": [
+      "无新独立场景/测量；两场景校准无第三校准集；不是全 ROI 重建；没执行下一独立纹理验证器。"
+    ],
+    "result": [
+      "预定 camera protected native 恶化 5.93%（old 6.50%）；−3/+3 收益保留 63.41%/74.48%<90%，联合主终点失败。",
+      "camera balanced +3 改善 29.72%→32.06%，native/−3退步；combined protected 全 KEEP、无修复。",
+      "native 八个配额全差 KEEP；100% 相同可移动行上 camera 三条件 A/B 组合均略优 old，说明往哪动有局部增量。",
+      "同 1,422 selected 候选：单 donor AUC 0.6078，camera 学习净分 AUC 0.3917；不同评分器比较不是连续提升曲线。"
+    ],
+    "interpretation": [
+      "A/B 选得稍好与是否离开 KEEP 是不同能力；真实证据中存在排序信号，不代表当前目标/权重/阈值已利用好。"
+    ],
+    "decision": [
+      "保存旧候选、新证据及全部负结果，不升级、不在六景追加阈值搜索。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-29/texture-evidence-learning-20260929T094442Z/REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-29/texture-evidence-learning-20260929T094442Z/CHECKPOINT.md"
+    ],
+    "tags": [
+      "geometry",
+      "learning"
+    ],
+    "predecessors": [
+      "LG027",
+      "LG030"
+    ],
+    "corrections": [
+      "protected 比旧少损伤不等于原生净改善；全 KEEP 不能称零伤害修复成功。",
+      "原生支持移动 45→30，固定点数诊断存在局部增量，但未严格匹配位移 RMS。",
+      "开发校准按案例相对 MSE、主评价按绝对 MSE 宏平均，二者权重不同。"
+    ],
+    "rerun_condition": "仅当明确检验针对旧法提出移动的独立校准纹理见证，或具体修正收益学习失配时重访；不得把 donor 接学习器再称未做。"
+  }
+]

@@ -1,0 +1,1277 @@
+现在可以真正分析这个仓库了。我已经直接读取了 ZIP 里的 README、V4–V22 报告、V18/V22 算子代码和实验记录，并实际运行了最新 `reconstruction_v22` 的单元测试：**6/6 通过**。
+
+最重要的修正是：这个项目并不是 2D occupancy-map 去噪，而是一个更具体也更有研究价值的问题：
+
+> **多帧/多站点 3D 点云地图中的表面估计、薄层结构分离、扫描级偏差消除，以及点云/重建表面的后处理去噪。**
+
+而且仓库实际上包含了两个逐渐分化的研究问题。
+
+---
+
+# 1. 这个仓库真正处于哪个学术领域
+
+我会把它定位为四个领域的交叉：
+
+$$
+\boxed{
+\text{Point Cloud Denoising}
++
+\text{Surface Reconstruction}
++
+\text{Multi-scan Consolidation}
++
+\text{Mixture/Association Estimation}
+}
+$$
+
+其中 V3–V20 更特殊，是：
+
+$$
+\boxed{
+\text{scan-aware thin-surface estimation}
+}
+$$
+
+而 V21–V22 已经逐渐变成：
+
+$$
+\boxed{
+\text{generic point-set surface filtering}
+}
+$$
+
+这两者千万不要混在一起写论文。
+
+因为它们使用的信息完全不同。
+
+早期模型可以利用：
+
+$$
+(x_i,\; scan\_id_i,\; \sigma_i)
+$$
+
+去估计：
+
+* scanner/frame shared bias
+* 点属于哪张薄表面
+* 两层之间的距离
+* 局部倾斜
+* spatial association
+
+而 V22 的接口实际上只剩：
+
+$$
+x_i\in\mathbb R^3
+$$
+
+没有：
+
+* scan ID
+* ray
+* camera/scanner pose
+* intensity
+* uncertainty
+* temporal information
+
+于是 V22 本质上已经退化成经典：
+
+> **从单个无序点集估计局部光滑表面，再把点投影回估计表面。**
+
+这也是为什么它最终非常接近 MLS/APSS/RIMLS 的研究范式。
+
+---
+
+# 2. 我认为仓库最重要的研究脉络
+
+整个 V4–V22 其实比 README 第一眼看上去有逻辑得多。
+
+可以压缩成：
+
+```text
+多扫描偏差
+    ↓
+局部平面估计
+    ↓
+薄层混合/关联
+    ↓
+空间相关归属
+    ↓
+模型复杂度选择
+    ↓
+投影决策
+    ↓
+真实数据迁移失败
+    ↓
+放弃整片平行面
+    ↓
+逐点局部曲面 MLS
+```
+
+其中真正值得写进论文 Related Work / Method Motivation 的几个节点如下。
+
+| 版本      | 核心问题                             | 方法变化                                       | 关键结论                      |
+| ------- | -------------------------------- | ------------------------------------------ | ------------------------- |
+| V4      | scan shared bias                 | 去偏后相容表面 pooling                            | 合成 MAE 明显下降，但层距仍收缩        |
+| V6–V9   | 错误关联                             | association / oracle mechanism             | 证明“点误差小”≠“薄层结构正确”         |
+| V11     | 空间归属                             | spatial gating mixture                     | 合成薄层任务大幅改善                |
+| V15–V17 | 模型选择                             | strong solver + S/C/L/R + BIC              | 空间模型是条件有效，而非普遍有效          |
+| V18     | candidate retention + projection | MAP / half / posterior mean                | 明确结构保持和 pointwise MSE 的冲突 |
+| V19–V20 | cross-fitting                    | 折间门控、候选继承                                  | 修复求解器不等于获得新精度             |
+| V21     | 真实迁移                             | DTU 独立参考                                   | **V18 迁移失败**              |
+| V22     | local moving surface             | PCA + quadratic MLS + multiscale shrinkage | 损伤减轻，但只有约 0.60% MAE 信号    |
+
+这个演化本身其实很有研究价值。
+
+---
+
+# 3. V11–V18 是这个仓库最有特色的部分
+
+经典 point-cloud denoising 通常假设：
+
+$$
+p_i = s_i + \epsilon_i
+$$
+
+其中 \(s_i\) 是某个单一流形表面上的点。
+
+但你的仓库研究的是更加棘手的：
+
+$$
+p_i =
+S_{z_i}(u_i)
++
+b_{f_i}
++
+\epsilon_i
+$$
+
+其中：
+
+* \(z_i\)：点属于哪个表面/薄层
+* \(u_i\)：切平面空间位置
+* \(b_{f_i}\)：某一 scan/frame 的共享误差
+* \(\epsilon_i\)：点级噪声
+
+V11 进一步写成类似：
+
+$$
+p(h_i|u_i)
+=
+\sum_{k=1}^K
+\pi_k(u_i)
+\mathcal N
+\left(
+h_i;
+\mu_k+a^Tu_i,
+\sigma^2
+\right)
+$$
+
+并让
+
+$$
+\pi_k(u)
+$$
+
+依赖空间位置。
+
+这个思想比单纯 MLS 有意思。
+
+因为它研究的并不是：
+
+> “附近点拟合一个面。”
+
+而是：
+
+> **“附近其实可能有多张非常接近的真实面，我到底该把这个点归到哪一张？”**
+
+这是薄板、玻璃、双墙、重叠扫描等场景里真正困难的问题。
+
+---
+
+# 4. V9 得到的一个结论尤其重要
+
+这个仓库自己已经推导出了一个很值得保留的研究问题：
+
+> **最小化点位置 MSE 与恢复正确薄层结构不是同一个目标。**
+
+也就是说：
+
+$$
+\min
+E\|\hat p-p_{\rm true}\|^2
+$$
+
+可能得到一个视觉上更平滑、点误差更小的结果，却把：
+
+```text
+surface A
+---------
+2 mm
+---------
+surface B
+```
+
+压缩成：
+
+```text
+surface A
+--------
+1.3 mm
+--------
+surface B
+```
+
+甚至合并掉。
+
+这和经典去噪文献中的 **oversmoothing / feature loss** 是同一个大问题，但你的项目把它具体化成了：
+
+> **thin-sheet identity / inter-layer spacing preservation**
+
+这实际上可能比“平均 Chamfer Distance 降低多少”更有特色。
+
+---
+
+# 5. 为什么 V21 会失败
+
+V21 是整个项目最关键的一次实验。
+
+冻结 V18 迁移到 DTU scan24 后：
+
+| 方法       |     MAE mm ↓ | 1 mm recall ↑ |
+| -------- | -----------: | ------------: |
+| identity | **0.539545** |   **97.989%** |
+| V18      |     0.597753 |       89.380% |
+| APSS     |     0.538600 |       97.962% |
+| RIMLS    |     0.538822 |       97.985% |
+
+这里的信息非常明确：
+
+$$
+V18 < identity
+$$
+
+而且不是一点点。
+
+我认为原因不是“V18 不够复杂”，而是 **model mismatch**。
+
+V18 假设局部 patch 可以被：
+
+$$
+1\text{ or }2
+$$
+
+张近似平行的 affine surface 表示。
+
+但真实 DTU 局部表面可能包含：
+
+* curvature
+* corners
+* ridges
+* boundaries
+* changing normals
+* sampling anisotropy
+* reconstruction artifacts
+* topology changes
+
+于是模型会把：
+
+> genuine geometry
+
+解释成：
+
+> noise / secondary layer / slope。
+
+因此 V21 的负结果非常合理。
+
+---
+
+# 6. V22 的改法在数学上是正确方向
+
+V22 放弃了整块 patch 共用一张或两张面。
+
+而是对每一个 query point：
+
+$$
+p_i
+$$
+
+取：
+
+$$
+k=32,64,128
+$$
+
+近邻，做局部 PCA，再拟合：
+
+$$
+z=
+c_0+c_1u+c_2v
++c_3u^2
++\sqrt2c_4uv
++c_5v^2.
+$$
+
+最终主要沿法向修改：
+
+$$
+p_i'
+=
+p_i+d_i n_i
+$$
+
+这就是很典型的：
+
+> **moving local polynomial / moving least squares surface estimation**
+
+路线。
+
+而且代码里有一个值得肯定的细节：
+
+```python
+neighbours = row[row != i]
+```
+
+明确 leave-self-out。
+
+否则 query point 自己参与局部曲面拟合，会出现一种很隐蔽的：
+
+> input → fit → evaluate same point
+
+的自洽偏差。
+
+我实际运行了仓库中的 V22 tests：
+
+```text
+test_curved_noise_smoke                  OK
+test_duplicate_coordinates_are_finite   OK
+test_input_validation                    OK
+test_plane_consistency_and_leave_self_out OK
+test_rigid_motion_equivariance           OK
+test_shapes_finite_and_no_tangent_update OK
+```
+
+**6 项全部通过。**
+
+因此从工程实现质量看，这部分是扎实的。
+
+---
+
+# 7. 但 V22 为什么还是只有 0.6%
+
+scan37 的结果：
+
+| 方法              |     MAE mm ↓ |    Recall ↑ |
+| --------------- | -----------: | ----------: |
+| identity        |     0.437246 | **92.358%** |
+| V18             |     0.459480 |     87.688% |
+| APSS2           |     0.436517 |     92.169% |
+| RIMLS2          |     0.437229 |     92.219% |
+| local plane     | **0.431515** |     91.414% |
+| quadratic64     |     0.434305 |     92.109% |
+| multiscale full |     0.433563 |     91.975% |
+| V22 consensus   |     0.434631 |     92.025% |
+
+V22 主候选：
+
+$$
+0.437246
+\rightarrow
+0.434631
+$$
+
+改善：
+
+$$
+\approx0.598\%
+$$
+
+但 recall：
+
+$$
+92.358\%
+\rightarrow
+92.025\%
+$$
+
+略微下降。
+
+更加重要的是仓库自己做了一个很好的 control：
+
+> **matched displacement constant damping**
+
+结果：
+
+$$
+0.434344
+$$
+
+反而略好于：
+
+$$
+0.434631.
+$$
+
+这说明：
+
+> 当前 multiscale “uncertainty consensus” 没有证明它真的知道哪些地方应该多修、哪些地方应该少修。
+
+它可能主要受益于：
+
+> **动作变小了。**
+
+而不是：
+
+> **正确检测到了 noise。**
+
+这是 V22 最重要的科学结论。
+
+---
+
+# 8. 这正好对应经典 MLS 文献的问题
+
+APSS 的思想是局部代数球：
+
+*Guennebaud, G., & Gross, M. (2007). Algebraic Point Set Surfaces. ACM SIGGRAPH. [DOI](https://dl.acm.org/doi/abs/10.1145/1275808.1276406)*
+
+它相比纯 planar MLS 能更好适应：
+
+* curvature
+* sparse sampling
+* local surface changes
+
+RIMLS 则进一步考虑 outlier / sharp feature：
+
+*Öztireli, A. C., Guennebaud, G., & Gross, M. (2009). Feature Preserving Point Set Surfaces Based on Non-Linear Kernel Regression. Computer Graphics Forum. [DOI](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-8659.2009.01388.x)*
+
+这也是为什么它们是 V21/V22 很合理的 baseline。
+
+更全面的表面重建谱系可以看：
+
+*Berger, M., Tagliasacchi, A., Seversky, L. M., et al. (2017). A Survey of Surface Reconstruction from Point Clouds. Computer Graphics Forum. [Link](https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.12802)*
+
+以及较新的 benchmark：
+
+*Huang, Z., Wen, Y., Wang, Z., Ren, J., & Jia, K. (2024). Surface Reconstruction from Point Clouds: A Survey and a Benchmark. IEEE TPAMI. [IEEE](https://ieeexplore.ieee.org/abstract/document/10599623/)*
+
+所以 V22 现在已经进入一个**竞争非常成熟**的领域。
+
+仅仅把：
+
+$$
+k=32/64/128
+$$
+
+换成：
+
+$$
+k=24/48/96
+$$
+
+或者：
+
+> quadratic → cubic
+
+很难形成强论文贡献。
+
+---
+
+# 9. 当前领域已经从手工 MLS 走向 learning-based denoising
+
+第一代比较典型的是 PointCleanNet：
+
+*Rakotosaona, M. J., La Barbera, V., Guerrero, P., Mitra, N. J., & Ovsjanikov, M. (2020). PointCleanNet: Learning to Denoise and Remove Outliers from Dense Point Clouds. Computer Graphics Forum. [DOI](https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.13753)*
+
+它直接学习 correction vector：
+
+$$
+\Delta p_i=f_\theta(\mathcal N_i)
+$$
+
+然后：
+
+$$
+p'_i=p_i+\Delta p_i.
+$$
+
+问题是 supervised 网络通常需要：
+
+$$
+(noisy,\ clean)
+$$
+
+paired data。
+
+而你的项目最缺的恰恰就是可靠 clean GT。
+
+所以更适合你的实际上不是普通 supervised PointCleanNet。
+
+---
+
+# 10. 一个非常适合这个项目的方向：Self-supervised denoising
+
+经典的重要工作是：
+
+*Hermosilla, P., Ritschel, T., & Ropinski, T. (2019). Total Denoising: Unsupervised Learning of 3D Point Cloud Cleaning. ICCV. [CVF](https://openaccess.thecvf.com/content_ICCV_2019/html/Hermosilla_Total_Denoising_Unsupervised_Learning_of_3D_Point_Cloud_Cleaning_ICCV_2019_paper.html)*
+
+核心思想就是：
+
+> 不需要 clean point cloud 监督。
+
+这和你的项目数据条件高度匹配。
+
+因为你本来就有：
+
+```text
+scan 1
+scan 2
+scan 3
+...
+```
+
+相同真实表面经过不同扫描产生多个 noisy observation。
+
+于是天然可以构建一种 3D Noise2Noise：
+
+$$
+X^{(a)}
+\rightarrow
+X^{(b)}
+$$
+
+其中两个 scan 的噪声相对独立，但 latent geometry 相同。
+
+这可能比 V22 继续研究：
+
+$$
+residual\rightarrow heuristic\ alpha
+$$
+
+强很多。
+
+---
+
+# 11. Score-based denoising 是另一条非常重要的线
+
+Luo 和 Hu 的 ScoreDenoise：
+
+*Luo, S., & Hu, W. (2021). Score-Based Point Cloud Denoising. ICCV. [IEEE](https://ieeexplore.ieee.org/abstract/document/9711416/)*
+
+它学习：
+
+$$
+s_\theta(x)
+\approx
+\nabla_x\log p(x).
+$$
+
+然后沿 score 做：
+
+$$
+x_{t+1}
+=
+x_t+\eta s_\theta(x_t).
+$$
+
+直观上：
+
+```text
+off-surface point
+       ↓
+ estimated density gradient
+       ↓
+ underlying surface
+```
+
+这和 MLS 的差别非常大。
+
+MLS 是：
+
+$$
+\text{assume local polynomial}
+$$
+
+ScoreDenoise 是：
+
+$$
+\text{learn local surface distribution}
+$$
+
+对于你的 V22 来说，这是一个非常自然的下一类 baseline。
+
+---
+
+# 12. 2023–2025 又发展到 iterative / flow / diffusion
+
+值得重点补入 benchmark 的包括：
+
+*de Silva Edirimuni, D., Lu, X., Shao, Z., Li, G., et al. (2023). IterativePFN: True Iterative Point Cloud Filtering. CVPR. [IEEE](https://ieeexplore.ieee.org/abstract/document/10203080/)*
+
+它不是一次：
+
+$$
+X\rightarrow\hat X
+$$
+
+而是：
+
+$$
+X_0
+\rightarrow X_1
+\rightarrow
+X_2
+\rightarrow\cdots
+\rightarrow X_T.
+$$
+
+这非常适合和你的 V22 multiscale / correction magnitude 研究比较。
+
+随后有：
+
+*de Silva Edirimuni, D., Lu, X., Li, G., Wei, L., et al. (2024). StraightPCF: Straight Point Cloud Filtering. CVPR. [IEEE](https://ieeexplore.ieee.org/abstract/document/10657348/)*
+
+以及 latent/invertible 路线：
+
+*Mao, A., Yan, B., Ma, Z., & He, Y. (2024). Denoising Point Clouds in Latent Space via Graph Convolution and Invertible Neural Network. CVPR. [IEEE](https://ieeexplore.ieee.org/abstract/document/10658328/)*
+
+这些已经属于比较强的现代 baseline。
+
+---
+
+# 13. 到 2025–2026，一个方向和你特别契合
+
+**Unsupervised score estimation。**
+
+例如：
+
+*Wei, X., Wang, Y., Xu, A., Zhu, L., Sun, D., et al. (2025). Noise2Score3D: Tweedie's Approach for Unsupervised Point Cloud Denoising. ICCV. [IEEE](https://ieeexplore.ieee.org/abstract/document/11446022/)*
+
+它只使用 noisy point cloud。
+
+核心思想与 Tweedie formula 有关，大致可以理解为：
+
+$$
+E[X_{\rm clean}|X_{\rm noisy}=x]
+=
+x+\sigma^2
+\nabla_x\log p_{\sigma}(x).
+$$
+
+这与这个 repo 的需求非常贴：
+
+> 我没有真正 clean GT，但我希望估计 clean geometry。
+
+2025 还有：
+
+*Liu, Z., Huang, Z., Pan, M., & He, Y. (2025). Deterministic Point Cloud Diffusion for Denoising. IEEE TVCG. [IEEE](https://ieeexplore.ieee.org/abstract/document/11203870/)*
+
+这说明 diffusion/score 已经真正进入 point-cloud denoising，而不仅是点云生成。
+
+---
+
+# 14. 2026 前沿已经进一步走向真实噪声
+
+我认为你尤其应该注意三个变化。
+
+第一是 **unsupervised real noise**：
+
+*Zhou, J., Shi, X., Song, H., Fang, Y., et al. (2025/2026). U-CAN: Unsupervised Point Cloud Denoising with Consistency-Aware Noise2Noise Matching. NeurIPS. [NeurIPS](https://proceedings.neurips.cc/paper_files/paper/2025/hash/8b3dcec3fab2e51203ded2f387867735-Abstract-Conference.html)*
+
+这个方向和你的 **multi-scan** 数据非常接近：
+
+$$
+\text{different noisy observations}
+\rightarrow
+\text{cross-observation consistency}
+$$
+
+而不要求 clean GT。
+
+第二是**真实 LiDAR noise 不再假设 isotropic Gaussian**：
+
+*Li, W., Yang, Y., Zhang, W., Gao, Y., et al. (2026). DHE-Net: Dual-Encoder Hierarchical Network for Real-World Low-Cost LiDAR Point Cloud Denoising. IEEE Transactions. [IEEE](https://ieeexplore.ieee.org/abstract/document/11330171/)*
+
+第三是 heterogeneous noise：
+
+*Tian, Y., Chen, M., Wang, Z., Chen, L., et al. (2026). HeteroDenoise: Intensity-Guided Point Cloud Denoising under Heterogeneous Noise. IEEE Transactions. [IEEE](https://ieeexplore.ieee.org/abstract/document/11408049/)*
+
+这两条路线都在说明：
+
+$$
+\epsilon_i\sim \mathcal N(0,\sigma^2I)
+$$
+
+这种假设越来越不够用了。
+
+---
+
+# 15. 所以我认为 V23 不应该继续做“更复杂 MLS”
+
+如果继续当前：
+
+```text
+kNN
+ ↓
+PCA
+ ↓
+quadratic
+ ↓
+multiscale
+ ↓
+heuristic alpha
+```
+
+我预计会继续得到：
+
+$$
+0.2\%-1\%
+$$
+
+左右的小变化。
+
+因为没有新的信息进来。
+
+从 information-theoretic 角度说，单独看：
+
+$$
+\{x_i\}
+$$
+
+你很难判断一个 0.15 mm 的局部偏差究竟是：
+
+* measurement noise
+* registration residual
+* real curvature
+* edge
+* another surface
+* reconstruction artifact
+
+V22 自己其实已经实验性地证明这一点了：
+
+> multiscale consistency 没有明显优于相同总体位移量的简单 damping。
+
+---
+
+# 16. 我最推荐的研究方向：回到 Multi-scan
+
+这个仓库最大的资产其实不是 V22。
+
+而是早期被逐渐丢掉的：
+
+$$
+scan\_id.
+$$
+
+假设真实 surface 是：
+
+$$
+S(u)
+$$
+
+第 \(f\) 次 scan：
+
+$$
+y_{if}
+=
+S(u_{if})
++
+J_{if}\delta\xi_f
++
+\epsilon_{if}.
+$$
+
+这里：
+
+$$
+\delta\xi_f\in\mathfrak{se}(3)
+$$
+
+可以表示 registration / pose residual。
+
+这比简单：
+
+$$
+y_i=S(u_i)+\epsilon_i
+$$
+
+合理得多。
+
+然后同时估计：
+
+$$
+S,\quad
+\{\delta\xi_f\},\quad
+z_i,\quad
+\sigma_i.
+$$
+
+即：
+
+$$
+\boxed{
+\min_{S,\delta\xi,z}
+L_{\rm geometry}
++
+L_{\rm registration}
++
+L_{\rm association}
++
+L_{\rm robust}
+}
+$$
+
+这会真正利用“多帧地图”相比普通 point-cloud denoising 多出来的信息。
+
+---
+
+# 17. 更前沿的版本：Multi-view Noise2Noise
+
+可以进一步设计：
+
+```text
+scan A ─┐
+scan B ─┼──→ shared latent surface
+scan C ─┘
+```
+
+训练时随机留下其中一组：
+
+$$
+X_{-f}
+\rightarrow
+X_f
+$$
+
+但不是预测具体 noisy sample，而是预测：
+
+* SDF
+* surface normal
+* score field
+* surface distribution
+
+例如：
+
+$$
+f_\theta(X_{-f},q)
+\rightarrow
+d(q,S)
+$$
+
+或者：
+
+$$
+s_\theta(q,X_{-f})
+\rightarrow
+\nabla_q\log p(q|S).
+$$
+
+这就是：
+
+$$
+\boxed{
+\text{Multi-view self-supervised surface denoising}
+}
+$$
+
+我认为它比“V23 = cubic MLS”明显更像一篇新论文。
+
+---
+
+# 18. 还可以保留 V18 最独特的 thin-sheet 思想
+
+我不建议把 V18 全扔掉。
+
+真正值得留下的是：
+
+> **multi-surface awareness**
+
+因为绝大多数 point denoiser 默认：
+
+$$
+\text{one local manifold}.
+$$
+
+而薄层区域可能是：
+
+$$
+p(x)
+=
+\pi_1p_1(x)+\pi_2p_2(x).
+$$
+
+所以可以做：
+
+$$
+\boxed{
+\text{score-based denoising}
++
+\text{multi-sheet latent variable}
+}
+$$
+
+例如学习：
+
+$$
+s_k(x),\quad
+P(k|x)
+$$
+
+而不是只有一个 score：
+
+$$
+s(x).
+$$
+
+这就自然把 V11–V18 和现代 ScoreDenoise 接起来了。
+
+我觉得这是整个 repo 里最值得深入的理论连接。
+
+---
+
+# 19. 一个我会优先考虑的论文题目
+
+可以把问题重新定义为：
+
+> **Scan-Aware Multi-Surface Point Cloud Denoising under Correlated Registration Noise**
+
+模型大概是：
+
+```text
+                    scan id / pose
+                         │
+                         ↓
+Point observations → Scan encoder
+        │                │
+        ↓                ↓
+   local geometry → shared latent surface
+                         │
+             ┌───────────┴───────────┐
+             ↓                       ↓
+       surface score             layer posterior
+             │                       │
+             └───────────┬───────────┘
+                         ↓
+                 corrected points
+```
+
+损失可以设计成：
+
+$$
+L=
+L_{\rm leave\text{-}scan\text{-}out}
++
+\lambda_1L_{\rm surface}
++
+\lambda_2L_{\rm layer}
++
+\lambda_3L_{\rm normal}
++
+\lambda_4L_{\rm consistency}.
+$$
+
+不要求训练时有 clean GT。
+
+这很好地利用了你项目已有的：
+
+* scan provenance
+* association work
+* layer experiments
+* independent geometry evaluation
+* held-out protocol
+
+而不是重新从零做一个普通 PointCleanNet。
+
+---
+
+# 20. 当前实验体系也应该升级
+
+你现在已经有：
+
+* identity
+* APSS
+* RIMLS
+* V18
+* local plane
+* quadratic MLS
+
+接下来如果准备论文，我建议至少增加：
+
+### 经典组
+
+$$
+Identity,\ APSS,\ RIMLS
+$$
+
+### 现代 learning 组
+
+$$
+PointCleanNet
+$$
+
+$$
+ScoreDenoise
+$$
+
+$$
+IterativePFN
+$$
+
+$$
+StraightPCF
+$$
+
+### 无监督组
+
+$$
+TotalDenoising
+$$
+
+$$
+Noise2Score3D
+$$
+
+然后你的方法：
+
+$$
+\text{Scan-aware / Multi-sheet model}.
+$$
+
+否则只和 APSS/RIMLS 比，2026 年的 Related Work 会明显不够。
+
+---
+
+# 21. 评价指标也不能只看 MAE
+
+你这个仓库已经敏锐地发现了：
+
+$$
+MAE\downarrow
+$$
+
+并不一定：
+
+$$
+geometry\ quality\uparrow.
+$$
+
+所以论文至少应该分四类指标。
+
+**Point accuracy**
+
+$$
+\text{P2S / P2M / Chamfer}
+$$
+
+**Surface quality**
+
+$$
+normal\ error
+$$
+
+$$
+curvature\ error
+$$
+
+**Feature preservation**
+
+$$
+edge\ recall
+$$
+
+$$
+thin\ layer\ spacing
+$$
+
+**Completeness**
+
+$$
+precision,\ recall,\ F-score.
+$$
+
+尤其针对你自己的核心问题，我会新增：
+
+$$
+E_\Delta
+=
+|\hat\Delta-\Delta_{GT}|
+$$
+
+即真实双表面间距误差。
+
+这比单纯 Chamfer 更能体现 V18 这条研究线的意义。
+
+---
+
+# 22. 这个仓库的科研规范实际上做得相当好
+
+我读完以后比较明显的一点是，它对 negative result 的记录比一般实验仓库严格。
+
+例如有：
+
+* development / confirmation 分离
+* sealed prediction before GT
+* source-ID disjoint patches
+* identity baseline
+* 外部 APSS/RIMLS baseline
+* hash/source locking
+* oracle 明确标注 post-hoc
+* 不把无评分支持算程序 failure
+* 不把 APSS replay failure 隐藏掉
+* 不把 0.0026 mm mean difference 宣称成微米级物理精度突破
+
+这些都应该保留。
+
+尤其是 V21/V22 没有因为结果不好就：
+
+> 换成最好看的 `local_plane64` 当主方法。
+
+这是很正确的实验习惯。
+
+---
+
+# 23. 但当前最大科学缺口也很明确
+
+不是代码。
+
+而是 **data contract**。
+
+目前 V22：
+
+> GeoSVR reconstructed mesh vertices → local filtering → DTU reference。
+
+它测试的是：
+
+$$
+\text{post-reconstruction geometry refinement}
+$$
+
+不完全等于：
+
+$$
+\text{raw multi-scan map denoising}.
+$$
+
+而早期 ETH3D 部分虽然有 scan provenance，却缺：
+
+> 真正独立、高精度、对应明确的真实 surface GT。
+
+所以当前实际上卡在：
+
+```text
+有真实 multi-scan
+但没足够好的 GT
+
+        vs
+
+有独立 DTU reference
+但输入已是 reconstruction product
+且 scan identity 丢失
+```
+
+这就是整个项目下一阶段最值得解决的问题。
+
+---
+
+# 24. 我的研究优先级排序
+
+如果这是我要继续做的项目，我会这样排：
+
+| 优先级   | 方向                                        | 原因                      |
+| ----- | ----------------------------------------- | ----------------------- |
+| **1** | Multi-scan self-supervised denoising      | 最大化利用项目已有信息             |
+| **2** | Scan-pose / bias aware surface estimation | 真正区别于普通 point denoising |
+| **3** | Multi-sheet / thin-structure preservation | 仓库最独特的已有积累              |
+| **4** | Noise2Score / score matching              | 当前前沿且不依赖 clean GT       |
+| **5** | Neural implicit / Neural-MLS              | 适合连续表面表示                |
+| 6     | generic diffusion                         | 可以做，但必须解决数据与信息增量        |
+| 7     | 更复杂 MLS                                   | 适合作 baseline，不适合主创新     |
+
+特别是不要为了“前沿”而强行上 diffusion。
+
+这个任务真正缺的是：
+
+$$
+\boxed{\text{information}}
+$$
+
+而不只是：
+
+$$
+\boxed{\text{model capacity}}
+$$
+
+---
+
+# 25. 最值得精读的文献清单
+
+除了前面已经提到的论文，我建议把这几组直接作为阅读路线：
+
+1. *Guennebaud, G., & Gross, M. (2007). Algebraic Point Set Surfaces. ACM SIGGRAPH. [Link](https://dl.acm.org/doi/abs/10.1145/1275808.1276406)*
+   —— APSS；理解 V22 的经典祖先。
+
+2. *Öztireli, A. C., Guennebaud, G., & Gross, M. (2009). Feature Preserving Point Set Surfaces Based on Non-Linear Kernel Regression. Computer Graphics Forum. [Link](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-8659.2009.01388.x)*
+   —— RIMLS；robustness 与 feature preservation。
+
+3. *Berger, M., Tagliasacchi, A., et al. (2017). A Survey of Surface Reconstruction from Point Clouds. Computer Graphics Forum. [Link](https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.12802)*
+   —— 经典 surface reconstruction 总览。
+
+4. *Hermosilla, P., Ritschel, T., & Ropinski, T. (2019). Total Denoising: Unsupervised Learning of 3D Point Cloud Cleaning. ICCV. [Link](https://openaccess.thecvf.com/content_ICCV_2019/html/Hermosilla_Total_Denoising_Unsupervised_Learning_of_3D_Point_Cloud_Cleaning_ICCV_2019_paper.html)*
+   —— 无 clean GT 学习。
+
+5. *Rakotosaona, M. J., et al. (2020). PointCleanNet. Computer Graphics Forum. [Link](https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.13753)*
+   —— supervised point correction 的代表。
+
+6. *Luo, S., & Hu, W. (2021). Score-Based Point Cloud Denoising. ICCV. [Link](https://ieeexplore.ieee.org/abstract/document/9711416/)*
+   —— 对这个项目尤其重要。
+
+7. *de Silva Edirimuni, D., et al. (2023). IterativePFN: True Iterative Point Cloud Filtering. CVPR. [Link](https://ieeexplore.ieee.org/abstract/document/10203080/)*
+   —— iterative filtering。
+
+8. *Mao, A., et al. (2024). Denoising Point Clouds in Latent Space via Graph Convolution and Invertible Neural Network. CVPR. [Link](https://ieeexplore.ieee.org/abstract/document/10658328/)*
+   —— latent-space 路线。
+
+9. *de Silva Edirimuni, D., et al. (2024). StraightPCF: Straight Point Cloud Filtering. CVPR. [Link](https://ieeexplore.ieee.org/abstract/document/10657348/)*
+   —— 新一代 filtering trajectory。
+
+10. *Huang, Z., Wen, Y., Wang, Z., Ren, J., & Jia, K. (2024). Surface Reconstruction from Point Clouds: A Survey and a Benchmark. IEEE TPAMI. [Link](https://ieeexplore.ieee.org/abstract/document/10599623/)*
+    —— 非常适合用来搭 Related Work 主框架。
+
+11. *Wei, X., et al. (2025). Noise2Score3D: Tweedie's Approach for Unsupervised Point Cloud Denoising. ICCV. [Link](https://ieeexplore.ieee.org/abstract/document/11446022/)*
+    —— **强烈推荐重点读**。
+
+12. *Liu, Z., Huang, Z., Pan, M., & He, Y. (2025). Deterministic Point Cloud Diffusion for Denoising. IEEE TVCG. [Link](https://ieeexplore.ieee.org/abstract/document/11203870/)*
+    —— diffusion 前沿。
+
+13. *Zhou, J., Shi, X., Song, H., Fang, Y., et al. (2025/2026). U-CAN: Unsupervised Point Cloud Denoising with Consistency-Aware Noise2Noise Matching. NeurIPS. [Link](https://proceedings.neurips.cc/paper_files/paper/2025/hash/8b3dcec3fab2e51203ded2f387867735-Abstract-Conference.html)*
+    —— **和 multi-scan 思路非常接近。**
+
+14. *Li, W., et al. (2026). DHE-Net: Dual-Encoder Hierarchical Network for Real-World Low-Cost LiDAR Point Cloud Denoising. IEEE Transactions. [Link](https://ieeexplore.ieee.org/abstract/document/11330171/)*
+    —— real-world noise。
+
+---
+
+## 最后的判断
+
+读完代码和 V4–V22 后，我认为这个项目目前**不应该继续沿着“V23 = 更复杂局部曲面”推进**。
+
+真正可能形成强研究贡献的是把仓库过去两条线重新结合：
+
+$$
+\boxed{
+\text{V3–V18 的 scan/layer information}
++
+\text{现代 self-supervised score denoising}
+}
+$$
+
+即：
+
+$$
+\boxed{
+\textbf{Multi-scan + Multi-surface + Self-supervised Point Cloud Denoising}
+}
+$$
+
+这条线既利用了你已经做的大量 association / thin-layer 工作，又避开 V21–V22 暴露出来的根本问题：**单看最终点集，很难区分真实几何和噪声。**
+
+如果按论文价值排序，我认为这是比继续优化 V22 的 MLS shrinkage 高一个层级的研究问题。

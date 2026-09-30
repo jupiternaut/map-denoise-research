@@ -1,0 +1,98 @@
+{
+  "track": "geometry",
+  "evidence_level": "report_read",
+  "tags": [
+    "相机配对",
+    "固定像素",
+    "几何修订"
+  ],
+  "evaluation_scope": "已曝光scan24/37、四个照片ROI的开发回放，不是新场景确认",
+  "id": "LG038",
+  "title": "官方COLMAP固定像素对照：几何一致性＋回退净改善并补齐缺失候选",
+  "date": "2026-10-01",
+  "question": "修正相机后，成熟MVS能否在同输入/同像素补出旧KEEP/A/B池缺失的正确几何？",
+  "did": [
+    "官方pycolmap-cuda12==4.2.1，RTX3060Ti，固定5张reference+Q照片与相机，points3D为空；不加入C/H。",
+    "冻结512查询及范围，Photo与Geo分别独立workspace；Geo先5视图未过滤光度，再参考视图几何一致性和默认过滤。",
+    "MVS-only workspace采用核验过的整数数组K主点(388,290)，禁止再次resize；执行前记录适配。",
+    "原CPU有效497点上，MVS有效即用，否则回退旧点；覆盖单独统计。118项输出封存后才评分，15次CUDA合计68.85秒。"
+  ],
+  "not_done": [
+    "不是新算法贡献、官方完整DTU榜单、新场景泛化或薄层物理身份恢复；没有部署默认升级。",
+    "尚未隔离几何一致性优化与过滤各自贡献；没有逐点无损保证。",
+    "新RUN_LOCK未在运行前直接覆盖全部旧评价依赖，运行后补记与独立旧seal核验不可冒充事前锁定。"
+  ],
+  "result": [
+    "同497查询四ROI等权MSE：CPU150.1211，Photo＋回退261.3250，Geo＋回退35.9203 mm²；Geo改善76.07%，4/4 ROI下降。",
+    "Geo＋回退MAE4.2321→1.6484mm；≤1mm点341→379，>5mm点83→25。",
+    "497点中263改善、173恶化、61回退不动；原341正确点有23移出1mm，另61进入；clamp正确点66→64。",
+    "Geo原始450/512有输出，共同有效436点条件MSE2.35998不能与CPU497点150.12直接比较；CPU缺失15点中Geo补14个，13个≤1mm。",
+    "75旧池全错>5mm位置中Geo补出51个≤5mm、34个≤1mm；加入Photo+Geo的诊断Oracle MSE137.2144→6.1561，非可部署成绩。"
+  ],
+  "interpretation": [
+    "成熟深度一致性提供了旧候选池缺少的可用几何，不能再只赢弱CPU基线。",
+    "净改善与逐点保真不同，剩余空间应集中保护正确点与补Geo缺失。"
+  ],
+  "decision": [
+    "冻结Geo有效则用、缺失回退CPU，在真正未参与开发的新场景确认；自研增量今后正面对比该成熟基线。"
+  ],
+  "sources": [
+    "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/REPORT.md",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/ADDENDUM_PRE_RUN.md",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/EXPERIMENT_AUDIT.md",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/COMMANDS.md",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/evaluation/ROI_METRICS_SCOPED.csv",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/figures/mvs_comparison.png",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/figures/fixed_pixel_errors.png"
+  ],
+  "predecessors": [
+    "LG037"
+  ],
+  "corrections": [
+    "旧ROI_METRICS.csv共同有效行的辅助coverage曾用全方法支持；新SCOPED表修正语义，预测和MSE未改。",
+    "对运行后依赖闭包补记明确时序；fresh同模型家族审查为provisional WARN，不写成无条件PASS。"
+  ],
+  "rerun_condition": "冻结同一方法、参数与缺失规则，选择未参与开发场景；不依据新GT调整规则。",
+  "claims": [
+    "成熟Geo＋回退在两个旧场景同查询上有76.07%净MSE收益。",
+    "旧候选Oracle不是问题本身上限；Geo同时修复大量错点并损伤部分正确点。"
+  ],
+  "source_checks": [
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/REPORT.md",
+      "sha256": "b0477c70920d3e6e7946fa236824cba2b841b77216b25e5e4dedac4182f583ef",
+      "bytes": 8939
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/ADDENDUM_PRE_RUN.md",
+      "sha256": "9de9554fe2af60e2bbf3d367007724acdcc1980a59d3131de51a85cb8eb01267",
+      "bytes": 2389
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/EXPERIMENT_AUDIT.md",
+      "sha256": "badcc617cb637d56d1b0f30089ba9bcc168c0157a0a31bb225d9020844ef506c",
+      "bytes": 13074
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/COMMANDS.md",
+      "sha256": "41a812a4bea17d17a7db770f92799641358fbc19c19825245a8ce4879b497d2e",
+      "bytes": 1884
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/evaluation/ROI_METRICS_SCOPED.csv",
+      "sha256": "98721f8796dcdb1a68a7342e9485b29b984d7c6f7806b3822e9cb8c631937342",
+      "bytes": 16635
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/figures/mvs_comparison.png",
+      "sha256": "5faba70c8ce0ac001984dbfd1335a6a6627b4828dce54ff5e337e76ab8ee9567",
+      "bytes": 317398
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z/figures/fixed_pixel_errors.png",
+      "sha256": "cf1d2c7be66eb11632a3c1e9878461a856a2bb3d3d670ab08e1f785d8ab73b70",
+      "bytes": 2116292
+    }
+  ],
+  "registered_utc": "2026-09-30T18:08:16.045105+00:00"
+}

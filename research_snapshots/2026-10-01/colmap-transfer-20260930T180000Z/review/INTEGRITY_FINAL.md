@@ -1,0 +1,97 @@
+# Final experiment integrity review
+
+Target: host **liekkas**, `/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z`. No protocol, input, inference, reference, prediction, or original evaluation file was modified by this audit. Review files are the only writes.
+
+**Deterministic verdict: PASS for the checks stated below. Semantic verdict: same-family/provisional; no remaining material blocker to the revised report's narrow system-comparison claim.** The initially missing material depth-domain disclosure was added and checked, as recorded in section F. This is not cross-family confirmation, proof of all historical file access, or a CLEAN verdict from the paper-specific integrity-forensics launcher. The launcher was not run; the exact source inspection and independent numeric verifiers are described here.
+
+The recorded result is supported: geometric COLMAP plus CPU fallback reduces the predeclared equal-ROI MSE in both scenes. It does not establish safe preservation of originally correct points, a fair speed ranking, or a causal effect of geometric consistency alone. The newly observed depth-domain asymmetry in section E is now disclosed in the revised report. Frozen outputs remain unchanged.
+
+## A. Reference provenance and chronology
+
+The official reference PLY bytes match the member sizes and CRC32 values recorded before prediction in the bound historical metadata. The final manifest SHA256 values also match. The independent reader verifies the complete PLY header, every 27-byte vertex record, and exact file length; no generated output is used as reference.
+
+| Scene | Reference vertices | Bytes | CRC32 | SHA256 |
+|---|---:|---:|---:|---|
+| 118 | 3,086,735 | 83,342,093 | 3,008,898,086 | `c4183cf7cc08ba7b949da6c4c27d06e7cd6f853142cb7396089cf56ccbcacfe8` |
+| 122 | 2,731,197 | 73,742,567 | 2,738,697,435 | `5000b8a6cb47eb028038e94c7a9a85a3ebb7045922d8f798d924a0c01b2c202a` |
+
+Evidence: `references/MANIFEST.json:3-19`; historical `/srv/slam-research/grf/map-denoise/datasets/external-confirmation-20260928T213020Z/METADATA.json:3110-3131`; exact recomputation in `review/INDEPENDENT_NUMERIC_CHECK.json` under `reference_checks`. This independently closes the current-run consequence of the pre-GT finding that `fetch_reference.py:18-22` trusts preexisting targets. That latent reuse weakness remains in the frozen fetcher; the actual current reference files pass its missing independent check.
+
+`PREDICTIONS_SEALED.json:111` records `2026-09-30T18:09:07Z`. Reference file mtimes are 18:12:03.800Z and 18:14:01.696Z; the reference manifest records 18:14:01Z (`references/MANIFEST.json:25`). Evaluation follows at approximately 18:14:30Z, and `EVALUATION.log:1-2` records the same reference vertex counts. The manifest's seal digest (`:22`) is the actual seal digest `35768cb906b281bfc04e263ae3c3d62c305a010bddd5340ddc7b9449c8ad2f1d`. Source guards require seal verification before fetch/evaluation (`fetch_reference.py:6`, `evaluate_transfer.py:44-45`). These are consistent local chronology and immutable-byte bindings, not trusted external timestamping or proof of no earlier access on another machine.
+
+## B. Leakage, effective codepaths, and scope
+
+The source review in `INTEGRITY_PRE_GT.md` remains applicable. Camera preparation uses supplied camera/pose metadata (`prepare_transfer.py:62-98`). CPU depth-range selection uses five images and their supplied projections (`cpu_baseline.py:65-101`), while the actual imported `plane_scores` performs 5×5 top-two-of-four ZNCC. No prediction function reads the structured-light PLY, fits to it, routes by its error, or generates GT from prediction. The evaluation alone builds the reference tree (`evaluate_transfer.py:49-60`). The final verifier independently confirms that its returned distances are correct without using that tree implementation.
+
+There are exactly two scenes, 118 and 122, two manually photo-selected ROIs per scene, and 128 fixed requested pixels per ROI. The historical reserve status is verified in the bound prior `SCENES.json:51-59`, but novelty remains conditional on the disclosed bounded local-history search (`SCENE_SELECTION.json:40-57`). Five views are shared by all systems. This is new-object evaluation within one DTU acquisition family, conditioned on supplied camera/normalization metadata. It does not establish upstream calibration independence, topology, thin-layer identity, full-scene completeness, official DTU leaderboard performance, or cross-sensor generalization.
+
+## C. Nonphantom execution and deterministic recomputation
+
+`review/verify_pre_gt.py` passed: it checks all fixed pixel identities, input-to-workspace grayscale equality, depth-map sampling, backprojection, all 14 job records, and all 106 entries in the prediction seal. Photo and geometric outputs are separate real files; the geo path computes the five required photo maps and then executes the geometric reference task (`mvs_transfer.py:101-124`). The actual log records writing the final geometric map and sealing (`MVS_RUN.log:922-925`). Summed recorded GPU job time is 63.289600934 s, and summed CPU scene time is 1.361191988 s. Different workloads make these unsuitable as a fair speed ranking.
+
+`review/verify_final_numeric.py` passed using the COLMAP environment's Python. It imports no experiment module. Its reference reader directly interprets the independently checked fixed binary PLY layout. It evaluates **all 1,457 finite raw CPU/photo/geo predictions against every reference vertex**, using exhaustive blocked `scipy.spatial.distance.cdist(..., 'sqeuclidean')`, with no KD tree. Fallback is reconstructed solely from validity. It checks all **2,560 point rows, 40 ROI rows, 8 tail rows, global and per-scene summaries, and 8 evaluator spot checks**. The maximum difference from every saved finite point distance is **0.0 mm**.
+
+The verifier checks 145 unique bound files before and after the calculation, plus SHA256 snapshots of the original evaluation/reference manifests and logs. The result is `review/INDEPENDENT_NUMERIC_CHECK.json`, status `PASS_DETERMINISTIC_CHECKS_ONLY`. That status attests arithmetic and listed file identity, not general scientific integrity beyond the evidence.
+
+## D. Denominators, tail partitions, and results
+
+The primary population is **484 CPU-valid points out of 512 fixed requests**, split 116/119/126/123 across the four ROIs. The primary MSE is the equal mean of four ROI MSEs, also giving equal scene weight because each scene has two ROIs. It is not the pooled mean of 484 squared distances. Fallback preserves precisely the CPU-valid support (`evaluate_transfer.py:60,74`); missing MVS points retain their CPU error and never become zero errors.
+
+| Primary system | Equal-ROI MSE, mm² | Equal-ROI MAE, mm | ≤1 mm / 484 | >5 mm / 484 | Relative MSE improvement |
+|---|---:|---:|---:|---:|---:|
+| CPU | 168.987459541 | 4.947535969 | 370 | 90 | — |
+| Photo + fallback | 247.714473628 | 2.436197043 | 436 | 19 | −46.5875% |
+| Geo + fallback | 72.802965747 | 1.999966262 | 441 | 26 | +56.9181% |
+
+The registered both-scenes criterion (`refine-logs/EXPERIMENT_PLAN_20260930_180000.md:17`) is met by geo: scan118 improves 250.981421450 → 100.577149707 mm² (**59.9265%**), and scan122 improves 86.993497632 → 45.028781787 mm² (**48.2389%**). All four geo-fallback ROI MSEs also improve. Photo improves scan118 by 2.2087%, but worsens scan122 by 187.3673%; its lower MAE cannot be substituted for the failed primary criterion. The saved source is `evaluation/RESULTS.json:2-79`.
+
+The pointwise partitions are exhaustive and disjoint under the registered 1e-9 mm tolerance:
+
+| Arm | Improved / worsened / unchanged on 484 | Originally ≤1 mm harmed to >1 mm | Originally >5 mm rescued to ≤5 mm / ≤1 mm | New support / new ≤1 mm |
+|---|---|---|---|---|
+| Photo | 279 / 201 / 4 | 15 / 370 | 73 / 90; 63 / 90 | 27 / 21 |
+| Geo | 262 / 185 / 37 | 6 / 370 | 64 / 90; 59 / 90 | 19 / 15 |
+
+All 37 unchanged geo points are retained CPU points; there are no coincident replacements hidden in that count. Six threshold-crossing harms are 1.6216% of the 370 originally ≤1 mm points. This count does not include all smaller degradations that remain below 1 mm; “safe preservation” is unsupported. Evidence: `evaluation/TAIL_METRICS.csv:2-9`, `evaluate_transfer.py:61-67`, independent `tail_totals`.
+
+Standalone MVS supports must remain separate: photo has 507 valid outputs and geo 466; their CPU intersections are 480 and 447. The geo system has zero >5 mm errors among its 466 accepted outputs, but the primary fallback system still has 26 >5 mm errors among 484. The `all_valid` row's `paired_cpu_mse_mm2` is calculated on the CPU intersection, so it must not be treated as a comparator on the row's full support (for example `ROI_METRICS.csv:34-35`).
+
+## E. Descriptive failures and effective depth-domain asymmetry
+
+No point was deleted, method altered, or alternate subset used to obtain the findings here. Contributions refer to the original equal-ROI MSE, using each point's squared error divided by four times its ROI's CPU-valid count.
+
+Two photo-fallback queries alone contribute **74.2456%** of its MSE:
+
+| Fixed query | Half-resolution pixel | CPU distance → photo distance, mm | MSE contribution, mm² |
+|---|---|---:|---:|
+| scan122_feather, query 33 | (472, 200) | 38.1181 → 227.5169 | 102.706229 |
+| scan118_upper_fold, query 117 | (508, 284) | 42.4877 → 194.1180 | 81.210759 |
+
+These are accepted photometric replacements, not invalid-point artifacts. Geo's remaining tail instead comes almost entirely from fallback: its 37 retained CPU points contribute **72.660895077 of 72.802965747 mm² (99.8049%)**. All 26 remaining >5 mm points are retained CPU points. Its largest error is retained query 94 in scan118_base_ridge, pixel (356,480), 66.1373 mm. This supports describing the current fallback's unresolved errors, not inferring visibility, reflectance, background identity, or topology from the distance alone.
+
+**Material interpretation disclosure:** CPU hypotheses stay within the registered discrete depth interval (`cpu_baseline.py:96-108`), but COLMAP's accepted estimates are not globally clipped to the supplied `depth_min`/`depth_max` (`mvs_transfer.py:103-104,131-134`). The observed ranges are real sealed outputs. The independent depth-domain verifier finds **59/466 geo estimates outside their configured interval, including 50 on the primary CPU support**. Those same 50 fixed queries contribute **75.036502706 of the 96.184493794 mm² overall MSE reduction (78.0131%)**. For example, scan118_base_ridge has 51 accepted geo queries above the configured upper limit of 682 mm; its largest accepted depth is 711.4231 mm.
+
+This matches the inspected official [COLMAP 4.2.1 implementation](https://github.com/colmap/colmap/blob/4.2.1/src/colmap/mvs/patch_match_cuda.cu): initialization fills from the configured bounds, while `PerturbDepth` samples around the current estimate, plane propagation transfers intersections, and the selected depth is saved without a global range clamp. It is not evidence of a malformed output reader. Consequently, “shared inputs and initial range parameters” must not become “identical hard search domains”; the result compares complete algorithms, and the gain cannot be assigned solely to the geometric-consistency term. Geo/photo also differ in filtering and initialization workflow. No new clipping rule or retuned CPU range should be introduced into this frozen experiment.
+
+Evidence is reproducible in `review/verify_range_support.py` and `review/DEPTH_RANGE_SUPPORT_CHECK.json`; it is descriptive attribution, not a new optimized experiment.
+
+## F. Report claim checking and remaining limitations
+
+Initial review covered `REPORT.md` SHA256 `94496a74f23a423ef66879e429763814f5a68d8da8705f9bf7d73ca45ef9f501` and `COMMANDS.md` SHA256 `fe4050f7673ee915b5d1112874f1652ef48e0f0f28489af88580f3770854f690`. After the root author added disclosures, I directly reread the final report (SHA256 `186db07b22a7d11c3386017c671e7176c879d75cd27f4eb552eabc406240bfaf`) and commands (SHA256 `d5a12d062b70520a892e291cb2fdd6e487cae7d93bc101bcaa8280aa5ca3bf2b`). The following line references apply to that revised report.
+
+- `REPORT.md:9,25-46`: all denominators, summary values, percentages, four-ROI improvement, repair/damage counts, and new-support counts match the independently recomputed evidence at stated precision.
+- `REPORT.md:17`: the recorded CPU/GPU times match, with the appropriate unequal-workload caveat.
+- `REPORT.md:11,58,62-65`: the distinctions from high-quality native GeoSVR mesh denoising, new-algorithm novelty, full-scene evaluation, upstream camera independence, and repeated stochastic verification are appropriate.
+- **Disclosure resolved:** `REPORT.md:19` now explicitly distinguishes the effective search domains, states 59/466 outside-interval geo outputs, 50 on primary support, and 75.03650/96.18449 mm² (about 78.0%) contribution. These numbers match `DEPTH_RANGE_SUPPORT_CHECK.json`. `REPORT.md:56,68` now includes search-domain differences among the unisolated causal factors and proposes matching actual domains before a future mechanism ablation. This resolves the initial reporting omission without changing the experiment.
+- `REPORT.md:48,56` correctly discloses 37 retained points, all 26 residual >5 mm errors, 99.80% of remaining geo-fallback MSE, and the two photometric points' 74.25% MSE share. The attribution is descriptive; no trimmed score replaces the primary result.
+- `REPORT.md:66` accurately states the completed deterministic verification: 145 bound files, all 1,457 raw valid predictions, 2,560 saved rows, maximum distance difference 0.0 mm. The semantic conclusion remains explicitly same-family/provisional.
+- `COMMANDS.md:18,27` now gives the correct independent numeric command and exclusive-create caveat. Default system Python lacks SciPy on this host; the listed COLMAP environment works. Verifier outputs use exclusive creation to retain the original review receipt; reruns should select a new review destination instead of overwriting evidence. The additional range-support verifier command is supplied below.
+
+```bash
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B review/verify_final_numeric.py
+python3 -B review/verify_range_support.py
+```
+
+Machine receipt hashes: `INDEPENDENT_NUMERIC_CHECK.json` SHA256 `620207b8d795c239767d1268c0d758ab3a95bb8cf2f4b74416b23b761a5dab3d`; `DEPTH_RANGE_SUPPORT_CHECK.json` SHA256 `c458e1df6101f36398714cee0f6c4c31f901ffc68bf8bb24f18dfc3c5e2b6973`.
+
+No general calibration certificate, OS-level no-leakage trace, statistical population generalization, causal ablation, or GPU seed repetition was performed. Negative photo MSE, the six geo preservation harms, retained severe errors, and limited scene/ROI scope remain visible in the revised report. No source/output correction is justified by this audit. The requested methodological disclosure is now present, and its claims pass the final semantic check within the stated scope. A repository README was mentioned by the root author but its path was not supplied in this task; this verdict directly covers the run's report and commands, not that separate file.

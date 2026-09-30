@@ -1,0 +1,27 @@
+[
+  {
+    "id": "OR001", "title": "QCE 分叉交接：候选暴露与提交的前史", "date": "2026-09-07", "track": "研究前史",
+    "question": "有限预算下的纠错瓶颈是新增匹配、候选暴露还是正确提交？",
+    "did": ["交接报告核对 s0539 的 STOCK/WIDE 产物及样本身份；本书读取交接的结果、更正及数学边界段落", "区分原始输入、提案、验证、提交、反馈五环节"],
+    "not_done": ["该交接不是本轮新跑自然图像实验", "公共 939 组语义样本重验在交接时尚未完成；本书未追溯其后全部外部线程", "没有证明通用科研 runtime 有效"],
+    "result": ["WIDE 在该事件只删一条边；原生1000组八点样本的真实edge集合全部改变", "WIDE bank 2–4映回STOCK仍通过；存在更好候选却未被原选择选中"],
+    "interpretation": ["候选存在、预算内暴露、无真值选择、持续地图正确是不同问题"],
+    "decision": ["保留研究动机，撤回部分不成立的固定样本消融归因"],
+    "evidence_level": "report_read", "sources": ["/home/grf/Documents/Codex/2026-08-30/new-chat/outputs/QCE_FORK_RESEARCH_HANDOFF_2026-09-07.md"],
+    "tags": ["候选", "选择", "元研究", "实现更正", "SLAM"], "predecessors": ["QCE-0 / 2026-09-04消融"],
+    "corrections": ["所谓共同939样本实际STOCK仍保留1000，不能将旧消融解释视为完成结论", "期限内首次成功风险条件不能直接作为修复后lifetime安全保证"],
+    "rerun_condition": "若回到QCE，先恢复真实edge-ID公共日程与实际源码身份；不是仅换随机种子。"
+  },
+  {
+    "id": "OR002", "title": "道路重定位：密集地图天花板与41张时序重访", "date": "2026-09-08", "track": "研究前史",
+    "question": "相同四候选尝试预算下，空间去冗余能否提高正确定位覆盖？",
+    "did": ["两段KITTI密集轨迹78个相关条件", "独立冻结同次驾驶较晚时段41张自然查询，进行selected-only重放与外部位姿评价", "保留地图未覆盖查询作为分母"],
+    "not_done": ["不是跨日或跨季节重访", "没有当代成熟强检索基线", "没有车辆安全、显著性或量产端到端实时性证明"],
+    "result": ["密集条件appearance_top4和spatial_diverse4均78/78正确；rank_spread74/78", "41查询分别5/41、5/41、6/41正确，均0错误接受", "GT-only全集11/41有合格正确候选；123次重放与缓存一致"],
+    "interpretation": ["候选选择有潜在缺口，但去冗余未显示增量，全集Oracle不是四候选在线成绩"],
+    "decision": ["作为先导与失败定位保存，不视为新算法确认"],
+    "evidence_level": "report_read", "sources": ["/home/grf/Documents/Codex/2026-09-08/road-relocalization-day1/README.md", "/home/grf/Documents/Codex/2026-09-08/road-relocalization-day1/PROTOCOL.md", "/home/grf/Documents/Codex/2026-09-08/road-relocalization-day1/REVISIT_PROTOCOL.md", "/home/grf/Documents/Codex/2026-09-08/road-relocalization-day1/VALIDATION.md"],
+    "tags": ["候选", "Oracle", "预算", "SLAM", "覆盖"], "predecessors": ["OR001"], "corrections": ["29个无有效PnP和1个无正确位姿不能全部归因于检索或不可观测"],
+    "rerun_condition": "有新的检索/候选证据及成熟强基线，明确真实重访划分与端到端成本后再试。"
+  }
+]

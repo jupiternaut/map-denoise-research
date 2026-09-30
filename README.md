@@ -1,15 +1,17 @@
 # Map Denoise Research
 
-**多视图证据驱动的多假设几何修订。** 更新于 **2026-09-28**。
+**多视图证据驱动的多假设几何修订。** 更新于 **2026-10-01**。
 
 本仓库保存算法源码、冻结协议、正负结果、测试及修订记录。目前的几何主线是：利用照片与相机标定构造几种可能的表面解释，再决定保留原点还是接受修正。最近已实现收益选择、连续射线位置搜索，以及局部一／双表面逆深度混合回归。
 
-当前结果支持**有条件的偏移恢复**，不支持默认开启的通用滤波器；部署默认仍为 `identity`。最新多表面场没有超过旧恢复器，但实验把候选空间、曲面拟合与输出选择的缺口分开了。Windows / RTX 5080 交接包仍对应 9 月 22 日 CPU 版本，**不包含后续实验的 GPU 移植，CUDA 后端尚待实现**。
+自研方法已支持**有条件的偏移恢复**，尚不是默认开启的通用滤波器；部署默认仍为 `identity`。最新工作修复了照片—相机接口，并补齐官方COLMAP强基线与两个新物体的冻结迁移：相对CPU照片重建初值，MSE降低56.92%。这不是自研新算法成绩，也不是旧GeoSVR成品网格原生去噪成功。Windows / RTX 5080 交接包仍对应9月22日CPU版本，**本轮COLMAP在Linux RTX3060Ti上运行，不能冒充自研CUDA后端或5080验证**。
 
 ## 从这里开始
 
 | 你想做什么 | 入口 |
 |---|---|
+| 阅读完整研究记忆书与对话、避免重复实验 | [GitBook完整入口](docs/research-book/README.md) · [目录](docs/research-book/SUMMARY.md) · [最新状态](docs/research-book/increment/docs/LATEST_STATE.md) |
+| 看最新冻结迁移及损伤账 | [10月1日实验报告](research_snapshots/2026-10-01/colmap-transfer-20260930T180000Z/REPORT.md) · [原始指标](research_snapshots/2026-10-01/colmap-transfer-20260930T180000Z/evaluation/RESULTS.json) · [发布说明](publication/TRANSFER_20261001.md) |
 | 在 Windows 上交给 Codex 开发 | [启动提示词](handoffs/v28-windows-5080/START_WINDOWS.md) · [完整交接 ZIP](https://github.com/jupiternaut/map-denoise-research/raw/8666e3ffee09a3a1a105fa523ed94ae2218fde01/handoffs/v28-windows-5080.zip) |
 | 看工具架构与验收范围 | [架构](handoffs/v28-windows-5080/ARCHITECTURE.md) · [实施任务](handoffs/v28-windows-5080/TASK.md) · [验收标准](handoffs/v28-windows-5080/ACCEPTANCE.md) |
 | 看最近七轮实验及发布范围 | [9 月 26 日实验导航与 9 月 28 日发布说明](publication/REPLAY_20260928.md) |
@@ -19,7 +21,27 @@
 | 阅读当前 CPU 实现 | [包说明](handoffs/v28-windows-5080/reference/package/README.md) · [运行时](handoffs/v28-windows-5080/reference/package/v28_closeout/runtime.py) · [表面假设评分](handoffs/v28-windows-5080/reference/package/v28_closeout/surfacelet.py) |
 | 阅读元研究与历史探索 | [元研究导航](meta_research/README.md) · [V23–V25 / CPR / 精确搜索](PROGRESS_20260916.md) · [V19–V22](PROGRESS_V22.md) |
 
-## 最新进展：从候选位置到共享多表面
+## 最新进展：成熟MVS的收益迁移到两个新物体
+
+冻结“COLMAP 4.2.1几何一致性＋无效处旧点回退”，直接用于未参与前轮开发的DTU scan118/122。每场景两个照片定义ROI，512个请求像素先固定，484个CPU有效点构成所有主臂的共同总体；预测封存后才获取官方三维参照。下表是四ROI等权点到参照最近距离，**输入为同五张照片产生的CPU初值，不是旧成品网格**。
+
+| 方法 | MSE（mm²） | 相对CPU MSE | ≤1mm点数/484 | >5mm点数/484 |
+|---|---:|---:|---:|---:|
+| CPU初始重建 | 168.98746 | — | 370 | 90 |
+| 官方COLMAP纯光度＋回退 | 247.71447 | 恶化46.59% | 436 | 19 |
+| 官方COLMAP几何一致性＋回退 | **72.80297** | **改善56.92%** | **441** | 26 |
+
+scan118/122分别改善59.93%/48.24%，四个ROI均改善。262点变好、185点变差、37点回退不动；原本370个≤1mm点中有6个越过1mm，90个>5mm错点中64个被修到≤5mm。新增覆盖另计，不拿删除/缺失坏点改善主指标。
+
+独立复算还定位到：剩余26个>5mm错点全部来自37个CPU回退点（贡献残余MSE的99.80%）。另一方面，COLMAP可以传播到传入深度区间外，而CPU搜索有硬边界；主总体50个区间外输出贡献约78%的MSE收益。因此这是**整套方法**的迁移收益，不能全部归于相同搜索域下的几何一致性。
+
+![新物体冻结迁移结果](research_snapshots/2026-10-01/colmap-transfer-20260930T180000Z/figures/transfer_results.png)
+
+本轮把**相机接口正确、强基线有效、冻结规则在新物体上有收益**三件事接起来；仍未证明自研选择器超过这个成熟基线、跨传感器普适性或完整薄层安全。它是两物体的同来源迁移试验，不是官方完整DTU排行榜。纯光度MAE降低而MSE升高，说明还必须面对少量严重错误，不能只追平均照片匹配或正确点数。
+
+完整书稿现包含封存原书、所有登记增量、可见消息、来源快照与更正链；[公开范围和哈希](docs/research-book/PUBLICATION_MANIFEST.json)明确排除隐藏推理、原始系统/工具载荷和环境。这不是原始数据集全盘备份。下载目录可直接打开`READ.html`；GitHub本身不会自动托管HTML为网站。
+
+## 9月26日历史进展：从候选位置到共享多表面
 
 9 月 26 日的七轮实验使用 scan55/65/69 × 每场景四个 ROI × 五种输入状态，共 **60 案例**。这些场景已经看过，属于**旧场景开发回放，不是新的独立确认**。后续拟合使用的照片也不再算作该方法的留出验证视图。
 
@@ -113,7 +135,13 @@ ZIP SHA-256：`6c4f5c1aea8ed74960c3271f164ec75eed7a97a4a81f3a29367bdf4be7cd3139`
 
 ## 最小检查与复现状态
 
-最新公开快照可以只用 Python 标准库检查文件哈希、720 行主指标、汇总及 README 关键数值，无需原始数据或原机路径：
+最新迁移快照可只用Python标准库检查发布哈希、2560行点指标、40行ROI指标与汇总，无需原始数据或原机路径：
+
+```bash
+python -B publication/verify_transfer_20261001.py
+```
+
+9月28日快照也保留标准库哈希与720行主指标复算：
 
 ```bash
 python -B publication/verify_replay_20260928.py
@@ -143,10 +171,10 @@ python -B handoffs/v28-windows-5080/reference/tests/test_runtime.py
 | 后续七轮旧场景回放、连续搜索与多表面场 | 已完成；源码与指标公开，未升级默认 |
 | Windows / WSL2 架构与 Codex 交接包 | 已发布 |
 | CUDA 后端与 RTX 5080 等价/速度测试 | 待实现、待实测 |
-| 对口成熟外部基线 | 待补；官方 COLMAP 本轮未运行 |
+| 对口成熟外部基线 | 官方COLMAP同像素开发比较及两新物体冻结迁移已完成；自研相对强基线增量仍待证明 |
 | 干净环境从数据到结果的完整复现 | 待补 |
 
-**9 月 22 日确认实验与 9 月 26 日回放批次均已结束。** 外部基线与干净环境完整复现属于研究收尾证据；GPU 移植属于工程任务。新构造需另立范围，不能把每个新任务都当成旧批次尚未完成。
+**9月22日确认、9月26日回放、10月1日两物体迁移批次均已结束。** 自研相对成熟基线增量与干净环境完整复现仍属于收尾证据；GPU移植属于工程任务。新构造需另立范围，不能把每个新任务都当成旧批次尚未完成。
 
 ## 两条研究线与历史入口
 
@@ -159,6 +187,8 @@ python -B handoffs/v28-windows-5080/reference/tests/test_runtime.py
 
 | 位置 | 内容 |
 |---|---|
+| `docs/research-book/` | 完整研究记忆书、公开可见对话、增量与更正链、可移植阅读页及维护代码 |
+| `research_snapshots/2026-10-01/` | 相机更正、官方MVS对照与新物体迁移的代码、协议、轻量工件、图和审计 |
 | `handoffs/v28-windows-5080/` | 当前工程交接及可独立核验的 CPU 参考包 |
 | `research_snapshots/2026-09-26/` | 七轮回放源码、协议、轻量结果、图与审计；`run_evidence/` 对应外部运行目录的公开子集 |
 | `research_snapshots/2026-09-22/` | 先前冻结方法的确认实验源码、协议、指标及封存记录 |

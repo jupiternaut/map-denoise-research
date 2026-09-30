@@ -1,0 +1,27 @@
+# 运行与复查
+
+主机liekkas，目录`/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z`。封存输出不覆盖；重跑需新目录并显式适配绝对路径，不在旧目录覆盖锁。
+
+```bash
+python3 -B acquire_inputs.py
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B prepare_transfer.py
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B test_transfer_preparation.py camera
+python3 -B test_transfer_preparation.py cpu
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B mvs_transfer.py freeze
+python3 -B cpu_baseline.py --both
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B mvs_transfer.py prepare
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B mvs_transfer.py run
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B fetch_reference.py
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B evaluate_transfer.py
+/srv/slam-research/grf/map-denoise/envs/open3d-019/bin/python -B plot_transfer.py
+python3 -B review/verify_pre_gt.py
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B review/verify_final_numeric.py
+```
+
+环境分工：system Python提供OpenCV用于CPU基线；COLMAP env为Python3.12+pycolmap-cuda12 4.2.1+NumPy/SciPy/Pillow；open3d-019 env提供Matplotlib。实际包版本记录在CPU SUMMARY和MVS_LOCK/审核。GPU执行前检查无无关计算进程，没有终止其他工作。
+
+输入依赖为历史3.56GB照片/相机tar归档及哈希manifest；锁内列出了4份只读旧实现依赖。官方GT按HTTP Range只取两个成员，约157MB解压，不下载完整数据集。GitHub公开源快照包含依赖副本和取得数据所需元数据，不含原始照片/全深度图/GT，不能宣称干净Windows环境一条命令重跑已验证。
+
+公开书可以独立下载阅读，不要求研究原始数据或这些Linux路径。
+
+最终数值核验器遍历全部参照点；原始核验结果使用exclusive-create保存，已存在时不会覆盖。再次核验应在新目录适配结果路径；不能把同名输出存在误认为重跑成功。

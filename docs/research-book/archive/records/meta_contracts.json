@@ -1,0 +1,277 @@
+[
+  {
+    "id": "MC001",
+    "title": "9/13研究契约审计：修正命中集、一步信息价值与玩具向真实停题的外推",
+    "date": "2026-09-13",
+    "track": "meta-contracts",
+    "question": "早期元研究原型的数学论证、预算口径和真实工程建议是否相互匹配？",
+    "did": [
+      "历史AUDIT对两份Agent输出、旧instance.py/RESULTS及V24作只读审查，并检查报告与代码是否一致。",
+      "历史轻量独立核验枚举4元集合的16个子集，并计算两状态纯测试的前后期望效用。",
+      "本次完整读取AUDIT.md；未重新打开其引用的旧原型或重跑数学检查。"
+    ],
+    "not_done": [
+      "没有重跑旧元研究原型或继续开发；没有修改滤波工程。",
+      "没有证据证明三道门已被写入主工程；未以新契约追溯判定旧授权违规。",
+      "静态规则审查不等于未来Agent行为依从性或滤波收益已验证。"
+    ],
+    "result": [
+      "报告称{b}命中全部冲突，但{a,c}不含b；历史审计确认正确极小命中集为{a,b}/{b,c}，原枚举代码本身正确。",
+      "一步policy_task_voi在测后仍使用同一交付动作，纯测试期望价值抵消、净收益仅负成本；完整递归规划器允许测后修复，不受此同一缺陷概括。",
+      "旧模型的先验、似然、效用和必成功修复均为手设；其后验不是工程故障概率实测。",
+      "旧比较共享时域4和成本函数，没有共同累计花费状态；8位小数belief量化也不能直接称原模型精确证书。"
+    ],
+    "interpretation": [
+      "错误分别位于报告集合论、一步决策定义、数值/预算表述与真实外推，不能合并为整个程序无效。",
+      "单例冲突{alpha}预先强制唯一alpha解，不是从V24数据识别唯一故障；玩具Stop与停止局部alpha优化不是同一动作。"
+    ],
+    "decision": [
+      "将证据等级、测后决策、历史事后性、资源口径及工具失败恢复写入局部契约。",
+      "不把一次只改一个模块或任何版本必须单调改进提升为普遍研究门禁。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-13/research-runtime-contract/AUDIT.md"
+    ],
+    "tags": [
+      "runtime-contract",
+      "audit",
+      "VOI",
+      "hitting-set",
+      "toy-real-boundary"
+    ],
+    "predecessors": [],
+    "corrections": [
+      "审计保留报告错误与代码正确的区别；不得把手设玩具后验及Stop决定当真实主工程停题依据。"
+    ],
+    "rerun_condition": "若未来重提命中集诊断、信息价值或停止策略，先检查冲突来源、测后可选修复、累计预算和独立真实证据；同一玩具重算不是工程验证。"
+  },
+  {
+    "id": "MC002",
+    "title": "Markdown任务入口转成TLA+：完成语义映射，未执行模型检查或任务实验",
+    "date": "unknown/not documented",
+    "track": "meta-contracts",
+    "question": "自然语言AGENTS/TASK怎样转为单一规范入口，哪些保证并未因此成立？",
+    "did": [
+      "TRANSLATION记录旧AGENTS的23条与旧TASK工作项映射至AGENTS.tla、TASK.tla、ResearchIntent.tla。",
+      "TASK.md当前仅跳转TASK.tla，旧中文正文归档；翻译记录声明已做人工文件和条款核对。",
+      "本次读取TASK.md与TRANSLATION.md全文，未直接审计TLA文件或归档旧正文。"
+    ],
+    "not_done": [
+      "没有运行SANY/TLC/TLAPS，没有形式证明通过。",
+      "没有安装执行器、启动TASK实验或建立权限沙箱。",
+      "翻译记录未给确切日期，目录日期不能自动等同翻译执行日期。"
+    ],
+    "result": [
+      "AGENTS/TASK从中文正文与TLA并行指挥改为加载/跳转入口；AUDIT及旧稿作为历史资料保留。",
+      "ResearchIntent把Construct覆盖假说、表示、实验、策略；采用表示另列AdoptRepresentation。",
+      "修复概率和诊断三案例被限定在采用诊断框架的分支，不强迫所有研究变成固定故障—检查—修复。"
+    ],
+    "interpretation": [
+      "本项是任务语义与接口条件的迁移，不是可运行Agent runtime，也不证明代理遵守规范。",
+      "路径绑定、工具回执、数据是否未暴露和证据真实性都需要真实环境支撑，自填TRUE不能代替证据。"
+    ],
+    "decision": [
+      "保持单一任务语义源，保留旧稿供译义对照；不把规范编写等同执行或验证。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-13/research-runtime-contract/TASK.md",
+      "/home/grf/Documents/Codex/2026-09-13/research-runtime-contract/TRANSLATION.md"
+    ],
+    "tags": [
+      "TLA+",
+      "translation",
+      "not-model-checked",
+      "runtime-contract"
+    ],
+    "predecessors": [
+      "MC001"
+    ],
+    "corrections": [
+      "翻译不是机械照抄旧诊断框架；明确允许构造新假说和表示，并撤去诊断框架的普遍必要性。"
+    ],
+    "rerun_condition": "只有规范或环境绑定变化时重做语义核对；要检验执行一致性须实际运行代理或模型检查，不能把再写一版规则当实验增量。"
+  },
+  {
+    "id": "MC003",
+    "title": "Hermes METHOD：单回合CEGIS玩具已运行，空工作区不是上下文消融",
+    "date": "unknown/not documented",
+    "track": "meta-contracts",
+    "question": "CEGIS加有限表示修订在一个给定回合能帮助多少，是否测试了项目上下文影响？",
+    "did": [
+      "METHOD报告对constant/linear/piecewise三类、同8步预算、六策略的单回合有限穷举实验。",
+      "比较外部L1与手设效用U=-L1-0.25*计费成本；validator为扫描未见域最大残差的强oracle。",
+      "本次完整读取METHOD.md；未读取RESULTS.json、运行程序或重新核实所引论文。"
+    ],
+    "not_done": [
+      "没有运行只改变既有项目上下文的新会话消融；准备空工作区不构成上下文消融。",
+      "TASK.tla未model-check；CEGAR原文未取得，报告只经Solar-Lezama引用讨论。",
+      "不是多任务研究策略确认；精确运行日期 unknown/not documented。"
+    ],
+    "result": [
+      "固定充分piecewise族CEGIS外部L1=0、计费6、U=-1.50。",
+      "允许constant→linear→piecewise的refine策略在预算内停在线性族，L1=28、成本8；固定linear CEGIS为36。",
+      "其余线性/代理相关臂L1=28；独立检查通过与约.017秒是原METHOD中的历史报告。"
+    ],
+    "interpretation": [
+      "成功依赖足够表示与直接检查外部目标的强oracle；不能把适足族加验证器优势全归于Agent研究能力。",
+      "单一手设回合不能建立一般充分必要条件、上下文因果效应或开放表示发现。"
+    ],
+    "decision": [
+      "将CEGIS保留为受限机制例子；上下文消融作为明确未执行任务另列。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/.hermes/attachments/METHOD.md"
+    ],
+    "tags": [
+      "CEGIS",
+      "context-ablation-not-run",
+      "oracle",
+      "single-episode"
+    ],
+    "predecessors": [],
+    "corrections": [
+      "空目录/空工作区不等于新会话清除旧上下文；允许表示升级也不等于预算内已到达充分表示。"
+    ],
+    "rerun_condition": "若要测上下文影响，需新会话只改变项目上下文而共享任务、能力与预算；若要测策略泛化，需新锁定任务且明确validator权限与成本。"
+  },
+  {
+    "id": "MC004",
+    "title": "CPR首轮构造：置信集修订与MDL是候选方案，保留既有V25暴露声明",
+    "date": "2026-09-15",
+    "track": "CPR-construction",
+    "question": "点云修订与研究修订能否共享基于现任估计的置信集判定结构？",
+    "did": [
+      "INITIAL_CONSTRUCTION提出conformal集合、BH、最小投影、KEEP/MOVE/ACQUIRE/RESPECIFY及MDL备选。",
+      "列出几何、研究、元层预测与首个E1/E2计划；作者声明未读统一HANDOFF，但此前已读V25报告和部分工件。",
+      "本次完整读取324行首轮构造，不将推导示例数值当运行成绩。"
+    ],
+    "not_done": [
+      "本文件没有执行E1真实校准、E2研究载体、主动采集或元层方法比较。",
+      "没有实现盲化或清除旧上下文；未读HANDOFF不等于没有历史暴露。",
+      "占据/补缺失面的表达和MDL具体编码未完成。"
+    ],
+    "result": [
+      "形成带假设A1–A5的候选结构，最脆弱环节包括校准通道交换性、局部参数化和投影损失适配。",
+      "文件明确列出了既有identity、局部再生、ROI评价、负结果等暴露；初轮保留原文待评审。"
+    ],
+    "interpretation": [
+      "这是理论构造与可检验预测，不是统一算子已经实现或跨领域保证成立。",
+      "首轮点数不变推完整性不变、BH解释为有害移动控制、元层逐行同算子等强表述均应随MC005及CPR后续纠正阅读。"
+    ],
+    "decision": [
+      "保留首稿，不将评审后的结论追写成读前预测；先用反例检验保护对象与信息条件。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-15/INITIAL_CONSTRUCTION.md"
+    ],
+    "tags": [
+      "CPR-initial",
+      "proposal",
+      "exposure",
+      "not-executed"
+    ],
+    "predecessors": [],
+    "corrections": [
+      "本项记载旧构造及其暴露，不采纳其中已被MC005撤回或被CPR002/CPR006进一步收窄的保证。"
+    ],
+    "rerun_condition": "重复统一构造前先读MC005和CPR001–CPR012；只有补足可执行接口或新实测对照，才超过重命名已有结构。"
+  },
+  {
+    "id": "MC005",
+    "title": "CPR第二次构造：KEEP+ACQUIRE、保证对象分账与E0先行，仍无实测",
+    "date": "2026-09-15",
+    "track": "CPR-construction",
+    "question": "首轮评审指出的输出/研究决策耦合与保证过度扩张如何修订？",
+    "did": [
+      "CONSTRUCTION_REVISION_1回应评审，保持首稿不改；文首明确没有任何实测结果。",
+      "分开输出KEEP/MOVE和研究NONE/ACQUIRE/RESPECIFY两图，增加有限双层/研究变换候选与元层配置空间定义。",
+      "将E0合成机制测试置于E1真实校准之前，采纳同检验同可动点的投影/ARGMIN对照。",
+      "本次完整读取修订文档。"
+    ],
+    "not_done": [
+      "此文没有执行新算子、双层候选、可见性守卫、采集调度或元层实验。",
+      "未读HANDOFF仍不证明上下文独立；占据分量、低纹理校准、anytime-valid通道只给定义/要求。",
+      "修订中的统计表述不当作已验证保证，后续有效性须按CPR002/CPR006限定。"
+    ],
+    "result": [
+      "承认点数不变不推出完整性不变，参数坐标误差与点集/身份误差分开。",
+      "承认SfM与稠密匹配共享图像和位姿，代理K'覆盖不能代替真实覆盖。",
+      "承认BH拒绝集合与经后处理的MOVE集合不同，全部点与移动点损伤分母必须分开。",
+      "首轮含现任值的多峰例子会被KEEP挡住ACQUIRE；两张决策图允许KEEP+ACQUIRE。",
+      "撤回几何连续投影保证向离散方法空间逐行迁移的强统一说法。"
+    ],
+    "interpretation": [
+      "第二次构造是评审驱动的设计修订，不是第二次独立确认或已实现系统。",
+      "新加入有限语法和守卫是候选能力，后续E0/D/E/F只执行其中各自明确声明的部分。"
+    ],
+    "decision": [
+      "冻结首稿与修订稿，机制实验先行；后续必须同时测净收益、损伤、覆盖和动作比例。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-15/CONSTRUCTION_REVISION_1.md"
+    ],
+    "tags": [
+      "CPR-revision",
+      "KEEP+ACQUIRE",
+      "guarantee-scope",
+      "planned-E0"
+    ],
+    "predecessors": [
+      "MC004"
+    ],
+    "corrections": [
+      "替代MC004的完整性不变、KEEP阻断研究动作、元层逐行同算子等表述；复合容差原假设等余下统计问题仍未证明。"
+    ],
+    "rerun_condition": "若再提双图或同掩码投影对照，应先定位CPR后续已执行范围；仅复述这五类修订不算新增机制。"
+  },
+  {
+    "id": "MC006",
+    "title": "E0-D原诊断报告与正式技术报告属于同一证据批次，不另计确认",
+    "date": "2026-09-15",
+    "track": "CPR-construction",
+    "question": "E0-D正式报告之前是否还有一个未入账的独立实验阶段？",
+    "did": [
+      "本次完整读取e0-diagnostics-20260915T072044Z/REPORT.md，与已归档CPR002–CPR006所用正式技术报告的批次与核心结果对照。",
+      "原运行报告区分A检验器、B投影、C守卫，以及暴露后单独保存的连续边界诊断。"
+    ],
+    "not_done": [
+      "没有发现本文件对应另一个独立确认总体；不是本轮重跑。",
+      "边界修复不是原预注册结果或新真实场景；新证据扩展在报告中仍未执行。"
+    ],
+    "result": [
+      "原报告同样记录18检验配置、24复用投影配置、54守卫案例，连续覆盖内损伤348→0。",
+      "其24/24胜ARGMIN而3/24胜identity、3600错误合层与3600正确去重影同被阻止，与CPR002–CPR006同源。",
+      "原报告单列wrong_association列实际为mm多峰标志、348曾误写448等口径更正。"
+    ],
+    "interpretation": [
+      "这是为完整性补入原运行报告入口及阶段关系，不是新增实验效果或第二实验室复现。",
+      "真正追加的是同24个已暴露B配置上的数值诊断；它已由CPR004记录，应保留其事后属性。"
+    ],
+    "decision": [
+      "将原报告与正式技术报告作为同一证据链阅读，不累加配置、种子或核验次数为独立确认。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-15/e0-diagnostics-20260915T072044Z/REPORT.md"
+    ],
+    "tags": [
+      "E0-D",
+      "provenance",
+      "same-batch",
+      "not-independent"
+    ],
+    "predecessors": [
+      "CPR001",
+      "MC005"
+    ],
+    "corrections": [
+      "与CPR002–CPR006是同批次不同报告层级；本记录不增加独立实验计数，348/448口径采用348。"
+    ],
+    "rerun_condition": "可为实现回归重跑同批次，但必须叫复现/回归；只有新锁定观测或独立目标总体才可增加确认证据。"
+  }
+]

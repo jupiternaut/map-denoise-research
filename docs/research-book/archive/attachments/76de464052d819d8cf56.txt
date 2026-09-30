@@ -1,0 +1,621 @@
+我基本赞同你的判断，而且你这版已经把“方法证据”“审稿人的解释”“研究路线建议”三件本来容易混在一起的事分开了。核对仓库代码后，你指出的两处关键反驳都成立；不过有几个地方还可以再收紧，使论证更难被反驳。
+
+## 1. 关于常数阻尼：你的纠正是对的，但可以再精确一层
+
+代码很清楚。V22 先通过三个尺度的局部二次曲面得到 correction，并经过预测方差加权：
+
+$$
+d_i=\sum_s w_{is}d_{is},
+$$
+
+然后自适应版本使用：
+
+$$
+p_i'=p_i+\alpha_i d_i n_i.
+$$
+
+`operator.py` 121–143 行就是这个逻辑。
+
+而 matched control 在 `run.py` 25–28 行做的是：
+
+$$
+c=
+\frac{\|\Delta_{\rm consensus}\|_F}
+{\|\Delta_{\rm full}\|_F},
+$$
+
+再输出：
+
+$$
+p_i'=p_i+c\,d_i n_i.
+$$
+
+所以这个 control **确实保留了**：
+
+* 局部 PCA；
+* 三个尺度的二次曲面；
+* 各尺度法向；
+* 多尺度预测；
+* 逆预测方差权重；
+* 加权后的 correction 方向 \(d_i n_i\)。
+
+它去掉的只是：
+
+$$
+\alpha_i
+=
+\frac{v_{n,i}}
+{v_{n,i}+v_{p,i}+v_{s,i}+\epsilon}
+$$
+
+这种**逐点变化的 uncertainty shrinkage**。
+
+所以最准确的结论不是：
+
+> 简单少移动就解释了全部收益。
+
+而是：
+
+> **在保持相同多尺度几何 correction，并匹配全点集 RMS/L2 correction budget 的条件下，当前逐点自适应 shrinkage 没有显示出额外收益。**
+
+这个表述比你现在写的还强，因为它准确指定了消融对象。
+
+不过还有一个很值得补充的细节。
+
+这个 `multiscale_matched` 的全局常数 \(c\) 是根据：
+
+$$
+\|\Delta_{\rm consensus}\|
+$$
+
+计算出来的。
+
+也就是说，它是一个**matched diagnostic control**，不是一个完全独立、事先设定参数的 deployable baseline。它通过自适应方法的整体移动量确定自己的 \(c\)。
+
+因此目前真正能证明的是：
+
+$$
+\boxed{
+\text{per-point variation of }\alpha_i
+\text{ 没有超过相同整体 shrinkage budget}
+}
+$$
+
+但还不能进一步声称：
+
+$$
+\boxed{
+\text{一个预先固定的常数 }\alpha
+\text{ 就足以替代整个方法}
+}
+$$
+
+如果将来想把这个结论做得更强，可以冻结例如：
+
+$$
+c\in\{0.25,0.5,0.75\}
+$$
+
+或者在 development scenes 选择 \(c\)，然后在 sealed scene 上比较。这样才真正检验：
+
+> adaptive shrinkage vs deployable constant shrinkage。
+
+这是我认为第二份意见里最需要纠正的技术点。
+
+---
+
+# 2. V20 → V21：你指出的是一个真正的因果推断错误
+
+这一点我完全同意你的处理。
+
+V20 报告自己已经写得非常明确：
+
+> “同一统计生成族中的条件并非独立真实场景……没有新增……真实扫描或独立物理几何验证。”
+
+而 V20 实际回答的是：
+
+$$
+\text{V19 degradation}
+\stackrel{?}{\leftarrow}
+\text{candidate inheritance/search implementation}
+$$
+
+结果是：
+
+$$
+\text{修复候选链}
+\Rightarrow
+\text{同样本结果恢复到 V18}
+$$
+
+同时：
+
+$$
+\text{cross-fit}
+>
+\text{原 V19}
+$$
+
+但仍然：
+
+$$
+\text{cross-fit}
+<
+\text{V18}.
+$$
+
+这是一个**合成族内部的机制实验**。
+
+V21 回答的是：
+
+$$
+\text{frozen V18}
+\stackrel{?}{\longrightarrow}
+\text{independent real reconstruction geometry}.
+$$
+
+这是一个**distribution transfer / model adequacy 实验**。
+
+二者可以形成一个研究叙事：
+
+> 在 synthetic family 中修正了候选搜索问题，但真实迁移依然失败。
+
+但是不能形成因果链：
+
+$$
+\text{V20 的 cross-fitting 结果}
+\Rightarrow
+\text{V21 失败的原因}.
+$$
+
+你可以把这个区别总结成：
+
+$$
+\boxed{
+\text{temporal sequence}
+\neq
+\text{causal explanation}
+}
+$$
+
+第二份意见如果只是说“研究历程显示复杂机制没有稳定转化为真实收益”，这是合理总结。
+
+如果进一步说：
+
+> V20 已经证明为什么 V21 失败，
+
+那就超出了证据。
+
+---
+
+# 3. 关于 Noise2Noise，你的反驳也成立，而且这里值得更数学化
+
+Noise2Noise 最核心的结论并不是：
+
+> “只要同一个东西扫描两次，就可以拿两次 noisy observations 相互监督。”
+
+对于平方损失：
+
+$$
+\min_f E\|f(X)-Y\|^2
+$$
+
+最优解是：
+
+$$
+f^*(X)=E[Y|X].
+$$
+
+如果希望 noisy target \(Y\) 和 clean target \(S\) 给出同样的优化目标，需要类似：
+
+$$
+E[Y|S]=S
+$$
+
+以及足够的条件使：
+
+$$
+E[Y|X]
+$$
+
+不会由于 target corruption 的系统偏差而改变。
+
+经典独立零均值噪声只是保证这一性质的一种常见方式。
+
+但是多扫描点云很容易出现：
+
+$$
+Y=T_{\delta\xi}(S)+\epsilon
+$$
+
+其中：
+
+* \(\delta\xi\)：pose / registration residual；
+* visibility 不一样；
+* occlusion 不一样；
+* sampling density 不一样；
+* surface support 不一样；
+* range-dependent bias 不一样。
+
+此时即使：
+
+$$
+E[\epsilon]=0,
+$$
+
+也不意味着：
+
+$$
+E[Y|S]=S
+$$
+
+在逐点意义上成立。
+
+尤其 point cloud 还是集合：
+
+$$
+X=\{x_i\},
+\qquad
+Y=\{y_j\},
+$$
+
+一般根本没有：
+
+$$
+x_i\leftrightarrow y_i
+$$
+
+这种天然 correspondence。
+
+所以你写：
+
+> “多扫描天然适合 Noise2Noise”也不成立。
+
+这是正确的。
+
+我会稍微调整成：
+
+> **多扫描提供了构造 Noise2Noise/self-supervised 目标所需的重复观测信息，但并不自动满足 Noise2Noise 的无偏监督条件；配准误差、遮挡、对应关系和共享偏差必须进入目标设计。**
+
+这个版本不会把第一份意见推得太远，同时把真正困难的问题点出来。
+
+而 U-CAN 的存在反而支持你的立场，因为它没有简单做：
+
+$$
+X_1\rightarrow X_2
+$$
+
+然后套 MSE，而是专门设计了 **Noise2Noise matching + geometry consistency**。换句话说：
+
+> 如果“多点云直接互相监督”已经天然成立，就没必要专门解决 matching 和 consistency。
+
+---
+
+# 4. 关于 V18 “扫描信息”的历史问题，你的纠正尤其重要
+
+我重新看了：
+
+`exploration_v18/v18_operator.py:59–65`
+
+接口确实是：
+
+```python
+filter_local(local_xyz_mm, sigma_mm, policy=...)
+```
+
+输入只有：
+
+$$
+X\in\mathbb R^{N\times3},
+\qquad
+\sigma.
+$$
+
+并没有：
+
+$$
+scan\_id
+$$
+
+也没有：
+
+$$
+pose,\ ray,\ frame\_id.
+$$
+
+所以如果第一份意见把：
+
+> “V3–V18 的扫描来源信息”
+
+整体描述成 V18 最终算子的输入能力，这是不准确的。
+
+这里我甚至建议再分三个概念：
+
+$$
+\text{scan-aware data generation}
+$$
+
+$$
+\text{scan-aware estimation}
+$$
+
+$$
+\text{scan-aware deployment interface}.
+$$
+
+它们不是一回事。
+
+同样，V18 的“layer information”最好也不要说成：
+
+> 算法知道真实 layer identity。
+
+更准确的是：
+
+> **V18 包含 multi-surface / mixture structural assumption，并推断 latent association。**
+
+真实来源层只是在某些实验中用于评价，不是部署时输入标签。
+
+这个措辞差别对论文很重要。
+
+---
+
+# 5. 第一份意见最有价值的地方，不是它推荐了 neural/score
+
+我认为你已经抓到了这一点。
+
+它真正指出了一个很值得保留的研究问题：
+
+$$
+\boxed{
+\text{最终重建后的无序点集}
+\quad vs\quad
+\text{带 scan provenance 的重复原始观测}
+}
+$$
+
+两者的信息集合不同：
+
+$$
+I(X_{\rm multiscan})
+\ge
+I(X_{\rm merged}).
+$$
+
+但是由此只能推出：
+
+> 多扫描信息**可能提供新的可辨识线索**。
+
+不能推出：
+
+> 多扫描 neural model 必然优于 point-only MLS。
+
+更不能推出：
+
+> MLS 已经接近信息论上限。
+
+我前一次说“后续大概只有 0.2%–1%”这种预测，严格来说确实证据不足。V22 的一个实验结果不能建立：
+
+$$
+\sup_f
+\text{Gain}(f)
+\le1\%.
+$$
+
+这一点你的批评是成立的。
+
+更好的判断应该是：
+
+> **现有 V22 构造尚未找到大幅收益；matched control 又削弱了当前 adaptive shrinkage 的解释力，因此继续沿同一构造做局部参数细化的预期收益降低。但这不是 point-only 输入的上限证明。**
+
+这两个说法差别很大。
+
+---
+
+# 6. 第二份意见的“实证/负结果论文”也不能直接接受，但理由要说准确
+
+这里我也赞同你。
+
+一个严格记录的失败：
+
+$$
+A\text{ 在 dataset B 上失败}
+$$
+
+本身通常还不够成为强论文。
+
+真正有价值的 empirical study 往往需要把失败转化成：
+
+$$
+\text{什么时候失败？}
+$$
+
+$$
+\text{为什么失败？}
+$$
+
+$$
+\text{哪些假设控制这个失败？}
+$$
+
+例如建立：
+
+$$
+\text{curvature}
+\times
+\text{sampling}
+\times
+\text{noise}
+\times
+\text{registration error}
+\times
+\text{thin-layer spacing}
+$$
+
+与方法性能之间的系统关系。
+
+如果最后发现：
+
+$$
+\text{parallel-sheet models}
+$$
+
+只在：
+
+$$
+\kappa r \ll 1
+$$
+
+等某些条件下有效，而且能够预测什么时候 V18、MLS、RIMLS、learning methods 会发生结构损伤，那么这可以是一篇真正有内容的实证论文。
+
+但如果只有：
+
+> “我们的 V18 在 DTU 上失败了，而且我们记录得很好。”
+
+你说得对：
+
+**严谨性是论文价值的必要条件之一，不是贡献本身。**
+
+---
+
+# 7. 我唯一建议你改变的是最后一句的“对外语气”
+
+这句话作为内部研究原则很好：
+
+> 同行评审的价值，是让我们的主张更准确，而不是让每一位审稿人都成为一个新的课题负责人。
+
+我同意这个原则。
+
+但如果这是准备发给真正 reviewer/editor 的 rebuttal，我不会写出来。
+
+因为作者回应的目标不是讨论：
+
+> reviewer 有没有资格决定我们的研究路线。
+
+而是让编辑看到：
+
+$$
+\text{claim}
+\leftrightarrow
+\text{evidence}
+$$
+
+已经对应清楚。
+
+更好的外部姿态是：
+
+> 我们感谢这一建议，并同意多扫描自监督和更广泛的经验评价都是合理的后续方向。当前研究的问题定义和已有证据尚不足以判断这些替代路线优于现有主线，因此本轮修订将聚焦于收紧贡献声明、补强必要对照并明确适用范围，而不把未经验证的新研究路线作为本文既定结论。
+
+意思完全一样，但更专业。
+
+---
+
+# 8. 如果让我评价你现在的战略判断
+
+我会把三个层次分得非常清楚。
+
+| 层次                                 | 当前能否下结论      |
+| ---------------------------------- | ------------ |
+| V22 的逐点 adaptive shrinkage 是否有增量价值 | **当前证据偏否**   |
+| V22 的局部多尺度几何是否没有价值                 | **不能这样推断**   |
+| point-only 路线是否已经没有研究空间            | **完全没有证据证明** |
+| V18 是否能作为通用真实点云 denoiser           | **当前证据不支持**  |
+| V20 是否解释 V21 的失败                   | **不能**       |
+| multi-scan 是否值得重新利用                | **值得研究**     |
+| multi-scan Noise2Noise 是否天然成立      | **不成立**      |
+| neural / score 方法是否必然是下一步          | **不成立**      |
+| negative-result paper 是否天然值得发表     | **不成立**      |
+
+所以我会把你现在的立场概括成一句比较学术化的话：
+
+$$
+\boxed{
+\text{收缩主张，但不提前收缩问题空间。}
+}
+$$
+
+这比“坚持原路线”或者“听评审换方向”都准确。
+
+---
+
+# 9. 我还建议增加一个非常关键的实验
+
+现在 adaptive vs matched constant 的解释已经非常接近一个漂亮的机制实验了。
+
+只差一步：
+
+把全局常数 \(c\) **在 development set 冻结**。
+
+例如 development 得：
+
+$$
+c^*=0.43
+$$
+
+然后在完全未看的 confirmation scenes 上：
+
+$$
+\begin{aligned}
+M_1 &: \text{multiscale full}\\
+M_2 &: c^* \times \text{multiscale full}\\
+M_3 &: \alpha_i \times \text{multiscale full}\\
+M_4 &: \text{identity}
+\end{aligned}
+$$
+
+这样问题就变成：
+
+$$
+H_0:
+\text{adaptive }\alpha_i
+\text{ does not outperform frozen constant }c^*.
+$$
+
+这个实验比再加一个新的复杂模型更能直接回答 V22 当前最大的科学疑问：
+
+> **你的 uncertainty estimate 到底有没有 ranking ability？**
+
+甚至可以直接测：
+
+$$
+corr(\alpha_i,\; |\Delta error_i|)
+$$
+
+或者按照预测 confidence 分箱，看：
+
+$$
+E[\text{improvement}\mid \alpha\text{ bin}]
+$$
+
+如果高 confidence 点真的更适合大修正，那么即使总体 MAE 暂时没有赢，uncertainty 模块仍有科学信号。
+
+如果没有任何 calibration/ranking：
+
+> 那才是真正有力地说明当前 uncertainty heuristic 没有学到/估计到有效的局部可修正性。
+
+我认为这个问题比“要不要马上换 score network”更值得先解决。
+
+---
+
+## 相关文献背景
+
+1. *Lehtinen, J., Munkberg, J., Hasselgren, J., et al. (2018). Noise2Noise: Learning Image Restoration without Clean Data. ICML. [arXiv](https://arxiv.org/abs/1803.04189)*
+
+2. *Zhou, J., Shi, X., Song, H., Fang, Y., et al. (2025/2026). U-CAN: Unsupervised Point Cloud Denoising with Consistency-Aware Noise2Noise Matching. NeurIPS. [Proceedings](https://proceedings.neurips.cc/paper_files/paper/2025/hash/8b3dcec3fab2e51203ded2f387867735-Abstract-Conference.html)*
+
+3. *Guennebaud, G., & Gross, M. (2007). Algebraic Point Set Surfaces. ACM SIGGRAPH. [DOI](https://dl.acm.org/doi/abs/10.1145/1275808.1276406)*
+
+4. *Öztireli, A. C., Guennebaud, G., & Gross, M. (2009). Feature Preserving Point Set Surfaces Based on Non-Linear Kernel Regression. Computer Graphics Forum. [DOI](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-8659.2009.01388.x)*
+
+5. *Hermosilla, P., Ritschel, T., & Ropinski, T. (2019). Total Denoising: Unsupervised Learning of 3D Point Cloud Cleaning. ICCV. [CVF](https://openaccess.thecvf.com/content_ICCV_2019/html/Hermosilla_Total_Denoising_Unsupervised_Learning_of_3D_Point_Cloud_Cleaning_ICCV_2019_paper.html)*
+
+6. *Rakotosaona, M. J., La Barbera, V., Guerrero, P., Mitra, N. J., & Ovsjanikov, M. (2020). PointCleanNet: Learning to Denoise and Remove Outliers from Dense Point Clouds. Computer Graphics Forum. [DOI](https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.13753)*
+
+7. *Luo, S., & Hu, W. (2021). Score-Based Point Cloud Denoising. ICCV. [IEEE](https://ieeexplore.ieee.org/document/9711416)*
+
+8. *de Silva Edirimuni, D., Lu, X., Shao, Z., Li, G., et al. (2023). IterativePFN: True Iterative Point Cloud Filtering. CVPR. [IEEE](https://ieeexplore.ieee.org/document/10203080)*
+
+9. *de Silva Edirimuni, D., et al. (2024). StraightPCF: Straight Point Cloud Filtering. CVPR. [IEEE](https://ieeexplore.ieee.org/document/10657348)*
+
+10. *Wei, X., Wang, Y., Xu, A., Zhu, L., Sun, D., et al. (2025). Noise2Score3D: Tweedie's Approach for Unsupervised Point Cloud Denoising. ICCV. [IEEE](https://ieeexplore.ieee.org/document/11446022)*
+
+整体而言，**你这次对两份意见的处理比“选一位审稿人跟着走”更科学**。我尤其赞成暂时不让任何一份意见替项目决定主线；下一步最值得做的不是换题，而是把当前几个关键因果问题继续拆干净——其中首要的就是 **V22 的 \(\alpha_i\) 到底有没有真正的局部判别能力**。

@@ -1,0 +1,154 @@
+{
+  "id": "LG039",
+  "title": "冻结COLMAP规则迁移到DTU 118/122：两个新物体均净改善，仍有误改",
+  "date": "2026-10-01",
+  "track": "geometry",
+  "question": "官方COLMAP几何一致性＋无效处CPU旧点回退的既定规则，能否迁移到预先保留而未运行的同来源新物体？",
+  "did": [
+    "按前次候补顺序选择scan118/122；限定本机4209份实验文本检索未发现先前运行，场景不按新GT分数挑选。",
+    "两物体各两个照片ROI，共512请求像素先锁定；五照片、相机/灰度、CPU阈值及COLMAP默认参数冻结，不训练新路由。",
+    "CPU得到484个有效初值；三个系统在同484点上比较，MVS无效回退旧点，缺失和新增覆盖另报。",
+    "全部预测封存后获取官方DTU structured-light三维参照；14个GPU作业累计63.29秒。",
+    "本次建书直接从ROI_METRICS.csv与TAIL_METRICS.csv重算四ROI等权主表和尾部计数，吻合RESULTS.json；未在建书阶段重跑GT最近邻。",
+    "最终独立数值审核逐个对1457个有效原始预测穷举全部参照顶点，2560点行/40ROI行/8尾部行及汇总核验吻合，最大距离差0；语义审查为同模型家族暂定，非跨家族确认。"
+  ],
+  "not_done": [
+    "不是旧高质量GeoSVR成品网格原生去噪：这里基线是本轮从五张照片生成的CPU plane-sweep初值。",
+    "不是跨传感器迁移、全物体完整性、官方DTU整场景榜单或薄层身份安全；只有两个同来源新物体、四个手工照片ROI。",
+    "主体来自官方COLMAP，不是自研新算法证明；自研选择器尚未在这些物体上与强基线比较。",
+    "未改部署默认、未以新参照调阈值、未单独分解几何一致性优化/过滤/回退的因果贡献。"
+  ],
+  "result": [
+    "同484有效查询、四ROI等权：CPU MSE168.9874595→Geo＋回退72.8029657 mm²，改善56.9181%；MAE4.947536→1.999966 mm。",
+    "scan118 MSE250.98142→100.57715，改善59.93%；scan122 86.99350→45.02878，改善48.24%；4/4 ROI均下降，满足预定两个场景均改善条件。",
+    "纯光度＋回退MSE247.71447 mm²，恶化46.5875%，尽管其MAE2.43620及正确点数改善；长尾幅度不能被坏点计数替代。",
+    "Geo＋回退：262/484距离改善、185恶化、37回退不动；原370个≤1mm点6个移出1mm。原90个>5mm点64个修到≤5mm，其中59个≤1mm；正确点370→441。",
+    "CPU缺失28位置，Geo新覆盖19个，其中15个≤1mm；这些不加入主484点收益分母。",
+    "剩余26个>5mm点全部位于37个CPU回退位置，回退贡献72.66090/72.80297 mm²，即99.8049%的输出MSE；466个实际有效Geo输出均未超过5mm，但仍有6个原正确点跨出1mm。",
+    "审计发现实际搜索域不对称：CPU硬限制在传入区间，COLMAP传播/扰动后的59/466有效输出超出区间，其中50点属于主484点；这50点贡献75.03650/96.18449 mm²（78.0131%）总MSE下降。"
+  ],
+  "interpretation": [
+    "成熟深度一致性和简单回退的修复收益从旧场景回放推进到两个同源新物体确认，不必继续增加学习器才能获得这部分能力。",
+    "大幅相对CPU初值收益，不等于高质量成品网格净改善，也不等于新算法贡献。",
+    "距离略恶化185点不等于185点成为严重错误；同时净收益不代表逐点保留有效几何。",
+    "共享输入和同一传入深度参数不等于相同硬搜索域。本轮支持整套成熟系统的迁移，不支持将56.92%单独归因于几何一致性项。后续需区分搜索域与一致性贡献。",
+    "当前严重残差主要是MVS缺深度后保留旧错误，不能泛称已接受Geo输出仍存在大量严重错误；不据此猜测材质、遮挡或物理层身份。"
+  ],
+  "decision": [
+    "继承该成熟方法作为必须正面对照的强基线；后续自研增量聚焦残留严重错点和原正确点误改，使用新协议，不继续在已揭盲新物体调分数。"
+  ],
+  "evidence_level": "artifact_checked",
+  "sources": [
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/REPORT.md",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/COMMANDS.md",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/SCENE_SELECTION.md",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/SCENE_SELECTION.json",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/refine-logs/EXPERIMENT_PLAN_20260930_180000.md",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/evaluation/RESULTS.json",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/evaluation/ROI_METRICS.csv",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/evaluation/TAIL_METRICS.csv",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/figures/fixed_queries.png",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/figures/transfer_results.png",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/figures/repair_and_harm.png",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/review/INTEGRITY_FINAL.md",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/review/INDEPENDENT_NUMERIC_CHECK.json",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/review/DEPTH_RANGE_SUPPORT_CHECK.json"
+  ],
+  "tags": [
+    "冻结迁移",
+    "COLMAP",
+    "成熟基线",
+    "固定像素",
+    "有效几何",
+    "损伤"
+  ],
+  "predecessors": [
+    "LG038",
+    "LG037",
+    "LG026"
+  ],
+  "corrections": [
+    "LG038“新场景尚未确认”的历史状态由本轮两个同来源物体确认接续；不把旧开发76.07%与新确认56.92%拼作同一总体。",
+    "历史未暴露的判断限定在本机可检索材料和预留候补记录，不宣称所有机器所有未记录活动均被证明不存在。",
+    "补充公开实际搜索域不对称及其78.0%降幅贡献；冻结结果不剔除越界点、不临时夹紧或扩CPU量程，避免将共享区间参数写成硬候选域相同。"
+  ],
+  "rerun_condition": "只有新增未用于调参的物体/采集来源、或同信息自研增量对强基线的预锁对照；不依据本轮揭盲结果重调这两个物体。",
+  "claims": [
+    "在两个预留同来源新物体上，冻结官方Geo＋CPU回退相对CPU照片初值满足两个场景MSE均改善。",
+    "本轮保留了净修复能力，同时存在6个原正确点损伤；未证明逐点安全。"
+  ],
+  "evaluation_scope": "两个未发现既往运行的DTU新物体scan118/122，四照片ROI，484共同CPU有效查询；同来源迁移而非跨来源/高质量成品网格确认。",
+  "source_checks": [
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/REPORT.md",
+      "sha256": "186db07b22a7d11c3386017c671e7176c879d75cd27f4eb552eabc406240bfaf",
+      "bytes": 8067
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/COMMANDS.md",
+      "sha256": "d5a12d062b70520a892e291cb2fdd6e487cae7d93bc101bcaa8280aa5ca3bf2b",
+      "bytes": 2190
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/SCENE_SELECTION.md",
+      "sha256": "c98974ee55eed51643d93021d36da0c104aeecbefaeeceae81cd2c4f63db1886",
+      "bytes": 926
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/SCENE_SELECTION.json",
+      "sha256": "bf0f58992ac6146900eb495044c1936b84ea1bcbb6204443d559b3904beefe73",
+      "bytes": 2254
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/refine-logs/EXPERIMENT_PLAN_20260930_180000.md",
+      "sha256": "064d55f8d06ee338e143ddc1de0087c52ffaba6af36230f1e5e702157761e6c0",
+      "bytes": 2892
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/evaluation/RESULTS.json",
+      "sha256": "ef68340f88a28f1976f9946edcccefce011b5489113ee2fc9d7bebdbf577fa6d",
+      "bytes": 6295
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/evaluation/ROI_METRICS.csv",
+      "sha256": "486731efce92780093258c8591ec2164063a5c8357646a1eb4f4220531cb6974",
+      "bytes": 6223
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/evaluation/TAIL_METRICS.csv",
+      "sha256": "0313b5f77c052f4f95548d42b38d01294ea230560a337306301bde6ca95c1575",
+      "bytes": 647
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/figures/fixed_queries.png",
+      "sha256": "e045bf409bb9390331b01984b759fe227b5369024461cc4fc1fd1856a877774c",
+      "bytes": 3750211
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/figures/transfer_results.png",
+      "sha256": "7e370239883b16fdfec332783736ae863f57f92ffc328b3c5e5f6b30b156c259",
+      "bytes": 128941
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/figures/repair_and_harm.png",
+      "sha256": "0fd4500a6b5efc3c1c9fde0e23a406883da800490fdc8c03c260a7c9573c93b4",
+      "bytes": 98180
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/review/INTEGRITY_FINAL.md",
+      "sha256": "49a4b8991c9d86b64dab66022cf5be61c662924704f4f2a32817a257c46f1801",
+      "bytes": 15280
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/review/INDEPENDENT_NUMERIC_CHECK.json",
+      "sha256": "620207b8d795c239767d1268c0d758ab3a95bb8cf2f4b74416b23b761a5dab3d",
+      "bytes": 52162
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/review/DEPTH_RANGE_SUPPORT_CHECK.json",
+      "sha256": "c458e1df6101f36398714cee0f6c4c31f901ffc68bf8bb24f18dfc3c5e2b6973",
+      "bytes": 6652
+    }
+  ],
+  "registered_utc": "2026-09-30T18:28:02.089850+00:00"
+}

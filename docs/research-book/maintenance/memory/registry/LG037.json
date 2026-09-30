@@ -1,0 +1,91 @@
+{
+  "track": "geometry",
+  "evidence_level": "report_read",
+  "tags": [
+    "相机配对",
+    "固定像素",
+    "几何修订"
+  ],
+  "evaluation_scope": "已曝光scan24/37、四个照片ROI的开发回放，不是新场景确认",
+  "id": "LG037",
+  "title": "照片—相机接口修复：上游输入恢复显著，见证选择增量仍小",
+  "date": "2026-10-01",
+  "question": "照片关联内参配对修复的收益来自上游候选重建还是见证评分？",
+  "did": [
+    "冻结毫米R/C、实际照片关联PINHOLE，显式区分COLMAP角点与数组中心/PIL半分辨率转换。",
+    "执行上游U0/U1×见证W0/W1交叉：每个U内候选与旧模型选择完全相同，W只能保留动作或回退KEEP。",
+    "固定512原查询，修复后497通过原质量阈值；主对照使用共同有效像素，没有用容易新点替补15个失败。",
+    "原报告记录96条记录、384项MSE、10768数值字段独立复算最大差0；没有在本次建书重新运行数值实验。"
+  ],
+  "not_done": [
+    "未做新场景确认或官方MVS；未改变部署默认。",
+    "完整sensor→rectification/crop生成史缺失；未证明H的完整SfM独立性。",
+    "该U修复包含深度范围和context支持变化，不能当成只改变单一内参数值的纯因果估计。"
+  ],
+  "result": [
+    "同497查询native四ROI等权MSE从453.456降到150.121 mm²，改善66.894%；≤1mm点从35增至341，四ROI均改善。",
+    "修正后U1W1的KEEP/恢复器/C/H native MSE分别150.121/149.606/149.721/150.208 mm²。",
+    "C见证达到本回放预注册联合验收，H未达到；固定U1时W修正保留更多好移动，也放过更多坏移动，不保证每个条件绝对MSE更优。",
+    "native仍有83/497点误差>5mm，其中75点KEEP/A/B全都>5mm；最差约5%点贡献各ROI平方误差74.0%–95.0%。"
+  ],
+  "interpretation": [
+    "成像契约修复有实际干预收益，不能把66.9%写成新评分器效果。",
+    "剩余大错在既有三候选内仍不可修，优先补成熟重建候选而非继续增加路由容量。"
+  ],
+  "decision": [
+    "继承已核实相机接口；同照片同像素补官方MVS对照，先解决缺好候选。"
+  ],
+  "sources": [
+    "/srv/slam-research/grf/map-denoise/runs/camera-pairing-replay-20260930T162130Z/REPORT.md",
+    "/srv/slam-research/grf/map-denoise/runs/camera-pairing-replay-20260930T162130Z/MAPPING_REPORT.md",
+    "/srv/slam-research/grf/map-denoise/runs/camera-pairing-replay-20260930T162130Z/COMMANDS.md",
+    "/srv/slam-research/grf/map-denoise/runs/camera-pairing-replay-20260930T162130Z/EXPERIMENT_AUDIT.md",
+    "/srv/slam-research/grf/map-denoise/runs/camera-pairing-replay-20260930T162130Z/figures/camera_pairing_effects.png",
+    "/srv/slam-research/grf/map-denoise/runs/camera-pairing-replay-20260930T162130Z/figures/selection_tradeoff_v2.png"
+  ],
+  "predecessors": [
+    "LG036"
+  ],
+  "corrections": [
+    "LG036的差输入不能仅归因恢复器/留出证据；修复后的巨大收益主要是完整上游恢复。",
+    "更早V1–V28是否具有同类配对错误需逐run检查，本次不追溯撤销全部历史。"
+  ],
+  "rerun_condition": "固定修复后的相机和查询，增加成熟MVS候选；或在未曝光场景冻结确认，不重复旧场景调参。",
+  "claims": [
+    "相机接口修复在相同有效像素上恢复了大量几何信息。",
+    "C见证本回放通过不是跨场景或逐点无损保证。"
+  ],
+  "source_checks": [
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/camera-pairing-replay-20260930T162130Z/REPORT.md",
+      "sha256": "22ec1a88b009de3511cf56b6054571e6bf80bdd079fdce79356a5e131f09cb95",
+      "bytes": 9350
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/camera-pairing-replay-20260930T162130Z/MAPPING_REPORT.md",
+      "sha256": "93aa77253b5bb46c858b1aace33bfb30be54227c76a5ee82d45ce17312cf66f6",
+      "bytes": 5689
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/camera-pairing-replay-20260930T162130Z/COMMANDS.md",
+      "sha256": "abe58e1c79124590b4b2aee70b5116807eba14b1eef8345c062ec0d9f1eabc31",
+      "bytes": 2028
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/camera-pairing-replay-20260930T162130Z/EXPERIMENT_AUDIT.md",
+      "sha256": "d1ca8c0c3964b41b562a079f640d97eeb7f77392c571b2a18f2618df5e88f158",
+      "bytes": 842
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/camera-pairing-replay-20260930T162130Z/figures/camera_pairing_effects.png",
+      "sha256": "6d96ca5f09819a59708fbc96b8a711eded0dd03c06cd356f6e5b00d04a8042ec",
+      "bytes": 175265
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/camera-pairing-replay-20260930T162130Z/figures/selection_tradeoff_v2.png",
+      "sha256": "d11f1d9700a79cc1b05a1b0e771687968bd65a036b21941bc68467a46a15a2e0",
+      "bytes": 155436
+    }
+  ],
+  "registered_utc": "2026-09-30T18:08:15.896809+00:00"
+}

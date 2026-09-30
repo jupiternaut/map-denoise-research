@@ -1,0 +1,1454 @@
+[
+  {
+    "id": "EG001",
+    "title": "早期 V0/local_operator_v2：候选变好为何没有最终收益",
+    "date": "2026-09-11",
+    "track": "早期几何 / 2026-09-10目录下的V0",
+    "question": "残差边缘、统一回溯与位移耦合能否同时提高最终几何和观测保持？",
+    "did": [
+      "静态不透明平行薄板、精确位姿/度量深度下，比较六组边缘×位移机制及简单步长、TSDF、Taubin等对照；42例共714输出，主测试18例。",
+      "读原报告的冻结规则、主结果及研究判断；本次归档没有重新运行实验。"
+    ],
+    "not_done": [
+      "原实验未运行GEPA开放式搜索；不是Oxford、真实地图或3DGS实验。",
+      "未证明任意耦合方式无效；V0其他子线未在本记录逐项审计。"
+    ],
+    "result": [
+      "原极差回溯将三角形拒绝13/18降至0/18，但最终提交仍2/18，24个测试输出哈希不变。",
+      "残差回溯有13/18几何更好候选，仅1/18提交；预选方法未优于旧投影加旧确认门，完整目标NO-GO。"
+    ],
+    "interpretation": [
+      "候选可行、观测接受和最终输出收益是不同环节。",
+      "固定0.5倍步长测试成绩更好，但不是选择集预选赢家，不能事后替换主候选。"
+    ],
+    "decision": [
+      "报告保留残差边缘与组装后几何检查，停止当前固定耦合/缩步配置；下一方向是让Q侧候选直接面对观测要求。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-10/map-denoise-v0/local_operator_v2/REPORT.md"
+    ],
+    "tags": [
+      "V0",
+      "门控",
+      "候选与输出",
+      "负结果"
+    ],
+    "predecessors": [],
+    "corrections": [],
+    "rerun_condition": "只有新增能直接满足观测约束的候选构造、或明确改变接受目标，才值得重做；先说明与已有六臂及0.5步长对照的差别。"
+  },
+  {
+    "id": "EG002",
+    "title": "早期 parallel-V5：薄层关联与切向覆盖是两种增量",
+    "date": "2026-09-11",
+    "track": "早期几何 / parallel_geometry_v5",
+    "question": "显式双面关联与固定法向后的切向重分布，各自改善了什么？",
+    "did": [
+      "24个新同族合成输入、3种子；独立噪声和共享偏差条件，比较混合关联/禁用双层消融。",
+      "切向线固定完全相同的法向与基底；合并官方预训练PathNet对照后共336个新合成输出。"
+    ],
+    "not_done": [
+      "未把两模块最佳场景拼成统一部署算法；未做新真实序列、训练完成的3DGS或下游定位验证。",
+      "BIC-style准则未校准为物理表面后验。"
+    ],
+    "result": [
+      "薄层+iid主候选E=1.567344 mm，双边1.772008，禁双层1.703090；全24例仅9胜，平均相对双边改善0.624%。",
+      "共享偏差薄层主候选2.027293 mm，差于双边2.003980。",
+      "固定场切向输出24/24改善E约5.73%；覆盖距离2.796772→2.567084 mm，表面距离1.174435→1.176557 mm略差。"
+    ],
+    "interpretation": [
+      "关联的收益有几何/噪声条件；切向收益主要是覆盖重分布。",
+      "估计切平面内移动不是真实曲面距离不变保证；共同法向阶段的薄层/折线损伤仍在。"
+    ],
+    "decision": [
+      "报告保留薄层关联和切向模块，停止把共享偏差视为已解决；不靠修改旧V门救成绩。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-10/map-denoise-v0/parallel_geometry_v5/REPORT.md"
+    ],
+    "tags": [
+      "parallel-V5",
+      "关联",
+      "切向覆盖",
+      "指标取舍"
+    ],
+    "predecessors": [
+      "EG001"
+    ],
+    "corrections": [
+      "此V5属于早期map-denoise-v0/parallel_geometry_v5，与项目exploration_v5不是同版。"
+    ],
+    "rerun_condition": "换成更好的关联底座后检验切向收益，或新增层距/噪声/采样条件及真实来源证据；只重复同24例不能建立新泛化。"
+  },
+  {
+    "id": "EG003",
+    "title": "早期 parallel-V5 Oxford：来源适配不是去噪成功",
+    "date": "2026-09-11",
+    "track": "早期几何 / Oxford适配",
+    "question": "恢复帧来源和正确评价范围后，旧真实输出是否变好？",
+    "did": [
+      "恢复365帧点—帧—原点关系，建立已知空间，读取官方GT八叉树。",
+      "报告记录紧凑解析器与官方库152651个查询一致；对27份既有输出重评。"
+    ],
+    "not_done": [
+      "只有3个已暴露ROI；未完成官方手工/全序列处理。",
+      "本次归档未独立重查152651个查询或旧输出。"
+    ],
+    "result": [
+      "同一局部双向已知空间口径下，identity 72.810 mm、双边73.134、V4多解释74.503。",
+      "修复体素边界查询差异后，27份评分未变；两个运行不是54份独立结果。"
+    ],
+    "interpretation": [
+      "来源和评价范围修复提供了基础设施，没有让旧算子反超。",
+      "同帧邻域点不能当多次独立观测；这些不是官方Oxford排行榜成绩。"
+    ],
+    "decision": [
+      "报告保留逐帧观测来源，供后续关联/支持研究使用。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-10/map-denoise-v0/parallel_geometry_v5/REPORT.md"
+    ],
+    "tags": [
+      "Oxford",
+      "评价支持",
+      "来源身份"
+    ],
+    "predecessors": [
+      "EG002"
+    ],
+    "corrections": [
+      "保留首轮精确体素边界差异及修复，不将重评包装成新数据。"
+    ],
+    "rerun_condition": "新增独立序列/完整官方评价或实际跨帧修复算法后才构成新问题；适配器检查与算法收益分别计账。"
+  },
+  {
+    "id": "EG004",
+    "title": "correlation-v1：相同噪声幅度，帧组织改变可利用信息",
+    "date": "2026-09-11",
+    "track": "早期几何 / correlation-v1",
+    "question": "相同总误差多重集按帧重新安排后，旧方法为何发生巨大变化？",
+    "did": [
+      "保持几何、XY、帧标签和分层误差数值多重集，比较共同偏差组织与层内置换。",
+      "比较sigma=1与名义总尺度√(1+A²)，并检查Oxford片区输入扰动响应。"
+    ],
+    "not_done": [
+      "没有实现自动残差尺度估计；不是只改变一个总体相关系数的纯干预。",
+      "Oxford无干净几何真值；没有对完整同行联合配准基准作充分比较。"
+    ],
+    "result": [
+      "4 mm可见双板、A=4时，fast固定z方向MAE共同臂0.08607、打散臂3.34257 mm。",
+      "sigma从1增至√17令15个双层条件全部选单层；反向又修复打散单面的假层，不能统一增大或固定小sigma。",
+      "Oxford一例因约1e-12目标差造成纯层端点选择翻转；稳定目标不等于表面身份可辨。"
+    ],
+    "interpretation": [
+      "边际噪声幅度不足以说明有效信息，需包含帧组织和残差尺度。",
+      "fast已有帧截距消元；这一点不是待首次发明的机制。"
+    ],
+    "decision": [
+      "报告建议比较不读GT的残差/共同分量估计，并将数值平局修复与几何识别分开。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-11/map-denoise-correlation-v1/REPORT.md"
+    ],
+    "tags": [
+      "噪声相关",
+      "sigma",
+      "帧偏差",
+      "可辨识性"
+    ],
+    "predecessors": [
+      "EG003"
+    ],
+    "corrections": [],
+    "rerun_condition": "只有在不给真实sigma/标签时恢复已知尺度收益，或引入新可识别通道，重做才有信息；应同时检验真双层和单面假层。"
+  },
+  {
+    "id": "EG005",
+    "title": "项目 V1：保留输出，撤回旧几何结论",
+    "date": "unknown/not documented",
+    "track": "主项目 / V1",
+    "question": "最初444份预实验输出能支持哪些有效结论？",
+    "did": [
+      "原报告保留444/444成功输出及输入/方法身份；读取其顶部历史撤回声明。",
+      "四方法含identity、XYZ混合、fast和官方ICP加自研后处理。"
+    ],
+    "not_done": [
+      "本记录不重新引用已撤回的V1旧表作为有效排名。",
+      "原报告没有独立薄层真值；精确运行日期在本次所读报告段落中unknown/not documented。"
+    ],
+    "result": [
+      "PILOT_REPORT明确标记：V1合成评分有缺陷，“没有帧截距”和“4 cm来自注入偏差”的推断不成立。"
+    ],
+    "interpretation": [
+      "旧输出仍是可追溯历史，原结论必须依V2修复状态解释。",
+      "运行成功计数不是几何成功或独立场景计数。"
+    ],
+    "decision": [
+      "报告要求以V2修复报告为有效结论入口。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/PILOT_REPORT.md"
+    ],
+    "tags": [
+      "V1",
+      "撤回",
+      "评价错误"
+    ],
+    "predecessors": [
+      "EG004"
+    ],
+    "corrections": [
+      "由EG006/EG007记录V2对评分、帧截距和native改写的更正；不删除V1原文。"
+    ],
+    "rerun_condition": "只有审计特定评分实现或解释变化时才回放V1；不得用旧表重新宣称算法优势。"
+  },
+  {
+    "id": "EG006",
+    "title": "项目 V2：改为世界坐标和实际XYZ评分",
+    "date": "unknown/not documented",
+    "track": "主项目 / V2评价修复",
+    "question": "旧自报K和局部均值是否把模型选择误当成了输出几何？",
+    "did": [
+      "复用444个旧输出重评，新增当前输入坐标版本336输出，合计780正常结果。",
+      "修复局部坐标原点；有限平面真值只在世界坐标评测，K/mu仅作诊断。"
+    ],
+    "not_done": [
+      "不是新滤波算法；本次未重算780输出或审查全部评分源码。",
+      "未用新的二分阈值代替旧强制分类。"
+    ],
+    "result": [
+      "identity旧6/6误拆、ICP零误拆零误并及局部自报均值排名撤回。",
+      "相同XYZ的几何评分不再随K/mu元数据改变；场景仍为2个真实场景、6片区及27合成例。"
+    ],
+    "interpretation": [
+      "最终输出、坐标系、真值类型与评价支持必须一起定义。"
+    ],
+    "decision": [
+      "采用修复后的世界坐标口径，保留旧输出与错误结论的撤回链。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/evidence/runs/repair-v2-oyuie4pl/REPORT_V2.md"
+    ],
+    "tags": [
+      "V2",
+      "评价修复",
+      "世界坐标"
+    ],
+    "predecessors": [
+      "EG005"
+    ],
+    "corrections": [
+      "撤回V1由模型元数据推导的几何/结构排名。"
+    ],
+    "rerun_condition": "只有评分定义或输出身份发生变化才需新的评价对照；任何复算先固定同一XYZ和评价支持。"
+  },
+  {
+    "id": "EG007",
+    "title": "项目 V2：已有纠偏能力与native改写必须分账",
+    "date": "unknown/not documented",
+    "track": "主项目 / V2能力与参考",
+    "question": "约4 cm误差来自注入未修复，还是算法本来就在改写输入？",
+    "did": [
+      "在修复评分下比较有/无帧偏差的合成几何，分解真实输入的零注入改写和扰动响应。",
+      "区分原测量参考、独立真值和标量歧义例的观察范围。"
+    ],
+    "not_done": [
+      "没有独立真实几何收益；未实施新的盲估sigma、局部尺度/法向算法。",
+      "标量歧义三例不包含同一静态世界的完整射线、遮挡和多视观测。"
+    ],
+    "result": [
+      "单面bias=4 mm：identity表面误差3.4914、XYZ3.3269、fast0.2163 mm；无偏8 mm双层fast1.1101差于identity0.8167。",
+      "fast零注入对原测量改写已42.4432 mm；平方分解残差约2.37e-12 mm²。",
+      "旋转损伤判断对固定/当前坐标预处理不稳健。"
+    ],
+    "interpretation": [
+      "旧fast已有共同帧偏差能力，但仍有结构回归。",
+      "原测量参考误差不是干净GT误差；native模型失配不能全部叫注入失败。"
+    ],
+    "decision": [
+      "报告明确不要重复实现“增加帧截距”当新机制；优先诊断局部模型、法向和尺度。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/evidence/runs/repair-v2-oyuie4pl/REPORT_V2.md"
+    ],
+    "tags": [
+      "V2",
+      "帧偏差",
+      "native与注入",
+      "标量歧义"
+    ],
+    "predecessors": [
+      "EG005",
+      "EG006",
+      "EG004"
+    ],
+    "corrections": [
+      "撤回V1“没有帧截距”和“5 mm偏差导致4 cm错误”的解释；标量反例不升级为完整3D不可能定理。"
+    ],
+    "rerun_condition": "新纠偏研究须说明超越现有截距的变量/观测是什么，并把native、注入恢复和物理真值分别评分。"
+  },
+  {
+    "id": "EG008",
+    "title": "项目 V3：共享扫描偏差的表面图出现开发信号",
+    "date": "unknown/not documented",
+    "track": "主项目 / V3共享图",
+    "question": "跨局部单元共享扫描偏差是否改善局部表面估计？",
+    "did": [
+      "同输入比较local_only与共享偏差图，另有balanced/UOT运输及后置local。",
+      "27基础合成、12压力/变换诊断和6真实片区，共570输出；预留种子未使用。"
+    ],
+    "not_done": [
+      "未使用射线、盲估sigma、全六自由度姿态或CUDA；未取得独立真实几何收益。",
+      "本次没有重放输出；开发数据不是未见确认。"
+    ],
+    "result": [
+      "24可评分合成中位MAE：旧fast0.656137、共享图0.282258 mm。",
+      "无偏单面旧0.0428、图0.1602 mm，存在明确回归。",
+      "真实图端注入后对原测量恢复接近identity；少改写没有证明去噪成功。"
+    ],
+    "interpretation": [
+      "共享nuisance有条件价值，但全局平均收益可能与局部化代价交换。"
+    ],
+    "decision": [
+      "报告继续图端，运输端先查质量—预算关系，不因3轮负结果立即淘汰。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/evidence/runs/exploration-v3-lnx049yd/REPORT.md"
+    ],
+    "tags": [
+      "V3",
+      "共享偏差",
+      "局部支持",
+      "开发证据"
+    ],
+    "predecessors": [
+      "EG007"
+    ],
+    "corrections": [],
+    "rerun_condition": "新增独立确认或能隔离共享变量增量的对照；同时保留无偏单面回归和端到端成本。"
+  },
+  {
+    "id": "EG009",
+    "title": "项目 V3预算补测：求解不足不能当表示不足",
+    "date": "unknown/not documented",
+    "track": "主项目 / V3运输预算",
+    "question": "不平衡运输首版失败是否仅受外层3轮预算限制？",
+    "did": [
+      "追加96输出，仅改外层3/6/12轮，沿用已暴露seed912101。"
+    ],
+    "not_done": [
+      "没有全局最优证书；4例均值不是24例中位数或新确认。",
+      "未证明不平衡运输总体优于平衡运输。"
+    ],
+    "result": [
+      "UOT+local的MAE为0.6828/0.3006/0.2994 mm；balanced为0.3713/0.2981/0.2981。",
+      "6轮完整管线约0.70–0.71 s，对比3轮约0.37 s。"
+    ],
+    "interpretation": [
+      "增加求解预算实质改变比较，但该收益有计算成本，且未建立UOT优越性。"
+    ],
+    "decision": [
+      "报告保留追加结果而不覆盖冻结主表；分开求解预算与关联构造。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/evidence/runs/exploration-v3-lnx049yd/REPORT.md"
+    ],
+    "tags": [
+      "V3",
+      "求解预算",
+      "运输",
+      "追加更正"
+    ],
+    "predecessors": [
+      "EG008"
+    ],
+    "corrections": [
+      "首版固定3轮的负结果被补测收窄，不等于运输族无效。"
+    ],
+    "rerun_condition": "重做须改变可检验的收敛/初值/预算因素并记录成本；不能单纯换默认迭代后称新模型贡献。"
+  },
+  {
+    "id": "EG010",
+    "title": "项目 V4：共享统计收益与方向/步长/变换限制",
+    "date": "2026-09-12",
+    "track": "主项目 / V4",
+    "question": "相容聚合能否保留统计效率，真实恢复失败能否分成可检验原因？",
+    "did": [
+      "固定上游比较独立、全局负控、相容聚合；新24同族确认。",
+      "比较运输热启动和真实法向/切向/质心旋转干预。"
+    ],
+    "not_done": [
+      "未做整场景或真正六自由度优化，未独立验证真实几何；PCA注入轴不是物理法向真值。"
+    ],
+    "result": [
+      "相容聚合对独立拟合MAE 0.237390→0.175109 mm，但18双层同XY间距误差0.632993→0.648635。",
+      "cy_thin稀疏站需12.752620 mm位移，3步最多9.6，剩约0.865248 mm法向残差。",
+      "DA方向近乎垂直于注入轴；质心不变旋转不能由每站常量平移表示。"
+    ],
+    "interpretation": [
+      "方向、位移预算与变换表达分别限制可达输出；并非统称模型没学好。"
+    ],
+    "decision": [
+      "报告保留相容聚合和运输分支，下一步分开共同斜率/层截距，真实端分别检查方向与仿射变化。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v4/REPORT.md"
+    ],
+    "tags": [
+      "V4",
+      "可达性",
+      "共享统计",
+      "方向与支持"
+    ],
+    "predecessors": [
+      "EG008",
+      "EG009"
+    ],
+    "corrections": [],
+    "rerun_condition": "只有新动作方向/支持、步长或变换族与具体失败匹配，才值得重跑；不同机制各有同输入对照。"
+  },
+  {
+    "id": "EG011",
+    "title": "项目 V5：冻结关联后的共享斜率失败",
+    "date": "2026-09-12",
+    "track": "主项目 / exploration_v5",
+    "question": "各组独立截距、全组共享斜率能否减少双层间距收缩？",
+    "did": [
+      "冻结V4分组、权重、法向、偏差和支持，比较V4 compatible、全组共享斜率、节点独立截距。",
+      "新3种子24合成例及旧6真实片区完整迁移。"
+    ],
+    "not_done": [
+      "未修复上游混层，也未执行精确分区/GPU搜索；没有独立真实真值。"
+    ],
+    "result": [
+      "确认18双层的MAE和同XY间距全部变差；共享MAE0.356780，对比V4 compatible0.197706 mm。",
+      "满秩拟合中混合节点的斜坡解释传播到较纯组；真实cy_junction出现15.642875 mm零注入改写。"
+    ],
+    "interpretation": [
+      "负结果限定在当前固定关联；不证明所有共享方向/斜率均无效。"
+    ],
+    "decision": [
+      "报告保留V4，拒绝两新变体升级；下一步应改变混层关联并检验错误传播。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v5/REPORT.md"
+    ],
+    "tags": [
+      "V5",
+      "共享斜率",
+      "负结果",
+      "关联交互"
+    ],
+    "predecessors": [
+      "EG010"
+    ],
+    "corrections": [
+      "与EG002的parallel-V5分开；与V6比较须区分新确认和公开开发，以及compatible/pool_independent基线。"
+    ],
+    "rerun_condition": "重跑需有合法的新关联、或明确改变共享范围；继续调同一个共享系数不能提供足够新证据。"
+  },
+  {
+    "id": "EG012",
+    "title": "项目 V6关联oracle：共享效果取决于分组",
+    "date": "2026-09-12",
+    "track": "主项目 / V6关联",
+    "question": "原组内仅按真来源拆组，能否改变共享斜率的利弊？",
+    "did": [
+      "保留原观测、邻域、权重和支持，只按原组ID×真层标签拆组；2×2独立/共享比较。"
+    ],
+    "not_done": [
+      "oracle标签仅诊断，不是可部署算法；拆组同时改变样本量、参数数和秩。",
+      "本轮没有未见确认或独立真实几何。"
+    ],
+    "result": [
+      "24公开例MAE：原独立0.205928、共享0.338861；oracle独立0.161509、共享0.135380 mm。",
+      "原组共享使18双层RMS全差；拆组后共享使18双层MAE/RMS全好，但间距仍9胜9负。"
+    ],
+    "interpretation": [
+      "关联与共享存在交互；4例oracle独立拟合秩亏，不能将全部增量纯归因于标签信息。"
+    ],
+    "decision": [
+      "报告认为合法重关联值得继续，不用oracle替换默认方法。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v6/REPORT.md"
+    ],
+    "tags": [
+      "V6",
+      "oracle",
+      "关联与共享"
+    ],
+    "predecessors": [
+      "EG011"
+    ],
+    "corrections": [
+      "V6原组/独立为V4 compatible；不能与V5 pool_independent或不同种子胜负机械拼接。"
+    ],
+    "rerun_condition": "仅在构造了不读GT的重关联、并保留容量/支持对照时重做；oracle数值不能算实际精度升级。"
+  },
+  {
+    "id": "EG013",
+    "title": "项目 V6方向：允许修正不等于实际有支持",
+    "date": "2026-09-12",
+    "track": "主项目 / V6方向",
+    "question": "PCA对齐注入方向之后，真实输入是否可恢复？",
+    "did": [
+      "由当前受扰XYZ重估PCA，并重算偏差、坐标、cells、关联及支持；比较6片区4干预。",
+      "原报告只读复核6个DA零/法向输入的34个局部拟合和支持mask。"
+    ],
+    "not_done": [
+      "未放宽支持门限，未证明PCA整体无效；残差不能直接当真实传感器噪声。"
+    ],
+    "result": [
+      "DA三片区所有干预均零支持，输出identity；法向恢复仍3.5 mm。",
+      "纯方向恢复下界约0.0038–0.0046 mm，加实际支持限制后仍3.5 mm。"
+    ],
+    "interpretation": [
+      "移开方向瓶颈没有移开局部模型/支持瓶颈；少修改不能叫成功恢复。"
+    ],
+    "decision": [
+      "报告不将PCA直接设默认；继续解释局部表示与支持为什么不能解释观测。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v6/REPORT.md"
+    ],
+    "tags": [
+      "V6",
+      "零支持",
+      "方向",
+      "动作可达性"
+    ],
+    "predecessors": [
+      "EG010",
+      "EG012"
+    ],
+    "corrections": [],
+    "rerun_condition": "新方案须实质改变可用支持或局部观测模型，同时保留方向下界和实际支持率；仅换法向并不足够。"
+  },
+  {
+    "id": "EG014",
+    "title": "项目 V7：目标改善、几何损伤和选后重拟合",
+    "date": "2026-09-12",
+    "track": "主项目 / V7重关联",
+    "question": "合法重关联为何没有复现oracle收益，第二次硬WLS是否固化了选择噪声？",
+    "did": [
+      "24公开输入、1/3/6预算，固定平均97.6671%支持比较跨片区软关联和硬重拟合。",
+      "追加72个直接soft-M面投影输出，固定上游、MAP标签和拟合面，去掉第二次WLS。"
+    ],
+    "not_done": [
+      "没有新种子确认；不是所有似然方法必然失败的证据。",
+      "未唯一归因所有剩余误差。"
+    ],
+    "result": [
+      "旧MAE/RMS0.205928/0.458664，重关联b6为0.561227/0.795314 mm；层距误差反而0.514244→0.250385。",
+      "纯来源组也可有约−0.693/+0.878 mm条件噪声均值；去掉硬重拟合使b6 MAE降至0.403107，仍差于旧法。"
+    ],
+    "interpretation": [
+      "内部目标、来源恢复、最近面和结构指标可排序相反。",
+      "标签纯度100%不保证估计无偏；按噪声分组后再拟合会产生条件选择效应。"
+    ],
+    "decision": [
+      "报告保留旧版本，不将本版送确认；建议检查跨来源预测与最终动作。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v7/REPORT.md"
+    ],
+    "tags": [
+      "V7",
+      "目标错序",
+      "选择偏差",
+      "输出动作"
+    ],
+    "predecessors": [
+      "EG012"
+    ],
+    "corrections": [],
+    "rerun_condition": "只有新关联证据或明确避免选后偏差的动作，且对旧法有完整净收益，才进入新确认；增加迭代本身不足。"
+  },
+  {
+    "id": "EG015",
+    "title": "项目 V7真实支线：厘米高度残差可能是坐标条件数",
+    "date": "2026-09-12",
+    "track": "主项目 / V7坐标诊断",
+    "question": "DA局部模型的大残差是否代表厘米噪声或真实层厚？",
+    "did": [
+      "比较旧轴高度残差与同面正交距离；训练点拟合平面后检查共同留出支持。"
+    ],
+    "not_done": [
+      "未生成真实去噪输出，没有独立几何GT；留出残差不是恢复精度。"
+    ],
+    "result": [
+      "da_thin高度中位残差18.958–26.923 mm，正交距离仅0.241–0.547 mm；轴条件数49–86。",
+      "272行诊断保留228可评分、12拟合失败、32无核心留出，尺度没有统一赢家。"
+    ],
+    "interpretation": [
+      "几何量须标清方向和距离定义；坐标条件数49–86不是角度。"
+    ],
+    "decision": [
+      "报告建议单位法向加偏移表示，并随正交残差相应变换测量协方差；实际输出仍需单独验证。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v7/REPORT.md"
+    ],
+    "tags": [
+      "V7",
+      "坐标系",
+      "残差解释"
+    ],
+    "predecessors": [
+      "EG013"
+    ],
+    "corrections": [
+      "修正把旧轴厘米残差直接解释成sigma或物理厚度的倾向。"
+    ],
+    "rerun_condition": "新表示必须同时变换协方差并生成实际几何，不能仅用更小正交残差作为成功终点。"
+  },
+  {
+    "id": "EG016",
+    "title": "项目 V8：截断补偿减少点误差却加重结构偏差",
+    "date": "2026-09-12",
+    "track": "主项目 / V8",
+    "question": "从当前模型计算条件噪声均值并扣除，能否修复V7硬分组？",
+    "did": [
+      "固定候选、可达关系、分组、偏差和法向，按截断高斯模型计算补偿，再组内WLS投影。",
+      "比较完整补偿、硬重拟合、随机噪声扣除与旧保留法。"
+    ],
+    "not_done": [
+      "没有读取真实噪声；未证明模型正确或同数据复用是唯一成因。",
+      "当前记录未把未逐项读取的其他支线记作未实施。"
+    ],
+    "result": [
+      "b6 MAE0.561227→0.294070、RMS0.795314→0.547279 mm；仍未超旧MAE0.205928。",
+      "同XY间距误差0.250385→1.238462，18双层全部更差；2/4 mm来源均值间距确实收缩并增大倾斜。"
+    ],
+    "interpretation": [
+      "条件噪声补偿不等于恢复潜在层中心；一项精度改善不能抹去结构代价。"
+    ],
+    "decision": [
+      "报告不升级当前补偿；保留点误差和结构损伤两类结果。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v8/REPORT.md"
+    ],
+    "tags": [
+      "V8",
+      "截断补偿",
+      "结构代价"
+    ],
+    "predecessors": [
+      "EG014"
+    ],
+    "corrections": [
+      "其风险解释由V9进一步收窄：即使真模型、独立积分也会缩层，见EG017。"
+    ],
+    "rerun_condition": "必须先明确要估计条件均值还是潜在层，再设计动作；仅重写同一补偿公式不能成为新机制。"
+  },
+  {
+    "id": "EG017",
+    "title": "项目 V9真模型反例：条件无偏不等于潜在结构恢复",
+    "date": "2026-09-12",
+    "track": "主项目 / V9理论诊断",
+    "question": "即使完全正确的模型与独立积分，精确补偿后按观测分组求均值会恢复双层吗？",
+    "did": [
+      "对S=±a、Y=S+ε、G=sign(Y)推导条件补偿，独立数值积分与三组40万点模拟核验。"
+    ],
+    "not_done": [
+      "只约束给定分组与按G输出常数的动作类，不排除其他估计器。",
+      "本次归档没有复算积分或模拟。"
+    ],
+    "result": [
+      "真间距2 mm、sigma1时算法组中心间距1.365379 mm，按真来源计算输出均值间距0.932130 mm。",
+      "该受限动作恰为对应MSE最优，但不恢复潜在双层中心。"
+    ],
+    "interpretation": [
+      "模型正确、噪声条件无偏、对应MSE最优与结构正确是不同命题。"
+    ],
+    "decision": [
+      "报告修正V8解释，将输出决策与估计目标分开，继续实测联合解混。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v9/REPORT.md"
+    ],
+    "tags": [
+      "V9",
+      "反例",
+      "条件期望",
+      "损失函数"
+    ],
+    "predecessors": [
+      "EG016"
+    ],
+    "corrections": [
+      "更正V8把风险主要归于模型估错/数据复用的解释边界，不撤销V8数值。"
+    ],
+    "rerun_condition": "只有改变分类规则、动作类或目标损失，才需再检验；重复真模型模拟不能证明新滤波器有效。"
+  },
+  {
+    "id": "EG018",
+    "title": "项目 V9修复试验：crossfit与联合解混仍未超旧法",
+    "date": "2026-09-12",
+    "track": "主项目 / V9实现",
+    "question": "拆折、仅补偿常数或联合解混能否避免V8取舍？",
+    "did": [
+      "同24已暴露条件比较完整/常数/空间补偿、条件crossfit、直接投影、offset/affine联合解混和3档预算。"
+    ],
+    "not_done": [
+      "两折不是独立扫描；未因果分摊候选支持、先验、偏差和法向各自贡献。",
+      "未新增外部前沿基准或独立确认。"
+    ],
+    "result": [
+      "b6 crossfit MAE0.310508，对比原补偿0.294070；联合offset0.393517、affine0.396562，均未超旧0.205928 mm。",
+      "144次解混系统满秩，最大条件数约24.65；失败不支持简单归于奇异矩阵。"
+    ],
+    "interpretation": [
+      "拆分数据或增加联合自由度不是充分修复，但也不否定一般crossfit价值。"
+    ],
+    "decision": [
+      "报告保留旧滤波器，拒绝将本轮修复称为工程目标已解决。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v9/REPORT.md"
+    ],
+    "tags": [
+      "V9",
+      "交叉拟合",
+      "联合估计",
+      "负结果"
+    ],
+    "predecessors": [
+      "EG017"
+    ],
+    "corrections": [],
+    "rerun_condition": "新crossfit须说明新增独立性/层身份一致性机制；联合估计须定位改变的模型假设，且与旧法同输入比较。"
+  },
+  {
+    "id": "EG019",
+    "title": "项目 V10：层距参数变准，实际XYZ仍更差",
+    "date": "unknown/not documented",
+    "track": "主项目 / V10",
+    "question": "消去帧相位的功率谱层距能否转为几何收益，联合重估偏差是否足够？",
+    "did": [
+      "逐帧功率谱拟合层距，分别接固定偏差/联合偏差两种后端，比较普通混合与谱法、12/36次预算。"
+    ],
+    "not_done": [
+      "未进行新种子确认或真实ETH3D收益实验；没有隔离关联、斜率、法向和局部极小贡献。"
+    ],
+    "result": [
+      "谱法6个2 mm双层全部选双层，层距MAE0.191193 mm；全24模型间距误差0.291040，对比普通混合1.010146。",
+      "联合偏差+谱法36次MAE/RMS0.579468/0.852385，差于旧0.205928/0.458664 mm。"
+    ],
+    "interpretation": [
+      "更准的模型阶数/层距不足以保证点位置更准；放开偏差重估也没有救回。"
+    ],
+    "decision": [
+      "报告保留谱法作为层距线索，不替换旧输出；下一步接保留局部空间关联的后端。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v10/REPORT.md"
+    ],
+    "tags": [
+      "V10",
+      "谱法",
+      "参数与动作",
+      "联合偏差"
+    ],
+    "predecessors": [
+      "EG018",
+      "EG007"
+    ],
+    "corrections": [
+      "不再将失败单独归为冻结旧偏差；两次单面误拆来自同seed配对，不是独立证据。"
+    ],
+    "rerun_condition": "若更改后端关联而保持谱/自由层距同后端对照，重做可回答参数信息是否有增量；单增迭代已被测试。"
+  },
+  {
+    "id": "EG020",
+    "title": "项目 V11：空间关联的合成正结果与真实迁移失败",
+    "date": "unknown/not documented",
+    "track": "主项目 / V11",
+    "question": "让混合比例随XY变化，能否将层距线索转成几何收益？",
+    "did": [
+      "实现常数关联、空间自由层距、固定谱层距和谱初始化，12/36次；开发后冻结24新同族确认。",
+      "六ETH3D片区原始/3 mm逐站偏移迁移检查。"
+    ],
+    "not_done": [
+      "不是任意曲面图册，仍为整片区一/双平行面；无独立真实几何GT。",
+      "未完成全部对口外部强基准。"
+    ],
+    "result": [
+      "新24条件空间自由MAE/RMS0.080423/0.299508，旧0.183588/0.407717 mm；固定谱MAE0.103064更差。",
+      "真实恢复RMS中位数空间1.570、旧1.292 mm；固定谱对部分DA有853–2017 mm改写。"
+    ],
+    "interpretation": [
+      "空间关联在该合成族有增益，但固定更准谱层距不是最优，迁移尚未成立。"
+    ],
+    "decision": [
+      "保留空间自由候选及旧法，拒绝把合成优势直接升级为真实应用收益。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v11/REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v11/PROTOCOL.md"
+    ],
+    "tags": [
+      "V11",
+      "空间关联",
+      "合成确认",
+      "迁移失败"
+    ],
+    "predecessors": [
+      "EG019"
+    ],
+    "corrections": [
+      "谱初始化标签方向事后修正未改变负面判断，不算另一独立确认。"
+    ],
+    "rerun_condition": "应新增几何族或真实证据并保留同后端对照；旧确认种子已暴露，不能再次称未见。"
+  },
+  {
+    "id": "EG021",
+    "title": "项目 V12：小窗口并未自动带来更好恢复",
+    "date": "unknown/not documented",
+    "track": "主项目 / V12",
+    "question": "局部法向/窗口能否修复真实大改写，官方APSS/RIMLS是否改变比较？",
+    "did": [
+      "96/256近邻窗口重估法向/层数；接官方PyMeshLab APSS/RIMLS，同共享偏差上游/支持，并另跑raw对照。",
+      "新同族24输入确认及6真实片区3 mm偏移恢复。"
+    ],
+    "not_done": [
+      "窗口与法向同时改变，未单独识别窗口大小因果作用；未完成真实噪声标定和独立真值。"
+    ],
+    "result": [
+      "真实恢复RMS中位：bias-only1.118144、APSS/RIMLS scale1约1.1315、旧1.292309、V11 1.569800、窗口2.583622/2.908771 mm。",
+      "局部窗口减少cy_junction/cy_wall极端改写，但整体恢复更差。"
+    ],
+    "interpretation": [
+      "局部化、数值稳定和少改写不是准确恢复同义词；外部后端的恢复不能重复计为共同纠偏增量。"
+    ],
+    "decision": [
+      "报告不升级窗口版，保留外部对照；下一构造为大范围关联、小范围表面拟合。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v12/REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v12/PROTOCOL.md"
+    ],
+    "tags": [
+      "V12",
+      "局部窗口",
+      "外部基线",
+      "纠偏分账"
+    ],
+    "predecessors": [
+      "EG020"
+    ],
+    "corrections": [],
+    "rerun_condition": "重做需分离关联支持与几何支持，或新增独立参考；重复缩小邻域不足以解释已测退化。"
+  },
+  {
+    "id": "EG022",
+    "title": "项目 V13：归属、方向与局部位置分开",
+    "date": "unknown/not documented",
+    "track": "主项目 / V13",
+    "question": "保留大范围归属，再局部估方向/位置，能否兼顾平板与曲率？",
+    "did": [
+      "实现global_hard、atlas_hard、atlas_tied及可修正归属atlas_relax；平板与真实恢复对照。",
+      "追加36个解析抛物柱面压力条件，使用对应有限曲面距离评分。"
+    ],
+    "not_done": [
+      "曲面是开发后机制测试，非物理射线仿真或独立曲面族确认；真实仍只有测量参考。"
+    ],
+    "result": [
+      "强曲率8 mm：V11 MAE0.99050，局部修正0.28941，旧0.29648 mm；局部RMS0.48893仍差于旧0.45220。",
+      "全部曲面局部MAE0.227504差于旧0.221065；真实也未超bias-only/旧法。"
+    ],
+    "interpretation": [
+      "表示局部自由度解决部分失配，但全局统计支持、方向与位置支持不能混成一个尺度。",
+      "atlas组数不是物理层数。"
+    ],
+    "decision": [
+      "报告保留分层构造的机制证据，不宣称通用最优或替换全部旧法。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v13/REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v13/PROTOCOL.md"
+    ],
+    "tags": [
+      "V13",
+      "多尺度",
+      "局部表示",
+      "曲率"
+    ],
+    "predecessors": [
+      "EG021"
+    ],
+    "corrections": [],
+    "rerun_condition": "新增可验证的尺度选择或更广独立曲率条件才有信息；必须报告全条件，不能只重复强曲率胜例。"
+  },
+  {
+    "id": "EG023",
+    "title": "项目 V14：扩展条件与外部对照支持窄族收益",
+    "date": "2026-09-12",
+    "track": "主项目 / V14",
+    "question": "空间关联优势是否在噪声/稀疏采样变化和外部尺度选择后仍存在？",
+    "did": [
+      "开发96条件、APSS/RIMLS各5档尺度；冻结后3新种子144条件比较8方法。",
+      "同时报告来源等权、最差层、覆盖和间距指标。"
+    ],
+    "not_done": [
+      "不是独立真实场景；240条件不等于240独立场景；未做速度优化。"
+    ],
+    "result": [
+      "确认空间MAE0.168128，APSS0.337483、RIMLS0.376542 mm；来源等权/最差层和覆盖也较好。",
+      "来源间距保持比例空间0.9377，弱于RIMLS0.9727；对旧法104好、8平、32差。"
+    ],
+    "interpretation": [
+      "外部实现加强窄族贡献，但不能称所有条件/指标最优。"
+    ],
+    "decision": [
+      "保留效果证据和结构代价，继续强对照挑战，不升级为真实去噪闭环。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v14/REPORT.md"
+    ],
+    "tags": [
+      "V14",
+      "外部基线",
+      "冻结确认",
+      "多指标"
+    ],
+    "predecessors": [
+      "EG020",
+      "EG021",
+      "EG022"
+    ],
+    "corrections": [
+      "官方工具配置失败及数值容差调整仍需随原报告保留；不把通过的子集写成全部成功。"
+    ],
+    "rerun_condition": "更强求解/外部参数范围或独立真实同类数据能改变结论；简单增加同族种子只能加强已有范围。"
+  },
+  {
+    "id": "EG024",
+    "title": "项目 V15：强求解缩小差距，但结构代价仍在",
+    "date": "2026-09-12",
+    "track": "主项目 / V15",
+    "question": "恒定模型是否只是没认真求解，RIMLS是否只因尺度范围小而输？",
+    "did": [
+      "恒定模型36/108/324轮及64初值连续优化，保留旧候选；RIMLS尺度扩至128。",
+      "开发、旧确认补测及144新同族确认，保留结构工作点。"
+    ],
+    "not_done": [
+      "无全局最优证书，没有穷尽RIMLS其他参数；没有独立真实净收益、完整对口联合方法比较或3DGS能力。"
+    ],
+    "result": [
+      "开发恒定36/108/324 MAE约0.5796/0.5792/0.5794；64初值0.436468，空间36为0.208753 mm。",
+      "新确认空间MAE0.199154优于RIMLS0.389471，但来源间距绝对误差0.201425差于0.127421 mm。",
+      "27新确认条件出现模型分数更低但几何MAE更高。"
+    ],
+    "interpretation": [
+      "求解预算解释部分差距，不能替代模型/目标对齐；优化器成功不保证几何正确。"
+    ],
+    "decision": [
+      "报告保留空间关联为专用表面估计候选，不继续押注原EM迭代或扩大RIMLS尺度。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v15/REPORT.md"
+    ],
+    "tags": [
+      "V15",
+      "强求解",
+      "结构代价",
+      "目标错序"
+    ],
+    "predecessors": [
+      "EG023",
+      "EG009"
+    ],
+    "corrections": [
+      "来源间距没缩至一半不是零误合层证明，后续EG025收窄该代理解释。"
+    ],
+    "rerun_condition": "新比较需改变足以影响结论的求解能力/观测支持或结构目标；已有预算与尺度轴不宜原样重复。"
+  },
+  {
+    "id": "EG025",
+    "title": "项目 V16：空间混合和斜率/选层交互，更正间距代理",
+    "date": "2026-09-13",
+    "track": "主项目 / V16",
+    "question": "XY预测层身份的程度是否决定空间模型收益，来源间距能验收真实双层吗？",
+    "did": [
+      "10新种子控制lambda=0/.5/1、固定XY/层点数/噪声，加入真斜率诊断；重放V15轨迹。",
+      "统计机制数据固定坐标、零共同偏差、已知sigma、全点支持，不运行旧前端。"
+    ],
+    "not_done": [
+      "非物理首回波仿真；真斜率同时改变K选择，未形成纯斜率因果比例。",
+      "没有新增真实几何或拓扑验证。"
+    ],
+    "result": [
+      "lambda0恒定/空间MAE0.158072/0.300110，lambda1为0.570785/0.151842 mm。",
+      "关键8 mm/sigma2强依赖条件，真斜率将优势1.300778→0.019528 mm。",
+      "V15 22/108真双层内部选K=1却仍保留来源均值间距，斜率×来源XY均值差可解释代理通过。"
+    ],
+    "interpretation": [
+      "空间表达的利弊由观测组织和几何耦合决定；来源均值差不是物理层保留的充要条件。"
+    ],
+    "decision": [
+      "报告维护V15条件收益，下一改动集中关联复杂度和几何/层数选择耦合。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v16/REPORT.md"
+    ],
+    "tags": [
+      "V16",
+      "空间混合",
+      "斜率",
+      "代理更正"
+    ],
+    "predecessors": [
+      "EG024"
+    ],
+    "corrections": [
+      "收窄V15来源间距指标的结构解释，不撤销原数值；K=1本身也不是整个输出拓扑的充分判据。"
+    ],
+    "rerun_condition": "若有独立于斜率/选层的归属机制或真实可见性观测，重做才可归因新增信息；不要把lambda叫互信息。"
+  },
+  {
+    "id": "EG026",
+    "title": "项目 V17：让空间模型可退化的自适应选择",
+    "date": "2026-09-13",
+    "track": "主项目 / V17选择",
+    "question": "S/C/L/R模型家族按观测选择，是否优于总用固定空间门控？",
+    "did": [
+      "联合优化几何/门控，比较固定常数、线性、RBF及BIC/CV；326输入2282输出。",
+      "新统计确认及首回波桥接，默认MAP输出。"
+    ],
+    "not_done": [
+      "没有在新输入上重跑全部外部基线；真实迁移及端到端价值未验证。"
+    ],
+    "result": [
+      "新统计BIC对旧空间最近面MAE降26.0%，来源表面误差仅降6.0%，对应RMS升2.7%。",
+      "首回波均值改善，多数增量来自固定线性；仅3新种子，且发现5个候选遗漏。"
+    ],
+    "interpretation": [
+      "可退化空间复杂度有条件收益，不能把固定线性增量全部记为选择器贡献。"
+    ],
+    "decision": [
+      "报告保留架构，不全面替代旧法；先修候选继承，再单独检验投影动作。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v17/REPORT.md"
+    ],
+    "tags": [
+      "V17",
+      "模型选择",
+      "自适应",
+      "损失取舍"
+    ],
+    "predecessors": [
+      "EG025"
+    ],
+    "corrections": [],
+    "rerun_condition": "后续须共享候选池/求解能力再比较选择器，避免将候选改进算作反馈选择增量。"
+  },
+  {
+    "id": "EG027",
+    "title": "项目 V17遗漏：已有更优可行解被新搜索丢失",
+    "date": "2026-09-13",
+    "track": "主项目 / V17搜索审计",
+    "question": "严重退化是否真的源于更优观测目标与几何冲突？",
+    "did": [
+      "事后评估保存参数，在同一新目标上比较旧空间解与新RBF候选。"
+    ],
+    "not_done": [
+      "只定位一类已知缺口；本次检查未重拟合或替换V17输出。"
+    ],
+    "result": [
+      "86个旧空间双面桥接输出中5个旧解在新目标也更优。",
+      "示例旧/新目标399.291/2143.470，MAE0.035664/0.930816 mm，旧解在新约束内可行。"
+    ],
+    "interpretation": [
+      "这些失败首先是候选遗漏，不能归为似然更优却几何更差，也不能称表示不可辨识。"
+    ],
+    "decision": [
+      "报告要求把旧空间解纳入训练候选池，再用新种子确认。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v17/REPORT.md"
+    ],
+    "tags": [
+      "V17",
+      "候选遗漏",
+      "搜索审计"
+    ],
+    "predecessors": [
+      "EG026"
+    ],
+    "corrections": [
+      "纠正该5例的错误归因；并不否认其他实验已实际出现目标错序。"
+    ],
+    "rerun_condition": "仅在检验候选继承修复或新的搜索契约时回放该5例；修复病例不是无偏总体增益。"
+  },
+  {
+    "id": "EG028",
+    "title": "项目 V18：候选保留修复了旧例，没有新确认增益",
+    "date": "2026-09-13",
+    "track": "主项目 / V18继承",
+    "question": "把旧可行解保留在同一目标候选池，能否消掉V17遗漏？",
+    "did": [
+      "R家族加入旧空间36原参数，不重优化旧解、不读GT；新140统计+144首回波输入确认。"
+    ],
+    "not_done": [
+      "候选评分不升不保证几何单调；5个已暴露修复例不是新盲确认。"
+    ],
+    "result": [
+      "5个已知遗漏全部恢复旧空间结果，最大坐标差约1.73e-15 mm。",
+      "140+144新输入没有评分改善超过1e-6的新增旧候选保留，因此无可测新确认精度增量。"
+    ],
+    "interpretation": [
+      "这是搜索接口修复及历史能力保留，不能重复计为新算法全面提精度。"
+    ],
+    "decision": [
+      "报告保留继承机制与retained_map默认，另开固定拟合动作比较。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v18/REPORT.md"
+    ],
+    "tags": [
+      "V18",
+      "候选继承",
+      "修复"
+    ],
+    "predecessors": [
+      "EG027"
+    ],
+    "corrections": [
+      "修复V17已定位遗漏，不覆盖V17原始输出和负结果。"
+    ],
+    "rerun_condition": "当新增训练器/模型可能丢失旧候选时检验继承；相同旧例无需每次重报成新研究发现。"
+  },
+  {
+    "id": "EG029",
+    "title": "项目 V18动作：同拟合下MAP/mean对应不同损失",
+    "date": "2026-09-13",
+    "track": "主项目 / V18输出决策",
+    "question": "固定拟合参数和后验，只改最终动作会发生什么？",
+    "did": [
+      "确定同一BIC模型，比较MAP、mean和事前固定half，保留相同点数/支持。"
+    ],
+    "not_done": [
+      "没有证明某动作对所有物理任务最优；后验来自选定模型，不代表真实世界已知。"
+    ],
+    "result": [
+      "120双层MAP/half/mean的MAE0.170198/0.205522/0.256813，RMS0.610172/0.554291/0.534087 mm。",
+      "三者拟合面间距误差均0.321414 mm；变化的是输出点，mean使点偏离拟合面。"
+    ],
+    "interpretation": [
+      "参数估计与输出动作是两个决策层；平方恢复和最近表面距离会要求不同动作。"
+    ],
+    "decision": [
+      "报告保留MAP结构优先默认，half/mean仅供明确平方误差用途比较。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v18/REPORT.md"
+    ],
+    "tags": [
+      "V18",
+      "MAP",
+      "后验均值",
+      "动作损失"
+    ],
+    "predecessors": [
+      "EG028",
+      "EG017"
+    ],
+    "corrections": [],
+    "rerun_condition": "重做须提出新的任务损失或行动约束并固定同一估计；不能把单一RMS改善称为拟合表面更准确。"
+  },
+  {
+    "id": "EG030",
+    "title": "项目 V19：crossfit有搜索混杂，quota无法补回漏层",
+    "date": "2026-09-13",
+    "track": "主项目 / V19双线",
+    "question": "交叉训练门控或后验质量导出能否超越V18？",
+    "did": [
+      "A线三折门控后重估几何，设同样本控制；B线固定拟合比较MAP/mean/带权/quota/draw。",
+      "开发74、确认232条件，含复用输入的32个sigma压力条件。"
+    ],
+    "not_done": [
+      "全数据家族选择/几何初值仍来自V18，不是全流程独立crossfit；固定模型q不是P(H|D)。",
+      "未新增外部基线或真实扫描；质量配额不是已校准物理概率。"
+    ],
+    "result": [
+      "统计crossfit MAE0.206874、同样本0.179371、V18 0.138020 mm；同样本训练器本身漏旧warm starts。",
+      "quota有小幅W1/来源质量收益，无法恢复统计9/96、首回波8/72、压力14/32中既有模型漏面。",
+      "真参数演示上层质量20%时quota20.018%，错sigma给28.7555%；质量更准仍可使RMS0.860918→0.928655 mm。"
+    ],
+    "interpretation": [
+      "crossfit负结果混有搜索退化，不能全归因拆折；模型不确定性、关联后验和输出测度必须分开。"
+    ],
+    "decision": [
+      "报告不升级A线；B作可选导出，V18 MAP继续默认；修复候选链后再判断crossfit。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v19/REPORT.md"
+    ],
+    "tags": [
+      "V19",
+      "crossfit",
+      "quota",
+      "漏层",
+      "后验边界"
+    ],
+    "predecessors": [
+      "EG028",
+      "EG029"
+    ],
+    "corrections": [
+      "EG031后续恢复同样本能力；本轮原负数值保留，不再作为纯拆折效应。"
+    ],
+    "rerun_condition": "crossfit重做前必须保留同样本候选能力；quota新增收益需跨噪声失配并能回答漏层问题，不能只给真参数。"
+  },
+  {
+    "id": "EG031",
+    "title": "项目 V20：修复搜索后crossfit仍差，池内oracle余量有限",
+    "date": "2026-09-13",
+    "track": "主项目 / V20",
+    "question": "V19退化中多少能由候选继承修复，已有池内选模还剩多少空间？",
+    "did": [
+      "同样本复用V18候选，各训练折重建完整候选链；30暴露诊断、52新同族确认。",
+      "按来源等权MAE为归档候选作事后GT oracle，同一选中候选报告所有次指标。"
+    ],
+    "not_done": [
+      "仍非全流程独立crossfit；没有新真实/首回波数据。",
+      "oracle不包含所有优化中间起点、任意表示或全模型族，也不是部署算法。"
+    ],
+    "result": [
+      "48新双层修复同样本恢复V18 MAE0.296649，原V19 0.338627；修复crossfit0.309115，仍高4.20%。",
+      "固定MAP归档池oracle0.280267，平均余量约5.52%。",
+      "补齐遗漏原R候选只改变平均余量约3.45e-8 mm。"
+    ],
+    "interpretation": [
+      "候选继承解释同样本退化，但未消除crossfit剩余代价。",
+      "池内小余量不能推广为整个表示族或新信息的上限。"
+    ],
+    "decision": [
+      "报告保留修复，不升级crossfit、不继续增加折数；优先独立真实几何验证。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/exploration_v20/REPORT.md"
+    ],
+    "tags": [
+      "V20",
+      "候选继承",
+      "oracle",
+      "搜索与拆折"
+    ],
+    "predecessors": [
+      "EG030"
+    ],
+    "corrections": [
+      "初版oracle以旧解替换R而未评分原R；后续从保存参数补齐，属于事后诊断，不是新盲确认。"
+    ],
+    "rerun_condition": "新选择研究必须说明超越归档池的具体能力；仅优化同池选择需先证明逐例余量值得投入。"
+  },
+  {
+    "id": "EG032",
+    "title": "项目 V21：独立参考真实迁移未通过",
+    "date": "2026-09-13",
+    "track": "主项目 / V21",
+    "question": "冻结V18能否改善真实GeoSVR重建局部点样本？",
+    "did": [
+      "取得作者同包相机，按scale_mat转换到DTU官方独立扫描参考，开发选尺度后冻结。",
+      "scan24选24个与开发不共享顶点的1024点片区，比较V18、APSS、RIMLS、单面和identity。"
+    ],
+    "not_done": [
+      "不是完整DTU全场景评分，不是带物理层身份的实物薄板实验；未检验网格拓扑/3DGS参数。"
+    ],
+    "result": [
+      "24新片区中18可评分、6为固定评价支持缺失，算法输出全部成功。",
+      "V18平均参考距离比identity高10.79%，1 mm参考召回低约8.61个百分点；18可评分部分也不支持升级。"
+    ],
+    "interpretation": [
+      "坐标来源缺口已解决，但真实净收益未成立；片区数不等于独立场景数。",
+      "单/双平行面、法向、sigma与一般曲面同时存在，不能唯一归因。"
+    ],
+    "decision": [
+      "报告停止直接推广V18为一般重建后处理器，保留窄族合成证据和独立参考接口。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/real_closure_v21/REPORT.md"
+    ],
+    "tags": [
+      "V21",
+      "真实负结果",
+      "独立参考",
+      "空支持"
+    ],
+    "predecessors": [
+      "EG031"
+    ],
+    "corrections": [
+      "汇总failed=6表示不可评分，不是6次算法崩溃；不能删去后宣称全协议通过。"
+    ],
+    "rerun_condition": "须有新的表示/观测机制，或确有薄板身份和间距参考的真实数据；不能在已暴露18片区调参后再次称确认。"
+  },
+  {
+    "id": "EG033",
+    "title": "项目 V22：MLS重构减轻损伤，阻尼没有额外收益",
+    "date": "2026-09-13",
+    "track": "主项目 / V22",
+    "question": "局部二次曲面与多尺度阻尼能否修复V18真实失配？",
+    "did": [
+      "逐点32/64/128近邻PCA、二次图面和多尺度修正；scan24暴露诊断及新scan37的24片区确认。",
+      "比较局部平面/二次、多尺度full/consensus和同RMS常数阻尼，共378输出。"
+    ],
+    "not_done": [
+      "不是新MLS理论；阻尼不是校准概率。",
+      "一新场景不能建立广泛迁移；本次归档未重算原数值或复测APSS。"
+    ],
+    "result": [
+      "scan37主候选相对identity MAE降0.598%，召回降0.333个百分点，未达5%升级信号。",
+      "同RMS常数阻尼MAE反而更低0.000286 mm；scan24/37平面与二次排序反转。",
+      "旧APSS重放最大差0.001318 mm超原1e-5容差；原失败保留，另有final_audit。"
+    ],
+    "interpretation": [
+      "局部表示减少旧损伤，但减小动作与启发式可靠性尚未形成可验证增量。"
+    ],
+    "decision": [
+      "报告保留局部曲面实现，不把阻尼升级为主贡献，避免继续堆多尺度权重。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/reconstruction_v22/REPORT.md"
+    ],
+    "tags": [
+      "V22",
+      "MLS",
+      "同RMS对照",
+      "真实收益有限"
+    ],
+    "predecessors": [
+      "EG032"
+    ],
+    "corrections": [
+      "原verify.py并非全部通过，不能把后续审计写成所有历史输出逐点一致。"
+    ],
+    "rerun_condition": "重跑需新判别信息或清晰可验证的局部失败；阻尼必须在同预算对照下显示增量。"
+  },
+  {
+    "id": "EG034",
+    "title": "项目 V23：照片LOSS下降仍损伤独立几何",
+    "date": "2026-09-13",
+    "track": "主项目 / V23",
+    "question": "补入真实照片，用光度一致性选择固定动作，能否选对修正？",
+    "did": [
+      "取得98照片及COLMAP相机/稀疏轨迹，修复像素内参接口；固定12动作和可见支持。",
+      "42暴露片区588输出，对照拟合LOSS/照片RGB方差选择，并做候选限制和支持交集事后诊断。"
+    ],
+    "not_done": [
+      "照片可能是重建训练图，不是独立深度；旧网格首命中筛选不提供新增正确深度。",
+      "未识别外观、纹理、可见性、关联或相机误差的唯一主因。"
+    ],
+    "result": [
+      "照片LOSS平均降6.53%/3.51%，scan24/37几何MAE反升约14.5%/13.5%。",
+      "候选Spearman约0.530/0.549正相关，仍不足保证argmin有益。",
+      "固定照片/几何支持交集上MAE0.415647→0.495473、0.399270→0.459272 mm，损伤仍在。"
+    ],
+    "interpretation": [
+      "有原始观测和合法投影不自动带来可信风险代理；总体排序相关不等于最佳动作选择正确。"
+    ],
+    "decision": [
+      "报告不升级光度选择；若继续先隔离外观/纹理与几何关联，不随意加权多代理。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/loss_alignment_v23/REPORT.md"
+    ],
+    "tags": [
+      "V23",
+      "照片LOSS",
+      "目标错序",
+      "评价支持"
+    ],
+    "predecessors": [
+      "EG033"
+    ],
+    "corrections": [
+      "旧cameras.npz camera_mat是归一化屏幕变换而非像素内参；首次试运行在候选/GT评分前中止，后来改用实际COLMAP内参。"
+    ],
+    "rerun_condition": "必须改变并隔离观测模型或使用互补证据，且有独立几何终点；只换RGB为另一分数不能预先视为修复。"
+  },
+  {
+    "id": "EG035",
+    "title": "项目 V24：同位移预算区分修正场与alpha分配",
+    "date": "2026-09-13",
+    "track": "主项目 / V24",
+    "question": "V22各场的差异只是移动量不同吗，alpha能否把移动分给更有益的点？",
+    "did": [
+      "复用18+24暴露片区的缓存场，0.025/0.05/0.10 mm请求预算按共同可行值截断。",
+      "多尺度上比较原alpha、均匀和5种置乱；固定0.5/1倍动作检验有符号收益排序，1596输出。"
+    ],
+    "not_done": [
+      "没有重拟合、换ROI或新确认；等RMS不等于纯方向因果干预。",
+      "bootstrap片区区间不是场景总体推断，也不是等效性证明。"
+    ],
+    "result": [
+      "同片同RMS下，平面对二次在scan24 MAE更差、scan37更好；scan37覆盖也更差。",
+      "12项alpha对照bootstrap区间均跨0；固定动作收益排序Spearman均值接近0。",
+      "42片2场景、112个不同实际预算工作点，不能把预算/置乱当新场景。"
+    ],
+    "interpretation": [
+      "场有条件信号，但当前alpha没有稳定分配增量；不能据轻微负相关就反向用权重。"
+    ],
+    "decision": [
+      "报告关闭当前alpha主贡献押注，保留基础几何对照，不新增反向alpha或更多置信规则。"
+    ],
+    "evidence_level": "report_read",
+    "sources": [
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/field_budget_v24/REPORT.md",
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/field_budget_v24/PROTOCOL.md"
+    ],
+    "tags": [
+      "V24",
+      "同预算",
+      "alpha",
+      "停止押注"
+    ],
+    "predecessors": [
+      "EG033",
+      "EG034"
+    ],
+    "corrections": [
+      "等预算归一alpha有时放大场，不是V22原始输出；不是全部几何模型无用或XYZ信息已耗尽的证明。"
+    ],
+    "rerun_condition": "只有新可验证误差机制或新的移动分配证据，才值得重开；必须说明相对均匀/置乱同预算的新增决策价值。"
+  }
+]

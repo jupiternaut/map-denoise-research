@@ -1,0 +1,153 @@
+{
+  "verdict": "WARN",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "host": "liekkas",
+  "run": "/srv/slam-research/grf/map-denoise/runs/colmap-fixed-pixels-20260930T172250Z",
+  "review_scope": "read-only source, provenance, raw-artifact and numeric audit; only FRESH_INTEGRITY.md/json written",
+  "failed_checks": [],
+  "warnings": [
+    {
+      "id": "common_scope_auxiliary_fields",
+      "severity": "WARN",
+      "evidence": [
+        "evaluate_mvs.py:68",
+        "evaluate_mvs.py:70",
+        "evaluation/ROI_METRICS.csv:11"
+      ],
+      "description": "Eight cpu_valid_common rows use all-method-valid coverage and correct_per_requested. Counts and common MSE are correct.",
+      "status": "resolved_in_derivative",
+      "resolution": "normalize_scopes.py preserves original fields under explicit method-wide names and adds correct scope fields. All 96 derivative rows and correction hashes independently verified; original artifacts unchanged.",
+      "resolution_evidence": [
+        "normalize_scopes.py:8",
+        "normalize_scopes.py:11",
+        "normalize_scopes.py:13",
+        "evaluation/SCOPE_CORRECTION.json:2",
+        "REPORT.md:87"
+      ],
+      "affected_rows": 8
+    },
+    {
+      "id": "unbound_evaluation_dependencies",
+      "severity": "WARN",
+      "status": "open_provenance_limitation",
+      "evidence": [
+        "evaluate_mvs.py:11",
+        "evaluate_mvs.py:27",
+        "RUN_LOCK.json:4",
+        "PREDICTIONS_SEALED.json:117"
+      ],
+      "description": "Prior evaluate.py/audit_sources.py and historical GT metadata JSON files are not in the checked seal union; current sources and GT hashes independently verified."
+    }
+  ],
+  "checks": {
+    "gt_provenance": "PASS",
+    "physical_mm_no_second_normalization": "PASS",
+    "official_execution_artifacts": "PASS",
+    "fixed_query_identity": "PASS",
+    "missing_data_and_fallback": "PASS",
+    "dense_pixel_convention": "PASS",
+    "independent_numeric_recomputation": "PASS",
+    "scope_and_view_inputs": "PASS",
+    "scoped_csv_correction": "PASS",
+    "report_and_checkpoint_numeric_claims": "PASS",
+    "plot_source_and_png_visual_review": "PASS",
+    "documented_environment": "PASS",
+    "run_lock_hashes": 87,
+    "prediction_seal_hashes": 118,
+    "old_prediction_seal_hashes": 302,
+    "job_records": 15,
+    "job_seconds_sum": 68.85280033998424,
+    "fixed_queries": 512,
+    "baseline_valid": 497,
+    "recomputed_distances": 6144,
+    "roi_metric_rows": 96,
+    "tail_metric_rows": 12,
+    "summary_records": 12,
+    "gt_vertices_scan24": 5169152,
+    "gt_vertices_scan37": 5166240
+  },
+  "scene_roi_equal_mse_mm2": {
+    "24": {
+      "CPU": 113.0303984356155,
+      "photo_fallback": 96.85954384537949,
+      "geo_fallback": 7.722727274510129
+    },
+    "37": {
+      "CPU": 187.21181107254685,
+      "photo_fallback": 425.79045003994906,
+      "geo_fallback": 64.11794643658575
+    }
+  },
+  "four_roi_equal_mse_mm2": {
+    "CPU": 150.12110475408116,
+    "photo_fallback": 261.32499694266517,
+    "geo_fallback": 35.920336855547916
+  },
+  "tail": {
+    "photo": {
+      "old_hard": 75,
+      "hard_supported": 74,
+      "hard_rescued_5mm": 57,
+      "hard_rescued_1mm": 36,
+      "old_good_moved_beyond_1mm": 47,
+      "newly_supported": 15,
+      "newly_supported_correct_1mm": 13
+    },
+    "geo": {
+      "old_hard": 75,
+      "hard_supported": 59,
+      "hard_rescued_5mm": 51,
+      "hard_rescued_1mm": 34,
+      "old_good_moved_beyond_1mm": 23,
+      "newly_supported": 14,
+      "newly_supported_correct_1mm": 13
+    }
+  },
+  "development_acceptance_condition": {
+    "geo_fallback": "PASS",
+    "photo_fallback": "FAIL"
+  },
+  "limitations": [
+    "Same-family reviewer; not cross-family or human acceptance.",
+    "Two old development scenes and fixed ROI queries; not unseen-scene or official full-scene DTU confirmation.",
+    "Sources, timestamps and artifact hashes support ordering but do not prove historical process-level GT nonaccess.",
+    "GT archive provenance checked from historical local records, without redownloading Points.zip.",
+    "Plotting code and both PNGs inspected, all four figure files hashed; no plotting or full MVS rerun.",
+    "Spatial figure log colors saturate outside 0.05\u201350 mm; numeric metrics retain all outliers.",
+    "Unrelated literature/process citations in REPORT.md were not substantively audited."
+  ],
+  "artifact_sha256": {
+    "run_colmap.py": "1b16a6763e32048434daed9e5e106cdda45771f7579e9a5042eeb49b25913065",
+    "evaluate_mvs.py": "c34b85e27fb4e94aedb2f913c1ab2438d968a6eb356e2aae15ae7c514e14f16f",
+    "RUN_LOCK.json": "cb9157b904c15da2c47e30e6ecb63cf36e2bf13b5d39056c2e380e348370477c",
+    "PREDICTIONS_SEALED.json": "a5936d719f85ef7c435140db9398e2f4d3977f9c1b80b826fe3af45cec301bf0",
+    "evaluation/RESULTS.json": "b41b77a7b513a875ad8263a22dd3be893c3cdd3f777bd3017224050e82a8667a",
+    "normalize_scopes.py": "ceac2dcc5fae583802d5162b5c91887a02b1c9677f12ac152866cf73268de5c2",
+    "evaluation/ROI_METRICS.csv": "beb53aabff3c4ed62ce398ff879913b73bc6edd9eeeddcdf4892b382c2e5e6b9",
+    "evaluation/ROI_METRICS_SCOPED.csv": "98721f8796dcdb1a68a7342e9485b29b984d7c6f7806b3822e9cb8c631937342",
+    "evaluation/SCOPE_CORRECTION.json": "bb40841ab75d1b863d945400df120b5f9b4c7c0ce28bed2d3caed74dcd55b463",
+    "evaluation/POINT_METRICS.csv": "03c8de008fb3ee84ff7ea765415b74bada08013d35d4f51bd93056cd34d5058b",
+    "REPORT.md": "fa4315e8690e887da47c70f280dc46ed69149929764af90708cc648b1cdda507",
+    "CHECKPOINT.md": "b63f499b637568ed974aed8123dac231254239def9d2bf2090bafc9571297e0e",
+    "COMMANDS.md": "ed39a1961883970890b8ee3c8d7e8e6c29d2a546e23f6e887689f4c066aed420",
+    "plot_results.py": "84dda5f3e38a6dc5ad054c24a838db869805177c798507628d193ca77fa9c958",
+    "figures/mvs_comparison.png": "5faba70c8ce0ac001984dbfd1335a6a6627b4828dce54ff5e337e76ab8ee9567",
+    "figures/mvs_comparison.pdf": "cba752214b8ed02118730f534b0d9936ecae691d8618225230566621d36a277f",
+    "figures/fixed_pixel_errors.png": "cf1d2c7be66eb11632a3c1e9878461a856a2bb3d3d670ab08e1f785d8ab73b70",
+    "figures/fixed_pixel_errors.pdf": "215b04c1e9d8513c1d0fbcd2c0a9f373255ae6f638e7e9921856d65031c7f97d"
+  },
+  "unbound_dependency_sha256": {
+    "/srv/slam-research/grf/map-denoise/runs/upstream-photo-holdout-20260930T113213Z/evaluate.py": "46003825691f594c50f389cdd13f4f495dbfe9bb30fa5c8c6097c5ac55c44a44",
+    "/srv/slam-research/grf/map-denoise/runs/upstream-photo-holdout-20260930T113213Z/audit_sources.py": "877459dcaad2ba1b5affcc250020817f2785471b860de2159c02552e56092cad",
+    "/srv/slam-research/grf/map-denoise/datasets/published-outputs-v2-reference/MANIFEST.json": "0c587e7116ac2d4992f5640fbee19f8cb343b2607442d36dae733d8fed55ffd9",
+    "/srv/slam-research/grf/map-denoise/datasets/reconstruction-v22-scan37/DOWNLOAD_RETRY_1789282524663424354.json": "a6d3471e1978e6e86906537766b9ecd228b47f5a080eda9cf4c14458de7bad50"
+  },
+  "audit_skill": "experiment-audit",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_reasoning": "ultra",
+  "agent_id": "/root/colmap_fresh_integrity",
+  "trace_path": ".aris/traces/experiment-audit/20261001_run01/",
+  "audit_source": "review/FRESH_INTEGRITY.json",
+  "final_report_followup": "review/FRESH_INTEGRITY_ADDENDUM.json"
+}

@@ -1,0 +1,105 @@
+# Independent audit: relative-gain laboratory
+
+Status: **PASS for implementation and measurement integrity**, with the scientific
+limitations below. No unresolved implementation defect was found that changes the
+reported bounded experiment. Host and workspace identity were verified as
+`liekkas` and this directory. All old research artifacts were read-only.
+
+## What was independently verified
+
+| Check | Evidence |
+| --- | --- |
+| Development data reuse | 24 cases, 79,594 rows; X and archived row IDs exactly match; recomputed gain differs from archived float64 gain by 0 |
+| Fixed native calibration support | 78,598 sampled rows; support flags exactly match archived native row support |
+| Source integrity | 120 old source hashes agree with both old seals and the new data manifest |
+| Shared-feature comparison | All learned policies receive the same X64, rows and common case weights; score methods accept only X |
+| Model capacity | Single-head confidence/error/direct/normalized methods share the shallow HGB budget; benefit/harm and hurdle methods disclose 2/3 heads |
+| Threshold calibration | All 1,126 grid rows across 11 methods, balanced choices, and native infeasibility decisions independently reproduced |
+| Scene-held-out predictions | Standalone normalized-gain train24→37 and candidate-error train37→24 refits have maximum score difference 0 |
+| Replay measurement | All 4,380 rows across 60 cases independently recomputed from saved errors and masks |
+| Random diagnostics | All 2,400 masks match accepted counts inside/outside native support and, when applicable, every displacement bin |
+| Exported geometry | All 180 PLYs equal the rowwise A/identity decision exactly |
+| Aggregation | All 365 condition/method cells and ROI win/tie/loss counts independently reproduced |
+| Geometric spot checks | Open3D C++ nearest distances independently match scipy cKDTree on scan55_roi0 native, scan65_roi0 minus3, scan69_roi0 plus3; maximum discrepancy 0 mm |
+| Seal stability | Training model, threshold and sealed-source hashes remain unchanged after replay |
+
+All audited metric discrepancies are zero except displacement RMS, whose maximum
+absolute difference is `4.440892098500626e-16 mm` from equivalent floating-point
+arithmetic. The six focused audit math tests also pass. Detailed machine-readable
+evidence is in `AUDIT_TRAINING.json`, `AUDIT_CALIBRATION.json`, and
+`AUDIT_EVALUATION.json`.
+
+The inspected fitting and inference paths contain no replay reference reads or
+replay labels in model fitting, threshold selection, or policy scoring. This is
+a code/data-flow finding; it does not turn historically exposed scenes into an
+independent experiment.
+
+## Issues resolved before the affected stage
+
+1. A finite development minimum/maximum is not a genuine ALL/KEEP action on new
+   scores. The initial threshold implementation used finite extrema. Before
+   fitting, root replaced them with explicit actions and propagated those actions
+   to replay inference. Every saved replay decision was checked against this rule.
+2. Native feasibility was made unambiguous: case-equal native absolute MSE must
+   not exceed identity, while +/-3mm recovery uses mean case-relative MSE. The
+   threshold quantiles use calibration support only. Tie-breaking is explicitly
+   fewer accepted candidates, including candidates with zero movement.
+3. Random controls match within and outside fixed native support separately.
+   Their random and oracle masks are saved as evaluator diagnostics, and support
+   is never a policy input. This prevents an evaluated-count confound.
+4. Frozen-policy PLY export was added alongside the two predeclared normalized
+   operating points. Diagnostic random/oracle decisions were saved before final
+   evaluation to make all reported rows independently recomputable.
+
+## Interpretation that the evidence permits
+
+Every one of the 11 native-priority searches is **infeasible**. Its fallback is
+KEEP on every point. Those identity-equal outputs are abstention after a failed
+constraint search, not native denoising improvements or successful recovery.
+
+The predeclared normalized balanced selector has native MSE `0.762555972 mm²`,
+versus identity `0.753165096 mm²`: a **1.247% regression**, with 1 ROI win and 11
+losses. It moves only `0.37686%` of native rows. Its native MSE is also slightly
+worse than its count-matched random mean (`0.758928501`) and bin-matched random
+mean (`0.761632716`). Consequently, its lower native harm than the old policy and
+learned absolute-confidence comparators does not establish superior native point
+selection at the same edit budget; reducing edits is a major explanation.
+
+On -3mm/+3mm replay it retains substantial recovery: 39.039%/32.058% MSE reduction
+from identity, and both are better than its matched-random controls. These are
+distinct condition-specific findings. They must not be averaged with native to
+claim general denoising improvement. Nor do they show uniform superiority over
+the old frozen policy: the old policy has better +3mm MSE.
+
+## Remaining limits, not new work requirements
+
+- Scan55/65/69 are exposed replay, not independent confirmation. The 60 cases and
+  random repeats are not independent scenes; the replay includes three scenes.
+- The OOF scores calibrate thresholds and therefore produce tuned development
+  scores. They are not unbiased scene-transfer test estimates. Only two scenes
+  inform calibration, and final joint-fit score scale can shift.
+- Training deliberately retains the archived condition-dependent support;
+  calibration uses its intersection with native support. Calibration is sampled,
+  while replay metrics cover full fixed native support.
+- Count/bin controls isolate particular edit-budget effects; matching bins does
+  not mean exact displacement-RMS matching. They use evaluator-only support and
+  are not deployable methods.
+- The primary metric measures fixed-row nearest-reference error. It establishes
+  neither complete surface coverage nor physical thin-layer identity.
+- These confidence arms are matched local mechanism baselines, not official
+  reproductions or evidence of superiority over complete stereo/MVS systems.
+
+## Audit commands executed
+
+All commands used `/srv/slam-research/grf/map-denoise/envs/open3d-019/bin/python -B`
+with `PYTHONDONTWRITEBYTECODE=1` and OMP/OpenBLAS/MKL/NUMEXPR threads set to 1:
+
+```text
+python -B audit_tests.py
+python -B audit_training.py
+python -B audit_calibration.py
+python -B audit_evaluation.py
+```
+
+Audit output files use exclusive creation to preserve the completed evidence.
+The audit did not tune models, thresholds, features, or decisions on replay.

@@ -1,0 +1,21 @@
+# 中间版本补充覆盖
+
+本轮只读核对六份主报告，记录八条 S001–S008：[EVIDENCE_SUPPLEMENT.json](/home/grf/Documents/Codex/2026-09-28/unified-revision-theory-20260928T114318Z/EVIDENCE_SUPPLEMENT.json)。全部为 report_read，来源绝对路径、事实行号和SHA256逐条保存；未重跑旧实验，旧目录未修改。六项要求均找到，没有缺报告项。
+
+| 主报告 | 来源 | 条目 |
+|---|---|---|
+| V26 | [逐源视图局部修订](/home/grf/Documents/Codex/2026-09-22/per-view-geometry-v26-20260922T111059Z/REPORT.md:9) | S001/S002：首轮缺现任证据回退→守卫后仍未整体通过 |
+| V27 | [直接位置取证](/home/grf/Documents/Codex/2026-09-22/v27-continuous-patch-field-20260922T115653Z/REPORT.md:9) | S003：有注入恢复能力，native与对应恢复不随之成立 |
+| V28 | [候选互补与选择](/home/grf/Documents/Codex/2026-09-22/v28-surface-experts-20260922T125505Z/REPORT.md:25) | S004/S005：有选择性收益；相机干预与真实归因明确分离 |
+| 9/26 relative-gain | [相对收益目标](/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/research_snapshots/2026-09-26/relative-gain-lab-20260926T004220Z/REPORT.md:75) | S006：校准工作点、少动减损与有信息排序分别记账 |
+| 9/26 boundary-cross | [候选×保留证据](/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/research_snapshots/2026-09-26/boundary-cross-lab-20260926T014111Z/REPORT.md:51) | S007：候选互补不保证选择可识别，保留源非统计独立 |
+| 9/26 joint-revision | [联合比较器](/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/research_snapshots/2026-09-26/joint-revision-lab-20260926T080710Z/REPORT.md:17) | S008：选择优于动作随机，复杂结构未全面超简单评分 |
+
+## 连贯主线与边界
+
+V26先发现前后证据比较的接口缺口，修复后仍有native损伤；V27证明直接位置取证的条件恢复能力；V28增加方向/窗口候选与候选后筛选，仍未实现native净收益。9/26的三个分支分别控制训练目标/校准、候选与独立于局部构造的源、共同尺度比较与候选专属支持。它们建立了多个可以区分的瓶颈，不能合并成“只有共享偏差”或“只差一个更强选择器”。
+
+最直接约束新H03实验的是S005：早在V28已有相机误差干预反例，但原报告已经声明未识别真实失败的主导原因。新的相机校正验证可连接P05的排序误差、P02的可识别性与H03，不构成全历史解释的替代。另一个关键界限是S007/S008：额外候选有GT可见的互补收益，并不证明可用输入足以选出；毛收益捕获、净收益及删模块的因果效应也不能互换。
+
+S002 supersedes S001只表示原实现解释由补测收窄，首轮负数值仍保留。V26/V27的E_sym双向集合指标、V28的对应点RMSE与选择性收益质量、9/26固定支持MSE不是同一种损失，不能串成一条数值进步曲线。所有ROI、扰动条件、方法输出及随机重复都不扩张独立场景数。
+

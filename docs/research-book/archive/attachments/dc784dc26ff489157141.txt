@@ -1,0 +1,218 @@
+# V25 局部表面再生实验：结果分析
+
+数据来源：`runs/2026-09-14T165314Z/` 下 128 行 `RESULTS.csv`/`RESULTS.json`（与各 ROI `metrics.json` 逐值一致，`VERIFY.json` 独立重算最大差 0），各臂 `.json` 侧车，`evidence.json`，`rois.json`/`rois_core.json`，以及 `src/v25/`、`evaluation/metrics.py` 源码。下文标注：【事实】= 文件或代码直接给出；【推断】= 由数字或代码逻辑推得；【未知】= 现有工件无法回答。所有 GT 派生量只用于事后诊断。
+
+先给两个贯穿全文的代码事实，后面多处会用到：
+
+- 【事实】`wta_depth()` 直接返回 `depths_norm[best_idx]`，没有任何亚平面（抛物线）细化。80 个平面均匀铺在“网格深度跨度 + 2×28 mm”上，因此深度量化步长由 ROI 深度跨度决定（下表）。
+- 【事实】`restricted_point_move` 与 `v25_gated_move` 都是把 identity 点用 cKDTree 吸附到**最近的 WTA 证据点**（多对一），不保基数；随后评价端再做 0.8 mm 体素去重。这意味着“移动”臂的输出点数会坍缩。
+
+---
+
+## 1. E_sym 分解：accuracy 与 completeness（父 ROI，单位 mm）
+
+单元格为 acc / comp；E_sym = 0.5·(acc+comp)。
+
+| ROI | identity | fusion_wta | restricted_single | restricted_point_move | v25_atlas | v25_gated_move |
+|---|---|---|---|---|---|---|
+| scan24_window_left | 0.35 / 1.68 | 3.84 / 2.61 | 1.42 / 40.63 | 0.64 / 3.00 | 2.85 / 3.03 | 0.38 / 2.16 |
+| scan24_gable_center | 0.40 / 0.68 | 6.43 / 2.95 | 1.52 / 17.87 | 0.68 / 2.32 | 4.36 / 8.74 | 0.39 / 1.50 |
+| scan24_turret_join | 0.45 / 0.46 | 8.22 / 3.28 | 16.01 / 36.36 | 1.02 / 2.84 | 8.19 / 7.28 | 0.54 / 1.49 |
+| scan24_wall_control | 0.39 / 4.59 | 2.17 / 2.43 | 1.10 / 30.45 | 0.65 / 5.12 | 2.10 / 3.58 | 0.42 / 4.42 |
+| scan37_scissor_cross | 0.69 / 8.26 | 2.58 / 5.69 | 1.44 / 21.61 | 0.84 / 8.79 | 2.85 / 14.41 | 0.63 / 8.44 |
+| scan37_clamp_jaw | 0.88 / 0.78 | 9.05 / 5.13 | 5.45 / 32.04 | 1.19 / 2.85 | 7.74 / 13.77 | 1.01 / 2.59 |
+| scan37_driver_handle | 0.73 / 0.91 | 3.97 / 3.01 | 2.74 / 12.59 | 0.95 / 2.68 | 4.37 / 7.43 | 0.79 / 1.65 |
+| scan37_stone_control | 0.73 / 0.43 | 3.02 / 0.72 | 2.32 / 4.72 | 0.63 / 0.73 | 4.64 / 0.59 | 0.73 / 0.43 |
+
+按失败类型归类【事实+推断】：
+
+- **fusion_wta：主要是 accuracy 失败。** acc 2.17–9.05 mm，acc P95 8.4–35.7 mm，1 mm 精度 0.15–0.57。completeness 仅中度变差（例外见 §5）。这是原始 WTA 深度点的直接质量。
+- **restricted_single：completeness 崩溃。** comp 12.6–40.6 mm、comp P95 41–124 mm；acc 除 turret（16.0）和 clamp（5.45）外在 1.1–2.7 mm。整块 ROI 被压成一张平面后大面积无覆盖。
+- **v25_atlas / v25_wta_atlas：两头都坏。** acc 2.1–8.2 mm 与 fusion_wta 同量级或略好；comp 3.0–14.4 mm 反而比 fusion_wta 差得多（gable 8.74 vs 2.95，scissor 14.41 vs 5.69，clamp 13.77 vs 5.13）。结论：atlas 层没有修正深度误差，却额外丢覆盖。
+- **restricted_point_move：几乎纯 completeness 失败。** acc 0.63–1.19 mm（接近 identity），comp 2.3–8.8 mm。原因见 §2。
+- **v25_gated_move：只有 completeness 变差。** acc 与 identity 差 ≤ 0.13 mm；comp 在结构区变差 0.2–1.8 mm。
+- **v25_depth_cc：** 相对 fusion_wta 提高 acc（1.2–6.8 mm）但 comp 崩溃（5.4–12.6 mm），因为只保留 ≥40 像素的深度连通域。
+
+---
+
+## 2. 点数与密度：少点、错点，还是两者
+
+评价后点数 `n_output_eval`（0.8 mm 去重后）相对 identity 的比例【事实】：
+
+| ROI | fusion_wta | restricted_point_move | v25_atlas | v25_depth_cc | v25_gated_move |
+|---|---|---|---|---|---|
+| window_left | 0.38 | 0.26 | 0.83 | 0.31 | 0.73 |
+| gable_center | 0.27 | 0.19 | 0.56 | 0.15 | 0.66 |
+| turret_join | 0.29 | 0.11 | 0.57 | 0.11 | 0.54 |
+| wall_control | 0.58 | 0.29 | 1.18 | 0.43 | 0.92 |
+| scissor_cross | 0.31 | 0.36 | 0.60 | 0.28 | 0.62 |
+| clamp_jaw | 0.20 | 0.18 | 0.50 | 0.09 | 0.39 |
+| driver_handle | 0.22 | 0.10 | 0.55 | 0.13 | 0.59 |
+| stone_control | 1.13 | 0.50 | 1.83 | 0.82 | 1.00 |
+
+结合 1 mm precision / recall【事实】：
+
+- identity 本身：precision 0.80–0.97，recall 0.66–0.998（gable 0.918、turret 0.971、stone 0.998）。这说明输入网格在这些 ROI 里在 1 mm 尺度上基本没有“局部错误”，只有 wall_control（recall 0.69，comp P95 26.6）和 scissor_cross（recall 0.66，comp P95 56.1）存在**覆盖空洞**而非错位表面。
+- fusion_wta：少点（0.2–0.6×）且错点（precision 0.15–0.57）。两者叠加。
+- v25_atlas：结构区点数 0.5–0.8×，precision 0.13–0.55，recall 0.08–0.41；控制区点数反而多（wall 1.18×，stone 1.83×），但 precision 仍只有 0.46 / 0.38。密度不是收益来源，错位才是。
+- restricted_point_move：98% 的点被移动（`n_moved`/`n_output`：37418/38296 等），中位位移 1.2–3.6 mm，但评价点数坍缩到 0.10–0.36×。【推断】几万个 identity 点吸附到几千个 WTA 点上，去重后合并，覆盖崩溃；被吸附到的 WTA 点本身精度不差（precision 0.68–0.93），所以 acc 变化小。这个“受限对照”测的是基数坍缩，不是“旧点深度修正”。
+- v25_gated_move：机制同上，见 §6。
+
+【推断】把损失归因：fusion_wta/atlas 是“少点 + 错点”；两个 move 臂是“少点”（坍缩伪影），几乎不含“错点”；restricted_single 是“少点”外加一张位置可能错的平面。
+
+---
+
+## 3. 父 ROI 与 core ROI
+
+identity 自身在 core 上的变化【事实】：
+
+| ROI | identity 父 | identity core | 变化 | 主要原因（acc / comp 变化） |
+|---|---|---|---|---|
+| window_left | 1.016 | 0.354 | −65% | comp 1.68→0.42，comp P95 9.2→0.83 |
+| gable_center | 0.540 | 0.576 | +7% | comp 0.68→0.75 |
+| turret_join | 0.452 | 0.436 | −4% | 基本不变 |
+| wall_control | 2.494 | 0.983 | −61% | comp 4.59→1.63，P95 26.6→10.9 |
+| scissor_cross | 4.477 | 0.929 | −79% | comp 8.26→1.18，P95 56.1→4.7 |
+| clamp_jaw | 0.829 | 0.964 | +16% | acc 0.88→1.06 |
+| driver_handle | 0.821 | 0.871 | +6% | acc 0.73→0.81 |
+| stone_control | 0.583 | 0.532 | −9% | acc 0.73→0.60 |
+
+【推断】identity 在 window/wall/scissor 上的大幅“改善”不是几何变化，而是 core AABB（`shrink_roi`：距质心最近 40% 网格点 + 2 mm pad）把网格没有覆盖的激光区域排除出参考集，completeness 尾巴消失。这印证了父 ROI 上这三处的 identity 损失是空洞而非错面。
+
+各臂在 core 上是否受益【事实】：
+
+- 没有任何臂在任一 core ROI 上胜过 identity。`v25_gated_move` 在 stone_control_core 上 `n_moved = 0`，输出哈希与 identity 相同（`06e5d31f…`），E_sym 完全相等 0.532。
+- v25_atlas 在 window_left_core 上从 2.942 降到 1.096（acc 2.85→1.32，comp 3.03→0.87，recall 0.41→0.76），是唯一显著受益的结构区，但仍是 identity（0.354）的 3.1 倍。同一 ROI 的第二峰比例也最低（0.26，见 §4），与 atlas 表现相对最好一致。
+- v25_atlas 在 turret_join_core 上反而从 7.738 恶化到 13.514（acc 8.19→11.33）。
+- fusion_wta 在 wall_control_core（2.817 vs identity 0.983）和 scissor_cross_core（4.228 vs 0.929）上的优势完全反转。父 ROI 上的两处“胜出”随空洞区域一起消失（§5）。
+
+结论【推断】：缩小支撑域没有系统性帮助任何替换式臂；它主要改变了参考区域，使 identity 的空洞损失退出评价。
+
+---
+
+## 4. fusion_wta 作为深度后端质量的代理
+
+### 4.1 量化步长（由 `evidence.json` 深度范围 × `scale_factor` ÷ 79 计算）【事实】
+
+| ROI | 深度范围 mm | 步长 mm | 均匀量化下 1 mm 内比例上界 (2/步长) | fusion_wta 实测 precision_1mm |
+|---|---|---|---|---|
+| window_left | 276.7 | 3.50 | 0.57 | 0.571 |
+| gable_center | 238.8 | 3.02 | 0.66 | 0.445 |
+| turret_join | 210.1 | 2.66 | 0.75 | 0.203 |
+| wall_control | 172.0 | 2.18 | 0.92 | 0.538 |
+| scissor_cross | 354.3 | 4.48 | 0.45 | 0.479 |
+| clamp_jaw | 268.3 | 3.40 | 0.59 | 0.149 |
+| driver_handle | 193.7 | 2.45 | 0.82 | 0.343 |
+| stone_control | 111.0 | 1.40 | 1.00 | 0.571 |
+| core（8 个） | 88.7–205.5 | 1.12–2.60 | 0.77–1.00 | 0.15–0.57 |
+
+【推断】即使匹配完美，步长 3.5 mm 的沿射线量化误差均匀分布在 ±1.75 mm，平均 |误差| ≈ 0.9 mm，与 identity 的 acc（0.35–0.88 mm）同量级，因此该后端在结构上不可能达到把 E_sym 压低 20% 所需的亚毫米精度。实测 precision 又普遍低于量化上界（turret 0.20 vs 0.75，clamp 0.15 vs 0.59），说明匹配误差远大于量化误差。scissor 的实测略高于上界属于正常：上界按沿射线误差计算，倾斜表面的点到面距离更小。
+
+### 4.2 GT-free 的后端可靠性指标【事实，来自侧车】
+
+| ROI | mean ZNCC | 第二峰比例 (n_second/n_first, ratio≥0.72, 间隔≥6 mm) | 6 mm 跳变连通域总数 / 最大连通域占有效像素 | fusion_wta precision_1mm |
+|---|---|---|---|---|
+| window_left | 0.556 | 0.37 | 3589 / 60% | 0.57 |
+| gable_center | 0.442 | 0.65 | 7065 / 4% | 0.45 |
+| turret_join | 0.422 | 0.71 | 7918 / 5% | 0.20 |
+| wall_control | 0.581 | 0.43 | 2795 / 65% | 0.54 |
+| scissor_cross | 0.585 | 0.44 | 3207 / 39% | 0.48 |
+| clamp_jaw | 0.534 | 0.78 | 6793 / 1.3% | 0.15 |
+| driver_handle | 0.560 | 0.75 | 4813 / 9% | 0.34 |
+| stone_control | 0.516 | 0.53 | 2909 / 41% | 0.57 |
+
+【推断】第二峰比例和连通域碎裂程度这两个不读 GT 的量与 GT 测得的 WTA 精度单调对应：gable/turret/clamp/driver 的 WTA 深度图在 6 mm 平滑度下被切成数千个碎片、最大连通域不到 10%，就是这些 ROI 上 fusion_wta/atlas 最差。这说明后端不可靠是可以在方法内部检测到的，而本轮没有利用这一信号做回退。
+
+### 4.3 identity 到 WTA 云的最近邻距离【事实】
+
+`restricted_point_move.median_move_mm`（覆盖 78–100% 的 identity 点）：window 1.76、gable 2.22、turret 3.03、wall 1.19、scissor 2.16、clamp 3.63、driver 2.67、stone 0.62 mm。【推断】这是 WTA 与网格分歧的下界（最近邻距离 ≤ 沿射线深度误差，且被 7.5 mm 截断），量级为 0.5–1 个量化步长，与量化主导的散布一致；atlas 侧车里各平面 `residual_rms_mm` 几乎全部落在 0.9–1.05（阈值 1.8 mm 下均匀散布的 RMS 上限约 1.04），说明“平面内点”是一层厚约 ±1.8 mm 的散布，而不是紧贴的表面。
+
+### 4.4 代码层面的后端缺陷【事实】
+
+- `select_views` 只按“看到的 ROI 网格点数”排序，`look` 向量算出后未使用；不考虑基线长度或视角差。所选源视图全是连续帧（0045–0048、0039–0042 等），彼此聚集。与参考视图 0022 的基线【未知】。
+- ZNCC 在各源视图上做等权平均（`acc/n_ok`），没有遮挡处理、没有 best-k 选择、没有跨视图几何一致性检查。`fusion_wta` 只是**单参考视图**的 WTA 深度反投影，不含任何“融合”步骤。
+- 平面扫描是参考相机的正平行平面 + 7×7 窗，对倾斜屋面/圆锥塔顶存在窗内视差不一致。
+- 合成验证只有单张正平行纹理平面（`textured_step_images` 注释：“A single fronto-parallel textured plane”），断言是“>50% 像素误差 <6 mm、中位数 <6 mm”；TASK 要求的“台阶小装置”没有测，且 `COMMANDS.md` 记录该测试“在改世界纹理后通过”。后端没有在任何地方被验证到 1 mm 尺度。
+- 所有 16 个 bundle 都用了 5 个视图，REPORT 写“3–5 个可见视图”属于笼统表述。
+
+REPORT 的结论“这套 ZNCC 深度本身不够准”**成立**，但不完整：它是两层失败中的一层，另一层在 §8。
+
+---
+
+## 5. 控制 ROI
+
+**scan24_wall_control**【事实】：identity acc 0.39 但 comp 4.59、comp P95 26.6、recall 0.69；overlay 显示 identity 点覆盖墙面外还包括一块地面/铺石三角区，AABB z 向跨度 74 mm。fusion_wta E_sym 2.297（−8%）来自 comp 4.59→2.43，而 acc 恶化 5.5 倍（0.39→2.17）、recall 从 0.69 降到 0.28、precision 从 0.96 降到 0.54。v25_wta_atlas 2.202（−12%）同样：acc 1.58，comp 2.83。【推断】这不是“平面纹理好所以匹配准”的信号，而是 WTA 在网格空洞处放了误差约 2–3 mm 的点，砍掉了 completeness 的长尾。wall_control_core 去掉空洞后（identity comp 1.63），fusion_wta 落到 2.817 vs 0.983，反转成立。
+
+**scan37_scissor_cross**（REPORT 把它与 wall 并列为 fusion_wta 胜出）：同一模式，comp 8.26→5.69、P95 56→17.7，acc 0.69→2.58；core 上反转（4.228 vs 0.929）。
+
+**scan37_stone_control**【事实】：identity 很干净（comp 0.43、recall 0.998）。fusion_wta acc 3.02、precision 0.57；v25_atlas acc 4.64、precision 0.38，点数 1.83×。步长只有 1.40 mm，量化不是主因；【推断】在一张纹理良好的平面上 WTA 仍有 43% 的点偏离 >1 mm、53% 像素有第二峰，直接说明匹配/视图选择环节本身不可靠。gated_move 只动了 6/3417 个点，0.5824 vs 0.5829 是数值噪声，“持平”是准确描述。
+
+结论：所谓 fusion_wta 的“标准光度融合信号”实际是**补洞**效应，只在 identity 有覆盖空洞的 ROI 出现，且以 accuracy 变差为代价；控制区没有任何臂在 accuracy 上接近 identity。
+
+---
+
+## 6. v25_gated_move
+
+移动比例【事实】（`n_moved/n_output`，门控 3–12 mm）：
+
+| ROI | 移动比例 | 中位位移 mm | E_sym 相对 identity | acc 变化 | comp 变化 | 点数比 |
+|---|---|---|---|---|---|---|
+| window_left | 30% | 4.5 | +25% | 0.35→0.38 | 1.68→2.16 | 0.73 |
+| gable_center | 38% | 4.8 | +74% | 0.40→0.39 | 0.68→1.50 | 0.66 |
+| turret_join | 52% | 4.4 | +124% | 0.45→0.54 | 0.46→1.49 | 0.54 |
+| wall_control | 9.8% | 3.5 | −3% | 0.39→0.42 | 4.59→4.42 | 0.92 |
+| scissor_cross | 41% | 6.0 | +1% | 0.69→0.63 | 8.26→8.44 | 0.62 |
+| clamp_jaw | 60% | 5.0 | +117% | 0.88→1.01 | 0.78→2.59 | 0.39 |
+| driver_handle | 44% | 4.4 | +49% | 0.73→0.79 | 0.91→1.65 | 0.59 |
+| stone_control | 0.18% (6 点) | 3.1 | −0.1% | 不变 | 不变 | 1.00 |
+
+【推断】“接近 identity”只在两个控制区成立，且确实是因为几乎没动。在结构区它动了 30–60% 的点，E_sym 却增加 25–124%；acc 几乎不变、precision 仍 ≥0.76，说明损失不是点落错位置，而是被移动的大量点吸附到少数 WTA 点后被去重合并（clamp：60% 的点移动，评价点数只剩 0.39×），recall 从 0.83 掉到 0.36。gated_move 因此没有测试“只改证据强烈不一致的旧点”这一想法本身，它测的是最近邻吸附 + 去重的坍缩。REPORT 与 `METHOD_LOCK.json` 的“大体保住 identity / mostly preserved identity”对 gable、turret、clamp 不成立。
+
+---
+
+## 7. 评价协议的隐含偏差
+
+1. **固定 AABB ∩ mask 对 identity 的偏向**【事实+推断】。AABB 是“照片框内网格点的世界坐标包围盒 + 4 mm”，参考激光取 AABB ∩ ObsMask。若网格在某处把结构压平或缺失，超出网格包围盒 4 mm 以外的真实激光点不进入参考集，identity 不为此受罚，其他臂在那里的正确点也被裁掉不计。因为 AABB 是世界轴对齐的大盒（z 向 74–129 mm），这一偏向只在盒的极端面起作用，估计影响有限，但方向确定。更大的问题是这种大盒把不属于目标结构的表面（wall_control 的地面、scissor_cross 的桌面）也纳入评价，使“控制”不纯。
+2. **mask 过滤不计惩罚，对 WTA 臂偏宽**【事实+推断】。`n_output_raw→n_output_roi` 的损失对 WTA 臂只来自 ObsMask（AABB 过滤已在构造端完成）：turret fusion_wta 丢 49%（identity 28%），window 19% vs 2%，gable 14% vs 0.3%，driver 27% vs 3.5%。落在未观测体积里的 WTA 点被静默删除、不计入 accuracy，因此 fusion_wta/atlas 的 acc 是偏乐观的估计。
+3. **0.8 mm 体素去重与 atlas 采样**【事实】。`sample_patch` 按 0.8 mm 网格采样，与体素同尺度，构造端与评价端各做一次 open3d 去重（格点原点随点云 min bound 变化），两次分别丢掉约 12–13% 采样点（identity 约 8%）。只影响点数，不改变均值量级；不是 atlas 失败的原因。
+4. **距离均值无截断**【事实】。acc/comp 是未截断的均值，被长尾主导（restricted_single comp P95 124 mm；identity wall comp P95 26.6）。这使得任何“补洞”都能靠砍尾巴改善 E_sym，即使 1 mm 内召回下降（§5 的两处“胜出”正是这样产生的）。
+5. **1000 mm 空输出罚**【事实】：128 行状态全部 `SCORED`，从未触发。
+6. **halo**【事实】：`configs/default.json` 有 `halo_mm: 8.0`，但 `src/` 与 `evaluation/` 中无任何引用；ACCEPTANCE B.1 的“评分内区 + 固定 halo”没有实现。
+7. **等点数/重复点诊断**【事实】：只有单元测试（重复点不加分），没有按 ACCEPTANCE B.6 对各臂做等点数对照。
+8. **overlay 的诊断力**【事实】：overlay 投影到参考视图 0022，而所有 WTA 派生臂的点来自 0022 的像素射线，投回 0022 必落在原像素上，因此这些 overlay 完全不反映深度误差，只反映裁块覆盖范围（图中 fusion_wta 的蓝点铺满方形裁块即此）。
+
+---
+
+## 8. 结果能证明什么、不能证明什么
+
+**能证明的**【事实】：在这 8+8 个 ROI 上，用“自研单参考视图 CPU ZNCC 正平行平面扫描（80 面、无细化、无遮挡处理、无一致性检查）+ ≤3 张全 ROI RANSAC 平面 + 3 mm 厚板支撑 + 网格重采样”这一具体实现，替换式输出全部差于 identity；identity 锁定是正确决策。
+
+**不能证明的**【推断】：
+
+- 不能证明“多表面、可变支撑再估计”这一想法不成立。原因有三：
+  - 后端精度（acc 2–9 mm）比 identity（0.35–0.88 mm）差一个量级；量化步长 1.1–4.5 mm 已经排除了亚毫米结果。
+  - 表示层是弱实例：一个 150–300 mm 跨度、含砖墙、窗框、凹槽、窗台的 ROI 被限制为最多 3 张无限平面的 3 mm 厚板；候选点被 3 张平面解释的比例在 turret 只有 32%，gable 52%，clamp 38%，其余丢弃；采样又把散布的内点铺成 1.9–2.4 倍的连续平面片。atlas 层相对自己的输入（fusion_wta）在 7/8 父 ROI 上进一步恶化 completeness，这是表示层独立于后端的失败。
+  - 开发 ROI 大多**不满足假说前件**。假说是“旧重建局部错误处”，而 identity 在结构区 1 mm precision 0.80–0.97、recall 0.66–0.97；唯一两处明显缺陷（wall、scissor）是空洞而不是错面。在没什么可修的地方，任何替换只能变差。
+- 两个 move 对照的实现方式（最近邻吸附 + 去重）使其结果不能解释为“旧点深度修正的上限”。
+
+**最有区分力的单个实验**（按效率排序）：
+
+1. **注入已知局部破坏的 identity 网格**（例如在 window_left 把凹槽压平 8–10 mm、在 turret 删除一个面片），保持评价域不变，看各臂能否恢复。这直接构造假说前件，且选择器不读 GT（破坏是人为已知的）。它回答“当确有错时 V25 的想法是否有用”，与后端质量分开。
+2. **官方 COLMAP（或 CPU 的 OpenMVS）深度接入同一 atlas/gated 代码**，先在 wall/stone 控制区确认新后端 fusion 等价物的 acc <1 mm、precision_1mm >0.8，再跑结构区。若 atlas 仍输给 identity，则问题在表示层；若 gated/atlas 在有空洞的 ROI 上胜出，则本轮失败主因是后端。
+3. **不读 GT 的深度质量检查**：以第二个参考视图（如 0042）重做 WTA，把两幅深度互投影，统计 |Δz| < 一个步长的比例；同时报告 §4.2 的第二峰比例和连通域碎裂度。这三个量在本轮数据里已经与 GT 精度单调对应，可作为方法内部的回退门控，成本接近零。
+4. 若继续用自研后端，最小改动是：平面数提到 ≥300 或做抛物线亚平面细化（步长降到 <1 mm）、按基线角选视图、ZNCC 用 best-2-of-4 聚合、把 point_move 改成沿射线按像素深度更新（保基数）。这些是后端修复，不是对假说的检验。
+
+---
+
+## 9. REPORT.md 与原始数字的不一致
+
+1. **“门控位移大体保住 identity”**（§1 第 4 点，`METHOD_LOCK.json` “mostly preserved identity”）：结构区 E_sym 增幅 +25%、+74%、+124%、+1%、+117%、+49%；只在两个控制区持平。
+2. **“fusion_wta 在 wall_control 与 scissor_cross 略优于 identity；这是标准光度融合信号”**（§4）：E_sym 数字正确，但两处的 acc 分别恶化 5.5× 和 3.7×，1 mm recall 分别从 0.69→0.28、0.66→0.13；优势全部来自 completeness 尾部，且在对应 core ROI 上反转（2.817 vs 0.983；4.228 vs 0.929）。REPORT 未提及反转。
+3. **“3–5 个可见视图”**（§3）：16 个 bundle 全部为 5 视图。
+4. **“先验证平面/台阶小装置的深度定位”**（TASK 3.A）与实际：只验证单张正平行平面，容差 6 mm；REPORT 未说明后端精度从未在 1 mm 尺度被验证，也未给出 1.1–4.5 mm 的量化步长。
+5. **“覆盖：restricted_single 的 laser 支撑仍在……这是公平评价”**（§6）：对 restricted_single 成立；但同一逻辑下，两个 move 臂的 completeness 损失来自实现导致的基数坍缩，REPORT 把它们当作对“旧点移动”想法的公平检验，这一点不成立。
+6. **“当前坏例更像是：这套 ZNCC 深度本身不够准，替换会丢掉已经较好的输入网格”**（§5）：前半句有数据支持；后半句正确但遗漏了 atlas 层独立丢覆盖、以及 ROI 本身几乎没有“局部错误”可修这两点。
+7. ACCEPTANCE 要求的 halo 分区（B.1）和等点数对照（B.6）未实现，REPORT §6 “主分在体素去重后计算”不等价于等点数对照。
+8. 表格数值本身（§4 八行五列）与 `RESULTS.csv` 逐项一致，`VERIFY.json` 128 行 `abs_delta` 全为 0；identity 召回 gable 0.92 / turret 0.97 与 CSV 一致（0.9178 / 0.9713）。
+
+**未知项**：源视图与 0022 的实际基线与视角；WTA 有效像素中落在 AABB 外的 36–63% 有多少是真实背景、多少是深度错误（方形裁块混淆了这一比例）；ObsMask 的体积形状对“落在未观测区的 WTA 点”所占比例的具体解释。这些需要读取 `/srv/slam-research` 下的相机与 mask 数据才能回答，本次未读。

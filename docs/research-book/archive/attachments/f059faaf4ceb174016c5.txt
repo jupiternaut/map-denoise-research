@@ -1,0 +1,466 @@
+可以。我已经按“论文外审 + 方法学审计 + 可复现性审计”的标准检查了你上传的 `map-denoise-research-main.zip`，并用相关点云去噪/三维重建文献作为外部参照。先给结论：**这个项目目前最有学术价值的部分，不是证明了一个更强的去噪算法，而是形成了一条相当严谨的“受控有效 → 真实场景迁移失败 → 修复搜索 → 再验证仍不足”的负结果证据链。** 如果按论文投稿标准，我会给 **Major Revision（大修）**；若论文声称“提出了性能领先的新型点云去噪方法”，目前证据不足；若重新定位成“关于多帧点云去噪泛化、评价泄漏和真实几何验证的系统实证研究”，反而更有发表潜力。
+
+## 一、总体学术评价
+
+我认为目前工作大致处于：
+
+**工程成熟度：8/10
+实验审计严谨度：8.5/10
+方法创新性：5/10
+真实场景有效性证据：4/10
+可复现性：6.5/10
+当前直接投稿成熟度：5.5–6/10**
+
+这里最值得肯定的是作者没有把负结果“包装成正结果”。README 和 V22 报告明确承认：
+
+> V20 恢复候选搜索能力，但“修复不等于新增精度收益”；
+> V21 真实网格迁移失败；
+> V22 在 scan37 上 MAE 相对 identity 仅改善约 **0.60%**，同时参考召回略降。
+
+这是非常重要的科研规范。
+
+特别是 scan37 的核心结果：
+
+| 方法               |   MAE / mm ↓ | 1 mm recall ↑ |
+| ---------------- | -----------: | ------------: |
+| Identity         |     0.437246 |   **92.358%** |
+| Frozen V18       |     0.459480 |       87.688% |
+| APSS2            |     0.436517 |       92.169% |
+| RIMLS2           |     0.437229 |       92.219% |
+| V22              |     0.434631 |       92.025% |
+| Constant damping | **0.434344** |       92.037% |
+
+这里其实暴露出了目前论文最核心的问题：
+
+**V22 虽然比“不处理”MAE好约0.598%，但并没有击败与其位移 RMS 匹配的简单常数阻尼对照。**
+
+因此现在不能有力证明：
+
+$$
+\text{V22结构设计}
+\quad\Rightarrow\quad
+\text{独特的几何恢复收益}
+$$
+
+更可能只能证明：
+
+$$
+\text{小幅移动点的位置}
+\quad\Rightarrow\quad
+\text{MAE出现约微米量级改善}
+$$
+
+而“为什么必须使用 V22 的局部曲面机制”目前尚未得到充分验证。
+
+---
+
+# 二、我认为最重要的审稿意见
+
+### 1. 最大问题不是数值小，而是 **effect attribution（收益归因）没有成立**
+
+V22 对 identity 的改善：
+
+$$
+0.437246-0.434631=0.002615\text{ mm}
+$$
+
+即约 **2.6 μm**。
+
+这个结果本身不能简单说“太小所以没意义”；统计显著性和工程意义是两个问题。但仓库自己已经正确指出，不能把这个均值差直接解释为已经获得了 2.6 μm 的物理精度。
+
+更严重的是：
+
+$$
+MAE_{\text{constant}}
+=0.434344
+<
+MAE_{\text{V22}}
+=0.434631.
+$$
+
+也就是说，同位移尺度的简单控制已经解释了几乎全部表观收益。
+
+这是当前最强的反证。
+
+审稿人很可能会问：
+
+> Is the improvement caused by the proposed geometric model, or simply by conservative shrinkage/smoothing?
+
+现在的证据更接近后者不能被排除。
+
+因此下一轮最值得做的不是继续增加 V23/V24 复杂度，而是做**机制消融实验**。
+
+至少应拆：
+
+$$
+\text{local geometry}
++\text{adaptive weighting}
++\text{multiscale correction}
++\text{displacement damping}.
+$$
+
+如果去掉前三项只留下 damping 后成绩不下降，那么论文的方法贡献需要重新定义。
+
+---
+
+### 2. V18 → V21 的失败其实非常有科研价值
+
+V18 在受控薄板条件下有效，但 V21 到真实网格发生明显退化。
+
+这不是应该隐藏的“失败实验”，而可能是整项研究最值得发表的发现之一。
+
+它说明：
+
+$$
+\text{synthetic / controlled improvement}
+\nRightarrow
+\text{real-scene improvement}.
+$$
+
+这与现代点云去噪研究里非常重要的 domain gap 问题高度相关。已有研究既包括传统统计/几何方法，也包括图卷积和学习型鲁棒去噪，例如 Pistilli 等人的鲁棒图卷积点云去噪，以及 Wolff 等针对 image-based reconstruction 的噪声与离群点处理工作。你的结果可以作为一个很好的实证案例：**局部表面假设在受控薄板上成立，并不保证迁移到复杂真实重建几何后仍成立。**
+
+因此建议论文不要组织成：
+
+> V1 → V2 → …… → V22，我们不断改进算法。
+
+更好的科研叙事是：
+
+$$
+\boxed{
+\text{Controlled success}
+\rightarrow
+\text{generalization failure}
+\rightarrow
+\text{failure diagnosis}
+\rightarrow
+\text{conservative reconstruction}
+\rightarrow
+\text{independent falsification}
+}
+$$
+
+这个故事比“又一个点云滤波器”更有辨识度。
+
+---
+
+### 3. 当前实验样本规模不足以支撑强泛化结论
+
+scan37：
+
+* 24 patches；
+* 每片 1024 points；
+* 总计 24,576 points；
+* 约占输入 mesh **3.13%**。
+
+问题不是24个 patch 完全不能发表，而是它们不能支持“真实3D地图普遍有效”这样的强结论。
+
+尤其点不是统计独立样本：
+
+$$
+n_{\text{points}}=24576
+$$
+
+绝对不能简单当作
+
+$$
+n=24576
+$$
+
+个独立实验。
+
+真正合理的统计单位至少应以 **patch / scene** 为层级。
+
+下一轮建议报告：
+
+$$
+\Delta_i =
+MAE_{method,i}-MAE_{identity,i}
+$$
+
+然后给出：
+
+* patch-level median；
+* mean；
+* bootstrap CI；
+* win/tie/loss；
+* effect-size distribution；
+* scene-level aggregation。
+
+这会比只报告总体均值强很多。
+
+---
+
+### 4. 指标体系仍然偏单薄
+
+当前 MAE + 1 mm recall + F-score 是合理起点，但点云去噪真正重要的一个问题是：
+
+> **是不是通过牺牲局部几何结构换取了距离下降？**
+
+尤其是薄板、边缘、交叉面、角点。
+
+建议加入至少三类指标：
+
+**距离指标**
+
+$$
+d(p,S_{GT})
+$$
+
+包括 MAE、RMSE、quantile error。
+
+**法向指标**
+
+$$
+e_n
+=
+\arccos
+\left(
+|\mathbf n_p^\top \mathbf n_{GT}|
+\right)
+$$
+
+用于检测过度平滑。
+
+**结构保持指标**
+
+例如：
+
+* edge preservation；
+* thickness bias；
+* surface-to-surface distance；
+* completeness；
+* local curvature distortion。
+
+否则一个滤波器完全可能降低平均距离，却把尖锐结构磨平。
+
+---
+
+# 三、方法创新性的评价
+
+这里需要比较严格。
+
+V22 自己称其属于经典 MLS / local polynomial regression 构造，而且没有声称新的数学原理——**这个定位是正确的。**
+
+从相关文献看，点云去噪已经包含统计去噪、双边滤波、MLS/APSS/RIMLS、图信号/图卷积、Gaussian-process 类方法以及深度学习方法。例如：
+
+*Wolff, K., Kim, C., Zimmer, H., Schroers, C., et al. (2016). Point cloud noise and outlier removal for image-based 3D reconstruction. 3DV. [IEEE](https://ieeexplore.ieee.org/abstract/document/7785084/)*
+
+*Pistilli, F., Fracastoro, G., Valsesia, D., et al. (2020). Learning robust graph-convolutional representations for point cloud denoising. IEEE Transactions on Signal Processing. [IEEE](https://ieeexplore.ieee.org/abstract/document/9309029/)*
+
+*Kim, I., & Singh, S. K. (2025). 3D point cloud denoising via Gaussian processes regression. The Visual Computer. [Springer](https://link.springer.com/article/10.1007/s00371-025-04049-7)*
+
+以及更广泛的 MVS / reconstruction 文献也长期涉及后处理、outlier filtering 和 bilateral-type refinement。
+
+因此如果论文贡献写成：
+
+> “We propose a novel local surface denoising algorithm.”
+
+审稿风险很高。
+
+更合理的贡献声明可能是：
+
+> **提出并验证一套面向多帧地图去噪的、带数据隔离和真实几何闭环的评价框架，并揭示受控合成收益在真实重建场景中的显著泛化失效。**
+
+然后把 V18/V22 当成这个研究框架中的 probe methods，而不是论文唯一贡献。
+
+这样创新性反而更容易成立。
+
+---
+
+# 四、实验规范方面表现很好
+
+这部分是我认为仓库明显高于普通学生项目的地方。
+
+你已经有：
+
+* source lock；
+* sealed-before-GT；
+* confirmation/development 分离；
+* SHA256 manifest；
+* independent review；
+* historical failure preservation；
+* 防覆盖输出；
+* post-hoc oracle 明确标记；
+* data provenance；
+* verification exception 明示。
+
+尤其这句话非常重要：
+
+> 后验使用 GT 选择完整候选池，不能作为可部署算法成绩。
+
+这是正确处理 oracle leakage 的方式。
+
+另外，APSS 历史重放差异约 0.001318 mm，而不是为了让测试通过直接放宽 tolerance，也属于比较好的研究工程规范。
+
+所以从 **research integrity / experimental provenance** 看，我会给很高评价。
+
+---
+
+# 五、可复现性仍然只能算“部分可复现”
+
+仓库说明对此也比较诚实。
+
+目前 GitHub 快照没有：
+
+* 原始完整点云；
+* 完整逐点预测；
+* 历史运行环境；
+* 部分模型权重；
+* `/srv/...` 下实验数据；
+* 若干历史绝对路径依赖。
+
+因此属于：
+
+$$
+\text{code reproducibility}
+>
+\text{result reproducibility}.
+$$
+
+外部研究者可以检查算法、测试和结果证据，却不一定能从零复现论文所有表格。
+
+如果准备投稿，建议最终制作一个最小 reproduction bundle：
+
+```text
+reproduce/
+    environment.yml
+    download_data.py
+    prepare_scan37.py
+    run_baselines.py
+    run_v22.py
+    evaluate.py
+    make_tables.py
+    make_figures.py
+```
+
+并要求最终：
+
+```bash
+python reproduce_all.py
+```
+
+至少能够重新产生主论文 Table 1 / Figure 3 等核心结果。
+
+---
+
+# 六、一个需要特别重视的问题：V1 历史报告仍很容易被误引用
+
+`PILOT_REPORT.md` 已经非常明确写：
+
+> 历史 V1 报告，不是当前有效结论。
+
+这是正确的。
+
+但它下面仍保留大量看起来很“漂亮”的数值，比如：
+
+* 444/444 成功；
+* ICP 层数计数；
+* fast 旋转敏感性；
+* 约 4 cm 改写等。
+
+后来 V2 已经推翻其中部分因果解释。
+
+因此正式论文中**不要按照工程版本史叙述所有结果**。
+
+论文只应该引用最终有效的证据链。
+
+V1/V2 这种内容放 Supplementary 的：
+
+> Evaluation protocol corrections and invalidated preliminary analyses
+
+会更安全。
+
+---
+
+# 七、我建议重新定义论文研究问题
+
+现在最适合形成三个 RQ：
+
+**RQ1：受控多层/多帧条件下获得的去噪收益，能否迁移到真实三维重建？**
+
+目前答案：
+
+$$
+\boxed{\text{不能稳定迁移}}
+$$
+
+**RQ2：迁移失败主要来自候选搜索失败，还是局部几何模型本身的 domain mismatch？**
+
+V20 表明搜索退化确实存在，但修复搜索后没有带来新的真实场景优势，因此：
+
+$$
+\boxed{\text{search failure不是唯一原因}}
+$$
+
+**RQ3：更保守的局部曲面更新是否能够恢复真实场景收益？**
+
+V22：
+
+$$
+\boxed{
+MAE略有改善，
+但未优于matched damping control，
+且recall略下降
+}
+$$
+
+这三个 RQ 连起来，已经是一篇相当完整的 empirical paper。
+
+---
+
+# 八、与相关研究的关系
+
+此次检索到的相关工作还包括 ETH3D/MVS、深度估计和重建后处理研究。例如：
+
+*Yang, H. C., Chen, P. H., Chen, K. W., Lee, C. Y., et al. (2020). FADE: Feature aggregation for depth estimation with multi-view stereo. IEEE Transactions on Image Processing. [IEEE](https://ieeexplore.ieee.org/abstract/document/9099063/)*
+
+*Song, B., Wu, B., Xiao, J., Hu, X., Shi, J., & Zhang, B. (2025). 3D Reconstruction based on multi-view stereo in the deep learning era: a survey and comparison of methods. The Visual Computer. [Springer](https://link.springer.com/article/10.1007/s00371-025-04184-1)*
+
+*Mallick, A. (2024). Advancing Multi-View Scene Interpretation: Leveraging Deep Learning for Optimized Input Image Analysis. University of Tübingen. [PDF](https://bibliographie.uni-tuebingen.de/xmlui/bitstream/handle/10900/170931/Arijit_Mallick_dissertation.pdf?sequence=1)*
+
+*Xia, Y. (2022). Deep learning based dense matching optimization in remote sensing. DLR. [PDF](https://elib.dlr.de/192168/1/dissertation_Yuanxin_Deep_Learning_based_DM_Optimization_in_RS.pdf)*
+
+以及近期点云噪声综述：
+
+*Menéndez, A. G. (2026). Unraveling Noise in 3D Point Clouds: A Comprehensive Survey. TechRxiv. [Link](https://www.techrxiv.org/doi/abs/10.36227/techrxiv.177281447.78646347/v1)*
+
+这些文献共同说明一个问题：**去噪并不只是把 point-to-reference distance 做小，而需要同时处理 outlier、surface preservation、edge preservation、重建误差与真实传感器噪声之间的差异。**
+
+这恰好支持你现在把论文转向“泛化与评价有效性”方向。
+
+---
+
+# 九、模拟审稿决定
+
+如果我是审稿人，我会写：
+
+> **Decision: Major Revision**
+>
+> The work demonstrates unusually careful experimental provenance, leakage control, negative-result reporting, and progressive validation. However, the current evidence does not establish that the proposed V22 operator provides a method-specific improvement over simpler displacement-matched controls. The improvement over the identity baseline is small (~0.6% MAE on scan37), accompanied by a slight recall degradation, and the constant-damping control performs comparably or marginally better. The number and diversity of independently evaluated real scenes are also insufficient for broad claims regarding real-world map denoising.
+>
+> The strongest contribution may therefore lie not in a new state-of-the-art denoiser, but in the systematic demonstration that controlled thin-surface gains fail to transfer reliably to real reconstruction geometry, together with an unusually rigorous protocol for diagnosing such failures.
+
+我的评分倾向会是：
+
+**Weak Reject → Major Revision 边界。**
+
+但如果把论文问题重新定位，并补上 **多真实场景 + matched-control消融 + patch/scene层级统计 + 几何保持指标**，我认为是有机会明显提升的。
+
+---
+
+# 十、下一步优先级
+
+现在**不要急着做 V23 更复杂模型**。最优先的四件事是：
+
+1. **扩充独立真实场景**：至少多个 scan / 多种结构，而不是只增加同一 scene 的 point 数量。
+2. **做 matched-control ablation**：证明 V22 到底有没有超越“保守移动点”本身。
+3. **加入 patch-level CI / effect size / win-rate**，避免只看平均 MAE。
+4. **加入 normal / edge / thickness preservation**，验证 MAE 改善是否以结构损伤为代价。
+
+如果这四项之后 V22 仍然和 constant damping 持平，也不代表项目失败。那时论文可以非常清楚地得出一个更有价值的结论：
+
+> **在受控多帧薄表面上观察到的模型化去噪优势，在真实重建几何上主要退化为保守平滑收益；复杂局部模型没有表现出超越位移匹配简单对照的稳定优势。**
+
+这其实是一个可以被同行复核、也能影响后续算法设计的科研结论。
+
+另外，你这个项目很适合用 Zotero 把点云去噪、MLS/RIMLS、MVS/ETH3D 和 domain-gap 文献建立成系统引用库；ChatGPT 可以直接连接 Zotero 来继续做逐篇文献对照和引用

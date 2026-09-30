@@ -1,0 +1,1680 @@
+{
+  "status": "PASS_DETERMINISTIC_CHECKS_ONLY",
+  "semantic_review": "separate same-family provisional review",
+  "created_utc": "2026-09-30T18:19:42.117041+00:00",
+  "host": "liekkas",
+  "root": "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z",
+  "verifier_sha256": "9903555bb1a54a574a7c7fa5ee43ce81db77613353d88b99d2a148a4c982ae40",
+  "elapsed_seconds": 6.355599535978399,
+  "distance_algorithm": "All finite CPU/photo/geo points versus every reference vertex using scipy cdist sqeuclidean in blocks; no KD tree; fallback recomputed from validity only.",
+  "reference_reader": "Independent strict binary little-endian 27-byte vertex layout, direct strided NumPy read after exact header/size checks.",
+  "unique_bound_files_verified_before_and_after": 145,
+  "artifact_hashes": {
+    "evaluation/RESULTS.json": "ef68340f88a28f1976f9946edcccefce011b5489113ee2fc9d7bebdbf577fa6d",
+    "evaluation/POINT_METRICS.csv": "77ad52c539cea847709055caf6de4a4e290ad34eeb0fd8491cec1eacc193432c",
+    "evaluation/ROI_METRICS.csv": "486731efce92780093258c8591ec2164063a5c8357646a1eb4f4220531cb6974",
+    "evaluation/TAIL_METRICS.csv": "0313b5f77c052f4f95548d42b38d01294ea230560a337306301bde6ca95c1575",
+    "evaluation/BRUTE_FORCE_CHECK.json": "ce6056dfb9c80b2d7e08386be57f7b41a70c865116a61f2521de33e9a59ed626",
+    "references/MANIFEST.json": "c1a2f3b4b09c107e005180e07ecd215bf2d113706be12eb7d648077dc8e0a266",
+    "PREDICTIONS_SEALED.json": "35768cb906b281bfc04e263ae3c3d62c305a010bddd5340ddc7b9449c8ad2f1d",
+    "EVALUATION.log": "36a78d5080b913f8a27a4120bf0881472d178860f9ad588c804affaf72992d0b",
+    "MVS_RUN.log": "004f81ac345b52e79f54495321c82e88970e69af1e2fdbd04908bb4919ae67d4"
+  },
+  "reference_checks": [
+    {
+      "scene": 118,
+      "vertices": 3086735,
+      "bytes": 83342093,
+      "crc32": 3008898086,
+      "sha256": "c4183cf7cc08ba7b949da6c4c27d06e7cd6f853142cb7396089cf56ccbcacfe8",
+      "header_bytes": 248,
+      "vertex_stride_bytes": 27,
+      "mtime_ns": 1790791923800448460,
+      "metadata_member": {
+        "name": "Points/stl/stl118_total.ply",
+        "bytes": 83342093,
+        "compressed_bytes": 47558140,
+        "crc32": 3008898086
+      }
+    },
+    {
+      "scene": 122,
+      "vertices": 2731197,
+      "bytes": 73742567,
+      "crc32": 2738697435,
+      "sha256": "5000b8a6cb47eb028038e94c7a9a85a3ebb7045922d8f798d924a0c01b2c202a",
+      "header_bytes": 248,
+      "vertex_stride_bytes": 27,
+      "mtime_ns": 1790792041695835501,
+      "metadata_member": {
+        "name": "Points/stl/stl122_total.ply",
+        "bytes": 73742567,
+        "compressed_bytes": 41919753,
+        "crc32": 2738697435
+      }
+    }
+  ],
+  "seal_created_utc": "2026-09-30T18:09:07Z",
+  "reference_manifest_created_utc": "2026-09-30T18:14:01Z",
+  "seal_sha256": "35768cb906b281bfc04e263ae3c3d62c305a010bddd5340ddc7b9449c8ad2f1d",
+  "point_rows_verified": 2560,
+  "roi_rows_verified": 40,
+  "tail_rows_verified": 8,
+  "exhaustive_point_queries": 1457,
+  "maximum_absolute_saved_distance_difference_mm": 0.0,
+  "summary": [
+    {
+      "method": "CPU",
+      "roi_equal_mse_mm2": 168.98745954074596,
+      "roi_equal_mae_mm": 4.947535969481844,
+      "common_n": 484,
+      "correct_1mm": 370,
+      "wrong_5mm": 90
+    },
+    {
+      "method": "photo_fallback",
+      "roi_equal_mse_mm2": 247.71447362844347,
+      "roi_equal_mae_mm": 2.436197042505337,
+      "common_n": 484,
+      "correct_1mm": 436,
+      "wrong_5mm": 19
+    },
+    {
+      "method": "geo_fallback",
+      "roi_equal_mse_mm2": 72.80296574696558,
+      "roi_equal_mae_mm": 1.9999662617583838,
+      "common_n": 484,
+      "correct_1mm": 441,
+      "wrong_5mm": 26
+    }
+  ],
+  "scenes": {
+    "118": [
+      {
+        "method": "CPU",
+        "roi_equal_mse_mm2": 250.9814214499067,
+        "roi_equal_mae_mm": 6.792147125056669,
+        "common_n": 235,
+        "correct_1mm": 165,
+        "wrong_5mm": 56
+      },
+      {
+        "method": "photo_fallback",
+        "roi_equal_mse_mm2": 245.4380488871764,
+        "roi_equal_mae_mm": 2.8200444786292582,
+        "common_n": 235,
+        "correct_1mm": 210,
+        "wrong_5mm": 13
+      },
+      {
+        "method": "geo_fallback",
+        "roi_equal_mse_mm2": 100.5771497068771,
+        "roi_equal_mae_mm": 2.502920031715128,
+        "common_n": 235,
+        "correct_1mm": 213,
+        "wrong_5mm": 14
+      }
+    ],
+    "122": [
+      {
+        "method": "CPU",
+        "roi_equal_mse_mm2": 86.99349763158523,
+        "roi_equal_mae_mm": 3.102924813907019,
+        "common_n": 249,
+        "correct_1mm": 205,
+        "wrong_5mm": 34
+      },
+      {
+        "method": "photo_fallback",
+        "roi_equal_mse_mm2": 249.99089836971055,
+        "roi_equal_mae_mm": 2.0523496063814157,
+        "common_n": 249,
+        "correct_1mm": 226,
+        "wrong_5mm": 6
+      },
+      {
+        "method": "geo_fallback",
+        "roi_equal_mse_mm2": 45.02878178705406,
+        "roi_equal_mae_mm": 1.4970124918016399,
+        "common_n": 249,
+        "correct_1mm": 228,
+        "wrong_5mm": 12
+      }
+    ]
+  },
+  "relative_roi_equal_mse_improvement": {
+    "photo_fallback": -0.46587488977970576,
+    "geo_fallback": 0.569181252000469
+  },
+  "scene_relative_roi_equal_mse_improvement": {
+    "118": {
+      "photo_fallback": 0.022086784474749252,
+      "geo_fallback": 0.599264562588545
+    },
+    "122": {
+      "photo_fallback": -1.8736733799164424,
+      "geo_fallback": 0.4823891093820649
+    }
+  },
+  "tail_totals": {
+    "photo": {
+      "baseline_valid": 484,
+      "improved": 279,
+      "worsened": 201,
+      "unchanged": 4,
+      "old_good_1mm": 370,
+      "old_good_harmed_beyond_1mm": 15,
+      "old_wrong_5mm": 90,
+      "rescued_5mm": 73,
+      "rescued_1mm": 63,
+      "newly_supported": 27,
+      "newly_supported_correct_1mm": 21
+    },
+    "geo": {
+      "baseline_valid": 484,
+      "improved": 262,
+      "worsened": 185,
+      "unchanged": 37,
+      "old_good_1mm": 370,
+      "old_good_harmed_beyond_1mm": 6,
+      "old_wrong_5mm": 90,
+      "rescued_5mm": 64,
+      "rescued_1mm": 59,
+      "newly_supported": 19,
+      "newly_supported_correct_1mm": 15
+    }
+  },
+  "branch_contributions": [
+    {
+      "roi": "scan118_upper_fold",
+      "scene": 118,
+      "method": "photo_fallback",
+      "branch": "mvs_replaced",
+      "n": 113,
+      "sum_squared_error_mm2": 47232.05433772328,
+      "roi_equal_mse_contribution_mm2": 101.79322055543811
+    },
+    {
+      "roi": "scan118_upper_fold",
+      "scene": 118,
+      "method": "photo_fallback",
+      "branch": "cpu_retained",
+      "n": 3,
+      "sum_squared_error_mm2": 8557.494718266924,
+      "roi_equal_mse_contribution_mm2": 18.44287654798906
+    },
+    {
+      "roi": "scan118_upper_fold",
+      "scene": 118,
+      "method": "geo_fallback",
+      "branch": "mvs_replaced",
+      "n": 102,
+      "sum_squared_error_mm2": 10.317640357803084,
+      "roi_equal_mse_contribution_mm2": 0.02223629387457561
+    },
+    {
+      "roi": "scan118_upper_fold",
+      "scene": 118,
+      "method": "geo_fallback",
+      "branch": "cpu_retained",
+      "n": 14,
+      "sum_squared_error_mm2": 15624.308041703473,
+      "roi_equal_mse_contribution_mm2": 33.67307767608507
+    },
+    {
+      "roi": "scan118_base_ridge",
+      "scene": 118,
+      "method": "photo_fallback",
+      "branch": "mvs_replaced",
+      "n": 119,
+      "sum_squared_error_mm2": 1181.8734139166556,
+      "roi_equal_mse_contribution_mm2": 2.482927340161041
+    },
+    {
+      "roi": "scan118_base_ridge",
+      "scene": 118,
+      "method": "photo_fallback",
+      "branch": "cpu_retained",
+      "n": 0,
+      "sum_squared_error_mm2": 0.0,
+      "roi_equal_mse_contribution_mm2": 0.0
+    },
+    {
+      "roi": "scan118_base_ridge",
+      "scene": 118,
+      "method": "geo_fallback",
+      "branch": "mvs_replaced",
+      "n": 113,
+      "sum_squared_error_mm2": 25.16438528939684,
+      "roi_equal_mse_contribution_mm2": 0.05286635564999336
+    },
+    {
+      "roi": "scan118_base_ridge",
+      "scene": 118,
+      "method": "geo_fallback",
+      "branch": "cpu_retained",
+      "n": 6,
+      "sum_squared_error_mm2": 7873.227795246561,
+      "roi_equal_mse_contribution_mm2": 16.54039452782891
+    },
+    {
+      "roi": "scan122_feather",
+      "scene": 122,
+      "method": "photo_fallback",
+      "branch": "mvs_replaced",
+      "n": 126,
+      "sum_squared_error_mm2": 58385.27824439725,
+      "roi_equal_mse_contribution_mm2": 115.84380604047072
+    },
+    {
+      "roi": "scan122_feather",
+      "scene": 122,
+      "method": "photo_fallback",
+      "branch": "cpu_retained",
+      "n": 0,
+      "sum_squared_error_mm2": 0.0,
+      "roi_equal_mse_contribution_mm2": 0.0
+    },
+    {
+      "roi": "scan122_feather",
+      "scene": 122,
+      "method": "geo_fallback",
+      "branch": "mvs_replaced",
+      "n": 122,
+      "sum_squared_error_mm2": 17.551557741101746,
+      "roi_equal_mse_contribution_mm2": 0.03482451932758283
+    },
+    {
+      "roi": "scan122_feather",
+      "scene": 122,
+      "method": "geo_fallback",
+      "branch": "cpu_retained",
+      "n": 4,
+      "sum_squared_error_mm2": 2156.631429317392,
+      "roi_equal_mse_contribution_mm2": 4.279030613724983
+    },
+    {
+      "roi": "scan122_book_edge",
+      "scene": 122,
+      "method": "photo_fallback",
+      "branch": "mvs_replaced",
+      "n": 122,
+      "sum_squared_error_mm2": 2752.567471395809,
+      "roi_equal_mse_contribution_mm2": 5.594649332105304
+    },
+    {
+      "roi": "scan122_book_edge",
+      "scene": 122,
+      "method": "photo_fallback",
+      "branch": "cpu_retained",
+      "n": 1,
+      "sum_squared_error_mm2": 1750.04095564139,
+      "roi_equal_mse_contribution_mm2": 3.5569938122792477
+    },
+    {
+      "roi": "scan122_book_edge",
+      "scene": 122,
+      "method": "geo_fallback",
+      "branch": "mvs_replaced",
+      "n": 110,
+      "sum_squared_error_mm2": 15.81460253258199,
+      "roi_equal_mse_contribution_mm2": 0.03214350108248372
+    },
+    {
+      "roi": "scan122_book_edge",
+      "scene": 122,
+      "method": "geo_fallback",
+      "branch": "cpu_retained",
+      "n": 13,
+      "sum_squared_error_mm2": 8938.848991620853,
+      "roi_equal_mse_contribution_mm2": 18.16839225939198
+    }
+  ],
+  "largest_error_concentration": {
+    "CPU": {
+      "top1_fraction_of_roi_equal_mse": 0.07819006547046452,
+      "top3_fraction_of_roi_equal_mse": 0.1885005334699855,
+      "top5_fraction_of_roi_equal_mse": 0.2826942253382642,
+      "top10_fraction_of_roi_equal_mse": 0.4434319469036681
+    },
+    "photo_fallback": {
+      "top1_fraction_of_roi_equal_mse": 0.4146153743940142,
+      "top3_fraction_of_roi_equal_mse": 0.7948235629419124,
+      "top5_fraction_of_roi_equal_mse": 0.8740760192930864,
+      "top10_fraction_of_roi_equal_mse": 0.9733351047091436
+    },
+    "geo_fallback": {
+      "top1_fraction_of_roi_equal_mse": 0.12622254176997053,
+      "top3_fraction_of_roi_equal_mse": 0.3448613366359294,
+      "top5_fraction_of_roi_equal_mse": 0.50844688860279,
+      "top10_fraction_of_roi_equal_mse": 0.7701230240803715
+    }
+  },
+  "largest_errors": {
+    "CPU": [
+      {
+        "scene": 118,
+        "roi": "scan118_base_ridge",
+        "query": 57,
+        "u": 316,
+        "v": 480,
+        "method": "CPU",
+        "distance_mm": 79.30608356226475,
+        "cpu_distance_mm": 79.30608356226475,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          128.48038997854405,
+          26.403651654713798,
+          635.3390207259331
+        ],
+        "nearest_reference_vertex": 2757478,
+        "nearest_reference_xyz_mm": [
+          50.068782806396484,
+          25.972475051879883,
+          623.4693603515625
+        ],
+        "roi_n": 119,
+        "roi_equal_mse_contribution_mm2": 13.213140525178401,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.07819006547046452
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_base_ridge",
+        "query": 2,
+        "u": 300,
+        "v": 400,
+        "method": "CPU",
+        "distance_mm": 67.07469070219761,
+        "cpu_distance_mm": 67.07469070219761,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          115.210389712564,
+          19.0065494416622,
+          608.2951173656369
+        ],
+        "nearest_reference_vertex": 2112818,
+        "nearest_reference_xyz_mm": [
+          50.067691802978516,
+          24.46853256225586,
+          623.3154296875
+        ],
+        "roi_n": 119,
+        "roi_equal_mse_contribution_mm2": 9.451710363015705,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.05593143058486375
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_base_ridge",
+        "query": 94,
+        "u": 356,
+        "v": 480,
+        "method": "CPU",
+        "distance_mm": 66.13730175360702,
+        "cpu_distance_mm": 66.13730175360702,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          111.51013104510554,
+          17.88750294334301,
+          652.3373411063274
+        ],
+        "nearest_reference_vertex": 2096879,
+        "nearest_reference_xyz_mm": [
+          46.44637680053711,
+          20.652326583862305,
+          663.8788452148438
+        ],
+        "roi_n": 119,
+        "roi_equal_mse_contribution_mm2": 9.189375384974097,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.054379037414657216
+      },
+      {
+        "scene": 122,
+        "roi": "scan122_book_edge",
+        "query": 124,
+        "u": 366,
+        "v": 416,
+        "method": "CPU",
+        "distance_mm": 64.4760585944637,
+        "cpu_distance_mm": 64.4760585944637,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          118.17045407237765,
+          -0.6145505697764548,
+          624.7184977889717
+        ],
+        "nearest_reference_vertex": 905265,
+        "nearest_reference_xyz_mm": [
+          58.4492301940918,
+          -3.8136494159698486,
+          648.8079833984375
+        ],
+        "roi_n": 123,
+        "roi_equal_mse_contribution_mm2": 8.449516528204706,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.05000084947822636
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 25,
+        "u": 268,
+        "v": 252,
+        "method": "CPU",
+        "distance_mm": 58.86568423738998,
+        "cpu_distance_mm": 58.86568423738998,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          86.3244894213451,
+          7.211307069459892,
+          559.4334284376181
+        ],
+        "nearest_reference_vertex": 2518863,
+        "nearest_reference_xyz_mm": [
+          40.03984832763672,
+          -13.106697082519531,
+          589.6009521484375
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 7.468036165379532,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.044192842390052334
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 62,
+        "u": 260,
+        "v": 324,
+        "method": "CPU",
+        "distance_mm": 56.09728356209796,
+        "cpu_distance_mm": 56.09728356209796,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          90.35626968646005,
+          23.77133655003587,
+          583.3548984042354
+        ],
+        "nearest_reference_vertex": 2784931,
+        "nearest_reference_xyz_mm": [
+          49.815277099609375,
+          25.53142547607422,
+          622.0877685546875
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 6.78212332553109,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.04013388534251441
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_base_ridge",
+        "query": 112,
+        "u": 292,
+        "v": 448,
+        "method": "CPU",
+        "distance_mm": 50.7973064445241,
+        "cpu_distance_mm": 50.7973064445241,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          98.39049425868978,
+          37.19305234834195,
+          634.5056221035247
+        ],
+        "nearest_reference_vertex": 1676874,
+        "nearest_reference_xyz_mm": [
+          49.845664978027344,
+          27.16068458557129,
+          623.4097900390625
+        ],
+        "roi_n": 119,
+        "roi_equal_mse_contribution_mm2": 5.4209376933169935,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.032078934780423195
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_base_ridge",
+        "query": 54,
+        "u": 420,
+        "v": 400,
+        "method": "CPU",
+        "distance_mm": 49.9055482315187,
+        "cpu_distance_mm": 49.9055482315187,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          83.92049799936655,
+          -14.770765522740362,
+          646.4888683121808
+        ],
+        "nearest_reference_vertex": 3025268,
+        "nearest_reference_xyz_mm": [
+          40.45429611206055,
+          9.675594329833984,
+          648.3937377929688
+        ],
+        "roi_n": 119,
+        "roi_equal_mse_contribution_mm2": 5.232276773715209,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.030962515135353055
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_base_ridge",
+        "query": 52,
+        "u": 348,
+        "v": 488,
+        "method": "CPU",
+        "distance_mm": 49.402810094579685,
+        "cpu_distance_mm": 49.402810094579685,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          95.41954230958822,
+          27.14642239298462,
+          663.5731903668034
+        ],
+        "nearest_reference_vertex": 2096879,
+        "nearest_reference_xyz_mm": [
+          46.44637680053711,
+          20.652326583862305,
+          663.8788452148438
+        ],
+        "roi_n": 119,
+        "roi_equal_mse_contribution_mm2": 5.127390011010724,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.030341837346660724
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_base_ridge",
+        "query": 67,
+        "u": 244,
+        "v": 456,
+        "method": "CPU",
+        "distance_mm": 46.79281306011141,
+        "cpu_distance_mm": 46.79281306011141,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          77.06509802133769,
+          63.44835423101895,
+          639.8346572615043
+        ],
+        "nearest_reference_vertex": 2945637,
+        "nearest_reference_xyz_mm": [
+          45.07022476196289,
+          33.83474349975586,
+          622.8367309570312
+        ],
+        "roi_n": 119,
+        "roi_equal_mse_contribution_mm2": 4.599931416131373,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.02722054896045257
+      }
+    ],
+    "photo_fallback": [
+      {
+        "scene": 122,
+        "roi": "scan122_feather",
+        "query": 33,
+        "u": 472,
+        "v": 200,
+        "method": "photo_fallback",
+        "distance_mm": 227.5168994383532,
+        "cpu_distance_mm": 38.118060875422806,
+        "branch": "mvs_replaced",
+        "xyz_mm": [
+          295.3535729473642,
+          -91.37137755708797,
+          492.32841684137276
+        ],
+        "nearest_reference_vertex": 2688302,
+        "nearest_reference_xyz_mm": [
+          67.98638153076172,
+          -84.87944030761719,
+          487.2338562011719
+        ],
+        "roi_n": 126,
+        "roi_equal_mse_contribution_mm2": 102.70622922627325,
+        "roi_equal_mse_gain_contribution_mm2": -99.82331937527636,
+        "fraction_of_roi_equal_mse": 0.4146153743940142
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 117,
+        "u": 508,
+        "v": 284,
+        "method": "photo_fallback",
+        "distance_mm": 194.11798559927269,
+        "cpu_distance_mm": 42.487742647503964,
+        "branch": "mvs_replaced",
+        "xyz_mm": [
+          249.73149878802184,
+          -85.15249008197374,
+          536.644183173845
+        ],
+        "nearest_reference_vertex": 1696618,
+        "nearest_reference_xyz_mm": [
+          58.22883605957031,
+          -93.29375457763672,
+          567.3401489257812
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 81.21075933861948,
+        "roi_equal_mse_gain_contribution_mm2": -77.32022426258386,
+        "fraction_of_roi_equal_mse": 0.3278401869259793
+      },
+      {
+        "scene": 122,
+        "roi": "scan122_feather",
+        "query": 111,
+        "u": 464,
+        "v": 192,
+        "method": "photo_fallback",
+        "distance_mm": 80.8581797111494,
+        "cpu_distance_mm": 8.374063515397312,
+        "branch": "mvs_replaced",
+        "xyz_mm": [
+          144.57009330860518,
+          -75.75697447273602,
+          549.0880092744155
+        ],
+        "nearest_reference_vertex": 846454,
+        "nearest_reference_xyz_mm": [
+          65.40994262695312,
+          -61.21149444580078,
+          541.3327026367188
+        ],
+        "roi_n": 126,
+        "roi_equal_mse_contribution_mm2": 12.972311956747088,
+        "roi_equal_mse_gain_contribution_mm2": -12.833175171509176,
+        "fraction_of_roi_equal_mse": 0.05236800162191879
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 51,
+        "u": 260,
+        "v": 300,
+        "method": "photo_fallback",
+        "distance_mm": 75.12702693001715,
+        "cpu_distance_mm": 44.5566604508759,
+        "branch": "mvs_replaced",
+        "xyz_mm": [
+          106.51850577016069,
+          14.270803011599128,
+          567.7934558635536
+        ],
+        "nearest_reference_vertex": 2429797,
+        "nearest_reference_xyz_mm": [
+          40.90394973754883,
+          -15.121891975402832,
+          589.5849609375
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 12.163944343412764,
+        "roi_equal_mse_gain_contribution_mm2": -7.885289191398434,
+        "fraction_of_roi_equal_mse": 0.04910469769989272
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 25,
+        "u": 268,
+        "v": 252,
+        "method": "photo_fallback",
+        "distance_mm": 58.86568423738998,
+        "cpu_distance_mm": 58.86568423738998,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          86.3244894213451,
+          7.211307069459892,
+          559.4334284376181
+        ],
+        "nearest_reference_vertex": 2518863,
+        "nearest_reference_xyz_mm": [
+          40.03984832763672,
+          -13.106697082519531,
+          589.6009521484375
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 7.468036165379532,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.03014775865128143
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 62,
+        "u": 260,
+        "v": 324,
+        "method": "photo_fallback",
+        "distance_mm": 56.09728356209796,
+        "cpu_distance_mm": 56.09728356209796,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          90.35626968646005,
+          23.77133655003587,
+          583.3548984042354
+        ],
+        "nearest_reference_vertex": 2784931,
+        "nearest_reference_xyz_mm": [
+          49.815277099609375,
+          25.53142547607422,
+          622.0877685546875
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 6.78212332553109,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.02737879311688448
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 5,
+        "u": 276,
+        "v": 228,
+        "method": "photo_fallback",
+        "distance_mm": 55.3764942568701,
+        "cpu_distance_mm": 30.929151231824424,
+        "branch": "mvs_replaced",
+        "xyz_mm": [
+          80.55367936621201,
+          1.062453900015015,
+          554.139606142292
+        ],
+        "nearest_reference_vertex": 2853485,
+        "nearest_reference_xyz_mm": [
+          39.58613204956055,
+          -14.707564353942871,
+          587.8964233398438
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 6.6089571469421715,
+        "roi_equal_mse_gain_contribution_mm2": -4.5472925005605624,
+        "fraction_of_roi_equal_mse": 0.026679737562913673
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 95,
+        "u": 500,
+        "v": 292,
+        "method": "photo_fallback",
+        "distance_mm": 44.10692365699964,
+        "cpu_distance_mm": 44.10692365699964,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          98.38730050235785,
+          -65.68669567860641,
+          610.5589779705737
+        ],
+        "nearest_reference_vertex": 1855160,
+        "nearest_reference_xyz_mm": [
+          54.783935546875,
+          -71.05021667480469,
+          606.6347045898438
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 4.192717057078436,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.016925603884443405
+      },
+      {
+        "scene": 122,
+        "roi": "scan122_book_edge",
+        "query": 35,
+        "u": 390,
+        "v": 424,
+        "method": "photo_fallback",
+        "distance_mm": 41.83349083738279,
+        "cpu_distance_mm": 41.83349083738279,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          99.74432368197074,
+          -2.689367165033616,
+          642.2131218465202
+        ],
+        "nearest_reference_vertex": 905265,
+        "nearest_reference_xyz_mm": [
+          58.4492301940918,
+          -3.8136494159698486,
+          648.8079833984375
+        ],
+        "roi_n": 123,
+        "roi_equal_mse_contribution_mm2": 3.5569938122792477,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.014359249018345696
+      },
+      {
+        "scene": 122,
+        "roi": "scan122_book_edge",
+        "query": 60,
+        "u": 374,
+        "v": 424,
+        "method": "photo_fallback",
+        "distance_mm": 41.18231915987002,
+        "cpu_distance_mm": 8.453559145207814,
+        "branch": "mvs_replaced",
+        "xyz_mm": [
+          98.07329911937694,
+          3.3159388338138314,
+          640.1427918495913
+        ],
+        "nearest_reference_vertex": 905265,
+        "nearest_reference_xyz_mm": [
+          58.4492301940918,
+          -3.8136494159698486,
+          648.8079833984375
+        ],
+        "roi_n": 123,
+        "roi_equal_mse_contribution_mm2": 3.447120754848368,
+        "roi_equal_mse_gain_contribution_mm2": -3.301871441389981,
+        "fraction_of_roi_equal_mse": 0.013915701833469926
+      }
+    ],
+    "geo_fallback": [
+      {
+        "scene": 118,
+        "roi": "scan118_base_ridge",
+        "query": 94,
+        "u": 356,
+        "v": 480,
+        "method": "geo_fallback",
+        "distance_mm": 66.13730175360702,
+        "cpu_distance_mm": 66.13730175360702,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          111.51013104510554,
+          17.88750294334301,
+          652.3373411063274
+        ],
+        "nearest_reference_vertex": 2096879,
+        "nearest_reference_xyz_mm": [
+          46.44637680053711,
+          20.652326583862305,
+          663.8788452148438
+        ],
+        "roi_n": 119,
+        "roi_equal_mse_contribution_mm2": 9.189375384974097,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.12622254176997053
+      },
+      {
+        "scene": 122,
+        "roi": "scan122_book_edge",
+        "query": 124,
+        "u": 366,
+        "v": 416,
+        "method": "geo_fallback",
+        "distance_mm": 64.4760585944637,
+        "cpu_distance_mm": 64.4760585944637,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          118.17045407237765,
+          -0.6145505697764548,
+          624.7184977889717
+        ],
+        "nearest_reference_vertex": 905265,
+        "nearest_reference_xyz_mm": [
+          58.4492301940918,
+          -3.8136494159698486,
+          648.8079833984375
+        ],
+        "roi_n": 123,
+        "roi_equal_mse_contribution_mm2": 8.449516528204706,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.11606005938785371
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 25,
+        "u": 268,
+        "v": 252,
+        "method": "geo_fallback",
+        "distance_mm": 58.86568423738998,
+        "cpu_distance_mm": 58.86568423738998,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          86.3244894213451,
+          7.211307069459892,
+          559.4334284376181
+        ],
+        "nearest_reference_vertex": 2518863,
+        "nearest_reference_xyz_mm": [
+          40.03984832763672,
+          -13.106697082519531,
+          589.6009521484375
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 7.468036165379532,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.10257873547810514
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 62,
+        "u": 260,
+        "v": 324,
+        "method": "geo_fallback",
+        "distance_mm": 56.09728356209796,
+        "cpu_distance_mm": 56.09728356209796,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          90.35626968646005,
+          23.77133655003587,
+          583.3548984042354
+        ],
+        "nearest_reference_vertex": 2784931,
+        "nearest_reference_xyz_mm": [
+          49.815277099609375,
+          25.53142547607422,
+          622.0877685546875
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 6.78212332553109,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.09315723962541689
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_base_ridge",
+        "query": 52,
+        "u": 348,
+        "v": 488,
+        "method": "geo_fallback",
+        "distance_mm": 49.402810094579685,
+        "cpu_distance_mm": 49.402810094579685,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          95.41954230958822,
+          27.14642239298462,
+          663.5731903668034
+        ],
+        "nearest_reference_vertex": 2096879,
+        "nearest_reference_xyz_mm": [
+          46.44637680053711,
+          20.652326583862305,
+          663.8788452148438
+        ],
+        "roi_n": 119,
+        "roi_equal_mse_contribution_mm2": 5.127390011010724,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.07042831234144377
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 51,
+        "u": 260,
+        "v": 300,
+        "method": "geo_fallback",
+        "distance_mm": 44.5566604508759,
+        "cpu_distance_mm": 44.5566604508759,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          70.06027594670115,
+          24.326756605717776,
+          582.4142914556394
+        ],
+        "nearest_reference_vertex": 2784931,
+        "nearest_reference_xyz_mm": [
+          49.815277099609375,
+          25.53142547607422,
+          622.0877685546875
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 4.27865515201433,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.05877034140182213
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 95,
+        "u": 500,
+        "v": 292,
+        "method": "geo_fallback",
+        "distance_mm": 44.10692365699964,
+        "cpu_distance_mm": 44.10692365699964,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          98.38730050235785,
+          -65.68669567860641,
+          610.5589779705737
+        ],
+        "nearest_reference_vertex": 1855160,
+        "nearest_reference_xyz_mm": [
+          54.783935546875,
+          -71.05021667480469,
+          606.6347045898438
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 4.192717057078436,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.05758992115308418
+      },
+      {
+        "scene": 118,
+        "roi": "scan118_upper_fold",
+        "query": 117,
+        "u": 508,
+        "v": 284,
+        "method": "geo_fallback",
+        "distance_mm": 42.487742647503964,
+        "cpu_distance_mm": 42.487742647503964,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          97.21852657475284,
+          -69.6892852144481,
+          609.4752439036092
+        ],
+        "nearest_reference_vertex": 1900752,
+        "nearest_reference_xyz_mm": [
+          55.08344650268555,
+          -73.69029998779297,
+          605.7556762695312
+        ],
+        "roi_n": 116,
+        "roi_equal_mse_contribution_mm2": 3.890535076035619,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.053439238856801324
+      },
+      {
+        "scene": 122,
+        "roi": "scan122_book_edge",
+        "query": 35,
+        "u": 390,
+        "v": 424,
+        "method": "geo_fallback",
+        "distance_mm": 41.83349083738279,
+        "cpu_distance_mm": 41.83349083738279,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          99.74432368197074,
+          -2.689367165033616,
+          642.2131218465202
+        ],
+        "nearest_reference_vertex": 905265,
+        "nearest_reference_xyz_mm": [
+          58.4492301940918,
+          -3.8136494159698486,
+          648.8079833984375
+        ],
+        "roi_n": 123,
+        "roi_equal_mse_contribution_mm2": 3.5569938122792477,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.048857814730267395
+      },
+      {
+        "scene": 122,
+        "roi": "scan122_book_edge",
+        "query": 79,
+        "u": 390,
+        "v": 392,
+        "method": "geo_fallback",
+        "distance_mm": 39.25421804389955,
+        "cpu_distance_mm": 39.25421804389955,
+        "branch": "cpu_retained",
+        "xyz_mm": [
+          -10.267506413753381,
+          15.424689987634608,
+          686.4418616299712
+        ],
+        "nearest_reference_vertex": 1518576,
+        "nearest_reference_xyz_mm": [
+          21.434019088745117,
+          36.560142517089844,
+          695.8864135742188
+        ],
+        "roi_n": 123,
+        "roi_equal_mse_contribution_mm2": 3.1318976305650588,
+        "roi_equal_mse_gain_contribution_mm2": 0.0,
+        "fraction_of_roi_equal_mse": 0.04301881933560647
+      }
+    ]
+  },
+  "gain_loss_attribution": {
+    "photo_fallback": {
+      "largest_harms": [
+        {
+          "scene": 122,
+          "roi": "scan122_feather",
+          "query": 33,
+          "u": 472,
+          "v": 200,
+          "method": "photo_fallback",
+          "distance_mm": 227.5168994383532,
+          "cpu_distance_mm": 38.118060875422806,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            295.3535729473642,
+            -91.37137755708797,
+            492.32841684137276
+          ],
+          "nearest_reference_vertex": 2688302,
+          "nearest_reference_xyz_mm": [
+            67.98638153076172,
+            -84.87944030761719,
+            487.2338562011719
+          ],
+          "roi_n": 126,
+          "roi_equal_mse_contribution_mm2": 102.70622922627325,
+          "roi_equal_mse_gain_contribution_mm2": -99.82331937527636,
+          "fraction_of_roi_equal_mse": 0.4146153743940142
+        },
+        {
+          "scene": 118,
+          "roi": "scan118_upper_fold",
+          "query": 117,
+          "u": 508,
+          "v": 284,
+          "method": "photo_fallback",
+          "distance_mm": 194.11798559927269,
+          "cpu_distance_mm": 42.487742647503964,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            249.73149878802184,
+            -85.15249008197374,
+            536.644183173845
+          ],
+          "nearest_reference_vertex": 1696618,
+          "nearest_reference_xyz_mm": [
+            58.22883605957031,
+            -93.29375457763672,
+            567.3401489257812
+          ],
+          "roi_n": 116,
+          "roi_equal_mse_contribution_mm2": 81.21075933861948,
+          "roi_equal_mse_gain_contribution_mm2": -77.32022426258386,
+          "fraction_of_roi_equal_mse": 0.3278401869259793
+        },
+        {
+          "scene": 122,
+          "roi": "scan122_feather",
+          "query": 111,
+          "u": 464,
+          "v": 192,
+          "method": "photo_fallback",
+          "distance_mm": 80.8581797111494,
+          "cpu_distance_mm": 8.374063515397312,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            144.57009330860518,
+            -75.75697447273602,
+            549.0880092744155
+          ],
+          "nearest_reference_vertex": 846454,
+          "nearest_reference_xyz_mm": [
+            65.40994262695312,
+            -61.21149444580078,
+            541.3327026367188
+          ],
+          "roi_n": 126,
+          "roi_equal_mse_contribution_mm2": 12.972311956747088,
+          "roi_equal_mse_gain_contribution_mm2": -12.833175171509176,
+          "fraction_of_roi_equal_mse": 0.05236800162191879
+        },
+        {
+          "scene": 118,
+          "roi": "scan118_upper_fold",
+          "query": 51,
+          "u": 260,
+          "v": 300,
+          "method": "photo_fallback",
+          "distance_mm": 75.12702693001715,
+          "cpu_distance_mm": 44.5566604508759,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            106.51850577016069,
+            14.270803011599128,
+            567.7934558635536
+          ],
+          "nearest_reference_vertex": 2429797,
+          "nearest_reference_xyz_mm": [
+            40.90394973754883,
+            -15.121891975402832,
+            589.5849609375
+          ],
+          "roi_n": 116,
+          "roi_equal_mse_contribution_mm2": 12.163944343412764,
+          "roi_equal_mse_gain_contribution_mm2": -7.885289191398434,
+          "fraction_of_roi_equal_mse": 0.04910469769989272
+        },
+        {
+          "scene": 118,
+          "roi": "scan118_upper_fold",
+          "query": 5,
+          "u": 276,
+          "v": 228,
+          "method": "photo_fallback",
+          "distance_mm": 55.3764942568701,
+          "cpu_distance_mm": 30.929151231824424,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            80.55367936621201,
+            1.062453900015015,
+            554.139606142292
+          ],
+          "nearest_reference_vertex": 2853485,
+          "nearest_reference_xyz_mm": [
+            39.58613204956055,
+            -14.707564353942871,
+            587.8964233398438
+          ],
+          "roi_n": 116,
+          "roi_equal_mse_contribution_mm2": 6.6089571469421715,
+          "roi_equal_mse_gain_contribution_mm2": -4.5472925005605624,
+          "fraction_of_roi_equal_mse": 0.026679737562913673
+        }
+      ],
+      "largest_improvements": [
+        {
+          "scene": 118,
+          "roi": "scan118_base_ridge",
+          "query": 57,
+          "u": 316,
+          "v": 480,
+          "method": "photo_fallback",
+          "distance_mm": 0.2114861990761993,
+          "cpu_distance_mm": 79.30608356226475,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            7.486274074987136,
+            64.51183810462621,
+            703.7379448350075
+          ],
+          "nearest_reference_vertex": 2415728,
+          "nearest_reference_xyz_mm": [
+            7.3509650230407715,
+            64.37348175048828,
+            703.6526489257812
+          ],
+          "roi_n": 119,
+          "roi_equal_mse_contribution_mm2": 9.396305125986934e-05,
+          "roi_equal_mse_gain_contribution_mm2": 13.213046562127142,
+          "fraction_of_roi_equal_mse": 3.7931998838633934e-07
+        },
+        {
+          "scene": 118,
+          "roi": "scan118_base_ridge",
+          "query": 2,
+          "u": 300,
+          "v": 400,
+          "method": "photo_fallback",
+          "distance_mm": 0.1143099338166802,
+          "cpu_distance_mm": 67.07469070219761,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            -5.420204185078205,
+            54.07900450622685,
+            667.7713317617993
+          ],
+          "nearest_reference_vertex": 1301833,
+          "nearest_reference_xyz_mm": [
+            -5.362873554229736,
+            54.174224853515625,
+            667.7980346679688
+          ],
+          "roi_n": 119,
+          "roi_equal_mse_contribution_mm2": 2.7451178506667664e-05,
+          "roi_equal_mse_gain_contribution_mm2": 9.451682911837198,
+          "fraction_of_roi_equal_mse": 1.1081782224741034e-07
+        },
+        {
+          "scene": 118,
+          "roi": "scan118_base_ridge",
+          "query": 94,
+          "u": 356,
+          "v": 480,
+          "method": "photo_fallback",
+          "distance_mm": 20.54045359616766,
+          "cpu_distance_mm": 66.13730175360702,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            57.679111061651724,
+            33.2932182438972,
+            683.5958692488666
+          ],
+          "nearest_reference_vertex": 2331599,
+          "nearest_reference_xyz_mm": [
+            40.19429397583008,
+            31.69708824157715,
+            672.9354858398438
+          ],
+          "roi_n": 119,
+          "roi_equal_mse_contribution_mm2": 0.886366037681338,
+          "roi_equal_mse_gain_contribution_mm2": 8.303009347292758,
+          "fraction_of_roi_equal_mse": 0.0035781762151323978
+        },
+        {
+          "scene": 122,
+          "roi": "scan122_book_edge",
+          "query": 124,
+          "u": 366,
+          "v": 416,
+          "method": "photo_fallback",
+          "distance_mm": 31.662088849923162,
+          "cpu_distance_mm": 64.4760585944637,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            -10.647695824443872,
+            31.751553968771205,
+            693.0803875128088
+          ],
+          "nearest_reference_vertex": 1887138,
+          "nearest_reference_xyz_mm": [
+            19.334321975708008,
+            41.92670440673828,
+            693.261474609375
+          ],
+          "roi_n": 123,
+          "roi_equal_mse_contribution_mm2": 2.0375769722366432,
+          "roi_equal_mse_gain_contribution_mm2": 6.411939555968064,
+          "fraction_of_roi_equal_mse": 0.008225506335543736
+        },
+        {
+          "scene": 118,
+          "roi": "scan118_base_ridge",
+          "query": 112,
+          "u": 292,
+          "v": 448,
+          "method": "photo_fallback",
+          "distance_mm": 0.10025807928337795,
+          "cpu_distance_mm": 50.7973064445241,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            3.1226321976866984,
+            67.45115956166515,
+            684.9262233199654
+          ],
+          "nearest_reference_vertex": 497073,
+          "nearest_reference_xyz_mm": [
+            3.17328143119812,
+            67.38776397705078,
+            684.985107421875
+          ],
+          "roi_n": 119,
+          "roi_equal_mse_contribution_mm2": 2.1116979961327938e-05,
+          "roi_equal_mse_gain_contribution_mm2": 5.420916576337033,
+          "fraction_of_roi_equal_mse": 8.52472592820802e-08
+        }
+      ]
+    },
+    "geo_fallback": {
+      "largest_harms": [
+        {
+          "scene": 118,
+          "roi": "scan118_upper_fold",
+          "query": 8,
+          "u": 428,
+          "v": 132,
+          "method": "geo_fallback",
+          "distance_mm": 2.016189475214364,
+          "cpu_distance_mm": 0.23498319844975288,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            10.969360379270938,
+            -60.854165618172345,
+            569.8136202761434
+          ],
+          "nearest_reference_vertex": 838783,
+          "nearest_reference_xyz_mm": [
+            9.30033016204834,
+            -60.740333557128906,
+            570.93896484375
+          ],
+          "roi_n": 116,
+          "roi_equal_mse_contribution_mm2": 0.008760818965442185,
+          "roi_equal_mse_gain_contribution_mm2": -0.008641816587093745,
+          "fraction_of_roi_equal_mse": 0.00012033601757229696
+        },
+        {
+          "scene": 122,
+          "roi": "scan122_book_edge",
+          "query": 55,
+          "u": 438,
+          "v": 376,
+          "method": "geo_fallback",
+          "distance_mm": 1.6433349769946495,
+          "cpu_distance_mm": 0.15151005994482755,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            45.720498827098936,
+            -19.066007364514874,
+            659.968111456886
+          ],
+          "nearest_reference_vertex": 2468409,
+          "nearest_reference_xyz_mm": [
+            44.883758544921875,
+            -17.652746200561523,
+            660.0238647460938
+          ],
+          "roi_n": 123,
+          "roi_equal_mse_contribution_mm2": 0.00548892245246749,
+          "roi_equal_mse_gain_contribution_mm2": -0.005442265342173821,
+          "fraction_of_roi_equal_mse": 7.539421500416371e-05
+        },
+        {
+          "scene": 122,
+          "roi": "scan122_feather",
+          "query": 30,
+          "u": 416,
+          "v": 144,
+          "method": "geo_fallback",
+          "distance_mm": 1.5243120825975065,
+          "cpu_distance_mm": 0.3376646604624141,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            57.60366641678502,
+            -59.223603987595844,
+            556.2959455335979
+          ],
+          "nearest_reference_vertex": 1009784,
+          "nearest_reference_xyz_mm": [
+            58.03425979614258,
+            -57.968505859375,
+            555.5457153320312
+          ],
+          "roi_n": 126,
+          "roi_equal_mse_contribution_mm2": 0.004610173264191959,
+          "roi_equal_mse_gain_contribution_mm2": -0.004383948218705456,
+          "fraction_of_roi_equal_mse": 6.332397611678491e-05
+        },
+        {
+          "scene": 122,
+          "roi": "scan122_feather",
+          "query": 105,
+          "u": 456,
+          "v": 248,
+          "method": "geo_fallback",
+          "distance_mm": 1.48582346170123,
+          "cpu_distance_mm": 0.16756172054593066,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            21.903642726420458,
+            -49.337626948580436,
+            619.2440669854047
+          ],
+          "nearest_reference_vertex": 1904275,
+          "nearest_reference_xyz_mm": [
+            21.989004135131836,
+            -48.04277801513672,
+            619.9677734375
+          ],
+          "roi_n": 126,
+          "roi_equal_mse_contribution_mm2": 0.004380300316154418,
+          "roi_equal_mse_gain_contribution_mm2": -0.004324592121328401,
+          "fraction_of_roi_equal_mse": 6.0166509306483685e-05
+        },
+        {
+          "scene": 122,
+          "roi": "scan122_feather",
+          "query": 9,
+          "u": 376,
+          "v": 208,
+          "method": "geo_fallback",
+          "distance_mm": 1.2461864113041186,
+          "cpu_distance_mm": 0.19683921367851498,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            44.349974217475165,
+            -30.844433121250404,
+            578.1235224358145
+          ],
+          "nearest_reference_vertex": 2496269,
+          "nearest_reference_xyz_mm": [
+            43.4493293762207,
+            -31.305822372436523,
+            577.396240234375
+          ],
+          "roi_n": 126,
+          "roi_equal_mse_contribution_mm2": 0.0030813106581726937,
+          "roi_equal_mse_gain_contribution_mm2": -0.00300443431682036,
+          "fraction_of_roi_equal_mse": 4.2323971648107237e-05
+        }
+      ],
+      "largest_improvements": [
+        {
+          "scene": 118,
+          "roi": "scan118_base_ridge",
+          "query": 57,
+          "u": 316,
+          "v": 480,
+          "method": "geo_fallback",
+          "distance_mm": 0.1487213705554214,
+          "cpu_distance_mm": 79.30608356226475,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            7.911951417513706,
+            64.37776719204203,
+            703.497306089652
+          ],
+          "nearest_reference_vertex": 2620948,
+          "nearest_reference_xyz_mm": [
+            7.928206443786621,
+            64.34646606445312,
+            703.6417846679688
+          ],
+          "roi_n": 119,
+          "roi_equal_mse_contribution_mm2": 4.646648331908185e-05,
+          "roi_equal_mse_gain_contribution_mm2": 13.21309405869508,
+          "fraction_of_roi_equal_mse": 6.382498685641603e-07
+        },
+        {
+          "scene": 118,
+          "roi": "scan118_base_ridge",
+          "query": 2,
+          "u": 300,
+          "v": 400,
+          "method": "geo_fallback",
+          "distance_mm": 0.13502064673760658,
+          "cpu_distance_mm": 67.07469070219761,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            -5.3442014310664945,
+            54.05690726630843,
+            667.7338590449184
+          ],
+          "nearest_reference_vertex": 1301833,
+          "nearest_reference_xyz_mm": [
+            -5.362873554229736,
+            54.174224853515625,
+            667.7980346679688
+          ],
+          "roi_n": 119,
+          "roi_equal_mse_contribution_mm2": 3.8299527406389815e-05,
+          "roi_equal_mse_gain_contribution_mm2": 9.451672063488298,
+          "fraction_of_roi_equal_mse": 5.260709782003095e-07
+        },
+        {
+          "scene": 118,
+          "roi": "scan118_base_ridge",
+          "query": 112,
+          "u": 292,
+          "v": 448,
+          "method": "geo_fallback",
+          "distance_mm": 0.2328589202882835,
+          "cpu_distance_mm": 50.7973064445241,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            3.421885196503922,
+            67.35611356056646,
+            684.7678434026485
+          ],
+          "nearest_reference_vertex": 711774,
+          "nearest_reference_xyz_mm": [
+            3.2252657413482666,
+            67.25312805175781,
+            684.8382568359375
+          ],
+          "roi_n": 119,
+          "roi_equal_mse_contribution_mm2": 0.00011391444697022095,
+          "roi_equal_mse_gain_contribution_mm2": 5.420823778870023,
+          "fraction_of_roi_equal_mse": 1.5646951439607923e-06
+        },
+        {
+          "scene": 118,
+          "roi": "scan118_base_ridge",
+          "query": 54,
+          "u": 420,
+          "v": 400,
+          "method": "geo_fallback",
+          "distance_mm": 0.08655991679518565,
+          "cpu_distance_mm": 49.9055482315187,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            26.21539277819386,
+            -2.8508786327932114,
+            677.5193429844761
+          ],
+          "nearest_reference_vertex": 2805554,
+          "nearest_reference_xyz_mm": [
+            26.26099967956543,
+            -2.7796061038970947,
+            677.5010986328125
+          ],
+          "roi_n": 119,
+          "roi_equal_mse_contribution_mm2": 1.574079662938963e-05,
+          "roi_equal_mse_gain_contribution_mm2": 5.232261032918579,
+          "fraction_of_roi_equal_mse": 2.1621092585841124e-07
+        },
+        {
+          "scene": 118,
+          "roi": "scan118_base_ridge",
+          "query": 67,
+          "u": 244,
+          "v": 456,
+          "method": "geo_fallback",
+          "distance_mm": 0.8287001469192525,
+          "cpu_distance_mm": 46.79281306011141,
+          "branch": "mvs_replaced",
+          "xyz_mm": [
+            -14.055598378728064,
+            95.82834252388145,
+            687.0087334312518
+          ],
+          "nearest_reference_vertex": 2668040,
+          "nearest_reference_xyz_mm": [
+            -14.200242042541504,
+            95.37345886230469,
+            687.6861572265625
+          ],
+          "roi_n": 119,
+          "roi_equal_mse_contribution_mm2": 0.0014427393561008209,
+          "roi_equal_mse_gain_contribution_mm2": 4.598488676775271,
+          "fraction_of_roi_equal_mse": 1.9817040985874315e-05
+        }
+      ]
+    }
+  },
+  "limits": [
+    "Local artifact/hash/timestamp evidence is not trusted external timestamping or OS-level read tracing.",
+    "No inference rerun and no proof of full hardware calibration independence.",
+    "No post-hoc exclusion or alternate subset used; largest-error analysis is descriptive only."
+  ]
+}
