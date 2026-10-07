@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "matching": "grayscale unwarped square-patch zero-mean NCC with bilinear subpixel patch sampling",
+  "image_resize": "PIL convert L then resize to explicit (width,height), BILINEAR; calibration uses K_half",
+  "depth_grid": "entire public reference optical Z domain at PROTOCOL depth_step_mm; no candidate-dependent search",
+  "ambiguity": "retain every NCC-threshold connected grid component and every local maximum in it; flat maxima use plateau midpoint; no top-k truncation",
+  "finite_representation": "continuous matches between grid samples and nonmaximum within-component coordinates are not exhaustively enumerated",
+  "interval_rule": "threshold component sample extent expanded by half a grid step and interval_padding_mm, clipped to public domain; observed-pixel reprojection support sampled on same grid and expanded by same amount; intersect supports",
+  "star": "all independently measured ref-source local maximum pairs with common reference-ray support and joint three-view reprojection check",
+  "star_full": "intersection of complete padded ref-source threshold components before finite local-maximum representation and geometry checks",
+  "cycle": "subset of star; from each fixed observed source1 peak directly scan source2 over the full public reference-Z domain along that source1 ray; retain all direct components/local maxima; require measured source2 coordinate agreement, common support, joint four-observation triangulation/reprojection with both source2 observations",
+  "direct_direction": "source1 to source2 only; no reverse-cycle requirement",
+  "triangulation": "linear pixel-coordinate least squares using K[R|-RC]; positive depth in every observed camera; reference depth in public domain",
+  "empty_semantics": "empty_unknown; no target-layer conclusion and no vacuous sign certificate",
+  "assumption": "finite engineering admissibility intervals with assumed NCC, pixel, and depth-padding tolerances; not calibrated confidence sets or complete physical feasible sets",
+  "io_policy": "strict request-row/camera schema and Python open allowlist; not an OS sandbox",
+  "run_scope": "21 frozen requests in two historical scenes; no candidate coordinates, source depth maps, reference geometry, or evaluation access",
+  "tuning": "all numeric parameters imported from pre-extraction locked PROTOCOL observation object; no evaluation-driven changes",
+  "cpu_threads": 1,
+  "dependencies": ["numpy", "scipy", "PIL"],
+  "python": "/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python"
+}

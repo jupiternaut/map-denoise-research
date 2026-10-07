@@ -1,0 +1,42 @@
+{
+  "experiment": "track-discrimination-20261007T160716Z",
+  "status": "design_before_observation_extraction",
+  "host": "liekkas",
+  "source_plan": "/srv/slam-research/grf/map-denoise/runs/rescue-local-20260930T201603Z/PLAN.json",
+  "request_source": "/srv/slam-research/grf/map-denoise/runs/official-mechanism-20261001T183124Z/EVIDENCE.json",
+  "frozen_candidate_source": "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/DECISIONS.json",
+  "primary_claim": "Measured common image tracks can add decision-relevant information beyond independent reference-source photometric agreement, with a fixed repair-candidate pool.",
+  "theory_claim": "For a nonempty feasible true-target-depth set, gain-sign identification is equivalent to that set lying on one side of the incumbent-candidate midpoint (strictness stated).",
+  "real_scope": "21 historical requests, 105 historical candidates, two exposed scenes; 484 original-valid points and 28 missing requests in fixed 512 population",
+  "view_selection": "one source pair per scene, largest camera-center separation among six available sources, deterministic lexicographic tie-break; no image or GT scoring",
+  "depth_domain": "existing PLAN wide bounds; optical reference-camera Z in mm, not inferred from candidate positions",
+  "observation": {
+    "depth_step_mm": 1.0,
+    "patch_radius_px": 4,
+    "min_patch_std_255": 3.0,
+    "reference_ncc_min": 0.6,
+    "source_ncc_min": 0.6,
+    "match_pixel_tolerance": 1.5,
+    "reprojection_tolerance_px": 1.5,
+    "interval_padding_mm": 1.0,
+    "retain_ambiguity": true,
+    "candidate_access": false,
+    "depth_map_access": false,
+    "reference_access": false,
+    "error_budgets": "ASSUMED engineering tolerances, not statistical confidence or calibrated true coverage"
+  },
+  "decision": {
+    "gain_floor_mm2": 0.0,
+    "gain_implementation": "Actual frozen 3D coordinates may be off the reference ray. Use affine gain ||a-C-zr||^2-||b-C-zr||^2 over intervals; same-ray midpoint is its special case. It is not NN-to-laser gain.",
+    "tie_break": "largest worst-case depth squared-error improvement, then smallest candidate id",
+    "current_incumbent": "the frozen photo_U11 selected coordinate, or original point when its selected_candidate_id is null; outside 21 requests keep frozen photo_U11 output",
+    "empty_or_no_guaranteed_gain": "KEEP this current photo output, not vacuous acceptance",
+    "missing_incumbent": "no sign certificate; report separately and keep historical photo output",
+    "no_new_candidate_coordinates": true,
+    "depth_vs_nn_metrics": "separate; midpoint gain does not certify nearest-reference-vertex error"
+  },
+  "primary_success": "cycle common-track selector has lower fixed-population ROI-equal NN MSE than star-only selector and frozen photo selector, with no additional <=1mm to >1mm harms versus frozen photo selector",
+  "must_report": ["all arms", "MSE/MAE and >5mm count", "improved/worsened/unchanged", "harm at fixed population", "abstention and empty sets", "interval components", "source-pair identities", "candidate decision transitions", "wallclock"],
+  "primary_stage": "finite mechanism tests plus fixed-pool old-scene development; cross-scene confirmation deferred until mechanism produces a viable method",
+  "do_not_claim": ["new theorem novelty", "calibrated real coverage", "new holdout cameras", "physical layer identity from nearest laser distance", "global architecture optimum", "universal no-harm"]
+}

@@ -1,0 +1,227 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "WARN",
+  "reason_code": "scope_limits_and_missing_star_qualifier",
+  "summary": "All deterministic checks pass. Original report line 62 needs a star-evidence qualifier; exposed two-scene replay and conditional gain do not establish generalization, physical surface correctness or causal percentage apportionment.",
+  "target_host": "liekkas",
+  "target_root": "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z",
+  "agent_id": "/root/selector_attribution_audit",
+  "verdict_id": "/root/selector_attribution_audit",
+  "executor": "codex",
+  "executor_model": "not_recorded_in_reviewer_request",
+  "executor_family": "openai",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_reasoning": "ultra",
+  "reviewer_family": "openai",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "generated_at": "2026-10-07T18:59:44Z",
+  "date": "2026-10-07",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "evaluation_type": "real_gt",
+  "evaluation_subtype": "nearest_original_DTU_laser_vertex_reused_exact_coordinates",
+  "audited_input_hashes": {
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/AGENTS.md": "sha256:127873bd9319501b2019b64579d495c489870f0d8efc92492de2cbdfb1fc438d",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/PROTOCOL.json": "sha256:bda660dc35b74317d6652611df9b628b9c7063925e2e9a1643e08353513505c9",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/refine-logs/EXPERIMENT_PLAN_20261007T180539Z.md": "sha256:14007acbe4f11c02e4faed2f48449b42fc5f03631bf5f877901aec1ae08a64ec",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/policies.py": "sha256:80f62aa63b4a698f7095e48ecb706134b765f4d9778a2eae735476a0722d0d37",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/test_policies.py": "sha256:6a8f2ecbec465db72eb0a4a64566f98708ea706de6abf476117586736bf89486",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/run_ablation.py": "sha256:30e539c0a48875630d1945db62a31fdcf7d6dc08da6e8c6d2f673cd09a0c4f46",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/INPUTS.json": "sha256:b05ed1833e9ce4c640b07127c4ba8387250d43d11787c5dbe28606d8d2b73b80",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/REPRODUCTION_TARGETS.json": "sha256:d5dbac513da5d05f70ab1605bce944b2a48c55c04b5742faedba00dcdaea87da",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/RUN_LOCK.json": "sha256:1896b2f9f5c8f951712a3fc9a72bb2e3be72c7a404510a2baaea87b22ceba907",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/DECISIONS.json": "sha256:e8475804cc7f598f4068f4a2df2ce7b42d16716873e5d8e557d8f97f6ef7e2c7",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/PREDICTIONS_SEALED.json": "sha256:dd542e16d63812d67f33d1abe4f73bb51f82efa134845028acf723425be7effa",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/evaluation/RESULTS.json": "sha256:94c5425283544ddea9bb843656e45818dfba0355791a604f8f37b33038a59f20",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/evaluation/POINT_METRICS.csv": "sha256:01d5d03234184b878799b837748a8481ec604d78f984813b2ce32384b3681c92",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/evaluation/TRANSITIONS.csv": "sha256:cb630199daf177d1866db565564738d8cedf5100f15ee1d99e96b31572cdf663",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/evaluation/ATTRIBUTION.json": "sha256:8b2512db9b44173ac258a890c67b1b0fbe625317a2fda9861c5752828e164e99",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/evaluation/ATTRIBUTION.csv": "sha256:3010b7b737fd8d8fbafb6bf7dd727f02bcf48b8f1f390dc89153b035a86c9ca9",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/evaluation/SEALED.json": "sha256:cd18519f391e64941aee00c0571a2066102bc4fcba24c9a0245edd29c53aee5d",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/EXPERIMENT_TRACKER.md": "sha256:088792c08bf6032580a8a9bd3acbda3c9ce12a4583caaf2eea5c67922f720010",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/REPORT_20261007T184027Z.md": "sha256:8727089d10df393b78e82c3634c567b98ae50ec35f6ce60afca20f976a44261d",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/COMMANDS.md": "sha256:921de0eabac4169854cc5d0e78379ee37336b0f0564aea9f3009311590ad7649",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/theory/kernel.py": "sha256:310784da7d64860e5b9c3c5bcba26345e67900f10fdb7bf7751022a33784de4d",
+    "/srv/slam-research/grf/map-denoise/runs/surface-evidence-20261001T140058Z/surface_kernel.py": "sha256:9fda95159db464a479bde4146eaa6deb730a2c20f5e6565b8eceea93cc8126da",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/DECISIONS.json": "sha256:1714793d770e375dff1641490a52d3a55f870a90b93e3d4ff8762a049269d79e",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/observation/TRACKS.json": "sha256:f1d382ff579471608dd1fd648a3b628140249c38bab0260a22b5a456d8aa5763",
+    "/srv/slam-research/grf/map-denoise/runs/official-mechanism-20261001T183124Z/EVIDENCE.json": "sha256:98ff069d405843ed6c73d34ac4bc782fa30d3662709e4270f525188697de9b00",
+    "/srv/slam-research/grf/map-denoise/runs/surface-evidence-20261001T140058Z/evaluation/POINT_METRICS.csv": "sha256:761ce556bd71f4437d50287c55683c3dd380d46d6e1915750a3402924897be6b",
+    "/srv/slam-research/grf/map-denoise/runs/surface-evidence-20261001T140058Z/evaluation/CANDIDATE_DISTANCES.csv": "sha256:0cb0b38aa81e2f62cdaa814435ddb8992f0030505fb75915cad946d163473c3e",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/evaluation/POINT_METRICS.csv": "sha256:8bdca9967e7e513f4112c5f3a8f675adf6a9bc0401dcb93876036a5d60354f24",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/cpu/scan118_base_ridge.npz": "sha256:e38df8713ecd46b057ae3313b3efcca80a327b8c9f2c1c56260cb18795d030f9",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/cpu/scan118_upper_fold.npz": "sha256:8a0a0d8ec4ffc98ee81bf5b934189961312a8a686f5c6abeb77eeebbddf25648",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/cpu/scan122_book_edge.npz": "sha256:3bd7c22b18bc3f5d7d82bde5b6182c416542aef9d7354037f5a9181601796c35",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/cpu/scan122_feather.npz": "sha256:f59ebfc85cd6db22a655930ad2e17444e57f3d56e29f0176807007e44b5e1eb6",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/references/MANIFEST.json": "sha256:c1a2f3b4b09c107e005180e07ecd215bf2d113706be12eb7d648077dc8e0a266",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/references/stl118_total.ply": "sha256:c4183cf7cc08ba7b949da6c4c27d06e7cd6f853142cb7396089cf56ccbcacfe8",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/references/stl122_total.ply": "sha256:5000b8a6cb47eb028038e94c7a9a85a3ebb7045922d8f798d924a0c01b2c202a",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/RUN_LOCK.json": "sha256:91ce9a3fcd47d8bbe5e513af31009c48b36701f4b5583c28b4acd9c84d68d53c",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/PREDICTIONS_SEALED.json": "sha256:a27104d7580523f15ea75a8ff6a17277bfa6655bd259072f2a952d4b5b0b8c8e",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/observation/LOCK.json": "sha256:bcd9faf6783049a21687ebc184d52a21849ad296dc3812f21586c94095d7c716",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/experiment.py": "sha256:86d1dddf2591ba20f34cb12030fa3c1d3d30dec5c6ee7d01d626673f73347545",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/test_integration.py": "sha256:036cc611b6c2438e21f98aa6c15eb6b539a2f2ad1d81cc8ebdd0edf06f979f73",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/AGENTS.md": "sha256:f3fcb36bc0c82ca78d46758da75d7fe1922f35369c9724f7fb559e455e94265c",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/PROTOCOL.json": "sha256:a92cfc4c9d76bc14190d20f917c15a9e98b39fc7a7d32479627f0943653466bb",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/REQUESTS.json": "sha256:7e3d5390c9a42c4ede5b982ad3963e30e7c8b0a115ea8dcbbb0b7a063d17cf89",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/observation/SCANS.json": "sha256:a1c92c654431564adf9783d93fd5a77ae4d3b0338fb420c1126e65ca1ce21569",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/observation/extract.py": "sha256:eada44039b2808cf51754bed23c0328de2a407a5e36ba8114fecc2a9ef593843",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/observation/SEAL.json": "sha256:de2ca7184fbcb22312f9f5a16c178f24aad66e148e29945b4aaea20139ff5cb2",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/refine-logs/EXPERIMENT_PLAN_20261007T160716Z.md": "sha256:2aa6f026fb93a029c9cb78a11e45793b75ace5c7d7f35cb0da396e4b88365546",
+    "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/DECISIONS.json": "sha256:739b63a3c1f1c005a76147bf62b59d445eeedd7e25f7f1fd5bc646e847f97499",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/evaluation/SEALED.json": "sha256:79d67381a071f0ef143542be6fd560b84d6fb6e4b015b95084dc7348c31baa48",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/observation/CONFIG.json": "sha256:71b27b946b38d66ef5af0015ea682c2401585cf27763c6b01769c9916d5239b1",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/inputs/scan118/images/0022.png": "sha256:a167c039842c0a5fc5ec9219ed48d4778baeab8c1867dcb384b61a838db3b319",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/inputs/scan118/images/0017.png": "sha256:9d2e3b02fecc43123d9d053ac740e526f78d9689fc062da73df636be7323c4fc",
+    "/srv/slam-research/grf/map-denoise/runs/rescue-local-20260930T201603Z/inputs/scan118/images/0061.png": "sha256:ce42b84b84a32371ab10cab2f986be502788f7efee59902362291a5e9c0fe97d",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/inputs/scan122/images/0022.png": "sha256:23f50af33ba94b2ef840f9608d19ac83411e304e34a4a7f11b9150d8c37ff221",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/inputs/scan122/images/0017.png": "sha256:e3c67246b2df37d1cde25bfd2daf170da79731af0ae5e3ea2d80da33cf64b98f",
+    "/srv/slam-research/grf/map-denoise/runs/rescue-local-20260930T201603Z/inputs/scan122/images/0061.png": "sha256:df14f813420b911631b7fa6d0fa353e352cec7d12c2790bee4202f0dbc258ee5",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/observation/SELFTEST.json": "sha256:706171ed260ee1b8b1e03bdcd4156cb4a04971d17c7f9df9f894073bf945e5a3",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/evaluation/RESULTS.json": "sha256:74b310b489a75cfce4e0afa941499e47496def77fabeec7bf0d9637a4cc98795",
+    "/srv/slam-research/grf/map-denoise/runs/track-discrimination-20261007T160716Z/evaluation/TRANSITIONS.csv": "sha256:7c1663d57a43841fb7862ede27bf09b71f43b6a15bdd88f3d1b899a7a8eb1552",
+    "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/evaluation/POINT_METRICS.csv": "sha256:27b5cd7de206c498b4fd65e58f5d8602f0316ca7bc6b69f42e60e2095478b527",
+    "/srv/slam-research/grf/map-denoise/runs/surface-evidence-20261001T140058Z/evaluate.py": "sha256:2f69789a86a6a0d72c2ca61eb1bd593302cb7d020eb0068f906d3efe59f79f9b",
+    "/srv/slam-research/grf/map-denoise/runs/surface-evidence-20261001T140058Z/common.py": "sha256:91951e9cda7394f09ac9a20f40b419a352f63180bd7610586deeb41ce3be9ef7",
+    "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/evaluate_transfer.py": "sha256:5050fce923ecb21a73386d287443e1e87fd68d010416b2ff56f0469dbe270079",
+    "/srv/slam-research/grf/map-denoise/runs/official-mechanism-20261001T183124Z/experiment.py": "sha256:e739ef700c5da1b9ad67ee0eb6eb4cd7b960359e01a4df802a07ce46d617954b",
+    "/srv/slam-research/grf/map-denoise/runs/official-mechanism-20261001T183124Z/patch_kernel.py": "sha256:1e4b49f7b2c6d31a7eaf8571237e296bb4a4901219e98ca48c5a349cf8c4d46d",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/audit/recompute.py": "sha256:ac4acf073773c1d65949c809082108855315a162c0260b1fb87a08a113bad071",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/audit/hash_bindings.py": "sha256:9f8ceeacde4792669273af546a9e0cc8644c5b53d72f49cec95ebb32f38f840c",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/audit/RECOMPUTED.json": "sha256:7aa0f90ecc870432dfc7aaeb88764d7f61d07bf7577417e64e73c8f59f39c984",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/audit/HASH_BINDINGS.json": "sha256:f6a8f2a88ecf2709656c2736b2eaa5c6efff62ad6410020560c5f5ba5c7b6063",
+    "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/audit/SYNTHETIC_TESTS.txt": "sha256:1a37dabcd9395ad7ecf7eac0268326767029bcf76cf62e04b7a53ea081dc37b7"
+  },
+  "trace_path": ".aris/traces/experiment-audit/2026-10-07_run01/",
+  "checks": {
+    "A": {
+      "status": "PASS",
+      "details": "Original laser PLY hashes verified and distances independently recomputed. Local provenance manifest records official DTU Points.zip; no fresh remote authenticity check. Metric is not official full-cloud benchmark or physical layer identity.",
+      "evidence": [
+        "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/references/MANIFEST.json:4",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/run_ablation.py:189",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/audit/RECOMPUTED.json:1398"
+      ]
+    },
+    "B": {
+      "status": "PASS",
+      "details": "Four ROI equal MSE/MAE, frozen per-ROI CPU-valid denominators 119/116/123/126, 484 primary, 28 missing separately. Raw units and common photo-baseline percentage; no own-output normalization.",
+      "evidence": [
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/run_ablation.py:159",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/run_ablation.py:223"
+      ]
+    },
+    "C": {
+      "status": "PASS",
+      "details": "336 choices, 8704 points, 68 transitions, all 17 arms and five attribution rows verified. 77 recorded hash bindings match. Local chronological consistency does not supply externally trusted timestamps.",
+      "evidence": [
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/audit/RECOMPUTED.json:649",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/RUN_LOCK.json:2",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/evaluation/SEALED.json:2"
+      ]
+    },
+    "D": {
+      "status": "PASS",
+      "details": "Independent exact squared-distance endpoint calculation reproduces selectors and saved gain bounds; all actual arms called; 28 synthetic tests pass; allowlisted inputs traced exactly and 512 primary flags checked against original CPU NPZ. Runtime guard denies four direct GT/evaluation opens.",
+      "evidence": [
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/run_ablation.py:133",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/policies.py:160",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/test_policies.py:81",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/audit/SYNTHETIC_TESTS.txt:31"
+      ]
+    },
+    "E": {
+      "status": "WARN",
+      "details": "Line 62 omits star qualifier; cycle keeps both big-repair examples. Two exposed scenes and 6/6/3 supported requests constrain conclusions. Decomposition is path-dependent arithmetic; interfaces differ; two new harms remain for star P/R and scan122 MSE worsens for R.",
+      "evidence": [
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/REPORT_20261007T184027Z.md:62",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/evaluation/TRANSITIONS.csv:34",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/PROTOCOL.json:23",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/evaluation/ATTRIBUTION.json:13",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/evaluation/RESULTS.json:113"
+      ]
+    },
+    "F": {
+      "status": "PASS",
+      "classification": "real_gt",
+      "details": "Dataset laser-reference endpoint; model-derived interval support is policy evidence, not scored GT; synthetic tests are implementation verification.",
+      "evidence": [
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/evaluation/RESULTS.json:871",
+        "/srv/slam-research/grf/map-denoise/runs/selector-attribution-20261007T180539Z/test_policies.py:1"
+      ]
+    }
+  },
+  "deterministic_verification": {
+    "status": "PASS",
+    "independent_choices": 336,
+    "historical_photo_reproduction": 21,
+    "historical_R_reproduction": 63,
+    "point_rows": 8704,
+    "transition_rows": 68,
+    "attribution_rows": 5,
+    "arms": 17,
+    "active_requests": 21,
+    "primary": 484,
+    "missing": 28,
+    "finite_per_arm": 509,
+    "missing_finite_per_arm": 25,
+    "coordinate_identity": 123,
+    "cached_distance_rows": 614,
+    "brute_force_coordinate_rows": 123,
+    "maximum_distance_difference_mm": 0,
+    "synthetic_tests": 28,
+    "recursive_hash_bindings": 77,
+    "unique_bound_paths": 47,
+    "hash_mismatches": 0,
+    "missing_files": 0
+  },
+  "claims": [
+    {
+      "id": "star_P_improves_this_replay",
+      "impact": "supported",
+      "value_mse_mm2": 16.722237664163252,
+      "relative_reduction_pct": 30.19385418197591,
+      "qualifier": "fixed exposed two-scene replay, four-ROI equal endpoint; two new harms remain"
+    },
+    {
+      "id": "star_R_increment_over_P",
+      "impact": "supported",
+      "extra_gain_mm2": -0.13464136086766132,
+      "qualifier": "conditional difference, not universal algorithm value"
+    },
+    {
+      "id": "big_repairs_shared_by_all_P_GP_R_Q_QG",
+      "impact": "needs_qualifier",
+      "fix": "Explicitly say star-series. Cycle has empty support and keeps #5/#95."
+    },
+    {
+      "id": "causal_component_percentage_shares",
+      "impact": "unsupported"
+    },
+    {
+      "id": "blind_confirmation_or_generalization_or_deployment_safety",
+      "impact": "unsupported"
+    }
+  ],
+  "actions": [
+    {
+      "required": true,
+      "action": "Qualify report line 62 and adjacent case analysis as star evidence in a new version, preserving original sealed artifacts."
+    },
+    {
+      "required": true,
+      "action": "Keep scope, harm, metric, arithmetic-attribution and same-family/provisional qualifiers."
+    }
+  ],
+  "limitations": [
+    "No raw image matching regeneration; fixed observation ancestry and hashes checked.",
+    "No fresh external download authentication or trusted historical execution timestamp.",
+    "No claim of whole historical-directory immutability beyond bound/observed files.",
+    "Semantic review is same-family/provisional, not external-family acceptance."
+  ],
+  "audit_execution_notes": [
+    "First independent PLY parser attempt stopped on CRLF header before audit results were written; only audit parser was corrected.",
+    "No original policies, protocols, predictions or evaluation artifacts modified."
+  ]
+}

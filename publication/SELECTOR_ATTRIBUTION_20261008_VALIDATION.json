@@ -1,0 +1,93 @@
+{
+  "checked_at_utc": "2026-10-07T20:30:40.582742+00:00",
+  "host": "liekkas",
+  "repository": "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1",
+  "base_commit": "ca078aed3df4f348ccb708281488fcc9bfd70a11",
+  "status": "PASS",
+  "source_and_archive_sha256_matches": 150,
+  "relative_navigation_links_checked": 88,
+  "broken_relative_navigation_links": [],
+  "secret_pattern_scan": {
+    "files": 156,
+    "patterns": [
+      "private_key",
+      "github_token",
+      "provider_token",
+      "aws_access_key",
+      "credential_url"
+    ],
+    "findings": [],
+    "limit": "Pattern scan of newly public text only; not a proof that secrets are absent. PNG files not text-scanned."
+  },
+  "portable_replay": {
+    "command": [
+      "python3",
+      "-I",
+      "-S",
+      "-B",
+      "/home/grf/Documents/Codex/2026-09-12/map-denoise-dataset-pilot-v1/publication/verify_selector_attribution_20261008.py",
+      "--replay"
+    ],
+    "working_directory": "/tmp",
+    "exit_code": 0,
+    "result": {
+      "status": "PASS",
+      "archive_files": 150,
+      "point_rows": 8704,
+      "arms": 17,
+      "requests_per_arm": 512,
+      "fixed_primary_requests": 484,
+      "frozen_historical_ids": 84,
+      "attribution_contrasts": 5,
+      "mse_mm2": {
+        "photo_U11": 23.95525131520087,
+        "star_full_P": 16.725893405662458,
+        "star_full_GP": 16.856879025030914,
+        "star_full_R": 16.856879025030914,
+        "star_P": 16.722237664163252,
+        "star_GP": 16.856879025030914,
+        "star_R": 16.856879025030914,
+        "cycle_P": 22.916725752448475,
+        "cycle_GP": 23.02771091220777,
+        "cycle_R": 23.02771091220777,
+        "star_Q": 17.00414318118169,
+        "star_QG": 17.0040881254826,
+        "cycle_Q": 23.02776596790686,
+        "cycle_QG": 23.02771091220777,
+        "old_replay": 23.95525131520087,
+        "old_no_ambiguity": 49.11925645323873,
+        "old_raw": 48.97407470699549
+      },
+      "replayed_policy_arms": 16,
+      "replayed_selected_ids": 336,
+      "replayed_exact_full_decisions": 336,
+      "kernel_import_mappings": 1,
+      "external_source_read_denial_probes": 2,
+      "external_source_reads": 0
+    }
+  },
+  "authored_diff_check": "PASS",
+  "staged_paths_verified": 157,
+  "staged_bytes_match_worktree": 157,
+  "staged_credential_pattern_findings": 0,
+  "archived_source_diff_check": {
+    "exit_code": 2,
+    "warning_count": 12382,
+    "affected_files": 9,
+    "handling": "Original source CSV CRLF and terminal blank lines preserved for byte-identical archival. All warnings are confined to copied source files; authored publication files pass."
+  },
+  "not_executed_this_publication": [
+    "raw-photo evidence extraction",
+    "raw laser distance evaluation",
+    "GPU experiments",
+    "GitBook rebuild",
+    "Windows execution"
+  ],
+  "historical_checks_not_reexecuted": [
+    "28 selector unit tests",
+    "614 raw laser coordinate distance checks",
+    "123 active-object exhaustive nearest-vertex checks"
+  ],
+  "excluded_existing_untracked_files": "Seven research_audits/agentrx_20260913/source files remain untracked and are not part of this publication.",
+  "scope": "This record validates publication bytes, arithmetic and frozen selector replay. Commit and remote-ref verification occurs subsequently."
+}

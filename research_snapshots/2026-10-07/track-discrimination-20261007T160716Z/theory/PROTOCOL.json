@@ -1,0 +1,27 @@
+{
+  "status": "frozen_before_implementation_and_rendering",
+  "scope": "Independent 2D cross-section / 1D RGB image mechanism example, not the real replay kernel or end-to-end validation",
+  "seeds": [11, 23, 47],
+  "scene": {
+    "camera_centers_x": [0.0, -0.6, 0.7],
+    "focal_pixels": 180.0,
+    "image_width": 721,
+    "reference_pixel": 351,
+    "rear_plane": {"z": 6.0, "x_extent": [-10.0, 10.0]},
+    "front_plane": {"z": 3.0, "ordinary_x_extent": [1.4, 1.9], "occlusion_x_extent": [-0.09, 0.35]},
+    "true_target": {"surface_id": "rear", "x": -0.3, "z": 6.0},
+    "texture": "One world-attached RGB texture per opaque finite plane; seeded random samples and physically fixed repeated motifs. Nearest ray-plane hit supplies the pixel.",
+    "sensor_noise_std": 0.002
+  },
+  "matching": {"patch_radius": 3, "ncc_min": 0.78, "pixel_tolerance": 0.65, "depth_domain": [2.5, 7.5], "retain_all_matches": true, "source_source": "All-image independent NCC between measured source patches; no use of candidates or truth for matching"},
+  "scenarios": {
+    "positive": {"rear_motif_x": [-0.3, 0.3, -1.0], "motifs": ["p", "p+0.6v", "p-0.6v"], "a": 4.4, "b": 5.6, "assumed_camera_scale": 1.0},
+    "repeated_texture": {"rear_motif_x": [-0.3, 0.3, -1.0], "motifs": ["p", "p", "p"], "a": 4.4, "b": 5.6, "assumed_camera_scale": 1.0},
+    "occlusion_wrong_layer": {"rear_motif_x": [-0.3, 0.1], "front_motif_x": [-0.03333333333333333], "motifs": "all p", "a": 4.4, "b": 3.4, "assumed_camera_scale": 1.0},
+    "common_camera_error": {"rear_motif_x": [-0.3], "motifs": ["p"], "a": 4.4, "b": 3.2, "assumed_camera_scale": 0.55}
+  },
+  "decision": "accept b iff feasible set nonempty and infimum gain > 0; otherwise keep a",
+  "budget_interpretation": "0.65px is assumed engineering tolerance, not a calibrated coverage statement. Common-camera-error deliberately violates nominal geometry.",
+  "report": ["both arms per seed", "feasible components", "coverage diagnostic evaluated after matching", "gain bounds", "decision", "actual target gain", "all correspondence counts", "occluded target views", "wrong physical layers as posthoc diagnostic only", "protocol and image hashes", "runtime"],
+  "no_adaptation": "Run these fixed settings once. Do not revise thresholds, seeds, candidates, motifs or geometry after viewing outcomes. Implementation bug fixes must be logged. No access to real candidates, GT or outcomes."
+}

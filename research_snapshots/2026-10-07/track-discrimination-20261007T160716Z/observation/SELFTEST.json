@@ -1,0 +1,60 @@
+{
+  "checks": [
+    {
+      "name": "synthetic_calibrated_three_camera_triangulation",
+      "passed": true,
+      "triangulation": {
+        "world_point_mm": [
+          0.0,
+          0.0,
+          999.9999999999999
+        ],
+        "reference_depth_mm": 999.9999999999999,
+        "reprojection_errors_px": [
+          0.0,
+          0.0,
+          1.4210854715202004e-14
+        ],
+        "max_reprojection_error_px": 1.4210854715202004e-14,
+        "all_positive_depth": true,
+        "rank": 3
+      }
+    },
+    {
+      "name": "all_ambiguous_components_and_plateau_representatives_retained",
+      "passed": true
+    },
+    {
+      "name": "raw_image_plane_direct_cycle_contains_known_depth",
+      "passed": true,
+      "star_intervals": [
+        [
+          947.5,
+          1058.5
+        ]
+      ],
+      "cycle_intervals": [
+        [
+          971.5,
+          1028.5
+        ]
+      ]
+    },
+    {
+      "name": "forbidden_reads_rejected_before_file_access",
+      "passed": true,
+      "denied": [
+        "candidates.json",
+        "source_depth.npy",
+        "evaluation.json",
+        "EVIDENCE.json"
+      ]
+    },
+    {
+      "name": "candidate_fields_rejected_by_request_schema",
+      "passed": true
+    }
+  ],
+  "all_passed": true,
+  "scope": "synthetic geometry and candidate-blind Python interface; not OS sandbox"
+}

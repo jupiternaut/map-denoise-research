@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "design": "retrospective fixed-candidate, fixed-observation selector ablation; exposed development replay, not blind confirmation",
+  "host": "liekkas",
+  "goal": "Preserve valid geometry and repair errors; quantify conditional contribution of simple point selection, uniform-gain gating and worst-case ranking.",
+  "population": {"requests":512,"primary_original_cpu_valid":484,"missing_stratum":28,"active_requests":21,"proposals":105,"historical_incumbents":18,"scenes":[118,122]},
+  "baseline": "photo_U11 frozen from previous evaluation; all arms KEEP it outside the 21 active requests",
+  "evidence": ["star_full","star","cycle"],
+  "new_arms": ["star_full_P","star_full_GP","star_full_R","star_P","star_GP","star_R","cycle_P","cycle_GP","cycle_R","star_Q","star_QG","cycle_Q","cycle_QG"],
+  "old_arms": ["old_replay","old_no_ambiguity","old_raw"],
+  "definitions": {
+    "gain": "g_c(z)=||a-C-z*r||^2-||c-C-z*r||^2; L(c)=min over frozen interval union; use historical exact affine outward-rounded kernel",
+    "P": "merge intervals, use length-uniform mean (all zero length: distinct-singleton mean); choose greatest positive singleton gain lower bound",
+    "GP": "same target and ranking as P, additionally require interval gain lower bound >0",
+    "R": "same strictly positive interval-gain eligibility, rank by greatest lower bound",
+    "Q": "highest mean of two reference-source NCCs among saved tracks, lower track ID tie; project saved triangulated reference depth to its own interval union (nearest, lower depth tie); rank saved candidates by positive singleton gain",
+    "QG": "same target and ranking as Q, additionally require positive interval-gain lower bound over entire representation",
+    "old_replay": "historical finite U11-bestpair scores, original incumbent -1, 0.05 incumbent improvement margin and >=5mm competing depth within 0.05 score veto",
+    "old_no_ambiguity": "same old policy, remove only competing-depth veto",
+    "old_raw": "same old policy, remove both competing-depth veto and 0.05 incumbent improvement margin; retain finite candidate-score requirements"
+  },
+  "shared_new_contract": {"current":"frozen photo output", "pool":"all frozen objects including original -1", "missing_current":"KEEP null", "empty_evidence":"KEEP", "zero_gain":"KEEP", "winner_tie":"lowest candidate ID", "no_new_coordinates":true},
+  "old_bridge_exception": "Old drop-gate policies deliberately start at the original historical incumbent to isolate deletion of existing rules, not at photo. If current photo is absent, modified old policies KEEP null. Finite-score old eligibility differs from all-coordinate new eligibility; this is not a common-interface evidence factorial.",
+  "evaluation": {
+    "primary":"mean over four ROI MSEs of nearest original DTU laser vertex distance, mm^2",
+    "secondary":["ROI-equal MAE mm","per-ROI and scene MSE","count >5mm","improved/worsened/unchanged versus photo at 1e-9mm tolerance","new harm photo<=1mm to output>1mm","finite output and missing-stratum counts","all changed IDs and eligibility"],
+    "reuse":"exact-coordinate cached distances, assert all 105 proposal plus 18 incumbent coordinates byte-equivalent as parsed floats; no new ground truth labels",
+    "decomposition":"Mphoto-MR=(Mphoto-MP)+(MP-MGP)+(MGP-MR), and analogous Q/QG. Arithmetic conditional contrasts in mm^2, NOT causal percentage shares.",
+    "subgroup_use":"descriptive only; no policy configuration selected using GT"
+  },
+  "lock": "Protocol and source code plus GT-free inputs hashed before inference; predictions sealed before evaluation. Same fixed historical evidence; no new matching, threshold sweeps, candidates, or GPU.",
+  "reproduction": ["old_replay IDs equal all 21 historical photo IDs","R IDs equal all 21 saved decisions for star_full/star/cycle"],
+  "stop": "Run all 16 prespecified policies once, verify reproduction, evaluate every arm, audit independently. Do not add discriminating variants when arms agree.",
+  "limits": ["only 6 star-supported and 3 cycle-supported requests","same exposed two scenes, not transfer","conditional ray-set squared gain differs from nearest-laser distance","uniform mean is an assumption, not calibrated posterior","old/new observations differ in patch model, scoring, and view budget; no causal factorial apportionment"]
+}
