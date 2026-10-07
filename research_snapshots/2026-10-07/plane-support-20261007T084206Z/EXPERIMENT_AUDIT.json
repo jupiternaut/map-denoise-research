@@ -1,0 +1,149 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "WARN",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "host_verified": "liekkas",
+  "root_verified": "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z",
+  "read_only": true,
+  "network_used": false,
+  "gpu_used": false,
+  "cpu_thread_limit": 1,
+  "reason_codes": [
+    "historically_exposed_development_replay",
+    "real_error_budgets_assumed_not_calibrated",
+    "hashes_do_not_independently_prove_first_execution_order",
+    "primary_success_predicate_failed_and_reported"
+  ],
+  "checks": {
+    "A_gt_provenance": {
+      "status": "WARN",
+      "real_reference_confirmed": true,
+      "reference_distance_recomputation_max_error_mm": 0,
+      "method_dependency_separation_confirmed": true,
+      "os_level_or_historical_blindness_proven": false,
+      "evidence": [
+        "/srv/slam-research/grf/map-denoise/runs/colmap-transfer-20260930T180000Z/references/MANIFEST.json:5",
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/experiment.py:98",
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/experiment.py:162"
+      ]
+    },
+    "B_score_normalization": {
+      "status": "PASS",
+      "primary_points": 484,
+      "all_requests": 512,
+      "original_missing": 28,
+      "roi_primary_counts": [
+        116,
+        119,
+        126,
+        123
+      ],
+      "normalization": "four fixed ROI means equally weighted; raw mm and mm2",
+      "evidence": [
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/experiment.py:272",
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/selector.py:13"
+      ]
+    },
+    "C_existence_recomputation_and_order": {
+      "status": "WARN",
+      "seal_records_checked": 8,
+      "seal_hash_entries_checked": 103,
+      "hash_mismatches": 0,
+      "candidate_coordinates_verified": 105,
+      "incumbent_coordinates_verified": 18,
+      "real_point_rows_verified": 3584,
+      "transition_rows_verified": 30,
+      "severe_diagnostic_rows_verified": 70,
+      "first_execution_order_independently_proven": false,
+      "evidence": [
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/experiment.py:219",
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/COMMANDS.md:10",
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/counterexamples/README.md:80"
+      ]
+    },
+    "D_code_paths_and_tests": {
+      "status": "PASS",
+      "selector_tests_passed": 7,
+      "theory_tests_passed": 12,
+      "real_decisions_reproduced": 21,
+      "joint_point_interval_decision_differences": 5,
+      "conditional_monte_carlo_attempts": 12000,
+      "conditional_monte_carlo_checked": 11219,
+      "conditional_monte_carlo_skipped": 781,
+      "max_error_over_radius": 0.83428352,
+      "evidence": [
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/selector.py:20",
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/theory/test_kernel.py:46"
+      ]
+    },
+    "E_scope": {
+      "status": "WARN",
+      "scenes": 2,
+      "rois": 4,
+      "eligible_queries": 21,
+      "eligible_primary_queries": 18,
+      "candidates": 105,
+      "independent_blind_test": false,
+      "matched_compute_comparison": false,
+      "evidence": [
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/AGENTS.md:8",
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/TEST_REPORT.md:7"
+      ]
+    },
+    "F_evaluation_type_and_math": {
+      "status": "PASS",
+      "real_branch": "real_gt_reused_same_coordinates",
+      "synthetic_branch": "simulation_only",
+      "real_intervals": "conditional_on_assumed_uncalibrated_error_budgets",
+      "interpretation_changing_math_error_found": false,
+      "synthetic_observations": 82,
+      "synthetic_worlds": 83,
+      "synthetic_evaluation_rows": 415,
+      "conditional_worlds": 75,
+      "conditional_accepted": 71,
+      "conditional_accepted_wrong": 0,
+      "evidence": [
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/theory/THEORY.md:43",
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/theory/THEORY.md:117",
+        "/srv/slam-research/grf/map-denoise/runs/plane-support-20261007T084206Z/counterexamples/README.md:40"
+      ]
+    }
+  },
+  "primary_result": {
+    "photo_mse_mm2": 23.95525131520087,
+    "joint_interval_mse_mm2": 23.41643210800853,
+    "relative_reduction_percent": 2.2492738652690747,
+    "additional_harms": [
+      [
+        "scan122_book_edge",
+        48
+      ]
+    ],
+    "primary_success": false
+  },
+  "audited_input_hashes": {
+    "experiment.py": "sha256:aa8d65017b3e0ed00a284c2f08e8fe10ee27d458c8da719862e93f2137b7b8fd",
+    "selector.py": "sha256:0e8badea015c79b8dc1c35d647b6e5eae8f71e2bc8035561482aafc0fbe60269",
+    "PROTOCOL.json": "sha256:7026d1a24b539c31995f461df9eb98f9beeae46ecc3a8750aea4fd688044bd89",
+    "theory/kernel.py": "sha256:0d7a0b22bd0520e77724712ed5d8fa86f6d581ea5d29b44f7a31806d716850d7",
+    "DECISIONS.json": "sha256:739b63a3c1f1c005a76147bf62b59d445eeedd7e25f7f1fd5bc646e847f97499",
+    "evaluation/RESULTS.json": "sha256:75bcf83d16c9242427d682c11f5c327919b98d57be87a175342ee9c014126bdd",
+    "evaluation/POINT_METRICS.csv": "sha256:27b5cd7de206c498b4fd65e58f5d8602f0316ca7bc6b69f42e60e2095478b527",
+    "counterexamples/observations.json": "sha256:4f8a9635a1da9e527e2d1d9c8ae80bb6eb54ea13fff9ac5b3250f8c61bf71886",
+    "counterexamples/evaluation_truth.json": "sha256:fb95a79a7d32ae906d517f10163dbcce4e89560636ed6fe63d6c474c38c5fa88",
+    "counterexamples/results.csv": "sha256:ffc3dfed1d8fff13da6751e66a26a51a43210ab7928c1ec0022367de066d3c5a",
+    "counterexamples/summary.json": "sha256:9ce0c08297585501e27b4384bdba0f1a6da3143cd2e9632607509d8e081252cd"
+  },
+  "agent_id": "/root/plane_support_integrity",
+  "verdict_id": "/root/plane_support_integrity",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_reasoning": "ultra",
+  "reviewer_family": "openai",
+  "executor_model": "current_host_unspecified",
+  "executor_family": "openai",
+  "trace_path": ".aris/traces/experiment-audit/2026-10-07_run01/",
+  "generated_at": "2026-10-07 09:13:33 UTC"
+}

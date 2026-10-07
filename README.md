@@ -1,15 +1,16 @@
 # Map Denoise Research
 
-**多视图证据驱动的多假设几何修订。** 更新于 **2026-10-01**。
+**多视图证据驱动的多假设几何修订。** 更新于 **2026-10-07**。
 
 本仓库保存算法源码、冻结协议、正负结果、测试及修订记录。目前的几何主线是：利用照片与相机标定构造几种可能的表面解释，再决定保留原点还是接受修正。最近已实现收益选择、连续射线位置搜索，以及局部一／双表面逆深度混合回归。
 
-自研方法已支持**有条件的偏移恢复**，尚不是默认开启的通用滤波器；部署默认仍为 `identity`。最新工作修复了照片—相机接口，并补齐官方COLMAP强基线与两个新物体的冻结迁移：相对CPU照片重建初值，MSE降低56.92%。这不是自研新算法成绩，也不是旧GeoSVR成品网格原生去噪成功。Windows / RTX 5080 交接包仍对应9月22日CPU版本，**本轮COLMAP在Linux RTX3060Ti上运行，不能冒充自研CUDA后端或5080验证**。
+自研方法已支持**有条件的偏移恢复**，尚不是默认开启的通用滤波器；部署默认仍为 `identity`。10月7日新增邻域射线区间支持：固定候选的旧场景回放中，MSE相对旧照片选择器降低2.25%，但新增一次好点损伤，未通过预定验收。此前10月1日修复照片—相机接口并完成官方COLMAP两个新物体的冻结迁移，相对CPU初值MSE降低56.92%；这是成熟方法成绩，不是自研新算法或旧成品网格去噪成功。Windows / RTX 5080交接包仍对应9月22日CPU版本；10月1日COLMAP在Linux RTX3060Ti运行，10月7日为CPU回放，均不是5080验证。
 
 ## 从这里开始
 
 | 你想做什么 | 入口 |
 |---|---|
+| 看最新区间支持构造与真实回放 | [10月7日完整报告](research_snapshots/2026-10-07/plane-support-20261007T084206Z/REPORT.md) · [数学关系](research_snapshots/2026-10-07/plane-support-20261007T084206Z/theory/THEORY.md) · [发布与复算](publication/PLANE_SUPPORT_20261007.md) |
 | 阅读完整研究记忆书与对话、避免重复实验 | [GitBook完整入口](docs/research-book/README.md) · [目录](docs/research-book/SUMMARY.md) · [最新状态](docs/research-book/increment/docs/LATEST_STATE.md) |
 | 看最新冻结迁移及损伤账 | [10月1日实验报告](research_snapshots/2026-10-01/colmap-transfer-20260930T180000Z/REPORT.md) · [原始指标](research_snapshots/2026-10-01/colmap-transfer-20260930T180000Z/evaluation/RESULTS.json) · [发布说明](publication/TRANSFER_20261001.md) |
 | 在 Windows 上交给 Codex 开发 | [启动提示词](handoffs/v28-windows-5080/START_WINDOWS.md) · [完整交接 ZIP](https://github.com/jupiternaut/map-denoise-research/raw/8666e3ffee09a3a1a105fa523ed94ae2218fde01/handoffs/v28-windows-5080.zip) |
@@ -21,7 +22,26 @@
 | 阅读当前 CPU 实现 | [包说明](handoffs/v28-windows-5080/reference/package/README.md) · [运行时](handoffs/v28-windows-5080/reference/package/v28_closeout/runtime.py) · [表面假设评分](handoffs/v28-windows-5080/reference/package/v28_closeout/surfacelet.py) |
 | 阅读元研究与历史探索 | [元研究导航](meta_research/README.md) · [V23–V25 / CPR / 精确搜索](PROGRESS_20260916.md) · [V19–V22](PROGRESS_V22.md) |
 
-## 最新进展：成熟MVS的收益迁移到两个新物体
+## 最新进展：区间支持带来小幅增益，但仍会误改好点
+
+目标仍是保留有效几何、修复不足。固定两个旧场景、四个ROI、512请求中的484原有效点；仅在21个既定余项的105个原候选中选择，不增加坐标。把邻居平面、法向和射线误差传播为深度区间，再比较确定/可能支持；与同一邻居掩码下的点值投票对照。
+
+| 方法 | ROI等权MSE（mm²，越低越好） | >5mm错点 | 新增≤1→>1mm损伤 |
+|---|---:|---:|---:|
+| 旧照片选择器 | 23.9553 | 12 | 0 |
+| 照片＋邻域点值投票 | 64.0485 | 9 | 1 |
+| **照片＋邻域区间投票** | **23.4164** | **10** | **1** |
+| 官方封存对照 | 22.4003 | 12 | 0 |
+
+主方法相对旧照片法MSE降低**2.2493%**：两点新增改善（13.8588→2.3624mm、8.4536→0.1823mm）、一点恶化（0.5080→2.0799mm）、其余481点不变；另补出一个原缺失点，不混入主均值。**“降低MSE且不新增好点损伤”的主验收未通过。** 区间规则避免一次点值投票造成的143.8445mm大错，也放弃了两个本可成功的修复，不能只报告避错。
+
+本轮的数学产物是有明确误差、候选覆盖和污染条件的射线深度界，以及可计算的支持排序规则；真实误差预算仍为工程假设，非校准置信保证。最重要的缺口是：**支持排序稳定，不等于支持属于目标表面。** 单视图光度门未拒绝任何邻域推荐，不能声称它已解决归属。
+
+19项测试通过；独立审查对1123个既有坐标重新计算激光距离，最大差0。审查为同家族暂定WARN，主要限定是旧场景非盲、预算假定与执行先后证据边界。主指标是固定点到激光最近顶点距离，不是完整官方DTU榜单或薄层拓扑保证。
+
+[全部结果与反例](research_snapshots/2026-10-07/README.md) · [原始表格](research_snapshots/2026-10-07/plane-support-20261007T084206Z/evaluation/POINT_METRICS.csv) · [独立审查](research_snapshots/2026-10-07/plane-support-20261007T084206Z/EXPERIMENT_AUDIT.md)。本次同步GitHub实验快照与README；既有GitBook封存/离线网页未重建，不把它称为已包含10月7日全部增量。
+
+## 10月1日历史进展：成熟MVS的收益迁移到两个新物体
 
 冻结“COLMAP 4.2.1几何一致性＋无效处旧点回退”，直接用于未参与前轮开发的DTU scan118/122。每场景两个照片定义ROI，512个请求像素先固定，484个CPU有效点构成所有主臂的共同总体；预测封存后才获取官方三维参照。下表是四ROI等权点到参照最近距离，**输入为同五张照片产生的CPU初值，不是旧成品网格**。
 
@@ -135,7 +155,14 @@ ZIP SHA-256：`6c4f5c1aea8ed74960c3271f164ec75eed7a97a4a81f3a29367bdf4be7cd3139`
 
 ## 最小检查与复现状态
 
-最新迁移快照可只用Python标准库检查发布哈希、2560行点指标、40行ROI指标与汇总，无需原始数据或原机路径：
+最新区间支持快照可用Python标准库核对发布哈希和3584行逐点指标；加 `--replay` 则使用NumPy和归档输入重现21组决策，不要求原机路径、不重新运行MVS或读取激光数据：
+
+```bash
+python -B publication/verify_plane_support_20261007.py
+python -B publication/verify_plane_support_20261007.py --replay
+```
+
+10月1日迁移快照可只用Python标准库检查发布哈希、2560行点指标、40行ROI指标与汇总，无需原始数据或原机路径：
 
 ```bash
 python -B publication/verify_transfer_20261001.py
