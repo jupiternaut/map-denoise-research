@@ -53,3 +53,5 @@ python publication/verify_mixed_pixel_20261008.py --arrays
 ## 目前最值得做的事
 
 固定已有图像、候选和原始损失，分别改变**尺度可用性**和**评分到行动的规则**。保留直接最小损失这一强简单对照；如果新规则只追平 full9，就记录为接口修复，不宣称新增成像信息。独立的新深度试验必须在下一份协议冻结之后生成。
+
+新设计已另存：[实验计划](../planning/decision-interface-20261008/refine-logs/EXPERIMENT_PLAN.md)、[执行表](../planning/decision-interface-20261008/refine-logs/EXPERIMENT_TRACKER.md)。方案有独立校准和48场景小确认，状态均为待执行。原E1科学结果与全部归档文件不变。

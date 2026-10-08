@@ -11,6 +11,7 @@
 | 你想做什么 | 入口 |
 |---|---|
 | 看最新混合像素：评分有用，为何行动失败 | [报告](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/REPORT.md) · [原始结果](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/evaluation/RESULTS.csv) · [三轮归档与便携核验](publication/MIXED_PIXEL_20261008.md) |
+| 看下一步怎么实验（仅设计，未执行） | [评分到行动的接口实验](planning/decision-interface-20261008/refine-logs/EXPERIMENT_PLAN.md) · [执行表](planning/decision-interface-20261008/refine-logs/EXPERIMENT_TRACKER.md) |
 | 看最新贡献消融：收益究竟来自哪里 | [完整报告](research_snapshots/2026-10-07/selector-attribution-20261007T180539Z/REPORT.md) · [逐项贡献](research_snapshots/2026-10-07/selector-attribution-20261007T180539Z/evaluation/ATTRIBUTION.csv) · [发布与复算](publication/SELECTOR_ATTRIBUTION_20261008.md) |
 | 看轨迹证据与条件数学构造 | [前轮报告](research_snapshots/2026-10-07/track-discrimination-20261007T160716Z/REPORT.md) · [理论](research_snapshots/2026-10-07/track-discrimination-20261007T160716Z/theory/THEORY.md) |
 | 看此前邻域区间支持回放 | [10月7日早期报告](research_snapshots/2026-10-07/plane-support-20261007T084206Z/REPORT.md) · [数学关系](research_snapshots/2026-10-07/plane-support-20261007T084206Z/theory/THEORY.md) · [发布与复算](publication/PLANE_SUPPORT_20261007.md) |
@@ -41,7 +42,7 @@
 
 ![混合像素主终点](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/figures/03_endpoint_mae.png)
 
-[三轮来源、合成数组与核验入口](publication/MIXED_PIXEL_20261008.md)。历史字节及更正保留；此次更新GitHub，既有GitBook网页未重建。
+[三轮来源、合成数组与核验入口](publication/MIXED_PIXEL_20261008.md)。[下一轮计划](planning/decision-interface-20261008/refine-logs/EXPERIMENT_PLAN.md)将两种尺度来源与三种选点规则交叉比较，独立标定后在48个新场景检验，且给full9配同样的决策对照；当前尚未执行。历史字节及更正保留；此次更新GitHub，既有GitBook网页未重建。
 
 ## 10月8日早期进展：新证据配简单选择已获得主要修复收益
 
