@@ -1,0 +1,72 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "WARN",
+  "reason_code": "post_seal_stdout_error_and_simulation_scope",
+  "summary": "完整工件与复算一致；受控合成确认的严格零损伤门槛失败。",
+  "audited_input_hashes": {
+    "SOURCE_LOCK.json": "sha256:d835d538c40a6d4afb54e1d22c0a3431eafae34ef1e460868abe63c6af3fa357",
+    "METHOD.json": "sha256:c8ba0ac0b22787991690684a5927e1e7d77f5b108668b9ca601ed3e146cf1dfb",
+    "experiment.py": "sha256:4da7032df64400787567ac7bd797dbf7cbe0023044989b0e3246ad4b032be684",
+    "decisions.py": "sha256:e1ad135877e44457bfa7f5357868b65d4db09f1bcc9566f4bd830d41ea947a54",
+    "confirmation/evaluation/SUMMARY.json": "sha256:21b551841885b99b4643892472b762b68f5ed1922fbc9295f1548626576bf913",
+    "confirmation/evaluation/GATE.json": "sha256:dde73c7d3473a398f8cb1caef9d35f7d11cf3fd61613f4c7e2f33072fe788ad8"
+  },
+  "trace_path": ".aris/traces/experiment-audit/2026-10-08_run01/",
+  "agent_id": "/root/decision_integrity_audit",
+  "verdict_id": "/root/decision_integrity_audit:2026-10-08_run01",
+  "executor_model": "not_exposed",
+  "executor_family": "openai",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_family": "openai",
+  "reviewer_reasoning": "ultra",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "date": "2026-10-08",
+  "generated_at": "2026-10-08T05:53:00Z",
+  "auditor": "gpt-6-astra-ultra",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "scientific_confirmation_gate": "fail",
+  "checks": {
+    "gt_provenance": {
+      "status": "pass"
+    },
+    "score_normalization": {
+      "status": "pass"
+    },
+    "result_existence": {
+      "status": "pass"
+    },
+    "dead_code": {
+      "status": "warn",
+      "details": "全部决定可重算；评价完整封存后stdout异常退出"
+    },
+    "scope": {
+      "status": "warn",
+      "details": "48合成场景，不是144独立场景；精确相机及有限机制"
+    },
+    "eval_type": "simulation_only"
+  },
+  "claims": [
+    {
+      "id": "C1_interface_repair",
+      "impact": "supported_within_simulator"
+    },
+    {
+      "id": "C1_preserve_every_correct_input",
+      "impact": "unsupported_gate_failed"
+    },
+    {
+      "id": "C2_dynamic_vs_fixed",
+      "impact": "supported_within_simulator"
+    },
+    {
+      "id": "C2_increment_over_full9",
+      "impact": "unsupported"
+    },
+    {
+      "id": "real_transfer",
+      "impact": "not_tested"
+    }
+  ]
+}

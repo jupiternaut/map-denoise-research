@@ -4,14 +4,15 @@
 
 本仓库保存算法源码、冻结协议、正负结果、测试及修订记录。目前的几何主线是：利用照片与相机标定构造几种可能的表面解释，再决定保留原点还是接受修正。最近已实现收益选择、连续射线位置搜索，以及局部一／双表面逆深度混合回归。
 
-自研方法已支持**有条件的偏移恢复**，尚不是默认开启的通用滤波器；部署默认仍为 `identity`。10月8日最新混合像素机制实验中，动态前后景模型保留了正确候选的评分信息，但尺度准入与原区间决策丢掉收益，端到端仍弱于 full9。此前真实旧场景的新证据配简单选择使MSE降低30.19%，仍新增两处好点损伤；10月1日官方COLMAP新物体迁移降低56.92%是成熟方法成绩。Windows / RTX5080交接包仍对应9月22日CPU版本；最新合成CPU试验不是5080或真实迁移验证。
+自研方法已支持**有条件的偏移恢复**，尚不是默认开启的通用滤波器；部署默认仍为 `identity`。10月8日最新决策接口实验完成：独立尺度回退＋候选最小损失，使48个新合成场景的每个偏移方向均改善36/48，平均绝对误差60→16.5463mm；正确输入保留47/48，另1例误移0.7317mm，严格零损伤门槛仍未通过。动态覆盖优于固定覆盖，但没有建立超过同规则full9的优势。此前真实旧场景的新证据配简单选择使MSE降低30.19%，仍新增两处好点损伤；10月1日官方COLMAP新物体迁移降低56.92%是成熟方法成绩。Windows / RTX5080交接包仍对应9月22日CPU版本；最新合成CPU试验不是5080或真实迁移验证。
 
 ## 从这里开始
 
 | 你想做什么 | 入口 |
 |---|---|
-| 看最新混合像素：评分有用，为何行动失败 | [报告](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/REPORT.md) · [原始结果](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/evaluation/RESULTS.csv) · [三轮归档与便携核验](publication/MIXED_PIXEL_20261008.md) |
-| 看下一步怎么实验（仅设计，未执行） | [评分到行动的接口实验](planning/decision-interface-20261008/refine-logs/EXPERIMENT_PLAN.md) · [执行表](planning/decision-interface-20261008/refine-logs/EXPERIMENT_TRACKER.md) |
+| 看最新结果：评分信息怎样转成修复 | [完整报告](research_snapshots/2026-10-08/decision-interface-20261008T052305Z/REPORT.md) · [确认原始结果](research_snapshots/2026-10-08/decision-interface-20261008T052305Z/confirmation/evaluation/RESULTS.csv) · [发布与便携核验](publication/DECISION_INTERFACE_20261008.md) |
+| 看本轮预定方案与实际执行 | [冻结计划](planning/decision-interface-20261008/refine-logs/EXPERIMENT_PLAN.md) · [已完成执行表](research_snapshots/2026-10-08/decision-interface-20261008T052305Z/refine-logs/EXPERIMENT_TRACKER.md) |
+| 看前轮混合像素：评分有用，为何行动失败 | [报告](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/REPORT.md) · [原始结果](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/evaluation/RESULTS.csv) · [三轮归档与便携核验](publication/MIXED_PIXEL_20261008.md) |
 | 看最新贡献消融：收益究竟来自哪里 | [完整报告](research_snapshots/2026-10-07/selector-attribution-20261007T180539Z/REPORT.md) · [逐项贡献](research_snapshots/2026-10-07/selector-attribution-20261007T180539Z/evaluation/ATTRIBUTION.csv) · [发布与复算](publication/SELECTOR_ATTRIBUTION_20261008.md) |
 | 看轨迹证据与条件数学构造 | [前轮报告](research_snapshots/2026-10-07/track-discrimination-20261007T160716Z/REPORT.md) · [理论](research_snapshots/2026-10-07/track-discrimination-20261007T160716Z/theory/THEORY.md) |
 | 看此前邻域区间支持回放 | [10月7日早期报告](research_snapshots/2026-10-07/plane-support-20261007T084206Z/REPORT.md) · [数学关系](research_snapshots/2026-10-07/plane-support-20261007T084206Z/theory/THEORY.md) · [发布与复算](publication/PLANE_SUPPORT_20261007.md) |
@@ -26,7 +27,29 @@
 | 阅读当前 CPU 实现 | [包说明](handoffs/v28-windows-5080/reference/package/README.md) · [运行时](handoffs/v28-windows-5080/reference/package/v28_closeout/runtime.py) · [表面假设评分](handoffs/v28-windows-5080/reference/package/v28_closeout/surfacelet.py) |
 | 阅读元研究与历史探索 | [元研究导航](meta_research/README.md) · [V23–V25 / CPR / 精确搜索](PROGRESS_20260916.md) · [V19–V22](PROGRESS_V22.md) |
 
-## 最新进展：混合像素有定位信息，但当前决策没有兑现
+## 最新进展：接口修复恢复大修复能力，尚未超过同规则full9
+
+固定预测器和候选，分别检查缺失尺度与评分到动作的信息丢失。先用48个独立对象标定，再回放旧36配置，最后在规则冻结后的48个新合成场景确认；四种机制各12个，每个场景有正确及±60mm三个初态，不能按144个独立场景计数。
+
+| 方法 | 正确输入MAE／损伤数 | −60mm MAE | +60mm MAE |
+|---|---:|---:|---:|
+| KEEP | 0／0 | 60 | 60 |
+| **动态覆盖＋简单最小损失（主臂）** | **0.01524／1** | **16.54629** | **16.54629** |
+| 固定覆盖＋同规则 | 11.09720／10 | 45.63906 | 45.63906 |
+| 动态覆盖＋加权风险 | 2.48379／9 | 18.54653 | 18.54653 |
+| **full9＋同规则强对照** | **0／0** | **16.55881** | **16.55881** |
+
+单位mm，每个初态分母48。主臂每个偏移方向36改善、0恶化、12个同色无信息场景KEEP，全体MAE降低72.42%；正确输入47个原位保留、1个误移0.731723mm。**严格零损伤科学门槛FAIL**；不能改用7.5mm阈值把它写成通过。
+
+旧回放中每个偏移方向改善2/36→30/36，正确输入损伤4/36→0/36，说明接口修复有效。新确认中动态覆盖明显优于固定覆盖，但相对full9的微小MAE优势0.01252mm，95%配对区间[−0.00255,0.04011]包含0；没有建立新成像模型的系统优势。复杂风险规则误伤更多，应保留简单规则。
+
+![新合成确认的误差与损伤](research_snapshots/2026-10-08/decision-interface-20261008T052305Z/figures/03_confirmation_endpoints.png)
+
+46项测试与78项确定性复核通过；语义审计为同系列暂定WARN。两个评价进程在完整封存后发生终端JSON日志异常，原错误及核验收据均保留，不影响已核验结果，也不记作干净退出。下一步针对唯一小误移分离外观、轮廓及积分误差，再冻结判据另做确认，不在本批数据上调到全对。
+
+[完整结果、图注与发布边界](publication/DECISION_INTERFACE_20261008.md)。本次更新GitHub实验快照与README；既有GitBook网页未重建。
+
+## 10月8日前轮：混合像素有定位信息，但原决策没有兑现
 
 用两侧表面共同解释像素 `I = αF + (1−α)B`；α是像素足迹的面积覆盖率，不是透明度。固定外观容量、相机、候选及评分像素，比较动态/固定归属，再与原full9系统对照。E0与E1已完成，E2确认及真实回放未启动。
 
@@ -42,7 +65,7 @@
 
 ![混合像素主终点](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/figures/03_endpoint_mae.png)
 
-[三轮来源、合成数组与核验入口](publication/MIXED_PIXEL_20261008.md)。[下一轮计划](planning/decision-interface-20261008/refine-logs/EXPERIMENT_PLAN.md)将两种尺度来源与三种选点规则交叉比较，独立标定后在48个新场景检验，且给full9配同样的决策对照；当前尚未执行。历史字节及更正保留；此次更新GitHub，既有GitBook网页未重建。
+[三轮来源、合成数组与核验入口](publication/MIXED_PIXEL_20261008.md)。其[后续计划](planning/decision-interface-20261008/refine-logs/EXPERIMENT_PLAN.md)现已执行，结果见上节；本节与三轮快照保留此前科学结果，未改写为新方法成绩。
 
 ## 10月8日早期进展：新证据配简单选择已获得主要修复收益
 

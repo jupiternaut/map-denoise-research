@@ -1,0 +1,666 @@
+{
+  "scope": "Postprocessing of sealed artifacts only; no scoring, calibration, tuning or evaluation rerun.",
+  "python": "/usr/bin/python3",
+  "matplotlib": "3.10.7+dfsg1",
+  "numpy": "2.3.5",
+  "sources": {
+    "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/B0/RESULTS.json": {
+      "sha256": "8b32b70c89550194185adb7dde85bd112180078e5ab8ded5b673f681e4aab15d",
+      "bytes": 6258
+    },
+    "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/replay/evaluation/SEAL.json": {
+      "sha256": "40d7fba30fa85889d557a2b2d3231ca417b18b07f661151d611819cc42ed0fb5",
+      "bytes": 789
+    },
+    "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/replay/evaluation/SUMMARY.json": {
+      "sha256": "c8f5231661ff12c09a4105e5489c9bc4f23f275596b7330247a5e6931c04316f",
+      "bytes": 109535
+    },
+    "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/replay/evaluation/ROWS.json": {
+      "sha256": "088fed2c32a701e51ced81703ccc2364685b58be140c70a403994717b28e063c",
+      "bytes": 2242506
+    },
+    "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/confirmation/evaluation/SEAL.json": {
+      "sha256": "d5382d8f1095eaadf02600871bfeee6ac327631bde45ee29e61cc5d215415dd4",
+      "bytes": 1010
+    },
+    "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/confirmation/evaluation/SUMMARY.json": {
+      "sha256": "21b551841885b99b4643892472b762b68f5ed1922fbc9295f1548626576bf913",
+      "bytes": 62558
+    },
+    "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/confirmation/evaluation/GATE.json": {
+      "sha256": "dde73c7d3473a398f8cb1caef9d35f7d11cf3fd61613f4c7e2f33072fe788ad8",
+      "bytes": 308
+    },
+    "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/analysis/make_figures.py": {
+      "sha256": "3455b2ada616aa0cbcf88772c81164a4ec9ca473b255e1137e6661cb52614820",
+      "bytes": 10237
+    },
+    "/srv/slam-research/grf/map-denoise/runs/mixed-pixel-20261008T041249Z/ordinary_stage/SEAL.json": {
+      "sha256": "8d9d3611ebf5b3f5488bbf877f7431ca285c91ae1697fd3c3187503ff9bbd97c",
+      "bytes": 44021
+    },
+    "/srv/slam-research/grf/map-denoise/runs/mixed-pixel-20261008T041249Z/ordinary_stage/w002_ED_600.npz": {
+      "sha256": "b72b1b727e22abf1b8cf525bcc9b266f8bb8fb9ce1e1ac7790ede3ca3d4050e3",
+      "bytes": 12628
+    }
+  },
+  "plotted_values": {
+    "01_replay_ablation": [
+      {
+        "arm": "ED_S0_P",
+        "initial_kind": "minus",
+        "n": 36,
+        "mae": 56.666666666666664,
+        "mse": 3400.0,
+        "improved": 2,
+        "harmed": 0,
+        "unchanged": 34,
+        "practical_harm": 0,
+        "move": 6,
+        "rejected": 30,
+        "regret": 56.666666666666664
+      },
+      {
+        "arm": "ED_S0_P",
+        "initial_kind": "correct",
+        "n": 36,
+        "mae": 6.666666666666667,
+        "mse": 400.0,
+        "improved": 0,
+        "harmed": 4,
+        "unchanged": 32,
+        "practical_harm": 4,
+        "move": 4,
+        "rejected": 30,
+        "regret": 6.666666666666667
+      },
+      {
+        "arm": "ED_S0_P",
+        "initial_kind": "plus",
+        "n": 36,
+        "mae": 56.666666666666664,
+        "mse": 3400.0,
+        "improved": 2,
+        "harmed": 0,
+        "unchanged": 34,
+        "practical_harm": 0,
+        "move": 2,
+        "rejected": 30,
+        "regret": 56.666666666666664
+      },
+      {
+        "arm": "ED_S1_P",
+        "initial_kind": "minus",
+        "n": 36,
+        "mae": 16.666666666666668,
+        "mse": 1000.0,
+        "improved": 26,
+        "harmed": 0,
+        "unchanged": 10,
+        "practical_harm": 0,
+        "move": 30,
+        "rejected": 6,
+        "regret": 16.666666666666668
+      },
+      {
+        "arm": "ED_S1_P",
+        "initial_kind": "correct",
+        "n": 36,
+        "mae": 6.666666666666667,
+        "mse": 400.0,
+        "improved": 0,
+        "harmed": 4,
+        "unchanged": 32,
+        "practical_harm": 4,
+        "move": 4,
+        "rejected": 6,
+        "regret": 6.666666666666667
+      },
+      {
+        "arm": "ED_S1_P",
+        "initial_kind": "plus",
+        "n": 36,
+        "mae": 16.666666666666668,
+        "mse": 1000.0,
+        "improved": 26,
+        "harmed": 0,
+        "unchanged": 10,
+        "practical_harm": 0,
+        "move": 26,
+        "rejected": 6,
+        "regret": 16.666666666666668
+      },
+      {
+        "arm": "ED_S1_M",
+        "initial_kind": "minus",
+        "n": 36,
+        "mae": 10.0,
+        "mse": 600.0,
+        "improved": 30,
+        "harmed": 0,
+        "unchanged": 6,
+        "practical_harm": 0,
+        "move": 30,
+        "rejected": 6,
+        "regret": 10.0
+      },
+      {
+        "arm": "ED_S1_M",
+        "initial_kind": "correct",
+        "n": 36,
+        "mae": 0.0,
+        "mse": 0.0,
+        "improved": 0,
+        "harmed": 0,
+        "unchanged": 36,
+        "practical_harm": 0,
+        "move": 0,
+        "rejected": 6,
+        "regret": 0.0
+      },
+      {
+        "arm": "ED_S1_M",
+        "initial_kind": "plus",
+        "n": 36,
+        "mae": 10.0,
+        "mse": 600.0,
+        "improved": 30,
+        "harmed": 0,
+        "unchanged": 6,
+        "practical_harm": 0,
+        "move": 30,
+        "rejected": 6,
+        "regret": 10.0
+      },
+      {
+        "arm": "ED_S1_U",
+        "initial_kind": "minus",
+        "n": 36,
+        "mae": 16.666666666666668,
+        "mse": 1000.0,
+        "improved": 26,
+        "harmed": 0,
+        "unchanged": 10,
+        "practical_harm": 0,
+        "move": 30,
+        "rejected": 6,
+        "regret": 16.666666666666668
+      },
+      {
+        "arm": "ED_S1_U",
+        "initial_kind": "correct",
+        "n": 36,
+        "mae": 6.666666666666667,
+        "mse": 400.0,
+        "improved": 0,
+        "harmed": 4,
+        "unchanged": 32,
+        "practical_harm": 4,
+        "move": 4,
+        "rejected": 6,
+        "regret": 6.666666666666667
+      },
+      {
+        "arm": "ED_S1_U",
+        "initial_kind": "plus",
+        "n": 36,
+        "mae": 16.666666666666668,
+        "mse": 1000.0,
+        "improved": 26,
+        "harmed": 0,
+        "unchanged": 10,
+        "practical_harm": 0,
+        "move": 26,
+        "rejected": 6,
+        "regret": 16.666666666666668
+      },
+      {
+        "arm": "ED_S1_R",
+        "initial_kind": "minus",
+        "n": 36,
+        "mae": 10.0,
+        "mse": 600.0,
+        "improved": 30,
+        "harmed": 0,
+        "unchanged": 6,
+        "practical_harm": 0,
+        "move": 30,
+        "rejected": 6,
+        "regret": 10.0
+      },
+      {
+        "arm": "ED_S1_R",
+        "initial_kind": "correct",
+        "n": 36,
+        "mae": 0.0,
+        "mse": 0.0,
+        "improved": 0,
+        "harmed": 0,
+        "unchanged": 36,
+        "practical_harm": 0,
+        "move": 0,
+        "rejected": 6,
+        "regret": 0.0
+      },
+      {
+        "arm": "ED_S1_R",
+        "initial_kind": "plus",
+        "n": 36,
+        "mae": 10.0,
+        "mse": 600.0,
+        "improved": 30,
+        "harmed": 0,
+        "unchanged": 6,
+        "practical_harm": 0,
+        "move": 30,
+        "rejected": 6,
+        "regret": 10.0
+      }
+    ],
+    "02_w002_score_to_action": {
+      "id": "w002",
+      "old_P": {
+        "id": "w002",
+        "task_id": null,
+        "arm": "ED_S0_P",
+        "initial_depth": 600.0,
+        "curve_file": "/srv/slam-research/grf/map-denoise/runs/mixed-pixel-20261008T041249Z/ordinary_stage/w002_ED_600.npz",
+        "scale": 31.20747683660907,
+        "scale_sources": [
+          "local",
+          "local"
+        ],
+        "candidates": [
+          450.0,
+          540.0,
+          600.0,
+          660.0,
+          900.0
+        ],
+        "selected_depth": 660.0,
+        "reason": "ok_move",
+        "move": true,
+        "scale_valid": true,
+        "accepted_count": 147,
+        "raw_valid": true,
+        "flat": false,
+        "rule": "P",
+        "candidate_count": 5,
+        "finite_score_count": 351,
+        "intervals": [
+          [
+            486.0,
+            782.0
+          ]
+        ],
+        "support_mean": 634.0,
+        "estimated_squared_gain": 480.0,
+        "true_depth": 600.0,
+        "error": 60.0,
+        "initial_error": 0.0,
+        "change": 60.0,
+        "mechanism": "textured_single",
+        "tensor": "146feef988a5674fb19389d053f3a0aad8d7a273828a86c5afb9a4cfe7c6cd2c",
+        "initial_kind": "correct",
+        "regret": 60.0
+      },
+      "new_M": {
+        "id": "w002",
+        "task_id": null,
+        "arm": "ED_S1_M",
+        "initial_depth": 600.0,
+        "curve_file": "/srv/slam-research/grf/map-denoise/runs/mixed-pixel-20261008T041249Z/ordinary_stage/w002_ED_600.npz",
+        "scale": 31.20747683660907,
+        "scale_sources": [
+          "local",
+          "local"
+        ],
+        "candidates": [
+          450.0,
+          540.0,
+          600.0,
+          660.0,
+          900.0
+        ],
+        "selected_depth": 600.0,
+        "reason": "keep_incumbent",
+        "move": false,
+        "scale_valid": true,
+        "accepted_count": 147,
+        "raw_valid": true,
+        "flat": false,
+        "rule": "M",
+        "candidate_count": 5,
+        "finite_score_count": 351,
+        "finite_candidate_count": 5,
+        "best_loss": 0.044203831623037614,
+        "best_count": 1,
+        "true_depth": 600.0,
+        "error": 0.0,
+        "initial_error": 0.0,
+        "change": 0.0,
+        "mechanism": "textured_single",
+        "tensor": "146feef988a5674fb19389d053f3a0aad8d7a273828a86c5afb9a4cfe7c6cd2c",
+        "initial_kind": "correct",
+        "regret": 0.0
+      },
+      "candidate_depths_mm": [
+        450.0,
+        540.0,
+        600.0,
+        660.0,
+        900.0
+      ],
+      "candidate_losses": [
+        217.67906844296306,
+        31.661809058916667,
+        0.044203831623037614,
+        21.885784082361052,
+        220.4529126262419
+      ]
+    },
+    "03_confirmation_endpoints": [
+      {
+        "arm": "ED_S1_M",
+        "initial_kind": "minus",
+        "n": 48,
+        "mae": 16.546292597902287,
+        "mse": 908.2994350271155,
+        "improved": 36,
+        "harmed": 0,
+        "unchanged": 12,
+        "practical_harm": 0,
+        "move": 36,
+        "rejected": 12,
+        "regret": 14.414325473750296
+      },
+      {
+        "arm": "ED_S1_M",
+        "initial_kind": "correct",
+        "n": 48,
+        "mae": 0.015244229858583461,
+        "mse": 0.011154554111103722,
+        "improved": 0,
+        "harmed": 1,
+        "unchanged": 47,
+        "practical_harm": 0,
+        "move": 1,
+        "rejected": 12,
+        "regret": 0.015244229858583461
+      },
+      {
+        "arm": "ED_S1_M",
+        "initial_kind": "plus",
+        "n": 48,
+        "mae": 16.546292597902287,
+        "mse": 908.2994350271155,
+        "improved": 36,
+        "harmed": 0,
+        "unchanged": 12,
+        "practical_harm": 0,
+        "move": 36,
+        "rejected": 12,
+        "regret": 14.414325473750296
+      },
+      {
+        "arm": "EF_S1_M",
+        "initial_kind": "minus",
+        "n": 48,
+        "mae": 45.639056090027644,
+        "mse": 2704.0040096475564,
+        "improved": 12,
+        "harmed": 0,
+        "unchanged": 36,
+        "practical_harm": 0,
+        "move": 12,
+        "rejected": 36,
+        "regret": 43.507088965875646
+      },
+      {
+        "arm": "EF_S1_M",
+        "initial_kind": "correct",
+        "n": 48,
+        "mae": 11.097198793700356,
+        "mse": 1498.745376555729,
+        "improved": 0,
+        "harmed": 10,
+        "unchanged": 38,
+        "practical_harm": 8,
+        "move": 10,
+        "rejected": 20,
+        "regret": 11.097198793700356
+      },
+      {
+        "arm": "EF_S1_M",
+        "initial_kind": "plus",
+        "n": 48,
+        "mae": 45.639056090027644,
+        "mse": 2704.0040096475564,
+        "improved": 12,
+        "harmed": 0,
+        "unchanged": 36,
+        "practical_harm": 0,
+        "move": 12,
+        "rejected": 36,
+        "regret": 43.507088965875646
+      },
+      {
+        "arm": "ED_S1_R",
+        "initial_kind": "minus",
+        "n": 48,
+        "mae": 18.546529472138108,
+        "mse": 994.5529881406527,
+        "improved": 35,
+        "harmed": 0,
+        "unchanged": 13,
+        "practical_harm": 0,
+        "move": 36,
+        "rejected": 12,
+        "regret": 16.414562347986116
+      },
+      {
+        "arm": "ED_S1_R",
+        "initial_kind": "correct",
+        "n": 48,
+        "mae": 2.483794278031373,
+        "mse": 88.985918756491,
+        "improved": 0,
+        "harmed": 9,
+        "unchanged": 39,
+        "practical_harm": 6,
+        "move": 9,
+        "rejected": 12,
+        "regret": 2.483794278031373
+      },
+      {
+        "arm": "ED_S1_R",
+        "initial_kind": "plus",
+        "n": 48,
+        "mae": 18.546529472138108,
+        "mse": 994.5529881406527,
+        "improved": 35,
+        "harmed": 0,
+        "unchanged": 13,
+        "practical_harm": 0,
+        "move": 35,
+        "rejected": 12,
+        "regret": 16.414562347986116
+      },
+      {
+        "arm": "N_M",
+        "initial_kind": "minus",
+        "n": 48,
+        "mae": 16.5588142754359,
+        "mse": 908.4872601901196,
+        "improved": 36,
+        "harmed": 0,
+        "unchanged": 12,
+        "practical_harm": 0,
+        "move": 36,
+        "rejected": 12,
+        "regret": 14.426847151283908
+      },
+      {
+        "arm": "N_M",
+        "initial_kind": "correct",
+        "n": 48,
+        "mae": 0.0,
+        "mse": 0.0,
+        "improved": 0,
+        "harmed": 0,
+        "unchanged": 48,
+        "practical_harm": 0,
+        "move": 0,
+        "rejected": 12,
+        "regret": 0.0
+      },
+      {
+        "arm": "N_M",
+        "initial_kind": "plus",
+        "n": 48,
+        "mae": 16.5588142754359,
+        "mse": 908.4872601901196,
+        "improved": 36,
+        "harmed": 0,
+        "unchanged": 12,
+        "practical_harm": 0,
+        "move": 36,
+        "rejected": 12,
+        "regret": 14.426847151283908
+      },
+      {
+        "arm": "N_P",
+        "initial_kind": "minus",
+        "n": 48,
+        "mae": 19.349537925925805,
+        "mse": 1151.9233463407893,
+        "improved": 35,
+        "harmed": 1,
+        "unchanged": 12,
+        "practical_harm": 1,
+        "move": 36,
+        "rejected": 12,
+        "regret": 17.217570801773814
+      },
+      {
+        "arm": "N_P",
+        "initial_kind": "correct",
+        "n": 48,
+        "mae": 3.112819962398343,
+        "mse": 243.07436694014712,
+        "improved": 0,
+        "harmed": 9,
+        "unchanged": 39,
+        "practical_harm": 3,
+        "move": 9,
+        "rejected": 12,
+        "regret": 3.112819962398343
+      },
+      {
+        "arm": "N_P",
+        "initial_kind": "plus",
+        "n": 48,
+        "mae": 19.349537925925805,
+        "mse": 1151.9233463407893,
+        "improved": 35,
+        "harmed": 1,
+        "unchanged": 12,
+        "practical_harm": 1,
+        "move": 36,
+        "rejected": 12,
+        "regret": 17.217570801773814
+      },
+      {
+        "arm": "KEEP",
+        "initial_kind": "minus",
+        "n": 48,
+        "mae": 60.0,
+        "mse": 3600.0,
+        "improved": 0,
+        "harmed": 0,
+        "unchanged": 48,
+        "practical_harm": 0,
+        "move": 0,
+        "rejected": 0,
+        "regret": 57.86803287584801
+      },
+      {
+        "arm": "KEEP",
+        "initial_kind": "correct",
+        "n": 48,
+        "mae": 0.0,
+        "mse": 0.0,
+        "improved": 0,
+        "harmed": 0,
+        "unchanged": 48,
+        "practical_harm": 0,
+        "move": 0,
+        "rejected": 0,
+        "regret": 0.0
+      },
+      {
+        "arm": "KEEP",
+        "initial_kind": "plus",
+        "n": 48,
+        "mae": 60.0,
+        "mse": 3600.0,
+        "improved": 0,
+        "harmed": 0,
+        "unchanged": 48,
+        "practical_harm": 0,
+        "move": 0,
+        "rejected": 0,
+        "regret": 57.86803287584801
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/figures/01_replay_ablation.png",
+      "sha256": "098ff160d2b279ba19b5f2ac8911349eda6bff2350a593749060f7583e03b1a7",
+      "bytes": 235614
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/figures/01_replay_ablation.svg",
+      "sha256": "666b5a8f0fb5358612f5832781410bc20d738896ead6ffa1431353b516c5d7db",
+      "bytes": 99193
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/figures/02_w002_score_to_action.png",
+      "sha256": "3bd06f895739713ce261b800b2470b626737785fe00565aeeb13515251c938f7",
+      "bytes": 327041
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/figures/02_w002_score_to_action.svg",
+      "sha256": "40fb1b0b271864a8ab86a5ec4631ec2c84e2b523f07a8c6333d7e273298017c2",
+      "bytes": 24305
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/figures/03_confirmation_endpoints.png",
+      "sha256": "8bd18f62c89fa2cfca5754b0b1a477a37e543061e49643b23811660ad1f7c72a",
+      "bytes": 244960
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/decision-interface-20261008T052305Z/figures/03_confirmation_endpoints.svg",
+      "sha256": "4bdf4eb08c439d6495ee6deed94800c2be9b48bbdaa35f3085a303c4d3aa4d01",
+      "bytes": 103374
+    }
+  ],
+  "confirmation_gate": {
+    "passed": false,
+    "checks": {
+      "correct_no_harm": false,
+      "minus_better_keep": true,
+      "plus_better_keep": true,
+      "retain_full9_success": true,
+      "equal_no_move": true,
+      "retain_matched_full9_M_success": true
+    },
+    "full9_successes": 34,
+    "lost_full9_successes": 0,
+    "lost_rows": []
+  },
+  "input_hashes_unchanged": true,
+  "skill": "/home/grf/.codex/skills/kdense-matplotlib/SKILL.md"
+}
