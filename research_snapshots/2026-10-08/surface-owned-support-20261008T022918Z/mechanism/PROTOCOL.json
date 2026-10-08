@@ -1,0 +1,22 @@
+{
+  "version": "mechanism-v1",
+  "declared_before_scoring": true,
+  "units": "millimetres; grayscale 0..255",
+  "seeds": [11, 29, 47],
+  "image": {"width": 128, "height": 128, "focal": 160, "principal": [64, 64], "supersample": 3},
+  "cameras": "reference identity at origin; sources x=-60,+60 mm, with y and z rotations of sign*0.07 and sign*0.11 rad",
+  "depth_grid": {"start": 300, "stop_inclusive": 1000, "step": 2},
+  "center_target_depth": 600,
+  "candidate_depths": [450, 540, 600, 660, 900],
+  "incumbent_depth": 900,
+  "selection": "length-uniform support mean; select fixed candidate with smallest distance to mean only if it strictly improves on incumbent; empty keeps incumbent",
+  "arms": ["translation_full9", "translation_center3", "translation_connected9", "plane_full9", "plane_center3", "plane_connected9"],
+  "support": "shared support.py, per-depth two-source NCC>=0.6 intersection then support_intervals(padding=1.0), all components",
+  "cases": ["single_plane_good", "ring9_flat", "ring9_textured", "ring25_flat", "ring25_textured", "source_occlusion", "weak_texture", "periodic_repeats", "slanted_plane", "common_camera_bias"],
+  "paired_interventions": "ring9_flat vs ring9_textured and ring25_flat vs ring25_textured keep cameras, center plane, center texture and geometry identical, changing only background texture at depth900",
+  "negative_controls": "weak amplitude0.2; repeated world texture period20mm; true slant Z=600+2.2X+1.1Y versus assumed frontoparallel warp; both scorer source baselines scaled1.15 relative to rendering; one-source occlusion by near halfplane",
+  "renderer": "analytic pinhole rays, nearest positive intersection of opaque bounded planes, continuous world-space sinusoidal textures, 3x3 pixel integration; no score curves generated from depth truth",
+  "separation": "truth passed only to rendering and post-seal evaluation; score_support receives images, camera hypotheses, fixed image center, depth grid, warp and mask kind only",
+  "evaluation": ["target support inclusion", "support length more than10mm from center truth", "all support components", "fixed-candidate selected depth and error", "reference mask target-plane ownership", "actual reference-surface visibility in each source", "source center visibility", "frontoparallel warp discrepancy"],
+  "interpretation": "constructed conditional and adverse mechanism examples; no calibrated probabilities, no proof connected intensity mask equals physical ownership, no parameter tuning after inspecting scores"
+}

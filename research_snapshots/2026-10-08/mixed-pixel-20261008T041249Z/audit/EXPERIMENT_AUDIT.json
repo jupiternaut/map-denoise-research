@@ -1,0 +1,126 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "WARN",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "reason_code": "limited_development_scope_and_access_boundary_limitations",
+  "summary": "All independently recomputed results and checked hashes agree. Retain warnings for simulation-only development scope, duplicated observations, and Python-level semantic exclusion rather than OS isolation. E1 scientific gate fails; that is not an integrity failure.",
+  "generated_at": "2026-10-08T04:39:27Z",
+  "date": "2026-10-08",
+  "host": "liekkas",
+  "project_dir": "/srv/slam-research/grf/map-denoise/runs/mixed-pixel-20261008T041249Z",
+  "agent_id": "/root/mixed_integrity_audit",
+  "requested_model": "gpt-6-astra",
+  "requested_reasoning": "ultra",
+  "requested_fork_turns": "none",
+  "model_metadata_provenance": "Parent supplied the successful spawn request parameters; this is not an independent attestation of the actual backend model.",
+  "reviewer_family": "openai",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "evaluation_type": "simulation_only",
+  "external_certification": false,
+  "full_review_path": "audit/EXPERIMENT_AUDIT.md",
+  "full_response_path": "audit/response.txt",
+  "trace_path": ".aris/traces/experiment-audit/",
+  "trace_owner": "parent executor",
+  "optional_formula_subreview": {
+    "status": "BLOCKED",
+    "reason": "spawn_agent rejected: agent thread limit reached",
+    "claimed_completed": false
+  },
+  "checks": {
+    "gt_provenance": {
+      "status": "pass",
+      "details": "E1 truth is producer-specified physical simulation geometry, not estimator output. Ordinary estimator takes reference/training images and cameras only. Oracle auxiliaries are explicit and exclude target depth/source ownership. Hashing opens privileged bytes before the Python guard; no semantic use in ordinary estimation was found.",
+      "evidence": ["fixtures.py:77", "fixtures.py:128", "fixtures.py:153", "fixtures.py:169", "fixtures.py:214", "predictor.py:317", "run.py:105", "run.py:121", "run.py:136", "evaluate.py:45", "evaluate.py:52", "ordinary_stage/OBSERVATIONS.json:6541"]
+    },
+    "score_normalization": {
+      "status": "pass",
+      "details": "Raw pixel MSE is saved alongside L/sigma^2. Sigma is a predeclared held-block training residual scale shared across E/O arms, not a final-score extrema normalization. All fold pooling, denominators, accepted sets and support intervals were independently recomputed.",
+      "evidence": ["predictor.py:204", "predictor.py:241", "predictor.py:261", "predictor.py:412", "run.py:143", "run.py:158", "run.py:172", "METHOD.json:8", "audit/VERIFICATION_v2.json:5"]
+    },
+    "result_existence": {
+      "status": "pass",
+      "details": "648 unique complete decisions, source/input/history/stage/evaluation hash closure, CSV agreement, P decisions, geometry, ranking, aggregate metrics and E1 gate all verified. 576 post-evaluation pixel artifacts independently reconstruct sealed fold losses with zero difference.",
+      "evidence": ["logs/COMMANDS.json:16", "logs/COMMANDS.json:28", "logs/COMMANDS.json:40", "logs/COMMANDS.json:52", "logs/COMMANDS.json:64", "decisions/SEAL.json:3", "evaluation/SEAL.json:3", "audit/VERIFICATION_v2.json:5", "audit/DIAGNOSTIC_VERIFICATION.json:2"]
+    },
+    "dead_code": {
+      "status": "pass",
+      "details": "Metric and predictor functions are called by executed stages and their outputs appear in sealed artifacts. Tests include independent observed pixels, fixed-ownership texture warp, F=B, common ROI, missing scale and denominator retention.",
+      "evidence": ["run.py:155", "evaluate.py:62", "evaluate.py:68", "evaluate.py:69", "evaluate.py:100", "evaluate.py:112", "test_predictor.py:41", "test_integration.py:135", "test_runner.py:7", "logs/00.log:31"]
+    },
+    "scope": {
+      "status": "warn",
+      "details": "E1 has 24 design groups and 36 worlds, but only 30 distinct observed tensors. The fixed 600 depth, three reused seeds, identical 3x3 integration, simple geometry and exact cameras support controlled development findings only. Four correct-incumbent harms are four configurations from two distinct observations. No E2 or real-data claim is supported.",
+      "evidence": ["fixtures.py:17", "fixtures.py:19", "fixtures.py:77", "fixtures.py:92", "fixtures.py:107", "evaluation/SUMMARY.json:3", "evaluation/SUMMARY.json:1298", "audit/VERIFICATION_v2.json:428", "REPORT.md:11", "REPORT.md:21", "REPORT.md:33", "REPORT.md:91"]
+    },
+    "eval_type": {
+      "status": "pass",
+      "classification": "simulation_only",
+      "details": "Classification is explicit. Oracle is privileged mechanism evidence; analytic E0 self-consistency is not independent algorithm performance. No real GT or human evaluation is claimed.",
+      "evidence": ["METHOD.json:15", "evaluation/SUMMARY.json:3", "fixtures.py:224", "e0.py:102", "e0/RESULTS.json:852", "REPORT.md:17", "REPORT.md:52"]
+    }
+  },
+  "deterministic_verification": {
+    "status": "pass",
+    "review_independence": "deterministic",
+    "acceptance_status": "accepted",
+    "main_checks": 4128,
+    "diagnostic_checks": 7179,
+    "total_checks": 11307,
+    "source_files": 19,
+    "input_files": 75,
+    "unchanged_historical_files": 663,
+    "ordinary_sealed_artifacts": 253,
+    "oracle_sealed_artifacts": 217,
+    "decisions": 648,
+    "pixel_artifacts": 576,
+    "maximum_pixel_loss_difference": 0.0,
+    "method_or_evaluation_module_imported": false,
+    "full_experiment_rerun": false,
+    "primary_hash_manifest": "audit/VERIFICATION_v2.json",
+    "diagnostic_hash_manifest": "audit/DIAGNOSTIC_VERIFICATION.json",
+    "audit_verifier_repair": "v1 omitted the historical half-grid interval extension/clipping/merging; v1 output preserved, v2 corrected independently after reading historical support.py:120. No experiment code or output changed."
+  },
+  "scientific_result": {
+    "E1_gate_passed": false,
+    "proceed_E2": false,
+    "ED_offset_mae_mm_each_direction": 56.666666666666664,
+    "N_offset_mae_mm_each_direction": 10.0,
+    "ED_correct_incumbent_harmed_configurations": 4,
+    "ED_correct_incumbent_total_configurations": 36,
+    "ED_correct_incumbent_harmed_distinct_observations": 2,
+    "ED_scale_unavailable_configurations": 72,
+    "ED_total_configurations": 108,
+    "ED_and_EF_main_endpoints_equal": true
+  },
+  "claims": [
+    {"id": "C1", "impact": "supported_with_simulation_development_qualifier", "claim": "Dynamic coverage supplies raw candidate discrimination in this controlled fixture."},
+    {"id": "C2", "impact": "unsupported_and_empirically_failed", "claim": "Current ED plus original P safely improves geometry over full9."},
+    {"id": "C3", "impact": "supported", "claim": "Reported main and diagnostic numbers reproduce from existing artifacts."},
+    {"id": "C4", "impact": "unsupported", "claim": "OS truth isolation, cross-family certification, independent transfer or real-world success."}
+  ],
+  "audited_input_hashes": {
+    "REPORT.md": "sha256:a93fee6740483d3c34a3a71f47aacb669d11fff0ba33fa8355afa85dd3fd60c2",
+    "LOCK.json": "sha256:bb1ed5f220b518802ba1e67f2158c5917b978e9a118453b6624aca693bdab428",
+    "decisions/PREDICTIONS.json": "sha256:c0aac1709ecd347d58e4712164b642413b8cac980147bd0335cbb57f93bea2b7",
+    "evaluation/ROWS.json": "sha256:dac3564d180ccd9a19c12f0a79766f9ce47a1353302c590d5ade391aff45cca0",
+    "evaluation/SUMMARY.json": "sha256:fb02788583c94e8ad86d2900f1fa4d762d331c6105765c8f3a7664cdafe7de9f",
+    "evaluation/RESULTS.csv": "sha256:aa5d383b0efd323548efe908bc96950c29af68c7aefb8740fa404782bb3a83ec",
+    "evaluation/SEAL.json": "sha256:6881f37a76b365dc27c9a675dd11ea2e29137136471170acc996a335c826ae91",
+    "audit/VERIFICATION_v2.json": "sha256:a8f6cd726410ed4010cc3cd8f60fc1dd91a9e4eb4da23b3fe35d369b233f68b7",
+    "audit/DIAGNOSTIC_VERIFICATION.json": "sha256:7144e6c85ad5b9c26fc3c6d46ad6435e60ce3b7b48c6ffc08d2e9e0822f15f93",
+    "diagnostics/pixels/SEAL.json": "sha256:ce952dbfc51c7cef56169ca476db99ee14c848afaf862f9a1effda384b1b1527",
+    "CHECKPOINT.md": "sha256:d61a91c7a45f423c3fc234395c9fb645719230d7f8e8c44d20b9f5eef02225ed",
+    "COMMANDS.md": "sha256:85103f2ade4b39c84cae05d246ad945f5ba610961a5242860ef4dbe183e0faf5",
+    "figures/MANIFEST.json": "sha256:e7ecc2129d4d148e091cc012dccf3e5fc94f0e4a12a1a285b63e1c2f3fce4bc6"
+  },
+  "report_review": {
+    "status": "pass",
+    "paths": ["REPORT.md", "CHECKPOINT.md", "COMMANDS.md", "figures/MANIFEST.json", "diagnostics/figures.py"],
+    "pngs_visually_inspected": 3,
+    "numeric_claims_match": true,
+    "scope_limitations_disclosed": true,
+    "report_status_line_update": "Final WARN status and 11307 deterministic checks now recorded; final report hash verified."
+  }
+}

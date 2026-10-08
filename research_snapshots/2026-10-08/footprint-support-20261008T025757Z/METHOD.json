@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "xy": [64.0,64.0],
+  "grid_start": 300.0,
+  "grid_stop": 1000.0,
+  "grid_step": 2.0,
+  "min_ess": 9.0,
+  "min_mass": 1.0,
+  "std_min": 3.0,
+  "ncc_min": 0.6,
+  "majority_min": 0.5,
+  "purity_min": 0.99999999,
+  "padding_mm": 1.0,
+  "arms": ["full9","connected9","estimated_center","estimated_footprint","oracle_center","oracle_fraction","oracle_majority","oracle_pure","oracle_component"],
+  "deployable_arms": ["full9","connected9","estimated_center","estimated_footprint"],
+  "primary_arm": "estimated_footprint",
+  "oracle_interpretation": "diagnostic interventions, not universal accuracy bounds; component additionally knows clean target contribution",
+  "warp": "frontoparallel reference optical Z, fixed for every arm",
+  "mask_semantics": "joint common weights across reference and both sources; center uses bilinearly sampled center membership threshold 0.5, footprint/majority uses sampled footprint confidence threshold 0.5, pure uses fraction>=0.99999999, fraction uses min joint fraction as continuous weight; component uses majority mask with target numerator divided by target fraction"
+}

@@ -4,12 +4,13 @@
 
 本仓库保存算法源码、冻结协议、正负结果、测试及修订记录。目前的几何主线是：利用照片与相机标定构造几种可能的表面解释，再决定保留原点还是接受修正。最近已实现收益选择、连续射线位置搜索，以及局部一／双表面逆深度混合回归。
 
-自研方法已支持**有条件的偏移恢复**，尚不是默认开启的通用滤波器；部署默认仍为 `identity`。最新固定候选消融中，新照片证据配普通均值选择使MSE降低30.19%，最坏收益选择为29.63%；复杂选择并非主要大修复的必要条件，但两者仍新增两处好点损伤。此前10月1日官方COLMAP两个新物体冻结迁移相对CPU初值MSE降低56.92%，这是成熟方法成绩。Windows / RTX5080交接包仍对应9月22日CPU版本；10月7日新实验为Linux CPU旧场景回放，不是新场景或5080验证。
+自研方法已支持**有条件的偏移恢复**，尚不是默认开启的通用滤波器；部署默认仍为 `identity`。10月8日最新混合像素机制实验中，动态前后景模型保留了正确候选的评分信息，但尺度准入与原区间决策丢掉收益，端到端仍弱于 full9。此前真实旧场景的新证据配简单选择使MSE降低30.19%，仍新增两处好点损伤；10月1日官方COLMAP新物体迁移降低56.92%是成熟方法成绩。Windows / RTX5080交接包仍对应9月22日CPU版本；最新合成CPU试验不是5080或真实迁移验证。
 
 ## 从这里开始
 
 | 你想做什么 | 入口 |
 |---|---|
+| 看最新混合像素：评分有用，为何行动失败 | [报告](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/REPORT.md) · [原始结果](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/evaluation/RESULTS.csv) · [三轮归档与便携核验](publication/MIXED_PIXEL_20261008.md) |
 | 看最新贡献消融：收益究竟来自哪里 | [完整报告](research_snapshots/2026-10-07/selector-attribution-20261007T180539Z/REPORT.md) · [逐项贡献](research_snapshots/2026-10-07/selector-attribution-20261007T180539Z/evaluation/ATTRIBUTION.csv) · [发布与复算](publication/SELECTOR_ATTRIBUTION_20261008.md) |
 | 看轨迹证据与条件数学构造 | [前轮报告](research_snapshots/2026-10-07/track-discrimination-20261007T160716Z/REPORT.md) · [理论](research_snapshots/2026-10-07/track-discrimination-20261007T160716Z/theory/THEORY.md) |
 | 看此前邻域区间支持回放 | [10月7日早期报告](research_snapshots/2026-10-07/plane-support-20261007T084206Z/REPORT.md) · [数学关系](research_snapshots/2026-10-07/plane-support-20261007T084206Z/theory/THEORY.md) · [发布与复算](publication/PLANE_SUPPORT_20261007.md) |
@@ -24,7 +25,25 @@
 | 阅读当前 CPU 实现 | [包说明](handoffs/v28-windows-5080/reference/package/README.md) · [运行时](handoffs/v28-windows-5080/reference/package/v28_closeout/runtime.py) · [表面假设评分](handoffs/v28-windows-5080/reference/package/v28_closeout/surfacelet.py) |
 | 阅读元研究与历史探索 | [元研究导航](meta_research/README.md) · [V23–V25 / CPR / 精确搜索](PROGRESS_20260916.md) · [V19–V22](PROGRESS_V22.md) |
 
-## 最新进展：新证据配简单选择已获得主要修复收益
+## 最新进展：混合像素有定位信息，但当前决策没有兑现
+
+用两侧表面共同解释像素 `I = αF + (1−α)B`；α是像素足迹的面积覆盖率，不是透明度。固定外观容量、相机、候选及评分像素，比较动态/固定归属，再与原full9系统对照。E0与E1已完成，E2确认及真实回放未启动。
+
+| 输入状态 | 不处理MAE（mm） | full9 + P | 动态混合ED + P |
+|---|---:|---:|---:|
+| −60 mm | 60 | **10** | 56.67 |
+| 正确输入 | 0 | **0** | 6.67 |
+| +60 mm | 60 | **10** | 56.67 |
+
+36个图像世界、三个初态、六臂共648条决策；仅30个不同图像张量，不能将重复宽度或双折当成独立样本。ED每个偏移方向改善2/36，正确输入恶化4/36。原始动态评分在全部30个有信息世界将正确候选排第一，6个同色负控保持平坦，但端到端门槛未通过。
+
+具体瓶颈不是再次缺少候选：24个边界世界的局部尺度不可估，规则直接KEEP；另有原始损失在600mm最低，却因接受区间不对称，均匀区间均值选择660mm并损伤正确点。下一步应拆开尺度准入与行动规则，直接最小残差必须作为强对照。**只追平full9算接口修复，不算新增方法优势。**
+
+![混合像素主终点](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/figures/03_endpoint_mae.png)
+
+[三轮来源、合成数组与核验入口](publication/MIXED_PIXEL_20261008.md)。历史字节及更正保留；此次更新GitHub，既有GitBook网页未重建。
+
+## 10月8日早期进展：新证据配简单选择已获得主要修复收益
 
 目标仍是保留有效几何、修复错误。固定两个已暴露场景、四ROI、512请求（484原CPU有效），在21个既定余项的105个已有候选中比较16个策略臂。先封存预测再评价，不增加坐标、不修匹配、不调阈值。
 
