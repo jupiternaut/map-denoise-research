@@ -10,6 +10,7 @@
 
 | 你想做什么 | 入口 |
 |---|---|
+| 看 LOVELACE 数学封闭实验：条件安全证书 | [两阶段源码与复核](research_snapshots/2026-10-08/lovelace-mathematical-closure/README.md) · [连续深度报告](research_snapshots/2026-10-08/lovelace-mathematical-closure/experiment/continuous_world/REPORT.zh.md) · [完整 ZIP](research_snapshots/2026-10-08/lovelace-mathematical-closure/Lovelace-mathematical-closure-stage2-20261008.zip) |
 | 看最新结果：评分信息怎样转成修复 | [完整报告](research_snapshots/2026-10-08/decision-interface-20261008T052305Z/REPORT.md) · [确认原始结果](research_snapshots/2026-10-08/decision-interface-20261008T052305Z/confirmation/evaluation/RESULTS.csv) · [发布与便携核验](publication/DECISION_INTERFACE_20261008.md) |
 | 看本轮预定方案与实际执行 | [冻结计划](planning/decision-interface-20261008/refine-logs/EXPERIMENT_PLAN.md) · [已完成执行表](research_snapshots/2026-10-08/decision-interface-20261008T052305Z/refine-logs/EXPERIMENT_TRACKER.md) |
 | 看前轮混合像素：评分有用，为何行动失败 | [报告](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/REPORT.md) · [原始结果](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/evaluation/RESULTS.csv) · [三轮归档与便携核验](publication/MIXED_PIXEL_20261008.md) |

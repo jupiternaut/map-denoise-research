@@ -1,0 +1,686 @@
+{
+  "schema": 1,
+  "auditor": "map_math_audit",
+  "utc": "2026-10-08T10:12:13.976965+00:00",
+  "status": "PASS",
+  "method": "Independent JSON/Fraction recomputation and source digest review; imports no solver, renderer or experiment runner; performs no new experiment.",
+  "scope": "Finite family only; single extracted M4 facet; not full9 reproduction or continuous/physical-scene proof.",
+  "input_sha256": {
+    "PROTOCOL_LOCK.json": "ccfc034819285222357858562b919b7c30ee5462e55fbc367e4349d3e6c419c8",
+    "FORECAST_LOCK.json": "d143f931bd56eda3bd39774c08656bd9da07c403a29c94bdd8725ea7829682d8",
+    "library.json": "a10c6c79dcc9fe34b90f707c77a2cc33bc78afec5629127ac4079b8203707f61",
+    "trials.jsonl": "f22fc013f40ee1c22245fda4876124eec0846a6fa564c7741032e0c1555339a7",
+    "summary.json": "158bf433f542255db9249a4c395015ed01e100593308ad1a634f53acae07b312",
+    "controls.json": "741d8cf9b6e937845ab16f6eb160f09d059ff4051c5f39fe317f6f8654ea8c77"
+  },
+  "checks": [
+    {
+      "name": "forecast_library_sha256",
+      "pass": true,
+      "details": "a10c6c79dcc9fe34b90f707c77a2cc33bc78afec5629127ac4079b8203707f61"
+    },
+    {
+      "name": "source_hash:certificates.py",
+      "pass": true,
+      "details": {
+        "expected": "c25f89e97b20c9f769ec357f18bd9ced64f20b02a66bec79e5426c337a316a52",
+        "current": "c25f89e97b20c9f769ec357f18bd9ced64f20b02a66bec79e5426c337a316a52",
+        "snapshot": "c25f89e97b20c9f769ec357f18bd9ced64f20b02a66bec79e5426c337a316a52"
+      }
+    },
+    {
+      "name": "source_hash:mesh_patch.py",
+      "pass": true,
+      "details": {
+        "expected": "e2bb9443c82d7b9eb5da3cafcae3a5280e68021766f62be5124e5ab4656a447d",
+        "current": "e2bb9443c82d7b9eb5da3cafcae3a5280e68021766f62be5124e5ab4656a447d",
+        "snapshot": "e2bb9443c82d7b9eb5da3cafcae3a5280e68021766f62be5124e5ab4656a447d"
+      }
+    },
+    {
+      "name": "source_hash:mesh_smoke.py",
+      "pass": true,
+      "details": {
+        "expected": "2362d75b3d4b0aa54ca3baf3c376c6f2337aba4e32f2b52787411cd5b2a88e27",
+        "current": "2362d75b3d4b0aa54ca3baf3c376c6f2337aba4e32f2b52787411cd5b2a88e27",
+        "snapshot": "2362d75b3d4b0aa54ca3baf3c376c6f2337aba4e32f2b52787411cd5b2a88e27"
+      }
+    },
+    {
+      "name": "source_hash:renderer.py",
+      "pass": true,
+      "details": {
+        "expected": "4dbffeae3651756beb35ae3b91956318d4fcf605a9b9f0051ff62b6e009b9910",
+        "current": "4dbffeae3651756beb35ae3b91956318d4fcf605a9b9f0051ff62b6e009b9910",
+        "snapshot": "4dbffeae3651756beb35ae3b91956318d4fcf605a9b9f0051ff62b6e009b9910"
+      }
+    },
+    {
+      "name": "source_hash:renderer_smoke.py",
+      "pass": true,
+      "details": {
+        "expected": "56731e3dddc88ab23ceeea7f18ab4dd57cf3f3bc738237edae5d14ef1772fa1e",
+        "current": "56731e3dddc88ab23ceeea7f18ab4dd57cf3f3bc738237edae5d14ef1772fa1e",
+        "snapshot": "56731e3dddc88ab23ceeea7f18ab4dd57cf3f3bc738237edae5d14ef1772fa1e"
+      }
+    },
+    {
+      "name": "source_hash:run_experiment.py",
+      "pass": true,
+      "details": {
+        "expected": "572131e8d150d5f8b2d720aba51365d5ca874bcbb4113faeb736be547fa375d1",
+        "current": "572131e8d150d5f8b2d720aba51365d5ca874bcbb4113faeb736be547fa375d1",
+        "snapshot": "572131e8d150d5f8b2d720aba51365d5ca874bcbb4113faeb736be547fa375d1"
+      }
+    },
+    {
+      "name": "source_hash:test_certificates.py",
+      "pass": true,
+      "details": {
+        "expected": "d50b100d7da92710188aa9515a42579f94a0907042eae1f858e5806e01409dd3",
+        "current": "d50b100d7da92710188aa9515a42579f94a0907042eae1f858e5806e01409dd3",
+        "snapshot": "d50b100d7da92710188aa9515a42579f94a0907042eae1f858e5806e01409dd3"
+      }
+    },
+    {
+      "name": "source_hash:verify_evidence.py",
+      "pass": true,
+      "details": {
+        "expected": "dbf36f44c93377331ca3fc54f5a9031ebe380c7d22ccf95c61646d9c2e9e79ef",
+        "current": "dbf36f44c93377331ca3fc54f5a9031ebe380c7d22ccf95c61646d9c2e9e79ef",
+        "snapshot": "dbf36f44c93377331ca3fc54f5a9031ebe380c7d22ccf95c61646d9c2e9e79ef"
+      }
+    },
+    {
+      "name": "source_hash:EXPERIMENT_PLAN.md",
+      "pass": true,
+      "details": {
+        "expected": "3c3fb54fad62d30f3a9b3929aaed67dcca1d1684b2394cfcd096a023b8e385ec",
+        "current": "3c3fb54fad62d30f3a9b3929aaed67dcca1d1684b2394cfcd096a023b8e385ec",
+        "snapshot": "3c3fb54fad62d30f3a9b3929aaed67dcca1d1684b2394cfcd096a023b8e385ec"
+      }
+    },
+    {
+      "name": "source_hash:assets/lovelace_patch.json",
+      "pass": true,
+      "details": {
+        "expected": "4cbdabab62e08b5a7fa89bed1b0bf92bb7943d73bec0a1b1eed4fb0728f4d97a",
+        "current": "4cbdabab62e08b5a7fa89bed1b0bf92bb7943d73bec0a1b1eed4fb0728f4d97a",
+        "snapshot": "4cbdabab62e08b5a7fa89bed1b0bf92bb7943d73bec0a1b1eed4fb0728f4d97a"
+      }
+    },
+    {
+      "name": "trial_ids_unique",
+      "pass": true,
+      "details": 432
+    },
+    {
+      "name": "summary:checker_single:correct:certificate",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:checker_single:correct:keep",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:checker_single:correct:minimum_residual",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:checker_single:minus60:certificate",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:checker_single:minus60:keep",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:checker_single:minus60:minimum_residual",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:checker_single:plus60:certificate",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:checker_single:plus60:keep",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:checker_single:plus60:minimum_residual",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:lovelace_m4_facet:correct:certificate",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:lovelace_m4_facet:correct:keep",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:lovelace_m4_facet:correct:minimum_residual",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:lovelace_m4_facet:minus60:certificate",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:lovelace_m4_facet:minus60:keep",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:lovelace_m4_facet:minus60:minimum_residual",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:lovelace_m4_facet:plus60:certificate",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:lovelace_m4_facet:plus60:keep",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:lovelace_m4_facet:plus60:minimum_residual",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:same_color:correct:certificate",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:same_color:correct:keep",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:same_color:correct:minimum_residual",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:same_color:minus60:certificate",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:same_color:minus60:keep",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:same_color:minus60:minimum_residual",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:same_color:plus60:certificate",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:same_color:plus60:keep",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:same_color:plus60:minimum_residual",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:two_opaque_layers:correct:certificate",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:two_opaque_layers:correct:keep",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:two_opaque_layers:correct:minimum_residual",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:two_opaque_layers:minus60:certificate",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:two_opaque_layers:minus60:keep",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:two_opaque_layers:minus60:minimum_residual",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:two_opaque_layers:plus60:certificate",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:two_opaque_layers:plus60:keep",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary:two_opaque_layers:plus60:minimum_residual",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary_exact_group_set",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "summary_count:families",
+      "pass": true,
+      "details": 4
+    },
+    {
+      "name": "summary_count:distinct_geometry_worlds",
+      "pass": true,
+      "details": 12
+    },
+    {
+      "name": "summary_count:scene_noise_configurations",
+      "pass": true,
+      "details": 144
+    },
+    {
+      "name": "summary_count:incumbent_decisions",
+      "pass": true,
+      "details": 432
+    },
+    {
+      "name": "same_observation_across_three_initial_states",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "declared_finite_scopes",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "protocol_library_epsilon",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "all_pairs:checker_single",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "finite_kappa:checker_single",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "minimum_separation:checker_single",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "2epsilon_separation:checker_single",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "finite_diameter_bound:checker_single",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "observed_target_diameter:checker_single",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "all_pairs:two_opaque_layers",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "finite_kappa:two_opaque_layers",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "minimum_separation:two_opaque_layers",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "2epsilon_separation:two_opaque_layers",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "finite_diameter_bound:two_opaque_layers",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "observed_target_diameter:two_opaque_layers",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "all_pairs:same_color",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "finite_kappa:same_color",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "minimum_separation:same_color",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "2epsilon_separation:same_color",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "finite_diameter_bound:same_color",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "observed_target_diameter:same_color",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "all_pairs:lovelace_m4_facet",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "finite_kappa:lovelace_m4_facet",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "minimum_separation:lovelace_m4_facet",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "2epsilon_separation:lovelace_m4_facet",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "finite_diameter_bound:lovelace_m4_facet",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "observed_target_diameter:lovelace_m4_facet",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "control_consistency:empty_feasible_set",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "control_empty_contract",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "control_consistency:out_of_family_true_depth",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "control_gain:out_of_family_true_depth",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "control_missing_truth_contract",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "control_consistency:underestimated_error_budget",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "control_gain:underestimated_error_budget",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "control_budget_contract",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "M4_is_explicit_single_facet_abstraction",
+      "pass": true,
+      "details": null
+    }
+  ],
+  "failures": [],
+  "family_stats": [
+    {
+      "family": "checker_single",
+      "pair_count": 36,
+      "finite_kappa_per_mm": {
+        "numerator": 1170349,
+        "denominator": 402712200
+      },
+      "minimum_separation": {
+        "numerator": 1170349,
+        "denominator": 26847480
+      },
+      "uniform_2epsilon_separation": true,
+      "finite_target_diameter_bound_mm": {
+        "numerator": 8054244,
+        "denominator": 1170349
+      },
+      "maximum_observed_feasible_target_diameter_mm": {
+        "numerator": 0,
+        "denominator": 1
+      }
+    },
+    {
+      "family": "two_opaque_layers",
+      "pair_count": 36,
+      "finite_kappa_per_mm": {
+        "numerator": 303,
+        "denominator": 479150
+      },
+      "minimum_separation": {
+        "numerator": 18049,
+        "denominator": 1342374
+      },
+      "uniform_2epsilon_separation": false,
+      "finite_target_diameter_bound_mm": {
+        "numerator": 9583,
+        "denominator": 303
+      },
+      "maximum_observed_feasible_target_diameter_mm": {
+        "numerator": 0,
+        "denominator": 1
+      }
+    },
+    {
+      "family": "same_color",
+      "pair_count": 36,
+      "finite_kappa_per_mm": {
+        "numerator": 0,
+        "denominator": 1
+      },
+      "minimum_separation": {
+        "numerator": 0,
+        "denominator": 1
+      },
+      "uniform_2epsilon_separation": false,
+      "finite_target_diameter_bound_mm": null,
+      "maximum_observed_feasible_target_diameter_mm": {
+        "numerator": 120,
+        "denominator": 1
+      }
+    },
+    {
+      "family": "lovelace_m4_facet",
+      "pair_count": 36,
+      "finite_kappa_per_mm": {
+        "numerator": 48970257885153148569869615273903872227898013854464,
+        "denominator": 23802455672501394242716902377076814506216607102177955
+      },
+      "minimum_separation": {
+        "numerator": 146910773655459445709608845821711616683694041563392,
+        "denominator": 4760491134500278848543380475415362901243321420435591
+      },
+      "uniform_2epsilon_separation": true,
+      "finite_target_diameter_bound_mm": {
+        "numerator": 4760491134500278848543380475415362901243321420435591,
+        "denominator": 489702578851531485698696152739038722278980138544640
+      },
+      "maximum_observed_feasible_target_diameter_mm": {
+        "numerator": 0,
+        "denominator": 1
+      }
+    }
+  ],
+  "control_results": [
+    {
+      "name": "empty_feasible_set",
+      "expected": "INCOMPATIBLE; unchanged600",
+      "actual_output": {
+        "numerator": 600,
+        "denominator": 1
+      },
+      "actual_gain": null
+    },
+    {
+      "name": "out_of_family_true_depth",
+      "output": {
+        "numerator": 540,
+        "denominator": 1
+      },
+      "finite_certificate_gain": {
+        "numerator": 49,
+        "denominator": 1
+      },
+      "actual_gain": {
+        "numerator": -49,
+        "denominator": 1
+      }
+    },
+    {
+      "name": "underestimated_error_budget",
+      "output": {
+        "numerator": 660,
+        "denominator": 1
+      },
+      "finite_certificate_gain": {
+        "numerator": 14400,
+        "denominator": 1
+      },
+      "actual_gain": {
+        "numerator": -14400,
+        "denominator": 1
+      }
+    }
+  ],
+  "limitations": [
+    "Forecast/model discretization is not a completeness proof for continuous worlds.",
+    "Hashes and runner order support source/forecast consistency; they do not independently prove historical wall-clock execution order.",
+    "M4 uses one rescaled isolated triangle without full-character occlusion, rig, texture or physical calibration.",
+    "The minimum-residual baseline operates on the same finite known prediction library; it is not map-denoise full9.",
+    "Same-color recovery of out-of-domain incumbents comes solely from the finite prior depth range, not image discrimination.",
+    "Twelve geometry worlds with twelve bounded-noise seeds give 144 observation configurations; three initial states do not give independent scenes."
+  ],
+  "post_confirmation_witness_audit": {
+    "status": "PASS",
+    "sha256": "fda7107f91512a52ca603c0f6b826759c1fb6e51ad1336e78b51951fd67f9521",
+    "checks": {
+      "recorded_library_hash_matches": true,
+      "witness_source_hash_matches": true,
+      "selected_pair_has_global_minimum_positive_distance": true,
+      "interpolation_fraction_formula": true,
+      "all_432_observation_coordinates_match_exact_construct": true,
+      "distance_recorded_exactly": true,
+      "true_residual_recorded_and_within_budget": true,
+      "competitor_residual_recorded_and_smaller": true,
+      "feasible_set_exactly_two_recorded_worlds": true,
+      "baseline_unique_global_residual_minimum": true,
+      "correct_incumbent_and_KEEP_output": true,
+      "every_nonzero_action_fails_safety_at_true_feasible_world": true,
+      "baseline_damage_exactly_15mm_and_negative_225mm_squared": true,
+      "explicit_post_confirmation_analytical_scope": true,
+      "confirmation_inputs_unchanged": true
+    },
+    "exact_values": {
+      "delta": {
+        "numerator": 18049,
+        "denominator": 1342374
+      },
+      "epsilon": {
+        "numerator": 1,
+        "denominator": 100
+      },
+      "lambda": {
+        "numerator": 280603,
+        "denominator": 451225
+      },
+      "true_residual": {
+        "numerator": 280603,
+        "denominator": 33559350
+      },
+      "competitor_residual": {
+        "numerator": 28437,
+        "denominator": 5593225
+      },
+      "actual_gain_mm2": {
+        "numerator": -225,
+        "denominator": 1
+      }
+    },
+    "scope": "Post-confirmation analytic existence witness; excluded from 432 confirmation decisions and every summary row.",
+    "noise_distribution_caveat": "The constructed rational noise satisfies the hard l-infinity budget but is not the five-level random noise alphabet used for confirmation; this is not a new sample from that noise generator.",
+    "noise_in_confirmation_five_level_alphabet": false
+  }
+}

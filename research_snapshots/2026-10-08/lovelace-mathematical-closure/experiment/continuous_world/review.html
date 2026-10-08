@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LOVELACE · 连续数学世界确认结果</title>
+<style>
+:root{color-scheme:light;--ink:#172e3b;--muted:#58707b;--line:#d9e2e6;--teal:#087b77;--orange:#b96022}*{box-sizing:border-box}body{margin:0;background:#f6f8f7;color:var(--ink);font:15px/1.65 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1180px;margin:auto;padding:38px 24px 54px}h1{font-size:clamp(25px,4vw,39px);letter-spacing:-.035em;margin:5px 0 12px}h2{font-size:21px;margin:0 0 14px}h3{font-size:17px;margin:0 0 8px}p{margin:8px 0}a{color:#126986}small,.muted{color:var(--muted)}.eyebrow{font:12px/1.5 ui-monospace,monospace;letter-spacing:.08em;color:var(--teal)}.scope{max-width:940px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}.metric{background:white;padding:20px;border:1px solid var(--line);border-radius:8px}.metric strong{display:block;font-size:36px;line-height:1.2;color:var(--teal)}.metric.warn strong{color:var(--orange)}section{background:#fff;border:1px solid var(--line);border-radius:8px;padding:24px;margin:20px 0}.filters{display:flex;flex-wrap:wrap;gap:16px;margin:16px 0}label{display:grid;gap:5px;font-size:13px}select{font:inherit;min-width:155px;padding:8px 10px;background:white;border:1px solid #91a5ae;border-radius:5px;color:var(--ink)}:focus-visible{outline:3px solid #35aba4;outline-offset:3px}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--muted);font-weight:600}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}.table-wrap{overflow-x:auto}.details{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}.details div{border-left:3px solid #dae8e9;padding-left:12px}.details b{display:block;font-size:20px;font-variant-numeric:tabular-nums}.callout{background:#eef7f5;border-left:3px solid var(--teal);padding:13px 16px;font-size:14px}.scope-note{background:#f8f3eb;border-left:3px solid #b47a35;padding:13px 16px;font-size:14px}.depth-plot{width:100%;height:165px;background:#fafcfc;border:1px solid #e2eaec;border-radius:5px}.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;margin-top:8px}.charts svg{width:100%;height:auto}.hashes{font-size:11px;font-family:ui-monospace,monospace;overflow-wrap:anywhere}details summary{cursor:pointer;color:#315c71}button{border:1px solid var(--line);background:white;color:var(--ink);padding:8px 12px;border-radius:5px;cursor:pointer}.intervals{font-family:ui-monospace,monospace;font-size:12px;max-height:110px;overflow:auto}.tag{display:inline-block;font-size:12px;border:1px solid #c4dfd9;color:var(--teal);padding:2px 7px;border-radius:4px}footer{font-size:13px;color:var(--muted)}@media(max-width:720px){main{padding:24px 14px}.metrics{grid-template-columns:repeat(2,1fr)}section{padding:18px}.details{grid-template-columns:repeat(2,1fr)}th,td{padding:8px}select{min-width:130px}}
+</style>
+<main><div class="eyebrow">LOVELACE / MATHEMATICAL CLOSURE / STAGE 2</div>
+<h1>从离散候选，走向连续的安全修正</h1>
+<p class="scope">冻结确认集将深度放在连续区间 <b>540–660 mm</b>，并允许侧相机横向位置在误差半径内连续变化。证书先保留不能排除的深度外包，只有整段外包都保证平方误差改善时才移动。</p>
+<div class="metrics"><div class="metric"><strong>72</strong>正确初点保持原值</div><div class="metric"><strong>144</strong>±60 mm 偏移初点改善</div><div class="metric"><strong>0</strong>证书输出伤害</div><div class="metric warn"><strong>37</strong>名义网格伤害正确初点</div></div>
+<p class="muted">72 场景配置，216 次决策；上述合计包含 LOVELACE 面片与解析矩形两个模型族。每个模型族 / 半径有 12 场景，三种初点共享同一观测。偏移初点的最大证书残余绝对误差为 <b>3.3192 mm</b>；平均 MAE 不代表每个场景都达亚毫米精度。</p>
+<div class="scope-note"><b>适用边界：</b>LOVELACE 部分只隔离已有 M4 网格的一张三角面，矩形另作解析基线；统一不透明常色，只包含侧相机 <i>x</i> 位置偏差，参考相机固定。毫米为归一化模型尺度，未经真实物理校准。结果不表示完整角色重建，也不覆盖旋转、光照、材质或真实相机误差。</div>
+<section><h2>按条件检查结果</h2><div class="filters"><label>模型族<select id="family"></select></label><label>侧相机误差半径 η<select id="radius"></select></label><label>初点状态<select id="state"></select></label></div>
+<div class="table-wrap"><table><thead><tr><th>方法</th><th class="num">决策数</th><th class="num">MAE / mm</th><th class="num">改善 / 伤害</th><th class="num">平均外包宽度 / mm</th></tr></thead><tbody id="statistics"></tbody></table></div>
+<p class="muted">外包宽度属于证书搜索，基线没有各自的外包。显示值为四舍五入；悬停查看归档中的精确有理数。</p>
+<label>选定场景<select id="scene"></select></label><p id="scene-description" class="muted"></p>
+<div class="details"><div><small>验收真值</small><b id="truth"></b></div><div><small>输入初点</small><b id="initial"></b></div><div><small>证书输出</small><b id="output"></b></div><div><small>证书决策</small><b id="status"></b></div></div>
+<svg id="depthplot" class="depth-plot" viewBox="0 0 1000 165" role="img" aria-label="选定场景的真值、初点、输出和保留深度区间"></svg>
+<div class="legend"><span>蓝色 T：验收真值</span><span>橙色 I：初点</span><span>绿色 C：证书输出</span><span>紫色 N：名义网格输出</span><span>实绿色段：未排除区间</span></div>
+<p id="scene-error"></p><p id="hull" class="muted"></p><details><summary>查看全部未排除区间与证书下界</summary><p id="gain" class="muted"></p><div id="intervals" class="intervals"></div></details>
+<div class="callout"><b>外包不是置信区间。</b>未排除不等于存在一组相机参数能解释该深度；保守区间可能包含伪候选。真值只有在声明的几何、相机和观测误差预算覆盖它时才保证保留。证书在这个外包上采取保守动作。</div>
+</section>
+<section><h2>可导出的科研图</h2><p class="muted">MAE 合并正、负 60 mm 偏移状态；外包宽度按场景配置平均。两种模型族分开绘制，半径按数值排序。不同半径使用不同随机噪声，因此不是严格配对实验；图中连线只连接条件均值，不能单独解释成相机误差半径的因果效应。</p><div class="charts"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="864pt" height="604.8pt" viewBox="0 0 864 604.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:description>Derived from confirmation-v1 summary and scenes; exact Fraction aggregation; conservative outer sets, not confidence intervals.</dc:description>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.1, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 604.8 
+L 864 604.8 
+L 864 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 64.8 262.409143 
+L 402.063158 262.409143 
+L 402.063158 84.672 
+L 64.8 84.672 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mebbf3e3d66" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mebbf3e3d66" x="80.130144" y="262.409143" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="80.130144" y="277.52926" transform="rotate(-0 80.130144 277.52926)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mebbf3e3d66" x="141.450718" y="262.409143" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="141.450718" y="277.52926" transform="rotate(-0 141.450718 277.52926)">0.2</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mebbf3e3d66" x="386.733014" y="262.409143" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="386.733014" y="277.52926" transform="rotate(-0 386.733014 277.52926)">1</text>
+     </g>
+    </g>
+    <g id="text_4">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="233.431579" y="292.505627" transform="rotate(-0 233.431579 292.505627)">侧相机横向误差半径 η (mm)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_4">
+      <path d="M 64.8 262.409143 
+L 402.063158 262.409143 
+" clip-path="url(#pffb41434d2)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_5">
+      <defs>
+       <path id="m51e454be0b" d="M 0 0 
+L -3.5 0 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m51e454be0b" x="64.8" y="262.409143" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="57.8" y="266.469201" transform="rotate(-0 57.8 266.469201)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_6">
+      <path d="M 64.8 220.435334 
+L 402.063158 220.435334 
+" clip-path="url(#pffb41434d2)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m51e454be0b" x="64.8" y="220.435334" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="57.8" y="224.495392" transform="rotate(-0 57.8 224.495392)">1</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_8">
+      <path d="M 64.8 178.461524 
+L 402.063158 178.461524 
+" clip-path="url(#pffb41434d2)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m51e454be0b" x="64.8" y="178.461524" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="57.8" y="182.521583" transform="rotate(-0 57.8 182.521583)">2</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_10">
+      <path d="M 64.8 136.487715 
+L 402.063158 136.487715 
+" clip-path="url(#pffb41434d2)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m51e454be0b" x="64.8" y="136.487715" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="57.8" y="140.547774" transform="rotate(-0 57.8 140.547774)">3</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_12">
+      <path d="M 64.8 94.513906 
+L 402.063158 94.513906 
+" clip-path="url(#pffb41434d2)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m51e454be0b" x="64.8" y="94.513906" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="57.8" y="98.573964" transform="rotate(-0 57.8 98.573964)">4</text>
+     </g>
+    </g>
+    <g id="text_10">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="45.401758" y="173.540571" transform="rotate(-90 45.401758 173.540571)">MAE (mm)</text>
+    </g>
+   </g>
+   <g id="line2d_14">
+    <path d="M 80.130144 257.412261 
+L 141.450718 259.871664 
+L 386.733014 239.930981 
+" clip-path="url(#pffb41434d2)" style="fill: none; stroke: #087b77; stroke-width: 1.7; stroke-linecap: square"/>
+    <defs>
+     <path id="m0f93a9a24d" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #087b77"/>
+    </defs>
+    <g clip-path="url(#pffb41434d2)">
+     <use xlink:href="#m0f93a9a24d" x="80.130144" y="257.412261" style="fill: #087b77; stroke: #087b77"/>
+     <use xlink:href="#m0f93a9a24d" x="141.450718" y="259.871664" style="fill: #087b77; stroke: #087b77"/>
+     <use xlink:href="#m0f93a9a24d" x="386.733014" y="239.930981" style="fill: #087b77; stroke: #087b77"/>
+    </g>
+   </g>
+   <g id="line2d_15">
+    <path d="M 80.130144 249.916938 
+L 141.450718 236.425356 
+L 386.733014 93.014841 
+" clip-path="url(#pffb41434d2)" style="fill: none; stroke-dasharray: 6.29,2.72; stroke-dashoffset: 0; stroke: #b96022; stroke-width: 1.7"/>
+    <defs>
+     <path id="mc9aceb5ad3" d="M -3 3 
+L 3 3 
+L 3 -3 
+L -3 -3 
+z
+" style="stroke: #b96022; stroke-linejoin: miter"/>
+    </defs>
+    <g clip-path="url(#pffb41434d2)">
+     <use xlink:href="#mc9aceb5ad3" x="80.130144" y="249.916938" style="fill: #b96022; stroke: #b96022; stroke-linejoin: miter"/>
+     <use xlink:href="#mc9aceb5ad3" x="141.450718" y="236.425356" style="fill: #b96022; stroke: #b96022; stroke-linejoin: miter"/>
+     <use xlink:href="#mc9aceb5ad3" x="386.733014" y="93.014841" style="fill: #b96022; stroke: #b96022; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 64.8 262.409143 
+L 64.8 84.672 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 64.8 262.409143 
+L 402.063158 262.409143 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle; fill: #087b77" x="80.130144" y="250.412261" transform="rotate(-0 80.130144 250.412261)">0.119</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle; fill: #087b77" x="141.450718" y="252.871664" transform="rotate(-0 141.450718 252.871664)">0.060</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle; fill: #087b77" x="386.733014" y="232.930981" transform="rotate(-0 386.733014 232.930981)">0.536</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle; fill: #b96022" x="80.130144" y="239.916938" transform="rotate(-0 80.130144 239.916938)">0.298</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle; fill: #b96022" x="141.450718" y="226.425356" transform="rotate(-0 141.450718 226.425356)">0.619</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle; fill: #b96022" x="386.733014" y="83.014841" transform="rotate(-0 386.733014 83.014841)">4.036</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start" x="64.8" y="78.672" transform="rotate(-0 64.8 78.672)">LOVELACE · 孤立 M4 面片 · 偏移初点 MAE</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_16">
+     <path d="M 72.9 97.158094 
+L 81.9 97.158094 
+L 90.9 97.158094 
+" style="fill: none; stroke: #087b77; stroke-width: 1.7; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#m0f93a9a24d" x="81.9" y="97.158094" style="fill: #087b77; stroke: #087b77"/>
+     </g>
+    </g>
+    <g id="text_18">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start" x="98.1" y="100.308094" transform="rotate(-0 98.1 100.308094)">连续外包证书</text>
+    </g>
+    <g id="line2d_17">
+     <path d="M 72.9 111.458074 
+L 81.9 111.458074 
+L 90.9 111.458074 
+" style="fill: none; stroke-dasharray: 6.29,2.72; stroke-dashoffset: 0; stroke: #b96022; stroke-width: 1.7"/>
+     <g>
+      <use xlink:href="#mc9aceb5ad3" x="81.9" y="111.458074" style="fill: #b96022; stroke: #b96022; stroke-linejoin: miter"/>
+     </g>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start" x="98.1" y="114.608074" transform="rotate(-0 98.1 114.608074)">名义相机网格</text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 496.496842 262.409143 
+L 833.76 262.409143 
+L 833.76 84.672 
+L 496.496842 84.672 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_4">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#mebbf3e3d66" x="511.826986" y="262.409143" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="511.826986" y="277.52926" transform="rotate(-0 511.826986 277.52926)">0</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#mebbf3e3d66" x="573.14756" y="262.409143" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="573.14756" y="277.52926" transform="rotate(-0 573.14756 277.52926)">0.2</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#mebbf3e3d66" x="818.429856" y="262.409143" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="818.429856" y="277.52926" transform="rotate(-0 818.429856 277.52926)">1</text>
+     </g>
+    </g>
+    <g id="text_23">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="665.128421" y="292.505627" transform="rotate(-0 665.128421 292.505627)">侧相机横向误差半径 η (mm)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_6">
+     <g id="line2d_21">
+      <path d="M 496.496842 262.409143 
+L 833.76 262.409143 
+" clip-path="url(#p0e03130d91)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m51e454be0b" x="496.496842" y="262.409143" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="489.496842" y="266.469201" transform="rotate(-0 489.496842 266.469201)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_23">
+      <path d="M 496.496842 223.15055 
+L 833.76 223.15055 
+" clip-path="url(#p0e03130d91)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m51e454be0b" x="496.496842" y="223.15055" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="489.496842" y="227.210609" transform="rotate(-0 489.496842 227.210609)">0.6</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_25">
+      <path d="M 496.496842 183.891958 
+L 833.76 183.891958 
+" clip-path="url(#p0e03130d91)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m51e454be0b" x="496.496842" y="183.891958" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="489.496842" y="187.952017" transform="rotate(-0 489.496842 187.952017)">1.2</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_27">
+      <path d="M 496.496842 144.633366 
+L 833.76 144.633366 
+" clip-path="url(#p0e03130d91)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#m51e454be0b" x="496.496842" y="144.633366" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_27">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="489.496842" y="148.693424" transform="rotate(-0 489.496842 148.693424)">1.8</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_29">
+      <path d="M 496.496842 105.374773 
+L 833.76 105.374773 
+" clip-path="url(#p0e03130d91)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#m51e454be0b" x="496.496842" y="105.374773" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="489.496842" y="109.434832" transform="rotate(-0 489.496842 109.434832)">2.4</text>
+     </g>
+    </g>
+    <g id="text_29">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="468.826725" y="173.540571" transform="rotate(-90 468.826725 173.540571)">Width (mm)</text>
+    </g>
+   </g>
+   <g id="line2d_31">
+    <path d="M 511.826986 195.955796 
+L 573.14756 188.288103 
+L 818.429856 116.72296 
+" clip-path="url(#p0e03130d91)" style="fill: none; stroke: #285778; stroke-width: 1.7; stroke-linecap: square"/>
+    <defs>
+     <path id="m625d3c5da1" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #285778"/>
+    </defs>
+    <g clip-path="url(#p0e03130d91)">
+     <use xlink:href="#m625d3c5da1" x="511.826986" y="195.955796" style="fill: #285778; stroke: #285778"/>
+     <use xlink:href="#m625d3c5da1" x="573.14756" y="188.288103" style="fill: #285778; stroke: #285778"/>
+     <use xlink:href="#m625d3c5da1" x="818.429856" y="116.72296" style="fill: #285778; stroke: #285778"/>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 496.496842 262.409143 
+L 496.496842 84.672 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 496.496842 262.409143 
+L 833.76 262.409143 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="511.826986" y="187.955796" transform="rotate(-0 511.826986 187.955796)">1.016</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="573.14756" y="180.288103" transform="rotate(-0 573.14756 180.288103)">1.133</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="818.429856" y="108.72296" transform="rotate(-0 818.429856 108.72296)">2.227</text>
+   </g>
+   <g id="text_33">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start" x="496.496842" y="78.672" transform="rotate(-0 496.496842 78.672)">LOVELACE · 孤立 M4 面片 · 平均外包凸包宽度</text>
+   </g>
+  </g>
+  <g id="axes_3">
+   <g id="patch_8">
+    <path d="M 64.8 520.128 
+L 402.063158 520.128 
+L 402.063158 342.390857 
+L 64.8 342.390857 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_5">
+    <g id="xtick_7">
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#mebbf3e3d66" x="80.130144" y="520.128" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_34">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="80.130144" y="535.248117" transform="rotate(-0 80.130144 535.248117)">0</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#mebbf3e3d66" x="141.450718" y="520.128" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_35">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="141.450718" y="535.248117" transform="rotate(-0 141.450718 535.248117)">0.2</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#mebbf3e3d66" x="386.733014" y="520.128" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_36">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="386.733014" y="535.248117" transform="rotate(-0 386.733014 535.248117)">1</text>
+     </g>
+    </g>
+    <g id="text_37">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="233.431579" y="550.224484" transform="rotate(-0 233.431579 550.224484)">侧相机横向误差半径 η (mm)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_6">
+    <g id="ytick_11">
+     <g id="line2d_35">
+      <path d="M 64.8 520.128 
+L 402.063158 520.128 
+" clip-path="url(#pf6450260ba)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#m51e454be0b" x="64.8" y="520.128" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_38">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="57.8" y="524.188059" transform="rotate(-0 57.8 524.188059)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_37">
+      <path d="M 64.8 477.144391 
+L 402.063158 477.144391 
+" clip-path="url(#pf6450260ba)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#m51e454be0b" x="64.8" y="477.144391" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_39">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="57.8" y="481.20445" transform="rotate(-0 57.8 481.20445)">0.8</text>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_39">
+      <path d="M 64.8 434.160782 
+L 402.063158 434.160782 
+" clip-path="url(#pf6450260ba)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#m51e454be0b" x="64.8" y="434.160782" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_40">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="57.8" y="438.220841" transform="rotate(-0 57.8 438.220841)">1.6</text>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_41">
+      <path d="M 64.8 391.177173 
+L 402.063158 391.177173 
+" clip-path="url(#pf6450260ba)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_42">
+      <g>
+       <use xlink:href="#m51e454be0b" x="64.8" y="391.177173" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_41">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="57.8" y="395.237232" transform="rotate(-0 57.8 395.237232)">2.4</text>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_43">
+      <path d="M 64.8 348.193564 
+L 402.063158 348.193564 
+" clip-path="url(#pf6450260ba)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_44">
+      <g>
+       <use xlink:href="#m51e454be0b" x="64.8" y="348.193564" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_42">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="57.8" y="352.253623" transform="rotate(-0 57.8 352.253623)">3.2</text>
+     </g>
+    </g>
+    <g id="text_43">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="37.129883" y="431.259429" transform="rotate(-90 37.129883 431.259429)">MAE (mm)</text>
+    </g>
+   </g>
+   <g id="line2d_45">
+    <path d="M 80.130144 515.290745 
+L 141.450718 513.531743 
+L 386.733014 514.581148 
+" clip-path="url(#pf6450260ba)" style="fill: none; stroke: #087b77; stroke-width: 1.7; stroke-linecap: square"/>
+    <g clip-path="url(#pf6450260ba)">
+     <use xlink:href="#m0f93a9a24d" x="80.130144" y="515.290745" style="fill: #087b77; stroke: #087b77"/>
+     <use xlink:href="#m0f93a9a24d" x="141.450718" y="513.531743" style="fill: #087b77; stroke: #087b77"/>
+     <use xlink:href="#m0f93a9a24d" x="386.733014" y="514.581148" style="fill: #087b77; stroke: #087b77"/>
+    </g>
+   </g>
+   <g id="line2d_46">
+    <path d="M 80.130144 504.776711 
+L 141.450718 478.551593 
+L 386.733014 350.624185 
+" clip-path="url(#pf6450260ba)" style="fill: none; stroke-dasharray: 6.29,2.72; stroke-dashoffset: 0; stroke: #b96022; stroke-width: 1.7"/>
+    <g clip-path="url(#pf6450260ba)">
+     <use xlink:href="#mc9aceb5ad3" x="80.130144" y="504.776711" style="fill: #b96022; stroke: #b96022; stroke-linejoin: miter"/>
+     <use xlink:href="#mc9aceb5ad3" x="141.450718" y="478.551593" style="fill: #b96022; stroke: #b96022; stroke-linejoin: miter"/>
+     <use xlink:href="#mc9aceb5ad3" x="386.733014" y="350.624185" style="fill: #b96022; stroke: #b96022; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 64.8 520.128 
+L 64.8 342.390857 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 64.8 520.128 
+L 402.063158 520.128 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_44">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle; fill: #087b77" x="80.130144" y="508.290745" transform="rotate(-0 80.130144 508.290745)">0.090</text>
+   </g>
+   <g id="text_45">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle; fill: #087b77" x="141.450718" y="506.531743" transform="rotate(-0 141.450718 506.531743)">0.123</text>
+   </g>
+   <g id="text_46">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle; fill: #087b77" x="386.733014" y="507.581148" transform="rotate(-0 386.733014 507.581148)">0.103</text>
+   </g>
+   <g id="text_47">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle; fill: #b96022" x="80.130144" y="494.776711" transform="rotate(-0 80.130144 494.776711)">0.286</text>
+   </g>
+   <g id="text_48">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle; fill: #b96022" x="141.450718" y="468.551593" transform="rotate(-0 141.450718 468.551593)">0.774</text>
+   </g>
+   <g id="text_49">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle; fill: #b96022" x="386.733014" y="340.624185" transform="rotate(-0 386.733014 340.624185)">3.155</text>
+   </g>
+   <g id="text_50">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start" x="64.8" y="336.390857" transform="rotate(-0 64.8 336.390857)">矩形 · 解析基线 · 偏移初点 MAE</text>
+   </g>
+   <g id="legend_2">
+    <g id="line2d_47">
+     <path d="M 72.9 354.876951 
+L 81.9 354.876951 
+L 90.9 354.876951 
+" style="fill: none; stroke: #087b77; stroke-width: 1.7; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#m0f93a9a24d" x="81.9" y="354.876951" style="fill: #087b77; stroke: #087b77"/>
+     </g>
+    </g>
+    <g id="text_51">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start" x="98.1" y="358.026951" transform="rotate(-0 98.1 358.026951)">连续外包证书</text>
+    </g>
+    <g id="line2d_48">
+     <path d="M 72.9 369.176931 
+L 81.9 369.176931 
+L 90.9 369.176931 
+" style="fill: none; stroke-dasharray: 6.29,2.72; stroke-dashoffset: 0; stroke: #b96022; stroke-width: 1.7"/>
+     <g>
+      <use xlink:href="#mc9aceb5ad3" x="81.9" y="369.176931" style="fill: #b96022; stroke: #b96022; stroke-linejoin: miter"/>
+     </g>
+    </g>
+    <g id="text_52">
+     <text style="font-size: 9px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start" x="98.1" y="372.326931" transform="rotate(-0 98.1 372.326931)">名义相机网格</text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_4">
+   <g id="patch_11">
+    <path d="M 496.496842 520.128 
+L 833.76 520.128 
+L 833.76 342.390857 
+L 496.496842 342.390857 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_7">
+    <g id="xtick_10">
+     <g id="line2d_49">
+      <g>
+       <use xlink:href="#mebbf3e3d66" x="511.826986" y="520.128" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_53">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="511.826986" y="535.248117" transform="rotate(-0 511.826986 535.248117)">0</text>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_50">
+      <g>
+       <use xlink:href="#mebbf3e3d66" x="573.14756" y="520.128" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_54">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="573.14756" y="535.248117" transform="rotate(-0 573.14756 535.248117)">0.2</text>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_51">
+      <g>
+       <use xlink:href="#mebbf3e3d66" x="818.429856" y="520.128" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_55">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="818.429856" y="535.248117" transform="rotate(-0 818.429856 535.248117)">1</text>
+     </g>
+    </g>
+    <g id="text_56">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="665.128421" y="550.224484" transform="rotate(-0 665.128421 550.224484)">侧相机横向误差半径 η (mm)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_8">
+    <g id="ytick_16">
+     <g id="line2d_52">
+      <path d="M 496.496842 520.128 
+L 833.76 520.128 
+" clip-path="url(#p612535eb28)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_53">
+      <g>
+       <use xlink:href="#m51e454be0b" x="496.496842" y="520.128" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_57">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="489.496842" y="524.188059" transform="rotate(-0 489.496842 524.188059)">0.00</text>
+     </g>
+    </g>
+    <g id="ytick_17">
+     <g id="line2d_54">
+      <path d="M 496.496842 480.168361 
+L 833.76 480.168361 
+" clip-path="url(#p612535eb28)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_55">
+      <g>
+       <use xlink:href="#m51e454be0b" x="496.496842" y="480.168361" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_58">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="489.496842" y="484.22842" transform="rotate(-0 489.496842 484.22842)">0.15</text>
+     </g>
+    </g>
+    <g id="ytick_18">
+     <g id="line2d_56">
+      <path d="M 496.496842 440.208723 
+L 833.76 440.208723 
+" clip-path="url(#p612535eb28)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_57">
+      <g>
+       <use xlink:href="#m51e454be0b" x="496.496842" y="440.208723" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_59">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="489.496842" y="444.268781" transform="rotate(-0 489.496842 444.268781)">0.30</text>
+     </g>
+    </g>
+    <g id="ytick_19">
+     <g id="line2d_58">
+      <path d="M 496.496842 400.249084 
+L 833.76 400.249084 
+" clip-path="url(#p612535eb28)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_59">
+      <g>
+       <use xlink:href="#m51e454be0b" x="496.496842" y="400.249084" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_60">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="489.496842" y="404.309143" transform="rotate(-0 489.496842 404.309143)">0.45</text>
+     </g>
+    </g>
+    <g id="ytick_20">
+     <g id="line2d_60">
+      <path d="M 496.496842 360.289445 
+L 833.76 360.289445 
+" clip-path="url(#p612535eb28)" style="fill: none; stroke: #e1e5e8; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_61">
+      <g>
+       <use xlink:href="#m51e454be0b" x="496.496842" y="360.289445" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_61">
+      <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: end" x="489.496842" y="364.349504" transform="rotate(-0 489.496842 364.349504)">0.60</text>
+     </g>
+    </g>
+    <g id="text_62">
+     <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="462.962662" y="431.259429" transform="rotate(-90 462.962662 431.259429)">Width (mm)</text>
+    </g>
+   </g>
+   <g id="line2d_62">
+    <path d="M 511.826986 395.254129 
+L 573.14756 374.441817 
+L 818.429856 384.847973 
+" clip-path="url(#p612535eb28)" style="fill: none; stroke: #285778; stroke-width: 1.7; stroke-linecap: square"/>
+    <g clip-path="url(#p612535eb28)">
+     <use xlink:href="#m625d3c5da1" x="511.826986" y="395.254129" style="fill: #285778; stroke: #285778"/>
+     <use xlink:href="#m625d3c5da1" x="573.14756" y="374.441817" style="fill: #285778; stroke: #285778"/>
+     <use xlink:href="#m625d3c5da1" x="818.429856" y="384.847973" style="fill: #285778; stroke: #285778"/>
+    </g>
+   </g>
+   <g id="patch_12">
+    <path d="M 496.496842 520.128 
+L 496.496842 342.390857 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 496.496842 520.128 
+L 833.76 520.128 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_63">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="511.826986" y="387.254129" transform="rotate(-0 511.826986 387.254129)">0.469</text>
+   </g>
+   <g id="text_64">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="573.14756" y="366.441817" transform="rotate(-0 573.14756 366.441817)">0.547</text>
+   </g>
+   <g id="text_65">
+    <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: middle" x="818.429856" y="376.847973" transform="rotate(-0 818.429856 376.847973)">0.508</text>
+   </g>
+   <g id="text_66">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start" x="496.496842" y="336.390857" transform="rotate(-0 496.496842 336.390857)">矩形 · 解析基线 · 平均外包凸包宽度</text>
+   </g>
+  </g>
+  <g id="text_67">
+   <text style="font-weight: 700; font-size: 16px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start" x="51.84" y="25.511" transform="rotate(-0 51.84 25.511)">连续深度与有界侧相机偏差：冻结确认集</text>
+  </g>
+  <g id="text_68">
+   <text style="font-size: 10px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start; fill: #43505b" x="51.84" y="54.432" transform="rotate(-0 51.84 54.432)">72 场景配置 / 216 次决策；每个模型族与 η 包含 12 配置；MAE 合并 ±60 mm 初点状态。</text>
+  </g>
+  <g id="text_69">
+   <text style="font-size: 9px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start; fill: #43505b" x="51.84" y="564.8832" transform="rotate(-0 51.84 564.8832)">各 η 使用不同随机噪声，不是严格配对实验；连线只连接条件均值。始终 KEEP 的偏移 MAE = 60 mm。</text>
+  </g>
+  <g id="text_70">
+   <text style="font-size: 9px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start; fill: #43505b" x="51.84" y="580.0032" transform="rotate(-0 51.84 580.0032)">外包不是置信区间；均值不是逐场景上界。偏移初点的最大证书残余绝对误差 = 3.3192 mm。</text>
+  </g>
+  <g id="text_71">
+   <text style="font-size: 9px; font-family: 'Microsoft YaHei', 'DejaVu Sans'; text-anchor: start; fill: #43505b" x="51.84" y="594.5184" transform="rotate(-0 51.84 594.5184)">范围：孤立 M4 面片 / 解析矩形；540–660 mm；只改变侧相机 x；毫米为归一化模型尺度，未经物理校准。</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pffb41434d2">
+   <rect x="64.8" y="84.672" width="337.263158" height="177.737143"/>
+  </clipPath>
+  <clipPath id="p0e03130d91">
+   <rect x="496.496842" y="84.672" width="337.263158" height="177.737143"/>
+  </clipPath>
+  <clipPath id="pf6450260ba">
+   <rect x="64.8" y="342.390857" width="337.263158" height="177.737143"/>
+  </clipPath>
+  <clipPath id="p612535eb28">
+   <rect x="496.496842" y="342.390857" width="337.263158" height="177.737143"/>
+  </clipPath>
+ </defs>
+</svg>
+</div><a href="results.svg" download>下载独立 SVG</a></section>
+<section><h2>结果与核验的来源</h2><p><span class="tag">归档分区与标量证据：通过</span></p><p>本页读取 confirmation-v1 的 <a href="outputs/confirmation-v1/VERIFICATION.json">VERIFICATION.json</a>，其核验复用几何模型核，未宣称独立重写几何证明。页面构建另外用场景逐项重聚合，核对摘要中的 MAE、MSE、外包宽度及计数。</p>
+<p><a href="outputs/confirmation-v1/summary.json">确认集摘要</a> · <a href="outputs/confirmation-v1/scenes.jsonl">场景与决策原始记录</a> · <a href="outputs/replay-v1/summary.json">另一次回放的原始摘要</a> · <a href="outputs/confirmation-v1/REPRODUCIBILITY.json">重跑核验原始报告</a> · <a href="outputs/confirmation-v1/AUDIT.json">源码审计原始报告</a> · <a href="REPORT.zh.md">中文报告</a> · <a href="THEORY.md">理论与范围</a> · <a href="EXPERIMENT_PLAN.md">冻结实验计划</a></p>
+<p class="muted">本页的通过标签只对应所读取的 VERIFICATION；源码审计与重跑结论请查看各自原始报告。另有违反观测误差预算的控制例，演示覆盖失效后可能伤害真值；该例不计入 216 次确认决策。</p>
+<details><summary>源数据 SHA-256</summary><div class="hashes"><p>summary.json: e11d129c8e0a635cf5aa237ac58a91f54cdc99f92a8f6563b67f7455c6e17080</p><p>scenes.jsonl: 333b150419d8cbf81102f7130e24c3b5e3c3e3b369a3b45b7043c20c93fd5466</p><p>VERIFICATION.json: f29de86f88de065bcb7757a20b08105cfe73605d401e3c8c1add8b7b0ac5a7d1</p></div></details></section>
+<footer>图表的小数仅用于展示；算法及归档使用精确 Fraction。构建脚本：presentation/build_review.py。整个页面可离线打开，无网络依赖。</footer></main>
+<script id="data" type="application/json">{"rows":[{"kind":"lovelace_triangle","camera_radius_mm":"0","state":"correct","method":"certificate","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"65/64"},{"kind":"lovelace_triangle","camera_radius_mm":"0","state":"correct","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"65/64"},{"kind":"lovelace_triangle","camera_radius_mm":"0","state":"correct","method":"nominal_grid","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"65/64"},{"kind":"lovelace_triangle","camera_radius_mm":"0","state":"minus60","method":"certificate","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"5/42","mse":"4285/172032","width":"65/64"},{"kind":"lovelace_triangle","camera_radius_mm":"0","state":"minus60","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"60","mse":"3600","width":"65/64"},{"kind":"lovelace_triangle","camera_radius_mm":"0","state":"minus60","method":"nominal_grid","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"25/84","mse":"3/28","width":"65/64"},{"kind":"lovelace_triangle","camera_radius_mm":"0","state":"plus60","method":"certificate","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"5/42","mse":"4285/172032","width":"65/64"},{"kind":"lovelace_triangle","camera_radius_mm":"0","state":"plus60","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"60","mse":"3600","width":"65/64"},{"kind":"lovelace_triangle","camera_radius_mm":"0","state":"plus60","method":"nominal_grid","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"25/84","mse":"3/28","width":"65/64"},{"kind":"lovelace_triangle","camera_radius_mm":"1","state":"correct","method":"certificate","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"285/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1","state":"correct","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"285/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1","state":"correct","method":"nominal_grid","count":12,"improved":0,"worse":12,"same":0,"moved":12,"mae":"113/28","mse":"599/28","width":"285/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1","state":"minus60","method":"certificate","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"2879/5376","mse":"510725/344064","width":"285/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1","state":"minus60","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"60","mse":"3600","width":"285/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1","state":"minus60","method":"nominal_grid","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"113/28","mse":"599/28","width":"285/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1","state":"plus60","method":"certificate","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"2879/5376","mse":"510725/344064","width":"285/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1","state":"plus60","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"60","mse":"3600","width":"285/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1","state":"plus60","method":"nominal_grid","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"113/28","mse":"599/28","width":"285/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1/5","state":"correct","method":"certificate","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"145/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1/5","state":"correct","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"145/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1/5","state":"correct","method":"nominal_grid","count":12,"improved":0,"worse":7,"same":5,"moved":7,"mae":"1/2","mse":"61/98","width":"145/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1/5","state":"minus60","method":"certificate","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"325/5376","mse":"485/49152","width":"145/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1/5","state":"minus60","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"60","mse":"3600","width":"145/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1/5","state":"minus60","method":"nominal_grid","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"13/21","mse":"2/3","width":"145/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1/5","state":"plus60","method":"certificate","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"325/5376","mse":"485/49152","width":"145/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1/5","state":"plus60","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"60","mse":"3600","width":"145/128"},{"kind":"lovelace_triangle","camera_radius_mm":"1/5","state":"plus60","method":"nominal_grid","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"13/21","mse":"2/3","width":"145/128"},{"kind":"rectangle","camera_radius_mm":"0","state":"correct","method":"certificate","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"15/32"},{"kind":"rectangle","camera_radius_mm":"0","state":"correct","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"15/32"},{"kind":"rectangle","camera_radius_mm":"0","state":"correct","method":"nominal_grid","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"15/32"},{"kind":"rectangle","camera_radius_mm":"0","state":"minus60","method":"certificate","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"121/1344","mse":"1445/86016","width":"15/32"},{"kind":"rectangle","camera_radius_mm":"0","state":"minus60","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"60","mse":"3600","width":"15/32"},{"kind":"rectangle","camera_radius_mm":"0","state":"minus60","method":"nominal_grid","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"2/7","mse":"2/21","width":"15/32"},{"kind":"rectangle","camera_radius_mm":"0","state":"plus60","method":"certificate","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"121/1344","mse":"1445/86016","width":"15/32"},{"kind":"rectangle","camera_radius_mm":"0","state":"plus60","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"60","mse":"3600","width":"15/32"},{"kind":"rectangle","camera_radius_mm":"0","state":"plus60","method":"nominal_grid","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"2/7","mse":"2/21","width":"15/32"},{"kind":"rectangle","camera_radius_mm":"1","state":"correct","method":"certificate","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"65/128"},{"kind":"rectangle","camera_radius_mm":"1","state":"correct","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"65/128"},{"kind":"rectangle","camera_radius_mm":"1","state":"correct","method":"nominal_grid","count":12,"improved":0,"worse":11,"same":1,"moved":11,"mae":"263/84","mse":"2479/196","width":"65/128"},{"kind":"rectangle","camera_radius_mm":"1","state":"minus60","method":"certificate","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"185/1792","mse":"6845/344064","width":"65/128"},{"kind":"rectangle","camera_radius_mm":"1","state":"minus60","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"60","mse":"3600","width":"65/128"},{"kind":"rectangle","camera_radius_mm":"1","state":"minus60","method":"nominal_grid","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"265/84","mse":"1063/84","width":"65/128"},{"kind":"rectangle","camera_radius_mm":"1","state":"plus60","method":"certificate","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"185/1792","mse":"6845/344064","width":"65/128"},{"kind":"rectangle","camera_radius_mm":"1","state":"plus60","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"60","mse":"3600","width":"65/128"},{"kind":"rectangle","camera_radius_mm":"1","state":"plus60","method":"nominal_grid","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"265/84","mse":"1063/84","width":"65/128"},{"kind":"rectangle","camera_radius_mm":"1/5","state":"correct","method":"certificate","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"35/64"},{"kind":"rectangle","camera_radius_mm":"1/5","state":"correct","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"0","mse":"0","width":"35/64"},{"kind":"rectangle","camera_radius_mm":"1/5","state":"correct","method":"nominal_grid","count":12,"improved":0,"worse":7,"same":5,"moved":7,"mae":"53/84","mse":"163/196","width":"35/64"},{"kind":"rectangle","camera_radius_mm":"1/5","state":"minus60","method":"certificate","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"55/448","mse":"395/12288","width":"35/64"},{"kind":"rectangle","camera_radius_mm":"1/5","state":"minus60","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"60","mse":"3600","width":"35/64"},{"kind":"rectangle","camera_radius_mm":"1/5","state":"minus60","method":"nominal_grid","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"65/84","mse":"25/28","width":"35/64"},{"kind":"rectangle","camera_radius_mm":"1/5","state":"plus60","method":"certificate","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"55/448","mse":"395/12288","width":"35/64"},{"kind":"rectangle","camera_radius_mm":"1/5","state":"plus60","method":"keep","count":12,"improved":0,"worse":0,"same":12,"moved":0,"mae":"60","mse":"3600","width":"35/64"},{"kind":"rectangle","camera_radius_mm":"1/5","state":"plus60","method":"nominal_grid","count":12,"improved":12,"worse":0,"same":0,"moved":12,"mae":"65/84","mse":"25/28","width":"35/64"}],"scenes":[{"id":"lovelace_triangle:0:3921/7:2000","kind":"lovelace_triangle","radius":"0","truth":"3921/7","seed":2000,"offsets":["0","0","0"],"epsilon":"1/100","hull":["8955/16","4485/8"],"retained":[["8955/16","17925/32"],["17925/32","4485/8"]],"boxes":35,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"3921/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177891219/50176"},{"state":"plus60","incumbent":"4341/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177731199/50176"}]},{"id":"lovelace_triangle:0:3921/7:2001","kind":"lovelace_triangle","radius":"0","truth":"3921/7","seed":2001,"offsets":["0","0","0"],"epsilon":"1/100","hull":["8955/16","4485/8"],"retained":[["8955/16","17925/32"],["17925/32","4485/8"]],"boxes":35,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"3921/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177891219/50176"},{"state":"plus60","incumbent":"4341/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177731199/50176"}]},{"id":"lovelace_triangle:0:3921/7:2002","kind":"lovelace_triangle","radius":"0","truth":"3921/7","seed":2002,"offsets":["0","0","0"],"epsilon":"1/100","hull":["8955/16","4485/8"],"retained":[["8955/16","17925/32"],["17925/32","4485/8"]],"boxes":31,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"3921/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177891219/50176"},{"state":"plus60","incumbent":"4341/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177731199/50176"}]},{"id":"lovelace_triangle:0:3921/7:2003","kind":"lovelace_triangle","radius":"0","truth":"3921/7","seed":2003,"offsets":["0","0","0"],"epsilon":"1/100","hull":["8955/16","4485/8"],"retained":[["8955/16","17925/32"],["17925/32","4485/8"]],"boxes":31,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"3921/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177891219/50176"},{"state":"plus60","incumbent":"4341/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177731199/50176"}]},{"id":"lovelace_triangle:0:4205/7:2000","kind":"lovelace_triangle","radius":"0","truth":"4205/7","seed":2000,"offsets":["0","0","0"],"epsilon":"1/100","hull":["600","9615/16"],"retained":[["600","19215/32"],["19215/32","9615/16"]],"boxes":37,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"4205/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"19215/32","nominal":"601","status":"MOVE","gain_lower":"176347375/50176"},{"state":"plus60","incumbent":"4625/7","output":"19215/32","nominal":"601","status":"MOVE","gain_lower":"179281075/50176"}]},{"id":"lovelace_triangle:0:4205/7:2001","kind":"lovelace_triangle","radius":"0","truth":"4205/7","seed":2001,"offsets":["0","0","0"],"epsilon":"1/100","hull":["600","19245/32"],"retained":[["600","19215/32"],["19215/32","9615/16"],["9615/16","19245/32"]],"boxes":33,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"4205/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"705334375/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"705865675/200704"}]},{"id":"lovelace_triangle:0:4205/7:2002","kind":"lovelace_triangle","radius":"0","truth":"4205/7","seed":2002,"offsets":["0","0","0"],"epsilon":"1/100","hull":["600","9615/16"],"retained":[["600","19215/32"],["19215/32","9615/16"]],"boxes":31,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"4205/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"19215/32","nominal":"601","status":"MOVE","gain_lower":"176347375/50176"},{"state":"plus60","incumbent":"4625/7","output":"19215/32","nominal":"601","status":"MOVE","gain_lower":"179281075/50176"}]},{"id":"lovelace_triangle:0:4205/7:2003","kind":"lovelace_triangle","radius":"0","truth":"4205/7","seed":2003,"offsets":["0","0","0"],"epsilon":"1/100","hull":["600","9615/16"],"retained":[["600","19215/32"],["19215/32","9615/16"]],"boxes":31,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"4205/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"19215/32","nominal":"601","status":"MOVE","gain_lower":"176347375/50176"},{"state":"plus60","incumbent":"4625/7","output":"19215/32","nominal":"601","status":"MOVE","gain_lower":"179281075/50176"}]},{"id":"lovelace_triangle:0:4477/7:2000","kind":"lovelace_triangle","radius":"0","truth":"4477/7","seed":2000,"offsets":["0","0","0"],"epsilon":"1/100","hull":["20445/32","20475/32"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"]],"boxes":29,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"4477/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"5115/8","nominal":"640","status":"MOVE","gain_lower":"22079957/6272"},{"state":"plus60","incumbent":"4897/7","output":"5115/8","nominal":"640","status":"MOVE","gain_lower":"22373327/6272"}]},{"id":"lovelace_triangle:0:4477/7:2001","kind":"lovelace_triangle","radius":"0","truth":"4477/7","seed":2001,"offsets":["0","0","0"],"epsilon":"1/100","hull":["20445/32","10245/16"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"],["20475/32","10245/16"]],"boxes":33,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"4477/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"640","status":"MOVE","gain_lower":"706503499/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"640","status":"MOVE","gain_lower":"704697079/200704"}]},{"id":"lovelace_triangle:0:4477/7:2002","kind":"lovelace_triangle","radius":"0","truth":"4477/7","seed":2002,"offsets":["0","0","0"],"epsilon":"1/100","hull":["20445/32","20475/32"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"]],"boxes":33,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"4477/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"5115/8","nominal":"640","status":"MOVE","gain_lower":"22079957/6272"},{"state":"plus60","incumbent":"4897/7","output":"5115/8","nominal":"640","status":"MOVE","gain_lower":"22373327/6272"}]},{"id":"lovelace_triangle:0:4477/7:2003","kind":"lovelace_triangle","radius":"0","truth":"4477/7","seed":2003,"offsets":["0","0","0"],"epsilon":"1/100","hull":["20445/32","20475/32"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"]],"boxes":29,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"4477/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"5115/8","nominal":"639","status":"MOVE","gain_lower":"22079957/6272"},{"state":"plus60","incumbent":"4897/7","output":"5115/8","nominal":"639","status":"MOVE","gain_lower":"22373327/6272"}]},{"id":"lovelace_triangle:1/5:3921/7:2000","kind":"lovelace_triangle","radius":"1/5","truth":"3921/7","seed":2000,"offsets":["-1/10","0","-1/10"],"epsilon":"1/100","hull":["8955/16","4485/8"],"retained":[["8955/16","17925/32"],["17925/32","4485/8"]],"boxes":31,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"3921/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177891219/50176"},{"state":"plus60","incumbent":"4341/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177731199/50176"}]},{"id":"lovelace_triangle:1/5:3921/7:2001","kind":"lovelace_triangle","radius":"1/5","truth":"3921/7","seed":2001,"offsets":["1/10","0","1/10"],"epsilon":"1/100","hull":["8955/16","4485/8"],"retained":[["8955/16","17925/32"],["17925/32","4485/8"]],"boxes":39,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"560","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177891219/50176"},{"state":"plus60","incumbent":"4341/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177731199/50176"}]},{"id":"lovelace_triangle:1/5:3921/7:2002","kind":"lovelace_triangle","radius":"1/5","truth":"3921/7","seed":2002,"offsets":["0","0","1/5"],"epsilon":"1/100","hull":["8955/16","4485/8"],"retained":[["8955/16","17925/32"],["17925/32","4485/8"]],"boxes":35,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"559","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"17925/32","nominal":"559","status":"MOVE","gain_lower":"177891219/50176"},{"state":"plus60","incumbent":"4341/7","output":"17925/32","nominal":"559","status":"MOVE","gain_lower":"177731199/50176"}]},{"id":"lovelace_triangle:1/5:3921/7:2003","kind":"lovelace_triangle","radius":"1/5","truth":"3921/7","seed":2003,"offsets":["0","0","0"],"epsilon":"1/100","hull":["8955/16","4485/8"],"retained":[["8955/16","17925/32"],["17925/32","4485/8"]],"boxes":35,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"3921/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177891219/50176"},{"state":"plus60","incumbent":"4341/7","output":"17925/32","nominal":"560","status":"MOVE","gain_lower":"177731199/50176"}]},{"id":"lovelace_triangle:1/5:4205/7:2000","kind":"lovelace_triangle","radius":"1/5","truth":"4205/7","seed":2000,"offsets":["1/5","0","1/5"],"epsilon":"1/100","hull":["600","19245/32"],"retained":[["600","19215/32"],["19215/32","9615/16"],["9615/16","19245/32"]],"boxes":37,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"599","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"599","status":"MOVE","gain_lower":"705334375/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"599","status":"MOVE","gain_lower":"705865675/200704"}]},{"id":"lovelace_triangle:1/5:4205/7:2001","kind":"lovelace_triangle","radius":"1/5","truth":"4205/7","seed":2001,"offsets":["0","0","0"],"epsilon":"1/100","hull":["600","19245/32"],"retained":[["600","19215/32"],["19215/32","9615/16"],["9615/16","19245/32"]],"boxes":31,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"4205/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"705334375/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"705865675/200704"}]},{"id":"lovelace_triangle:1/5:4205/7:2002","kind":"lovelace_triangle","radius":"1/5","truth":"4205/7","seed":2002,"offsets":["-1/5","0","-1/10"],"epsilon":"1/100","hull":["600","19245/32"],"retained":[["600","19215/32"],["19215/32","9615/16"],["9615/16","19245/32"]],"boxes":33,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"4205/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"705334375/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"705865675/200704"}]},{"id":"lovelace_triangle:1/5:4205/7:2003","kind":"lovelace_triangle","radius":"1/5","truth":"4205/7","seed":2003,"offsets":["1/10","0","-1/10"],"epsilon":"1/100","hull":["600","19245/32"],"retained":[["600","19215/32"],["19215/32","9615/16"],["9615/16","19245/32"]],"boxes":35,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"601","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"705334375/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"705865675/200704"}]},{"id":"lovelace_triangle:1/5:4477/7:2000","kind":"lovelace_triangle","radius":"1/5","truth":"4477/7","seed":2000,"offsets":["-1/5","0","1/10"],"epsilon":"1/100","hull":["20445/32","10245/16"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"],["20475/32","10245/16"]],"boxes":35,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"639","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"639","status":"MOVE","gain_lower":"706503499/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"639","status":"MOVE","gain_lower":"704697079/200704"}]},{"id":"lovelace_triangle:1/5:4477/7:2001","kind":"lovelace_triangle","radius":"1/5","truth":"4477/7","seed":2001,"offsets":["0","0","1/5"],"epsilon":"1/100","hull":["20445/32","20475/32"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"]],"boxes":33,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"4477/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"5115/8","nominal":"639","status":"MOVE","gain_lower":"22079957/6272"},{"state":"plus60","incumbent":"4897/7","output":"5115/8","nominal":"639","status":"MOVE","gain_lower":"22373327/6272"}]},{"id":"lovelace_triangle:1/5:4477/7:2002","kind":"lovelace_triangle","radius":"1/5","truth":"4477/7","seed":2002,"offsets":["-1/10","0","0"],"epsilon":"1/100","hull":["20445/32","20475/32"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"]],"boxes":33,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"639","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"5115/8","nominal":"639","status":"MOVE","gain_lower":"22079957/6272"},{"state":"plus60","incumbent":"4897/7","output":"5115/8","nominal":"639","status":"MOVE","gain_lower":"22373327/6272"}]},{"id":"lovelace_triangle:1/5:4477/7:2003","kind":"lovelace_triangle","radius":"1/5","truth":"4477/7","seed":2003,"offsets":["-1/5","0","-1/10"],"epsilon":"1/100","hull":["20445/32","20475/32"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"]],"boxes":29,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"638","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"5115/8","nominal":"638","status":"MOVE","gain_lower":"22079957/6272"},{"state":"plus60","incumbent":"4897/7","output":"5115/8","nominal":"638","status":"MOVE","gain_lower":"22373327/6272"}]},{"id":"lovelace_triangle:1:3921/7:2000","kind":"lovelace_triangle","radius":"1","truth":"3921/7","seed":2000,"offsets":["0","0","1"],"epsilon":"1/100","hull":["8955/16","4485/8"],"retained":[["8955/16","17925/32"],["17925/32","4485/8"]],"boxes":35,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"555","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"17925/32","nominal":"555","status":"MOVE","gain_lower":"177891219/50176"},{"state":"plus60","incumbent":"4341/7","output":"17925/32","nominal":"555","status":"MOVE","gain_lower":"177731199/50176"}]},{"id":"lovelace_triangle:1:3921/7:2001","kind":"lovelace_triangle","radius":"1","truth":"3921/7","seed":2001,"offsets":["1","0","1/2"],"epsilon":"1/100","hull":["8955/16","18105/32"],"retained":[["8955/16","17925/32"],["17925/32","4485/8"],["4485/8","17955/32"],["17955/32","8985/16"],["8985/16","17985/32"],["17985/32","1125/2"],["1125/2","18015/32"],["18015/32","9015/16"],["9015/16","18045/32"],["18045/32","4515/8"],["4515/8","18075/32"],["18075/32","9045/16"],["9045/16","18105/32"]],"boxes":55,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"560","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"36015/64","nominal":"560","status":"MOVE","gain_lower":"709745751/200704"},{"state":"plus60","incumbent":"4341/7","output":"36015/64","nominal":"560","status":"MOVE","gain_lower":"591254091/200704"}]},{"id":"lovelace_triangle:1:3921/7:2002","kind":"lovelace_triangle","radius":"1","truth":"3921/7","seed":2002,"offsets":["1","0","0"],"epsilon":"1/100","hull":["8955/16","4485/8"],"retained":[["8955/16","17925/32"],["17925/32","4485/8"]],"boxes":31,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"563","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"17925/32","nominal":"563","status":"MOVE","gain_lower":"177891219/50176"},{"state":"plus60","incumbent":"4341/7","output":"17925/32","nominal":"563","status":"MOVE","gain_lower":"177731199/50176"}]},{"id":"lovelace_triangle:1:3921/7:2003","kind":"lovelace_triangle","radius":"1","truth":"3921/7","seed":2003,"offsets":["1/2","0","1"],"epsilon":"1/100","hull":["17895/32","17955/32"],"retained":[["17895/32","8955/16"],["8955/16","17925/32"],["17925/32","4485/8"],["4485/8","17955/32"]],"boxes":39,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"558","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"17925/32","nominal":"558","status":"MOVE","gain_lower":"175068189/50176"},{"state":"plus60","incumbent":"4341/7","output":"17925/32","nominal":"558","status":"MOVE","gain_lower":"174909429/50176"}]},{"id":"lovelace_triangle:1:4205/7:2000","kind":"lovelace_triangle","radius":"1","truth":"4205/7","seed":2000,"offsets":["1","0","1/2"],"epsilon":"1/100","hull":["600","19245/32"],"retained":[["600","19215/32"],["19215/32","9615/16"],["9615/16","19245/32"]],"boxes":33,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"603","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"603","status":"MOVE","gain_lower":"705334375/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"603","status":"MOVE","gain_lower":"705865675/200704"}]},{"id":"lovelace_triangle:1:4205/7:2001","kind":"lovelace_triangle","radius":"1","truth":"4205/7","seed":2001,"offsets":["-1/2","0","-1"],"epsilon":"1/100","hull":["600","19245/32"],"retained":[["600","19215/32"],["19215/32","9615/16"],["9615/16","19245/32"]],"boxes":31,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"604","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"604","status":"MOVE","gain_lower":"705334375/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"604","status":"MOVE","gain_lower":"705865675/200704"}]},{"id":"lovelace_triangle:1:4205/7:2002","kind":"lovelace_triangle","radius":"1","truth":"4205/7","seed":2002,"offsets":["0","0","-1"],"epsilon":"1/100","hull":["600","19245/32"],"retained":[["600","19215/32"],["19215/32","9615/16"],["9615/16","19245/32"]],"boxes":37,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"605","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"605","status":"MOVE","gain_lower":"705334375/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"605","status":"MOVE","gain_lower":"705865675/200704"}]},{"id":"lovelace_triangle:1:4205/7:2003","kind":"lovelace_triangle","radius":"1","truth":"4205/7","seed":2003,"offsets":["-1","0","-1"],"epsilon":"1/100","hull":["600","19245/32"],"retained":[["600","19215/32"],["19215/32","9615/16"],["9615/16","19245/32"]],"boxes":33,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"605","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"605","status":"MOVE","gain_lower":"705334375/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"605","status":"MOVE","gain_lower":"705865675/200704"}]},{"id":"lovelace_triangle:1:4477/7:2000","kind":"lovelace_triangle","radius":"1","truth":"4477/7","seed":2000,"offsets":["-1","0","1/2"],"epsilon":"1/100","hull":["20445/32","5175/8"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"],["20475/32","10245/16"],["10245/16","20505/32"],["20505/32","2565/4"],["2565/4","20535/32"],["20535/32","10275/16"],["10275/16","20565/32"],["20565/32","5145/8"],["5145/8","20595/32"],["20595/32","10305/16"],["10305/16","20625/32"],["20625/32","645"],["645","20655/32"],["20655/32","10335/16"],["10335/16","20685/32"],["20685/32","5175/8"]],"boxes":55,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"631","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"41145/64","nominal":"631","status":"MOVE","gain_lower":"703416499/200704"},{"state":"plus60","incumbent":"4897/7","output":"41145/64","nominal":"631","status":"MOVE","gain_lower":"554151439/200704"}]},{"id":"lovelace_triangle:1:4477/7:2001","kind":"lovelace_triangle","radius":"1","truth":"4477/7","seed":2001,"offsets":["-1","0","-1/2"],"epsilon":"1/100","hull":["20445/32","10245/16"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"],["20475/32","10245/16"]],"boxes":35,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"637","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"637","status":"MOVE","gain_lower":"706503499/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"637","status":"MOVE","gain_lower":"704697079/200704"}]},{"id":"lovelace_triangle:1:4477/7:2002","kind":"lovelace_triangle","radius":"1","truth":"4477/7","seed":2002,"offsets":["1","0","-1/2"],"epsilon":"1/100","hull":["20445/32","20475/32"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"]],"boxes":33,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"647","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"5115/8","nominal":"647","status":"MOVE","gain_lower":"22079957/6272"},{"state":"plus60","incumbent":"4897/7","output":"5115/8","nominal":"647","status":"MOVE","gain_lower":"22373327/6272"}]},{"id":"lovelace_triangle:1:4477/7:2003","kind":"lovelace_triangle","radius":"1","truth":"4477/7","seed":2003,"offsets":["0","0","-1"],"epsilon":"1/100","hull":["20445/32","20475/32"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"]],"boxes":35,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"645","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"5115/8","nominal":"645","status":"MOVE","gain_lower":"22079957/6272"},{"state":"plus60","incumbent":"4897/7","output":"5115/8","nominal":"645","status":"MOVE","gain_lower":"22373327/6272"}]},{"id":"rectangle:0:3921/7:2000","kind":"rectangle","radius":"0","truth":"3921/7","seed":2000,"offsets":["0","0","0"],"epsilon":"1/100","hull":["8955/16","17925/32"],"retained":[["8955/16","17925/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"3921/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"35835/64","nominal":"560","status":"MOVE","gain_lower":"711597951/200704"},{"state":"plus60","incumbent":"4341/7","output":"35835/64","nominal":"560","status":"MOVE","gain_lower":"722200851/200704"}]},{"id":"rectangle:0:3921/7:2001","kind":"rectangle","radius":"0","truth":"3921/7","seed":2001,"offsets":["0","0","0"],"epsilon":"1/100","hull":["8955/16","17925/32"],"retained":[["8955/16","17925/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"3921/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"35835/64","nominal":"560","status":"MOVE","gain_lower":"711597951/200704"},{"state":"plus60","incumbent":"4341/7","output":"35835/64","nominal":"560","status":"MOVE","gain_lower":"722200851/200704"}]},{"id":"rectangle:0:3921/7:2002","kind":"rectangle","radius":"0","truth":"3921/7","seed":2002,"offsets":["0","0","0"],"epsilon":"1/100","hull":["8955/16","17925/32"],"retained":[["8955/16","17925/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"3921/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"35835/64","nominal":"560","status":"MOVE","gain_lower":"711597951/200704"},{"state":"plus60","incumbent":"4341/7","output":"35835/64","nominal":"560","status":"MOVE","gain_lower":"722200851/200704"}]},{"id":"rectangle:0:3921/7:2003","kind":"rectangle","radius":"0","truth":"3921/7","seed":2003,"offsets":["0","0","0"],"epsilon":"1/100","hull":["8955/16","17925/32"],"retained":[["8955/16","17925/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"3921/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"35835/64","nominal":"560","status":"MOVE","gain_lower":"711597951/200704"},{"state":"plus60","incumbent":"4341/7","output":"35835/64","nominal":"560","status":"MOVE","gain_lower":"722200851/200704"}]},{"id":"rectangle:0:4205/7:2000","kind":"rectangle","radius":"0","truth":"4205/7","seed":2000,"offsets":["0","0","0"],"epsilon":"1/100","hull":["19215/32","9615/16"],"retained":[["19215/32","9615/16"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"4205/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"716621875/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"717157375/200704"}]},{"id":"rectangle:0:4205/7:2001","kind":"rectangle","radius":"0","truth":"4205/7","seed":2001,"offsets":["0","0","0"],"epsilon":"1/100","hull":["19215/32","9615/16"],"retained":[["19215/32","9615/16"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"4205/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"716621875/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"717157375/200704"}]},{"id":"rectangle:0:4205/7:2002","kind":"rectangle","radius":"0","truth":"4205/7","seed":2002,"offsets":["0","0","0"],"epsilon":"1/100","hull":["19215/32","9615/16"],"retained":[["19215/32","9615/16"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"4205/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"716621875/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"717157375/200704"}]},{"id":"rectangle:0:4205/7:2003","kind":"rectangle","radius":"0","truth":"4205/7","seed":2003,"offsets":["0","0","0"],"epsilon":"1/100","hull":["19215/32","9615/16"],"retained":[["19215/32","9615/16"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"4205/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"716621875/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"717157375/200704"}]},{"id":"rectangle:0:4477/7:2000","kind":"rectangle","radius":"0","truth":"4477/7","seed":2000,"offsets":["0","0","0"],"epsilon":"1/100","hull":["5115/8","20475/32"],"retained":[["5115/8","20475/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"4477/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"640","status":"MOVE","gain_lower":"717800239/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"640","status":"MOVE","gain_lower":"715979539/200704"}]},{"id":"rectangle:0:4477/7:2001","kind":"rectangle","radius":"0","truth":"4477/7","seed":2001,"offsets":["0","0","0"],"epsilon":"1/100","hull":["5115/8","20475/32"],"retained":[["5115/8","20475/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"4477/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"640","status":"MOVE","gain_lower":"717800239/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"640","status":"MOVE","gain_lower":"715979539/200704"}]},{"id":"rectangle:0:4477/7:2002","kind":"rectangle","radius":"0","truth":"4477/7","seed":2002,"offsets":["0","0","0"],"epsilon":"1/100","hull":["5115/8","20475/32"],"retained":[["5115/8","20475/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"4477/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"640","status":"MOVE","gain_lower":"717800239/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"640","status":"MOVE","gain_lower":"715979539/200704"}]},{"id":"rectangle:0:4477/7:2003","kind":"rectangle","radius":"0","truth":"4477/7","seed":2003,"offsets":["0","0","0"],"epsilon":"1/100","hull":["5115/8","20475/32"],"retained":[["5115/8","20475/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"4477/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"640","status":"MOVE","gain_lower":"717800239/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"640","status":"MOVE","gain_lower":"715979539/200704"}]},{"id":"rectangle:1/5:3921/7:2000","kind":"rectangle","radius":"1/5","truth":"3921/7","seed":2000,"offsets":["1/10","0","0"],"epsilon":"1/100","hull":["8955/16","17925/32"],"retained":[["8955/16","17925/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"3921/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"35835/64","nominal":"560","status":"MOVE","gain_lower":"711597951/200704"},{"state":"plus60","incumbent":"4341/7","output":"35835/64","nominal":"560","status":"MOVE","gain_lower":"722200851/200704"}]},{"id":"rectangle:1/5:3921/7:2001","kind":"rectangle","radius":"1/5","truth":"3921/7","seed":2001,"offsets":["0","0","-1/5"],"epsilon":"1/100","hull":["8955/16","17925/32"],"retained":[["8955/16","17925/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"561","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"35835/64","nominal":"561","status":"MOVE","gain_lower":"711597951/200704"},{"state":"plus60","incumbent":"4341/7","output":"35835/64","nominal":"561","status":"MOVE","gain_lower":"722200851/200704"}]},{"id":"rectangle:1/5:3921/7:2002","kind":"rectangle","radius":"1/5","truth":"3921/7","seed":2002,"offsets":["0","0","1/5"],"epsilon":"1/100","hull":["8955/16","17925/32"],"retained":[["8955/16","17925/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"559","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"35835/64","nominal":"559","status":"MOVE","gain_lower":"711597951/200704"},{"state":"plus60","incumbent":"4341/7","output":"35835/64","nominal":"559","status":"MOVE","gain_lower":"722200851/200704"}]},{"id":"rectangle:1/5:3921/7:2003","kind":"rectangle","radius":"1/5","truth":"3921/7","seed":2003,"offsets":["0","0","0"],"epsilon":"1/100","hull":["8955/16","17925/32"],"retained":[["8955/16","17925/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"3921/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"35835/64","nominal":"560","status":"MOVE","gain_lower":"711597951/200704"},{"state":"plus60","incumbent":"4341/7","output":"35835/64","nominal":"560","status":"MOVE","gain_lower":"722200851/200704"}]},{"id":"rectangle:1/5:4205/7:2000","kind":"rectangle","radius":"1/5","truth":"4205/7","seed":2000,"offsets":["0","0","1/5"],"epsilon":"1/100","hull":["19215/32","9615/16"],"retained":[["19215/32","9615/16"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"599","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"599","status":"MOVE","gain_lower":"716621875/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"599","status":"MOVE","gain_lower":"717157375/200704"}]},{"id":"rectangle:1/5:4205/7:2001","kind":"rectangle","radius":"1/5","truth":"4205/7","seed":2001,"offsets":["0","0","-1/10"],"epsilon":"1/100","hull":["19215/32","9615/16"],"retained":[["19215/32","9615/16"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"601","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"716621875/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"717157375/200704"}]},{"id":"rectangle:1/5:4205/7:2002","kind":"rectangle","radius":"1/5","truth":"4205/7","seed":2002,"offsets":["1/10","0","-1/5"],"epsilon":"1/100","hull":["19215/32","9615/16"],"retained":[["19215/32","9615/16"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"602","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"602","status":"MOVE","gain_lower":"716621875/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"602","status":"MOVE","gain_lower":"717157375/200704"}]},{"id":"rectangle:1/5:4205/7:2003","kind":"rectangle","radius":"1/5","truth":"4205/7","seed":2003,"offsets":["-1/5","0","1/10"],"epsilon":"1/100","hull":["19215/32","9615/16"],"retained":[["19215/32","9615/16"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"599","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"599","status":"MOVE","gain_lower":"716621875/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"599","status":"MOVE","gain_lower":"717157375/200704"}]},{"id":"rectangle:1/5:4477/7:2000","kind":"rectangle","radius":"1/5","truth":"4477/7","seed":2000,"offsets":["0","0","1/10"],"epsilon":"1/100","hull":["5115/8","20475/32"],"retained":[["5115/8","20475/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"4477/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"639","status":"MOVE","gain_lower":"717800239/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"639","status":"MOVE","gain_lower":"715979539/200704"}]},{"id":"rectangle:1/5:4477/7:2001","kind":"rectangle","radius":"1/5","truth":"4477/7","seed":2001,"offsets":["0","0","0"],"epsilon":"1/100","hull":["10215/16","20475/32"],"retained":[["10215/16","20445/32"],["20445/32","5115/8"],["5115/8","20475/32"]],"boxes":21,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"4477/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40905/64","nominal":"640","status":"MOVE","gain_lower":"695383159/200704"},{"state":"plus60","incumbent":"4897/7","output":"40905/64","nominal":"640","status":"MOVE","gain_lower":"715891339/200704"}]},{"id":"rectangle:1/5:4477/7:2002","kind":"rectangle","radius":"1/5","truth":"4477/7","seed":2002,"offsets":["-1/5","0","0"],"epsilon":"1/100","hull":["5115/8","20475/32"],"retained":[["5115/8","20475/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"639","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"639","status":"MOVE","gain_lower":"717800239/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"639","status":"MOVE","gain_lower":"715979539/200704"}]},{"id":"rectangle:1/5:4477/7:2003","kind":"rectangle","radius":"1/5","truth":"4477/7","seed":2003,"offsets":["-1/5","0","0"],"epsilon":"1/100","hull":["5115/8","20475/32"],"retained":[["5115/8","20475/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"4477/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"640","status":"MOVE","gain_lower":"717800239/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"640","status":"MOVE","gain_lower":"715979539/200704"}]},{"id":"rectangle:1:3921/7:2000","kind":"rectangle","radius":"1","truth":"3921/7","seed":2000,"offsets":["0","0","-1/2"],"epsilon":"1/100","hull":["8955/16","17925/32"],"retained":[["8955/16","17925/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"563","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"35835/64","nominal":"563","status":"MOVE","gain_lower":"711597951/200704"},{"state":"plus60","incumbent":"4341/7","output":"35835/64","nominal":"563","status":"MOVE","gain_lower":"722200851/200704"}]},{"id":"rectangle:1:3921/7:2001","kind":"rectangle","radius":"1","truth":"3921/7","seed":2001,"offsets":["-1/2","0","0"],"epsilon":"1/100","hull":["8955/16","17925/32"],"retained":[["8955/16","17925/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"558","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"35835/64","nominal":"558","status":"MOVE","gain_lower":"711597951/200704"},{"state":"plus60","incumbent":"4341/7","output":"35835/64","nominal":"558","status":"MOVE","gain_lower":"722200851/200704"}]},{"id":"rectangle:1:3921/7:2002","kind":"rectangle","radius":"1","truth":"3921/7","seed":2002,"offsets":["1","0","0"],"epsilon":"1/100","hull":["8955/16","17925/32"],"retained":[["8955/16","17925/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"564","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"35835/64","nominal":"564","status":"MOVE","gain_lower":"711597951/200704"},{"state":"plus60","incumbent":"4341/7","output":"35835/64","nominal":"564","status":"MOVE","gain_lower":"722200851/200704"}]},{"id":"rectangle:1:3921/7:2003","kind":"rectangle","radius":"1","truth":"3921/7","seed":2003,"offsets":["-1/2","0","-1"],"epsilon":"1/100","hull":["8955/16","17925/32"],"retained":[["8955/16","17925/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"3921/7","output":"3921/7","nominal":"562","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3501/7","output":"35835/64","nominal":"562","status":"MOVE","gain_lower":"711597951/200704"},{"state":"plus60","incumbent":"4341/7","output":"35835/64","nominal":"562","status":"MOVE","gain_lower":"722200851/200704"}]},{"id":"rectangle:1:4205/7:2000","kind":"rectangle","radius":"1","truth":"4205/7","seed":2000,"offsets":["-1/2","0","1/2"],"epsilon":"1/100","hull":["19215/32","9615/16"],"retained":[["19215/32","9615/16"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"598","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"598","status":"MOVE","gain_lower":"716621875/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"598","status":"MOVE","gain_lower":"717157375/200704"}]},{"id":"rectangle:1:4205/7:2001","kind":"rectangle","radius":"1","truth":"4205/7","seed":2001,"offsets":["1/2","0","1"],"epsilon":"1/100","hull":["19215/32","9615/16"],"retained":[["19215/32","9615/16"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"598","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"598","status":"MOVE","gain_lower":"716621875/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"598","status":"MOVE","gain_lower":"717157375/200704"}]},{"id":"rectangle:1:4205/7:2002","kind":"rectangle","radius":"1","truth":"4205/7","seed":2002,"offsets":["-1","0","1/2"],"epsilon":"1/100","hull":["19215/32","9615/16"],"retained":[["19215/32","9615/16"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"594","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"594","status":"MOVE","gain_lower":"716621875/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"594","status":"MOVE","gain_lower":"717157375/200704"}]},{"id":"rectangle:1:4205/7:2003","kind":"rectangle","radius":"1","truth":"4205/7","seed":2003,"offsets":["1/2","0","1/2"],"epsilon":"1/100","hull":["19215/32","9615/16"],"retained":[["19215/32","9615/16"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4205/7","output":"4205/7","nominal":"4205/7","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"3785/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"716621875/200704"},{"state":"plus60","incumbent":"4625/7","output":"38445/64","nominal":"601","status":"MOVE","gain_lower":"717157375/200704"}]},{"id":"rectangle:1:4477/7:2000","kind":"rectangle","radius":"1","truth":"4477/7","seed":2000,"offsets":["1","0","1/2"],"epsilon":"1/100","hull":["5115/8","20475/32"],"retained":[["5115/8","20475/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"641","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"641","status":"MOVE","gain_lower":"717800239/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"641","status":"MOVE","gain_lower":"715979539/200704"}]},{"id":"rectangle:1:4477/7:2001","kind":"rectangle","radius":"1","truth":"4477/7","seed":2001,"offsets":["0","0","-1"],"epsilon":"1/100","hull":["5115/8","20475/32"],"retained":[["5115/8","20475/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"644","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"644","status":"MOVE","gain_lower":"717800239/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"644","status":"MOVE","gain_lower":"715979539/200704"}]},{"id":"rectangle:1:4477/7:2002","kind":"rectangle","radius":"1","truth":"4477/7","seed":2002,"offsets":["0","0","-1"],"epsilon":"1/100","hull":["20445/32","20475/32"],"retained":[["20445/32","5115/8"],["5115/8","20475/32"]],"boxes":21,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"644","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"5115/8","nominal":"644","status":"MOVE","gain_lower":"22079957/6272"},{"state":"plus60","incumbent":"4897/7","output":"5115/8","nominal":"644","status":"MOVE","gain_lower":"22373327/6272"}]},{"id":"rectangle:1:4477/7:2003","kind":"rectangle","radius":"1","truth":"4477/7","seed":2003,"offsets":["1/2","0","-1/2"],"epsilon":"1/100","hull":["5115/8","20475/32"],"retained":[["5115/8","20475/32"]],"boxes":17,"decisions":[{"state":"correct","incumbent":"4477/7","output":"4477/7","nominal":"644","status":"KEEP","gain_lower":"0"},{"state":"minus60","incumbent":"4057/7","output":"40935/64","nominal":"644","status":"MOVE","gain_lower":"717800239/200704"},{"state":"plus60","incumbent":"4897/7","output":"40935/64","nominal":"644","status":"MOVE","gain_lower":"715979539/200704"}]}],"counts":{"correct_keep":72,"offset_improved":144,"damage":0,"nominal_correct_damage":37},"max_offset_error":"1487/448","scene_count":72,"decision_count":216,"verification_scope":"archived continuous outer partition and scalar certificate evidence","source_hashes":{"summary.json":"e11d129c8e0a635cf5aa237ac58a91f54cdc99f92a8f6563b67f7455c6e17080","scenes.jsonl":"333b150419d8cbf81102f7130e24c3b5e3c3e3b369a3b45b7043c20c93fd5466","VERIFICATION.json":"f29de86f88de065bcb7757a20b08105cfe73605d401e3c8c1add8b7b0ac5a7d1"}}</script>
+<script>
+'use strict';const data=JSON.parse(document.getElementById('data').textContent),names={lovelace_triangle:'LOVELACE · 孤立 M4 面片',rectangle:'矩形 · 解析基线'},states={correct:'正确初点',minus60:'初点 −60 mm',plus60:'初点 +60 mm'},methods={certificate:'连续外包证书',keep:'始终 KEEP',nominal_grid:'名义相机网格'};
+const el=id=>document.getElementById(id),num=x=>{const[a,b='1']=String(x).split('/');return Number(a)/Number(b)},fmt=(x,d=4)=>num(x).toFixed(d),esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function options(id,items){el(id).replaceChildren(...items.map(([value,label])=>{const o=document.createElement('option');o.value=value;o.textContent=label;return o}))}
+options('family',Object.entries(names));options('radius',[['0','0 mm'],['1/5','0.2 mm'],['1','1 mm']]);options('state',Object.entries(states));el('state').value='minus60';
+function updateFilter(){const family=el('family').value,radius=el('radius').value,state=el('state').value;const rows=data.rows.filter(r=>r.kind===family&&r.camera_radius_mm===radius&&r.state===state);el('statistics').innerHTML=['certificate','keep','nominal_grid'].map(method=>{const r=rows.find(r=>r.method===method);return `<tr><td>${methods[method]}</td><td class="num">${r.count}</td><td class="num" title="${esc(r.mae)}">${fmt(r.mae)}</td><td class="num">${r.improved} / ${r.worse}</td><td class="num" title="${esc(r.width)}">${method==='certificate'?fmt(r.width):'—'}</td></tr>`}).join('');const scenes=data.scenes.filter(s=>s.kind===family&&s.radius===radius).sort((a,b)=>num(a.truth)-num(b.truth)||a.seed-b.seed);options('scene',scenes.map(s=>[s.id,`真值 ${fmt(s.truth,3)} mm · seed ${s.seed}`]));updateScene()}
+function updateScene(){const s=data.scenes.find(s=>s.id===el('scene').value),d=s.decisions.find(d=>d.state===el('state').value);for(const[id,v]of[['truth',s.truth],['initial',d.incumbent],['output',d.output]]){el(id).textContent=fmt(v)+' mm';el(id).title=v}el('status').textContent=d.status;el('scene-description').textContent=`实际相机偏差 [${s.offsets.join(', ')}] mm；ε = ${s.epsilon}；计算 ${s.boxes} 个深度盒。真值仅作为验收字段。`;el('scene-error').textContent=`绝对误差：初点 ${fmt(String(Math.abs(num(d.incumbent)-num(s.truth))))} mm → 证书 ${fmt(String(Math.abs(num(d.output)-num(s.truth))))} mm；名义网格 ${fmt(String(Math.abs(num(d.nominal)-num(s.truth))))} mm。`;el('hull').textContent=`外包凸包 [${fmt(s.hull[0])}, ${fmt(s.hull[1])}] mm，宽度 ${(num(s.hull[1])-num(s.hull[0])).toFixed(4)} mm；${s.retained.length} 个未排除叶区间。`;el('gain').textContent=`归档平方误差改善下界：${d.gain_lower} mm²（${fmt(d.gain_lower)}）；KEEP 时不要求强行移动。`;el('intervals').textContent=s.retained.map(p=>`[${p.join(', ')}]`).join(' ∪ ');const vals=[540,660,num(s.truth),num(d.incumbent),num(d.output),num(d.nominal)],lo=Math.min(...vals)-8,hi=Math.max(...vals)+8,x=v=>50+900*(v-lo)/(hi-lo);let svg=`<rect x="${x(540)}" y="52" width="${x(660)-x(540)}" height="35" fill="#edf1f2"/><line x1="50" x2="950" y1="88" y2="88" stroke="#9cadb5"/>`;for(const p of s.retained)svg+=`<rect x="${x(num(p[0]))}" y="60" width="${Math.max(.8,x(num(p[1]))-x(num(p[0])))}" height="20" fill="#80c7b8"/>`;for(const[value,label,color,y]of[[num(s.truth),'T','#285778',36],[num(d.incumbent),'I','#b96022',112],[num(d.output),'C','#087b77',135],[num(d.nominal),'N','#725294',153]])svg+=`<line x1="${x(value)}" x2="${x(value)}" y1="49" y2="92" stroke="${color}" stroke-width="2"/><text x="${x(value)}" y="${y}" fill="${color}" text-anchor="middle" font-size="13">${label} ${value.toFixed(3)}</text>`;svg+=`<text x="${x(540)}" y="102" text-anchor="middle" fill="#6e8089" font-size="11">540</text><text x="${x(660)}" y="102" text-anchor="middle" fill="#6e8089" font-size="11">660 mm</text>`;el('depthplot').innerHTML=svg}
+for(const id of['family','radius','state'])el(id).addEventListener('change',updateFilter);el('scene').addEventListener('change',updateScene);updateFilter();
+</script></html>

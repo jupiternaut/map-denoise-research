@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "scope": "first-stage exact finite-world implementation",
+  "checks": [
+    {
+      "command": "python -B -m unittest discover -s . -p test_certificates.py -v",
+      "count": 28,
+      "status": "PASS"
+    },
+    {
+      "command": "python -B renderer_smoke.py",
+      "count": 8,
+      "status": "PASS"
+    },
+    {
+      "command": "python -B mesh_smoke.py",
+      "count": 22,
+      "status": "PASS"
+    }
+  ],
+  "total_hand_and_contract_checks": 58,
+  "independent_verification": "outputs/confirmation-v1/VERIFICATION.json",
+  "independent_audit": "outputs/confirmation-v1/AUDIT.json",
+  "reproducibility": "outputs/REPRODUCIBILITY.json"
+}
