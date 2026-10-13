@@ -1,0 +1,155 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "WARN",
+  "overall_verdict": "warn",
+  "integrity_status": "pass",
+  "reason_code": "budget_dependent_accuracy_and_unidentified_component_attribution",
+  "summary": "Saved arithmetic passes. Free is faster in both slices and slightly lower-MSE at 6 s, but higher-MSE than fixed/library at 24 s. Same broad interval-outer-set/HULL object; numerical/certification/search differences prevent representation-only attribution.",
+  "date": "2026-10-13",
+  "generated_at": "2026-10-13T09:46:21Z",
+  "auditor": "gpt-6-astra-ultra",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_reasoning": "ultra",
+  "reviewer_family": "openai",
+  "executor_model": "codex",
+  "executor_family": "openai",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "agent_id": "/root/a12_integrity_review",
+  "verdict_id": "a12_integrity_review_20261013",
+  "fork_turns": "none",
+  "host": "liekkas",
+  "logical_root": "/srv/slam-research/grf/map-denoise/runs/lovelace-representation-search-20261013T080031Z",
+  "trace_path": "/srv/slam-research/grf/map-denoise/runs/lovelace-representation-search-20261013T080031Z/.aris/traces/experiment-audit/2026-10-13_run01",
+  "audited_input_hashes": {
+    "SOURCE_FREEZE.json": "sha256:eb5e325de5e5e48f1ae97fd638a511e3f93ec9b348a2c68822c6eafc60da8d35"
+  },
+  "freeze_scope": {
+    "listed_files": 14,
+    "all_matched": true,
+    "transitive_ancestor_sources_not_in_manifest": true
+  },
+  "deterministic_verification": {
+    "status": "PASS",
+    "acceptance_status": "accepted",
+    "review_independence": "deterministic",
+    "script": "/srv/slam-research/grf/map-denoise/runs/lovelace-representation-search-20261013T080031Z/independent_audit.py",
+    "evidence": "/srv/slam-research/grf/map-denoise/runs/lovelace-representation-search-20261013T080031Z/.aris/traces/experiment-audit/2026-10-13_run01/arithmetic-v2.json",
+    "calls": 108,
+    "predictions": 756,
+    "worlds": 18,
+    "unique_tasks": 126,
+    "supplement_calls": 3,
+    "supplement_predictions": 21,
+    "source_freeze_files_verified": 14,
+    "summary_cost_csv_match": true,
+    "paired_metrics_match": true,
+    "hull_decoders_match": true,
+    "coverage_each_group": 18,
+    "correct_inputs_harmed_each_group": 0,
+    "process_failures": 0,
+    "prepare_overruns_gt_025": 0,
+    "free_internal_fallbacks": 0,
+    "free_solver_failures": 0,
+    "supplement_prediction_differences": 0
+  },
+  "checks": {
+    "gt_provenance": {
+      "status": "PASS",
+      "details": "Generated independent simulation facts precede inference; private truth read by reviewer only after explicit scoring-complete handoff.",
+      "evidence": [
+        "data_builder.py:119",
+        "data_builder.py:141",
+        "worker.py:35",
+        "worker.py:46",
+        "run_experiment.py:95",
+        "run_experiment.py:156"
+      ]
+    },
+    "score_normalization": {
+      "status": "PASS",
+      "details": "Raw coordinate losses and common identity denominator; no self-max/min normalization.",
+      "evidence": [
+        "run_experiment.py:123"
+      ]
+    },
+    "result_existence": {
+      "status": "PASS",
+      "details": "108 main plus 3 supplemental saved jobs, receipts and predictions verified; stale tracker and missing final report/checkpoint recorded separately.",
+      "evidence": [
+        "outputs/formal-v1/PREDICTIONS_READY.json",
+        "outputs/formal-v1/SUMMARY.json",
+        "outputs/formal-v1/METRICS.csv"
+      ]
+    },
+    "dead_code": {
+      "status": "PASS",
+      "details": "All registered main metrics and post-hoc paired/supplement outputs are executed and saved.",
+      "evidence": [
+        "run_experiment.py:187",
+        "analyze_results.py:20",
+        "analyze_results.py:56"
+      ]
+    },
+    "scope": {
+      "status": "WARN",
+      "details": "18 worlds in one simulated physical family, one construction episode, unequal author history; no general discovery or causal representation claim."
+    },
+    "eval_type": "simulation_only",
+    "comparison_attribution": {
+      "status": "WARN",
+      "details": "Same outer-interval/HULL object; geometry arithmetic, tolerances, search schedule and exact certification differ. Coupling ablation changes 0/21 outputs."
+    },
+    "time_accounting": {
+      "status": "PASS_WITH_QUALIFIERS",
+      "details": "Process time includes import, preparation, decoding, serialization and write; excludes driver job creation. RSS is sampled before serialization.",
+      "evidence": [
+        "run_experiment.py:57",
+        "run_experiment.py:59",
+        "worker.py:66",
+        "worker.py:74"
+      ]
+    },
+    "delivery_bookkeeping": {
+      "status": "WARN",
+      "details": "As of 09:46 UTC, tracker remains RUNNING/TODO and REPORT.md/CHECKPOINT.md absent; raw results are complete.",
+      "evidence": [
+        "refine-logs/EXPERIMENT_TRACKER.md:7"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "impact": "supported_with_budget_and_cost_qualifiers",
+      "details": "Free slightly improves shifted MSE at 6 s, but at 24 s is higher-MSE than fixed and library; no correct-input damage observed."
+    },
+    {
+      "id": "C2",
+      "impact": "unsupported_attribution",
+      "details": "Three-world material-coupling ablation is unchanged; cannot isolate representation/search/certification contributions."
+    },
+    {
+      "id": "new_representation_family",
+      "impact": "unsupported"
+    },
+    {
+      "id": "simulation_instance_utility",
+      "impact": "supported"
+    }
+  ],
+  "exposure_record": [
+    "Fresh fork none; primary source audit preceded external reviewer summaries.",
+    "list_agents exposed completed a12_method_auditor and library-author summaries after initial direct source reading and before private truth.",
+    "Coordinator sent proposed user-facing interpretation after independent numerical recomputation; preserved only as post-verdict fact-check context."
+  ],
+  "action_items": [
+    "Keep simulation-only and one-episode scope.",
+    "Report both budgets and actual process costs.",
+    "Do not attribute all speedup to a new representation.",
+    "Label RSS as pre-serialization observed peak.",
+    "Synchronize stale tracker and final report/checkpoint when delivering."
+  ],
+  "no_method_or_generator_reruns": true,
+  "no_experiment_source_mutation": true
+}

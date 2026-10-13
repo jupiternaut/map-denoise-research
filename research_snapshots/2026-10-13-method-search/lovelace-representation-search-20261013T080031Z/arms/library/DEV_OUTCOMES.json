@@ -1,0 +1,1155 @@
+{
+  "schema": "A12-library-development-v1",
+  "scope": "Six disclosed development observations only; not holdout evaluation",
+  "host": "liekkas",
+  "logical_root": "/srv/slam-research/grf/map-denoise/runs/lovelace-representation-search-20261013T080031Z",
+  "construction_clock_reference": "2026-10-13T08:11:14Z",
+  "selection_complete_by": "2026-10-13T08:18:42Z",
+  "initial_proposal": "coarse",
+  "development_revisions": 1,
+  "selection_rule": "Minimum pooled MSE over all 42 tasks; ties within 1e-12 use coarse, depth, accumulated order. One global name for 6 and 24 seconds.",
+  "exposure": "Reused author with A7 verifier, A8 descriptive, A10/A11 implementation background; not fresh. No new historical-score/free-arm/generator/holdout reads.",
+  "input_sha256": {
+    "dev": "92f64359e21b0f7dca9748175bc8b0de9971f3ad8a8ab38132f37b4826fc3e76",
+    "task": "a299c22ba7d75d5fc81a74d6753a0a3e2081d8b0dc0417213cc34ae5d24155e6",
+    "forward": "0de7441fd58d0eec9a29abbc6f5a827a88839c96728cac316078d7efbc2eb655",
+    "library_description": "fe7d62be7d9a84e02bbc812329137c92c1c40c9b5400ace6938605e71bcce10b",
+    "library_methods": "c14f666741412907a83b34b019191f418a7ca116de2dbe8782b99f0298d924a3"
+  },
+  "comparison_started_at": "2026-10-13T08:17:03.048258+00:00",
+  "prediction_order": "For each trial, filter dev.json tasks by observation_id while preserving their original order.",
+  "comparison_tolerance_mm": 1e-9,
+  "candidate_order": "Cyclic rotation coarse/depth/accumulated by observation index modulo 3.",
+  "initial_unit_tests": {
+    "tests": 4,
+    "status": "PASS",
+    "cpu_seconds_including_imports": 0.402788438
+  },
+  "final_checks": {
+    "unit_tests": 4,
+    "status": "PASS",
+    "saved_prediction_recompute": "PASS: 18 trials, 126 decoded values, all pooled metrics reproduced",
+    "cpu_seconds_including_imports": 0.335752973
+  },
+  "measured_test_comparison_check_cpu_seconds": 54.757096481,
+  "unmetered_work_note": "Brief source/data inspection and apply_patch/document editing are not estimator runs; no further development method runs were performed.",
+  "cpu_guard": {
+    "soft_seconds": 116,
+    "hard_seconds": 118,
+    "triggered": false
+  },
+  "trials": [
+    {
+      "observation_id": "w_5dd5bddef6649542bcb01f7a",
+      "method": "coarse",
+      "order_within_observation": 0,
+      "budget_seconds": 6,
+      "wall_seconds": 1.6779027000302449,
+      "cpu_seconds": 1.64459633,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        567.65625,
+        571.40625
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 1.5651388850528747
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 0.044034546008333564
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 0.057526363991200924
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 3.3903009168583367,
+      "predictions": [
+        567.65625,
+        569.9509063848085,
+        571.40625,
+        569.1205063848084,
+        571.40625,
+        571.40625,
+        571.40625
+      ]
+    },
+    {
+      "observation_id": "w_5dd5bddef6649542bcb01f7a",
+      "method": "depth",
+      "order_within_observation": 1,
+      "budget_seconds": 6,
+      "wall_seconds": 1.9304083520546556,
+      "cpu_seconds": 1.9308937929999999,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        567.81005859375,
+        571.142578125
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 1.0047207809984684
+        },
+        {
+          "branch": "none",
+          "stage": 1,
+          "seconds": 0.8180966529762372
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 0.057332662981934845
+        },
+        {
+          "branch": "partial",
+          "stage": 1,
+          "seconds": 0.0017403370002284646
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 0.04296573996543884
+        },
+        {
+          "branch": "full",
+          "stage": 1,
+          "seconds": 0.0017286409856751561
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 2.6802762947164824,
+      "predictions": [
+        567.81005859375,
+        569.9509063848085,
+        571.142578125,
+        569.1205063848084,
+        571.142578125,
+        571.142578125,
+        571.142578125
+      ]
+    },
+    {
+      "observation_id": "w_5dd5bddef6649542bcb01f7a",
+      "method": "accumulated",
+      "order_within_observation": 2,
+      "budget_seconds": 6,
+      "wall_seconds": 2.1146988350665197,
+      "cpu_seconds": 2.1138502370000003,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        567.7734375,
+        571.171875
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.6843571779318154
+        },
+        {
+          "branch": "none",
+          "stage": 1,
+          "seconds": 0.6455077939899638
+        },
+        {
+          "branch": "none",
+          "stage": 2,
+          "seconds": 0.6713134509045631
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 0.05796014203224331
+        },
+        {
+          "branch": "partial",
+          "stage": 1,
+          "seconds": 0.0017579860286787152
+        },
+        {
+          "branch": "partial",
+          "stage": 2,
+          "seconds": 0.001760014914907515
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 0.0432063159532845
+        },
+        {
+          "branch": "full",
+          "stage": 1,
+          "seconds": 0.0017580429557710886
+        },
+        {
+          "branch": "full",
+          "stage": 2,
+          "seconds": 0.0017665090272203088
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 2.7623730745701356,
+      "predictions": [
+        567.7734375,
+        569.9509063848085,
+        571.171875,
+        569.1205063848084,
+        571.171875,
+        571.171875,
+        571.171875
+      ]
+    },
+    {
+      "observation_id": "w_3c90cb70899e892d5a3cf876",
+      "method": "depth",
+      "order_within_observation": 0,
+      "budget_seconds": 6,
+      "wall_seconds": 1.5821759440004826,
+      "cpu_seconds": 1.58193231,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        648.75,
+        650.947265625
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.8694704639492556
+        },
+        {
+          "branch": "none",
+          "stage": 1,
+          "seconds": 0.601211495930329
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 0.04427618905901909
+        },
+        {
+          "branch": "partial",
+          "stage": 1,
+          "seconds": 0.0018188109388574958
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 0.05885343800764531
+        },
+        {
+          "branch": "full",
+          "stage": 1,
+          "seconds": 0.0018472319934517145
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 1.4492976099142676,
+      "predictions": [
+        649.4287371378858,
+        648.75,
+        648.75,
+        650.947265625,
+        650.947265625,
+        650.947265625,
+        650.947265625
+      ]
+    },
+    {
+      "observation_id": "w_3c90cb70899e892d5a3cf876",
+      "method": "accumulated",
+      "order_within_observation": 1,
+      "budget_seconds": 6,
+      "wall_seconds": 2.1154000660171732,
+      "cpu_seconds": 2.114861415,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        648.75,
+        650.947265625
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.6725515039870515
+        },
+        {
+          "branch": "none",
+          "stage": 1,
+          "seconds": 0.6587397559778765
+        },
+        {
+          "branch": "none",
+          "stage": 2,
+          "seconds": 0.6683022010838613
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 0.05901001300662756
+        },
+        {
+          "branch": "partial",
+          "stage": 1,
+          "seconds": 0.0018229259876534343
+        },
+        {
+          "branch": "partial",
+          "stage": 2,
+          "seconds": 0.001838754047639668
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 0.04468297306448221
+        },
+        {
+          "branch": "full",
+          "stage": 1,
+          "seconds": 0.0018658750923350453
+        },
+        {
+          "branch": "full",
+          "stage": 2,
+          "seconds": 0.0018380710389465094
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 1.4492976099142676,
+      "predictions": [
+        649.4287371378858,
+        648.75,
+        648.75,
+        650.947265625,
+        650.947265625,
+        650.947265625,
+        650.947265625
+      ]
+    },
+    {
+      "observation_id": "w_3c90cb70899e892d5a3cf876",
+      "method": "coarse",
+      "order_within_observation": 2,
+      "budget_seconds": 6,
+      "wall_seconds": 0.9890315840020776,
+      "cpu_seconds": 0.9889364450000002,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        648.75,
+        651.09375
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.8836828219937161
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 0.05599626700859517
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 0.04496519104577601
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 1.7157770755304786,
+      "predictions": [
+        649.4287371378858,
+        648.75,
+        648.75,
+        651.09375,
+        651.09375,
+        651.09375,
+        651.09375
+      ]
+    },
+    {
+      "observation_id": "w_fba0a8113fddb1f4aa7d244d",
+      "method": "accumulated",
+      "order_within_observation": 0,
+      "budget_seconds": 6,
+      "wall_seconds": 4.051518606022,
+      "cpu_seconds": 4.050767032000001,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        560.66162109375,
+        564.83642578125
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.032892170012928545
+        },
+        {
+          "branch": "none",
+          "stage": 1,
+          "seconds": 0.0018750159069895744
+        },
+        {
+          "branch": "none",
+          "stage": 2,
+          "seconds": 0.0019773909589275718
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 1.6818178560351953
+        },
+        {
+          "branch": "partial",
+          "stage": 1,
+          "seconds": 0.98364125599619
+        },
+        {
+          "branch": "partial",
+          "stage": 2,
+          "seconds": 1.2965177519945428
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 0.04447356692980975
+        },
+        {
+          "branch": "full",
+          "stage": 1,
+          "seconds": 0.0019339140271767974
+        },
+        {
+          "branch": "full",
+          "stage": 2,
+          "seconds": 0.001883664052002132
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 3.1942485803089933,
+      "predictions": [
+        564.83642578125,
+        562.6004619861404,
+        564.83642578125,
+        563.6192619861404,
+        564.83642578125,
+        563.7509619861404,
+        564.83642578125
+      ]
+    },
+    {
+      "observation_id": "w_fba0a8113fddb1f4aa7d244d",
+      "method": "coarse",
+      "order_within_observation": 1,
+      "budget_seconds": 6,
+      "wall_seconds": 1.7411850519711152,
+      "cpu_seconds": 1.7419332599999997,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        560.625,
+        565.3125
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.04153899208176881
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 1.6492334000067785
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 0.04426519793923944
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 4.540314920639604,
+      "predictions": [
+        565.3125,
+        562.6004619861404,
+        565.3125,
+        563.6192619861404,
+        565.3125,
+        563.7509619861404,
+        565.3125
+      ]
+    },
+    {
+      "observation_id": "w_fba0a8113fddb1f4aa7d244d",
+      "method": "depth",
+      "order_within_observation": 2,
+      "budget_seconds": 6,
+      "wall_seconds": 2.750871542026289,
+      "cpu_seconds": 2.7508260339999993,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        560.66162109375,
+        564.83642578125
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.041505128028802574
+        },
+        {
+          "branch": "none",
+          "stage": 1,
+          "seconds": 0.001894169021397829
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 1.6530756530119106
+        },
+        {
+          "branch": "partial",
+          "stage": 1,
+          "seconds": 1.002207426005043
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 0.04597958899103105
+        },
+        {
+          "branch": "full",
+          "stage": 1,
+          "seconds": 0.0018726530252024531
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 3.1942485803089933,
+      "predictions": [
+        564.83642578125,
+        562.6004619861404,
+        564.83642578125,
+        563.6192619861404,
+        564.83642578125,
+        563.7509619861404,
+        564.83642578125
+      ]
+    },
+    {
+      "observation_id": "w_e319151138c92c182c1fc1c2",
+      "method": "coarse",
+      "order_within_observation": 0,
+      "budget_seconds": 6,
+      "wall_seconds": 1.7995204129256308,
+      "cpu_seconds": 1.7988739249999988,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        630.46875,
+        635.625
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.041303075035102665
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 1.6940610989695415
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 0.05929470295086503
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 4.418512176963325,
+      "predictions": [
+        633.8661659200224,
+        633.4769659200224,
+        635.625,
+        635.625,
+        635.625,
+        630.46875,
+        632.8026659200224
+      ]
+    },
+    {
+      "observation_id": "w_e319151138c92c182c1fc1c2",
+      "method": "depth",
+      "order_within_observation": 1,
+      "budget_seconds": 6,
+      "wall_seconds": 2.8024864949984476,
+      "cpu_seconds": 2.8016132350000014,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        630.670166015625,
+        635.38330078125
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.03266319597605616
+        },
+        {
+          "branch": "none",
+          "stage": 1,
+          "seconds": 0.001877096015959978
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 1.679386236006394
+        },
+        {
+          "branch": "partial",
+          "stage": 1,
+          "seconds": 1.0192954260855913
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 0.0635388920782134
+        },
+        {
+          "branch": "full",
+          "stage": 1,
+          "seconds": 0.0018629840342327952
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 3.730328206172104,
+      "predictions": [
+        633.8661659200224,
+        633.4769659200224,
+        635.38330078125,
+        635.38330078125,
+        635.38330078125,
+        630.670166015625,
+        632.8026659200224
+      ]
+    },
+    {
+      "observation_id": "w_e319151138c92c182c1fc1c2",
+      "method": "accumulated",
+      "order_within_observation": 2,
+      "budget_seconds": 6,
+      "wall_seconds": 4.071236926014535,
+      "cpu_seconds": 4.070778474000001,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        630.670166015625,
+        635.38330078125
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.03387453802861273
+        },
+        {
+          "branch": "none",
+          "stage": 1,
+          "seconds": 0.001924350974150002
+        },
+        {
+          "branch": "none",
+          "stage": 2,
+          "seconds": 0.0018777379300445318
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 1.7075775309931487
+        },
+        {
+          "branch": "partial",
+          "stage": 1,
+          "seconds": 1.0479614209616557
+        },
+        {
+          "branch": "partial",
+          "stage": 2,
+          "seconds": 1.2030780899804085
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 0.06540285202208906
+        },
+        {
+          "branch": "full",
+          "stage": 1,
+          "seconds": 0.0019005959620699286
+        },
+        {
+          "branch": "full",
+          "stage": 2,
+          "seconds": 0.0018399190157651901
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 3.730328206172104,
+      "predictions": [
+        633.8661659200224,
+        633.4769659200224,
+        635.38330078125,
+        635.38330078125,
+        635.38330078125,
+        630.670166015625,
+        632.8026659200224
+      ]
+    },
+    {
+      "observation_id": "w_a8352c548f7fdf0fdef902bf",
+      "method": "depth",
+      "order_within_observation": 0,
+      "budget_seconds": 6,
+      "wall_seconds": 4.046400464954786,
+      "cpu_seconds": 4.046833909,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        631.1279296875,
+        635.7421875
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.034068036009557545
+        },
+        {
+          "branch": "none",
+          "stage": 1,
+          "seconds": 0.002121218014508486
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 0.043499678024090827
+        },
+        {
+          "branch": "partial",
+          "stage": 1,
+          "seconds": 0.0021078450372442603
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 2.6138854440068826
+        },
+        {
+          "branch": "full",
+          "stage": 1,
+          "seconds": 1.3447796059772372
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 3.520348539869358,
+      "predictions": [
+        635.7421875,
+        633.9007929762107,
+        631.1279296875,
+        635.7421875,
+        635.7421875,
+        635.7421875,
+        635.7421875
+      ]
+    },
+    {
+      "observation_id": "w_a8352c548f7fdf0fdef902bf",
+      "method": "accumulated",
+      "order_within_observation": 1,
+      "budget_seconds": 6,
+      "wall_seconds": 6.0280056479386985,
+      "cpu_seconds": 6.027752774,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        631.1279296875,
+        635.7421875
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.035767795983701944
+        },
+        {
+          "branch": "none",
+          "stage": 1,
+          "seconds": 0.0021778190275654197
+        },
+        {
+          "branch": "none",
+          "stage": 2,
+          "seconds": 0.002132321009412408
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 0.04294820502400398
+        },
+        {
+          "branch": "partial",
+          "stage": 1,
+          "seconds": 0.00214884290471673
+        },
+        {
+          "branch": "partial",
+          "stage": 2,
+          "seconds": 0.002156115951947868
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 2.6372187610249966
+        },
+        {
+          "branch": "full",
+          "stage": 1,
+          "seconds": 1.3532328179571778
+        },
+        {
+          "branch": "full",
+          "stage": 2,
+          "seconds": 1.9426584480097517
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 3.520348539869358,
+      "predictions": [
+        635.7421875,
+        633.9007929762107,
+        631.1279296875,
+        635.7421875,
+        635.7421875,
+        635.7421875,
+        635.7421875
+      ]
+    },
+    {
+      "observation_id": "w_a8352c548f7fdf0fdef902bf",
+      "method": "coarse",
+      "order_within_observation": 2,
+      "budget_seconds": 6,
+      "wall_seconds": 2.683283654972911,
+      "cpu_seconds": 2.6838019610000003,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        630.46875,
+        636.09375
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.03432013501878828
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 0.043407402001321316
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 2.5981408179504797
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 4.8283473629906,
+      "predictions": [
+        636.09375,
+        633.9007929762107,
+        630.7777929762107,
+        636.09375,
+        636.09375,
+        636.09375,
+        636.09375
+      ]
+    },
+    {
+      "observation_id": "w_0272cab5a867c8795d1b9f62",
+      "method": "accumulated",
+      "order_within_observation": 0,
+      "budget_seconds": 6,
+      "wall_seconds": 6.018892435939051,
+      "cpu_seconds": 6.01876386,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        540,
+        660
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.03419034893158823
+        },
+        {
+          "branch": "none",
+          "stage": 1,
+          "seconds": 0.0020694510312750936
+        },
+        {
+          "branch": "none",
+          "stage": 2,
+          "seconds": 0.0021037650294601917
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 0.04468230693601072
+        },
+        {
+          "branch": "partial",
+          "stage": 1,
+          "seconds": 0.002102188067510724
+        },
+        {
+          "branch": "partial",
+          "stage": 2,
+          "seconds": 0.00210889196023345
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 3.029951659962535
+        },
+        {
+          "branch": "full",
+          "stage": 1,
+          "seconds": 1.0683578740572557
+        },
+        {
+          "branch": "full",
+          "stage": 2,
+          "seconds": 1.8268517709802836
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 16.61904696857149,
+      "predictions": [
+        620.3581692549224,
+        618.2987692549224,
+        619.9526692549224,
+        615.7033692549223,
+        617.1298692549224,
+        625.8261692549223,
+        613.2913692549223
+      ]
+    },
+    {
+      "observation_id": "w_0272cab5a867c8795d1b9f62",
+      "method": "coarse",
+      "order_within_observation": 1,
+      "budget_seconds": 6,
+      "wall_seconds": 3.1120239479932934,
+      "cpu_seconds": 3.111464371000004,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        540,
+        660
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.045143591007217765
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 0.04370641603600234
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 3.0153597799362615
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 16.61904696857149,
+      "predictions": [
+        620.3581692549224,
+        618.2987692549224,
+        619.9526692549224,
+        615.7033692549223,
+        617.1298692549224,
+        625.8261692549223,
+        613.2913692549223
+      ]
+    },
+    {
+      "observation_id": "w_0272cab5a867c8795d1b9f62",
+      "method": "depth",
+      "order_within_observation": 2,
+      "budget_seconds": 6,
+      "wall_seconds": 4.194343046983704,
+      "cpu_seconds": 4.193726446999996,
+      "error": null,
+      "identity_fallback": false,
+      "over_budget_plus_025": false,
+      "raw_hull": [
+        540,
+        660
+      ],
+      "truth_in_hull": true,
+      "stage_times": [
+        {
+          "branch": "none",
+          "stage": 0,
+          "seconds": 0.04336951801087707
+        },
+        {
+          "branch": "none",
+          "stage": 1,
+          "seconds": 0.0021169380052015185
+        },
+        {
+          "branch": "partial",
+          "stage": 0,
+          "seconds": 0.04426434193737805
+        },
+        {
+          "branch": "partial",
+          "stage": 1,
+          "seconds": 0.002106143976561725
+        },
+        {
+          "branch": "full",
+          "stage": 0,
+          "seconds": 3.0025307999458164
+        },
+        {
+          "branch": "full",
+          "stage": 1,
+          "seconds": 1.0941531650023535
+        }
+      ],
+      "classifier_atoms_over_025": [],
+      "mse": 16.61904696857149,
+      "predictions": [
+        620.3581692549224,
+        618.2987692549224,
+        619.9526692549224,
+        615.7033692549223,
+        617.1298692549224,
+        625.8261692549223,
+        613.2913692549223
+      ]
+    }
+  ],
+  "summary": {
+    "coarse": {
+      "tasks": 42,
+      "mse": 5.918716570258972,
+      "mae": 1.9519502834319755,
+      "improved": 24,
+      "unchanged": 18,
+      "worsened": 0,
+      "correct_inputs": 6,
+      "correct_input_damage": 0,
+      "wall_seconds": 12.002947351895273,
+      "cpu_seconds": 11.969606292000003,
+      "failed_prepares": 0
+    },
+    "depth": {
+      "tasks": 42,
+      "mse": 5.1989243665921165,
+      "mae": 1.7916361560054437,
+      "improved": 25,
+      "unchanged": 17,
+      "worsened": 0,
+      "correct_inputs": 6,
+      "correct_input_damage": 0,
+      "wall_seconds": 17.306685845018364,
+      "cpu_seconds": 17.305825727999995,
+      "failed_prepares": 0
+    },
+    "accumulated": {
+      "tasks": 42,
+      "mse": 5.2126071632343915,
+      "mae": 1.7952982653804437,
+      "improved": 25,
+      "unchanged": 17,
+      "worsened": 0,
+      "correct_inputs": 6,
+      "correct_input_damage": 0,
+      "wall_seconds": 24.399752516997978,
+      "cpu_seconds": 24.396773792,
+      "failed_prepares": 0
+    }
+  },
+  "identity": {
+    "tasks": 42,
+    "mse": 20.92503159666673,
+    "mae": 3.730723809523814
+  },
+  "selected": "depth",
+  "comparison_total_cpu_seconds": 54.018555070000005,
+  "comparison_total_wall_seconds": 54.05598221893888,
+  "finished_at": "2026-10-13T08:17:56.773391+00:00"
+}

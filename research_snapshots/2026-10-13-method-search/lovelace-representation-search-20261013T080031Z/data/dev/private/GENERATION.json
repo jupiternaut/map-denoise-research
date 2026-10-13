@@ -1,0 +1,31 @@
+{
+  "split": "dev",
+  "worlds": 6,
+  "tasks": 42,
+  "seeds": [
+    20261013071
+  ],
+  "generation_wall_seconds": 0.4410440609790385,
+  "utc": "2026-10-13T08:10:51.424515+00:00",
+  "host": "liekkas",
+  "logical_root": "/srv/slam-research/grf/map-denoise/runs/lovelace-representation-search-20261013T080031Z",
+  "canonical_root": "/mnt/data4t-usb/experiments/srv/slam-research/grf/map-denoise/runs/lovelace-representation-search-20261013T080031Z",
+  "mechanism": {
+    "family": "same physical scene/camera/sensor family; new rational parameter holdout",
+    "sampling_change": "expanded latent sampling distribution, not the historical six fixed materials/three depths/discrete noise tape",
+    "depth": "550 + integer(1,100*100003-1)/100003; reject historical depths",
+    "camera_offsets": "side offsets independent integers[-20000,20000]/100000; center=0",
+    "photo_bias_and_noise": "independent integers[-1000,1000]/100000; one shared bias per view",
+    "materials": "three new base colors; original A4-V patterned view variation eta=1/10 except all-equal full negative eta=0",
+    "anchors": "original A8 tape/acquire, independent of photo errors",
+    "tasks": "one correct + six independent nonzero signed magnitudes integer[1000,80000]/10000; reject accidental mean/median symmetry; shuffle",
+    "clipping": "exact ideal pixel integral + photo noise + shared photo bias, then one clip",
+    "split_unit": "independently generated world; repeated incumbents are not independent scenes"
+  },
+  "freeze": null,
+  "generator_sha256": "d103333fcda15d8b0fc6dcfc38b26b692109eb0171ed588b349a2b0e4086c90b",
+  "forward_sha256": "0de7441fd58d0eec9a29abbc6f5a827a88839c96728cac316078d7efbc2eb655",
+  "all_exact_forward_verified": true,
+  "float_forward_max_abs_error": 7.771561172376096e-16,
+  "float_observation_max_abs_error": 7.771561172376096e-16
+}

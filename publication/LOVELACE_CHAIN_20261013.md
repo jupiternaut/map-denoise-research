@@ -8,10 +8,25 @@
 
 这条链先检验如何安全移动，再逐步处理外观、偏差、遮挡和相机对错误几何的补偿；A8 引入独立观测，A9 将排除能力转成连续坐标修复，A10 收紧仍然过宽的外集。
 
-当前最强的已测恢复实现是 A10-D：同一有限合成族的 288 个偏移输入中，153 改善、135 不变、0 恶化；36 个正确输入全部不动。
-它还没有完成真实点云迁移，也没有证明所有残余错误都可由更多计算修好。
+截至A10，已测恢复实现A10-D在同一有限合成族的288个偏移输入中153改善、135不变、0恶化；36个正确输入全部不动。后续已推进到A14的快速认证计算通路，最新同批结果见下节；不同批次不拼成单一排行榜。
+这条链仍没有完成真实点云迁移，也没有证明所有残余错误都可由更多计算修好。
 
-若只读三篇，建议依次看 [A10 结果](../research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/continuous-tightening-1/REPORT.md)、[A9 连续恢复](../research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/continuous-anchors-1/REPORT.md)、[A8 独立观测](../research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/independent-anchors-1/REPORT.md)。
+## A11–A14新增：把计算通路本身作为研究对象
+
+[新增发布说明与复核](LOVELACE_METHODS_20261013.md)保存四个独立运行根，不改变下文十根历史快照。
+
+| 阶段 | 关键问题 | 收获及限制 |
+|---|---|---|
+| [A11](../research_snapshots/2026-10-13-method-search/lovelace-evidence-accumulation-20261013T051931Z/REPORT.md) | 相机细化能否继承旧深度证书而不丢进展？ | 288偏移中158改善、130不变，MSE 1.094653；相对旧D新增5个修复。较深度续算更贵，非等实际时间优势。 |
+| [A12审查](../research_snapshots/2026-10-13-method-search/lovelace-representation-search-20261013T080031Z/EXPERIMENT_AUDIT.md) | 不规定现有流水线，Agent会构造什么？ | 自由构造更快，但仍得到外集＋HULL同族；6秒配置MSE略低于固定方法，24秒略高。原最终报告/检查点缺失，审查与原始正式结果保留。 |
+| [A13](../research_snapshots/2026-10-13-method-search/lovelace-certified-boundary-20261013T093552Z/REPORT.md) | 补回精确证书后，速度优势是否还在？ | 两预算下252输出与数值快法相同；认证快法约0.397秒/世界，仍更快。对本批旧24秒配置MSE高2.172%。 |
+| [A14](../research_snapshots/2026-10-13-method-search/lovelace-joint-boundary-20261013T123336Z/REPORT.md) | 旧法哪条有效约束值得紧凑继承？ | 精确反例定位跨像素相机相关性损失；接回四域约束后MSE 6.794984、0.579秒/世界。比同批旧长配置快13.18倍、误差高0.1995%，不是全指标支配。 |
+
+A14有18新参数世界、108偏移及18正确输入，五配置90次冷调用、630预测。joint对identity为75改善、33不变、0恶化，18正确输入保留；未变的负控也留在分母。差额补回86.36%是相对同批base与legacy@24的差距，不是总体误差降低86%。
+
+这段推进已经超出单纯加求解预算：重新组织搜索、分离浮点提案与精确验收、恢复松弛丢失的依赖关系。但自由构造仍只做了一次；四域机制来自祖先算法，不能称发现新数学表示族。A14登记遗漏和A12交付缺口见新增发布说明，不改写原件消除缺口。
+
+理解这条通路的前身，建议依次看 [A10 结果](../research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/continuous-tightening-1/REPORT.md)、[A9 连续恢复](../research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/continuous-anchors-1/REPORT.md)、[A8 独立观测](../research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/independent-anchors-1/REPORT.md)。
 要理解为什么需要新信息，再读 [A7 共同相机诊断及正式失败说明](../research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/common-pose-feasibility-1/REPORT.md)。
 
 ## 十个运行根：问题怎样逐步改变
@@ -50,7 +65,7 @@
 | [A9：连续恢复](../research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/continuous-anchors-1/REPORT.md) | 排除能力能否成为真实坐标改善？ | 公开全局域连续搜索，证书删区间，HULL 夹取现任坐标 | both 改善 122/288，MSE 较 KEEP 降 53.88%，36 正确输入不动；比两单臂改善并集多 29 个 | 118 个信息性输入仍未改善；外集边界不等于已构造完整世界，未测真实点云 |
 | [A10：外集收紧](../research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/continuous-tightening-1/REPORT.md) | 残余来自外包络还是完整模型歧义？ | 从 A9 both 支持比较深度细化 D 与附加相机分盒 DC | D 新增 31 个修复，153/288 改善、MSE 降 66.35%；另核实 9 个观测的完整竞争解释 | DC 小幅收益被截止抵消；D 对 A9 不是等总算力纯容差消融，9 正例不代表全部残余 |
 
-## A9 → A10：当前结果的准确读法
+## A9 → A10：历史结果的准确读法
 
 同一 288 个偏移输入、同一 KEEP 基线，HULL 为主输出。单位分别为 mm 和 mm²。
 
@@ -88,13 +103,13 @@ A10 的 72 个公开端点探针中，9 个成功、63 个 UNKNOWN；成功覆�
 这是指定两世界的条件最坏误差界，不是本算法平均 MSE 下界、9 个独立新场景或现实点云的普适上限。
 63 个阴性探针仅表示 0.5 秒内未找到完整解释，不是 63 个不可行证书。
 
-## 下一步为什么分成两条
+## A10当时的下一步为什么分成两条
 
 - 对计算留下的外包络：从 D 已验证支持继续累积相机排除证据，或对合法外集取交；固定总预算，与同预算继续 D 对照。
 - 对已有完整竞争世界：设计能区分这些世界的独立观测；不能要求一个可靠排除器把合法解释凭空删掉。
 - 两条都继续分别报告真世界覆盖、正确输入保护、偏移输入改善、实际成本；不以更复杂模型或更多证书代替几何成绩。
 
-这些是下一阶段方向，本次发布没有运行它们，也没有事后把 D/DC 交集另算成预注册赢家。
+这是A10当时的后续方向；后来的证据累积与计算重构见上方A11–A14。发布过程本身没有运行新实验，也没有事后把D/DC交集另算成预注册赢家。
 从历史链得到的投入教训是：先确认观测和约束丢了什么，再决定增加求解；原始照片上的更低损失不总是更正确的几何。
 
 ## 如何使用这份发布快照

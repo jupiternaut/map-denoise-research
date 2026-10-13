@@ -1,0 +1,100 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "PASS",
+  "reason_code": "qualified_simulation_checks_pass",
+  "summary": "Saved metrics, costs, completeness, exact margins, partitions and decoders verify; claims limited to 18 simulated worlds.",
+  "skill": "experiment-audit",
+  "run_id": "2026-10-13-a13",
+  "generated_at": "2026-10-13T10:18:55Z",
+  "executor": "codex",
+  "executor_model": "not exposed to fresh reviewer",
+  "executor_family": "openai",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_reasoning": "ultra",
+  "reviewer_family": "openai",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "agent_id": "/root/a13_integrity_review",
+  "verdict_id": "/root/a13_integrity_review",
+  "project_dir": "/srv/slam-research/grf/map-denoise/runs/lovelace-certified-boundary-20261013T093552Z",
+  "date": "2026-10-13",
+  "auditor": "gpt-6-astra-ultra",
+  "overall_verdict": "pass",
+  "integrity_status": "pass",
+  "evaluation_type": "simulation_only",
+  "checks": {
+    "gt_provenance": {
+      "status": "pass",
+      "details": "18 stored physical worlds independently replayed; truth sampled before rendering, not derived from estimates."
+    },
+    "score_normalization": {
+      "status": "pass",
+      "details": "756 raw prediction-error rows recomputed; percentage denominator is identity input error."
+    },
+    "result_existence": {
+      "status": "pass",
+      "details": "108 complete manifest/jobs/receipts/results, 756 unique predictions, 40 frozen file hashes match."
+    },
+    "dead_code": {
+      "status": "pass",
+      "details": "Reported metric aggregates and certificate counters are backed by executed saved records."
+    },
+    "scope": {
+      "status": "pass",
+      "details": "18 simulated worlds, three seed blocks, six exposed diagnostic worlds; no broad/generalized claim accepted."
+    },
+    "eval_type": "simulation_only"
+  },
+  "deterministic_verification": {
+    "review_independence": "deterministic",
+    "acceptance_status": "accepted",
+    "all_checks_pass": true,
+    "errors": [],
+    "artifact": "INDEPENDENT_AUDIT_RESULTS_FINAL.json",
+    "script": "independent_audit.py",
+    "formal_certificates": 594,
+    "distinct_formal_certificates": 297,
+    "formal_states": 36,
+    "diagnostic_certificates": 89,
+    "diagnostic_states": 6
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "impact": "supported",
+      "qualifier": "Only within frozen 18-world simulation; legacy@24 is more accurate."
+    },
+    {
+      "id": "C2",
+      "impact": "needs_qualifier",
+      "qualifier": "All observed proposals passed; no natural refusal or conservative widening case observed."
+    },
+    {
+      "id": "real_world_guarantees",
+      "impact": "unsupported",
+      "qualifier": "No arbitrary-real-image or point-cloud theorem."
+    }
+  ],
+  "warnings": [
+    "Semantic audit is same-family/provisional.",
+    "Two fast-method budgets repeat identical states/outputs and are not independent replications.",
+    "Legacy decimalized-reading interface differs from A13 rounding-preimage interface.",
+    "File chronology is corroborative, not adversarial tamper-proof provenance."
+  ],
+  "audited_input_hashes": {
+    "SOURCE_FREEZE.json": "afb66d8ff69a12b3b9e22a9e08d036ba87ec9909b6e267eeb509af24dd8389b7",
+    "independent_audit.py": "e0e3c73bd42651867fc1535e038534ce2a727b262a8c7d4e9c0ac5019d8f6568",
+    "INDEPENDENT_AUDIT_RESULTS_FINAL.json": "3b2d3dbf3a6ae31b668e64f62b0f361412a4414135f023ee40d60459751fd10b",
+    "REPORT_DRAFT.md": "033b68edba6a931d0173ad7bca32a8d401bd8872a8219920490d02218cdb94f9",
+    "CHECKPOINT_DRAFT.md": "0a68cff04ed636b2a6f47e874f7f85e4e99395849ec4ed410ad86a4735436aae",
+    "outputs/formal-v1/PAIRED_RESIDUALS.json": "cac2efa08db5e760b8a7397c42f894cf770571433f17adbc3f31aadb5f892654",
+    "REPORT.md": "5e44f635415ab4bbc8176577f5c314cf7da8b9927d645fb96fb71070a1800162",
+    "REPORT_2026-10-13_18-23.md": "5e44f635415ab4bbc8176577f5c314cf7da8b9927d645fb96fb71070a1800162",
+    "CHECKPOINT.md": "6da2085fd084edeae13bd2c6a9250dd2b45997b6a93dad9057bc78805eeceb99",
+    "CHECKPOINT_2026-10-13_18-23.md": "6da2085fd084edeae13bd2c6a9250dd2b45997b6a93dad9057bc78805eeceb99"
+  },
+  "complete_input_hash_inventory": "INDEPENDENT_AUDIT_RESULTS_FINAL.json#audited_input_hashes",
+  "trace_path": ".aris/traces/experiment-audit/2026-10-13-a13/",
+  "reviewed_report": "REPORT.md",
+  "final_report_status": "PASS: final report and checkpoint read in full; versioned/latest copies identical, numerical claims and qualifications consistent with audited primary evidence"
+}

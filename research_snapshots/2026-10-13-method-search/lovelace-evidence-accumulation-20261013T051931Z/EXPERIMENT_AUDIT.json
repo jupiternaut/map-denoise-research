@@ -1,0 +1,56 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "WARN",
+  "reason_code": "finite_simulation_and_cost_scope",
+  "summary": "独立算术与机械PASS，有限合成族及实际费用范围WARN，无阻断FAIL。",
+  "audited_input_hashes": {
+    "REPORT.md": "sha256:ad24a9e12590149cecab75de99061562c479eafbf3e91813a0f8b70cf4de4223",
+    "CHECKPOINT.md": "sha256:43101b47f3033092489e08bea544bb19ed603c158ba01458710e578bac2c287f",
+    "COMMANDS.md": "sha256:03d2f0d2781c3aad18a10b8bafa1502641e90122a3b325026ee34a8eaa913d37",
+    "THEORY.md": "sha256:f72ba3d3d0b8dbe295ee29a1e60d99ce3f6d8e9f01ad2fca47e784067e5a7d86",
+    "PROTOCOL.md": "sha256:1d29f3b21303153c111bebb7808df084da71fd3c38209d94ceb53f7839072b8a",
+    "REGISTRATION.json": "sha256:ac6c721ba46b803cdbe19ccacf7e92f4abd9d2bf0f618a98038de9e48e34ee48",
+    "TEST_GATE.json": "sha256:72e530350f78814265a63ecb29e7faedeaac3db1eab54a24cfb86d7d85e074e7",
+    "outputs/accumulation-v1/SOURCE_LOCK.json": "sha256:66ad215b308759542db237cc8b70e36f133a0426c3c65746cd0102d0c8ceceaa",
+    "outputs/accumulation-v1/INPUT_PRELOCK.json": "sha256:c58024b3f8ef18c969f1221e3569dc78674f920c1a615c08c7ccd4c5ee38c748",
+    "outputs/accumulation-v1/STAGE_STATUS.json": "sha256:8051649bc118a91227623c3073ea2c7537e5bb922d812fe3dc53b57c9c3e2b04",
+    "outputs/accumulation-v1/verification/VERIFY.json": "sha256:fcc37904ce60a9efcb38e0b295b76143c0fd3ed1ddf89f7e171afd1c196b0de1",
+    "outputs/accumulation-v1/evaluation/ROWS.json": "sha256:9f8d11490d4bc89c3be98df6bf2a050e26fe68bf6bca0a6bc5b819039e4427fc",
+    "outputs/accumulation-v1/evaluation/SUMMARY.json": "sha256:961c8d65246000ce17170afb57bd4a8305d037d81ff59fe59bae73c41cb4258e",
+    "outputs/accumulation-v1/evaluation/COMPARISONS.json": "sha256:9478b25bc1090e0d1806f3a83dc58cfc2d74e8baff679f958cc9daed43c00c85"
+  },
+  "trace_path": ".aris/traces/experiment-audit/20261013-a11/",
+  "agent_id": "/root/a11_integrity_review",
+  "verdict_id": "/root/a11_integrity_review",
+  "executor_model": "Codex (runtime model not independently exposed)",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_family": "openai",
+  "reviewer_reasoning": "ultra",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "date": "2026-10-13",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "checks": {
+    "gt_provenance": "pass",
+    "score_normalization": "pass",
+    "result_existence": "pass",
+    "dead_code": "pass",
+    "scope": "warn",
+    "eval_type": "simulation_only"
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "impact": "supported within finite fixed-cap comparison; no per-input or equal-real-cost dominance"
+    },
+    {
+      "id": "C2",
+      "impact": "conditional proof and finite saved checks agree"
+    }
+  ],
+  "action_items": [
+    "保留有限合成族、一维模型覆盖前提和真实费用限定",
+    "后续实验另注册，不改本次记录"
+  ]
+}

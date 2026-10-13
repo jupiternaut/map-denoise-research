@@ -1,0 +1,333 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "WARN",
+  "reason_code": "incomplete_pre_run_dynamic_dependency_freeze",
+  "summary": "限定实测主张得到支持；11个生成独立核验链动态依赖未列入事前冻结清单。无阻断的数值或证书问题。",
+  "agent_id": "/root/a14_integrity_review",
+  "verdict_id": "/root/a14_integrity_review",
+  "agent_uuid": null,
+  "agent_uuid_note": "spawn_agent returned canonical task_name only; UUID unavailable.",
+  "executor_model": "codex (model not exposed to reviewer)",
+  "executor_family": "openai",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_family": "openai",
+  "reviewer_reasoning": "ultra",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "generated_at": "2026-10-13T13:26:49Z",
+  "date": "2026-10-13",
+  "auditor": "fresh-gpt-6-astra-ultra",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "host": "liekkas",
+  "project": "/srv/slam-research/grf/map-denoise/runs/lovelace-joint-boundary-20261013T123336Z",
+  "canonical_project": "/mnt/data4t-usb/experiments/srv/slam-research/grf/map-denoise/runs/lovelace-joint-boundary-20261013T123336Z",
+  "evaluation_type": "simulation_only",
+  "checks": {
+    "A_gt_provenance": {
+      "status": "PASS",
+      "details": "18世界完整随机潜变量/任务ID复放、7776照片分量及所有锚点独立精确前向重建一致；真值不来自预测。",
+      "evidence": [
+        "A12/data_builder.py:119",
+        "independent_audit.py:118",
+        "independent_audit.json:834"
+      ]
+    },
+    "B_score_normalization": {
+      "status": "PASS",
+      "details": "全量原始AE/SE，固定n=126/108/18/21；无输出极值自归一化。",
+      "evidence": [
+        "experiment.py:118",
+        "A13/run_experiment.py:174",
+        "independent_audit.json:52"
+      ]
+    },
+    "C_result_existence": {
+      "status": "PASS",
+      "details": "90组记录和630预测完整，所有指标及成本全量一致。",
+      "evidence": [
+        "independent_audit.json:44",
+        "refine-logs/EXPERIMENT_TRACKER.md:10"
+      ]
+    },
+    "D_dead_code": {
+      "status": "PASS",
+      "details": "正式指标调用有产物；可选propose_cell不是正式路径，正式路径内联tile提案。",
+      "evidence": [
+        "experiment.py:103",
+        "analyze.py:7",
+        "search_method.py:57",
+        "joint_kernel.py:82"
+      ]
+    },
+    "E_scope": {
+      "status": "PASS",
+      "qualifier": "18world/3种子同机制模拟；不得把每world六扰动作独立world或显著性证据。",
+      "evidence": [
+        "REPORT.md:3",
+        "REPORT.md:29",
+        "REPORT.md:31"
+      ]
+    },
+    "F_eval_type": {
+      "status": "PASS",
+      "classification": "simulation_only",
+      "evidence": [
+        "A12/task_bundle/TASK.md:7",
+        "REPORT.md:3"
+      ]
+    },
+    "G_freeze": {
+      "status": "WARN",
+      "registered_files": 56,
+      "registered_hashes_unchanged": true,
+      "unregistered_dynamic_dependencies": 11,
+      "post_hoc_hashes_are_not_pre_run_freeze": true,
+      "evidence": [
+        "SOURCE_FREEZE.json:4",
+        "A13/run_experiment.py:57",
+        "BI/appearance-variation-1/verify_variation.py:34"
+      ]
+    },
+    "H_full_certificate_verification": {
+      "status": "PASS",
+      "states": 54,
+      "exclusions": 1091,
+      "whole_exclusions": 1025,
+      "four_tile_exclusions": 66,
+      "individual_tiles": 264,
+      "evidence": [
+        "joint_verify.py:77",
+        "A13/verify_certificates.py:327",
+        "independent_audit.json:862"
+      ]
+    },
+    "I_costs": {
+      "status": "PASS",
+      "scope": "formal cold runs and recorded generation/verification/score/analysis; development full test CPU receipts incomplete",
+      "formal_with_parent_and_ancillary_cpu_seconds_rounded": 246.37,
+      "independent_audit_process_rusage_seconds": 1.058661,
+      "evidence": [
+        "outputs/time_predict.txt:1",
+        "outputs/time_freeze_generate.txt:1",
+        "outputs/time_verify_score_analyze.txt:1",
+        "DEVELOPMENT_CHECKS.md:6",
+        "independent_audit.json:874"
+      ]
+    },
+    "J_information_flow": {
+      "status": "PASS",
+      "limitation": "Code/hash/mtime evidence, not OS isolation or tamper-proof historical access log.",
+      "evidence": [
+        "experiment.py:66",
+        "experiment.py:83",
+        "experiment.py:108",
+        "A13/worker.py:23"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "impact": "supported_with_qualifier",
+      "details": "仅本批18世界模拟；满足预定MSE/成本/证书门槛，未追平legacy@24。"
+    },
+    {
+      "id": "C2",
+      "impact": "supported_with_qualifier",
+      "details": "相对fine的均值及66个四域实际证书支持不只是停止精度；无逐world支配或因果贡献分摊。"
+    },
+    {
+      "id": "gap_recovery",
+      "impact": "supported_with_qualifier",
+      "value_percent": 86.35840764113084,
+      "denominator": "same-batch base@6 shifted MSE minus legacy@24 shifted MSE"
+    }
+  ],
+  "paired_comparisons": {
+    "joint_vs_base@6": {
+      "shifted_input_counts": {
+        "same": 67,
+        "better": 41
+      },
+      "world_sse_counts": {
+        "better": 12,
+        "same": 6
+      },
+      "mse_reduction_percent": 1.2444527455113152,
+      "baseline_over_joint_cold_time": 0.7058692019547411
+    },
+    "joint_vs_fine@6": {
+      "shifted_input_counts": {
+        "same": 33,
+        "worse": 38,
+        "better": 37
+      },
+      "world_sse_counts": {
+        "worse": 7,
+        "better": 8,
+        "same": 3
+      },
+      "mse_reduction_percent": 0.7323550651735178,
+      "baseline_over_joint_cold_time": 0.8457670728809338
+    },
+    "joint_vs_legacy@6": {
+      "shifted_input_counts": {
+        "same": 33,
+        "better": 75
+      },
+      "world_sse_counts": {
+        "better": 15,
+        "same": 3
+      },
+      "mse_reduction_percent": 3.1609600989762954,
+      "baseline_over_joint_cold_time": 7.698062286231751
+    },
+    "joint_vs_legacy@24": {
+      "shifted_input_counts": {
+        "same": 33,
+        "worse": 52,
+        "better": 23
+      },
+      "world_sse_counts": {
+        "worse": 11,
+        "better": 4,
+        "same": 3
+      },
+      "mse_reduction_percent": -0.1994539800783457,
+      "baseline_over_joint_cold_time": 13.181459281996261
+    }
+  },
+  "deterministic_checks": {
+    "status": "PASS",
+    "review_independence": "deterministic",
+    "acceptance_status": "accepted",
+    "independent_exact_forward": {
+      "worlds": 18,
+      "photo_components": 7776,
+      "checks": 25218,
+      "original_generator_imported": false
+    },
+    "certificate_replay": {
+      "states": 54,
+      "all_valid": true,
+      "all_partitioned": true,
+      "checked_exclusions": 1091,
+      "counts": {
+        "whole_exclusions": 1025,
+        "four_tile_exclusions": 66,
+        "individual_tiles": 264
+      },
+      "cpu_seconds": 0.6139731019999999
+    },
+    "cpu_seconds": 1.016570199,
+    "process_rusage_seconds": 1.058661
+  },
+  "audited_input_hashes": {
+    "SOURCE_FREEZE.json": "sha256:fc4a0f8edaf4a10a29bee7f89fad1ba1da2733cbb988d3965e3d3a6e493cd90b",
+    "data/confirm/public.json": "sha256:ac96a9bee713b0cb8b2eca2a7a7bc80f86cc013abdb028c2b3f94608a7b98380",
+    "data/confirm/tasks.json": "sha256:50a7f1f07bf662ae822b77573db4f34cf411e82174230d79384fecd0140f8276",
+    "data/confirm/private/truth.json": "sha256:74320e20b041668ddfaf5b484ba632eac9c3a8e7cc9353112579a56a71228162",
+    "data/confirm/GENERATION.json": "sha256:4d64b6abd7619d31c2a2a91e1d7470a789cd2d7674d467cec430ed62e6b12f0a",
+    "outputs/formal-v1/MANIFEST.json": "sha256:3b2520a4661a6153baf25ad71b831bbe765716404f050cfb86199e6dbbbe74ee",
+    "outputs/formal-v1/PREDICTIONS_READY.json": "sha256:0d318838f631b2c66d8dfc51e8ec8e96b4c1bad0aab39e449c3642937966d412",
+    "outputs/formal-v1/INDEPENDENT_VERIFICATION.json": "sha256:7960eef8ae20fcae57e43739668120fca54d09734a567ad61a09b5edbe4f4526",
+    "outputs/formal-v1/METRICS.csv": "sha256:fb3acbd0c256314480e50b8881313f52a3c26494eb05465580f2e9c567c5ca91",
+    "outputs/formal-v1/SUMMARY.json": "sha256:b946185edcf819a5d7306451600bd637ee5bd7efb1b6da2fea3839ef30565957",
+    "outputs/formal-v1/COSTS.json": "sha256:d1291359261b67978d8c544d85b811547ec1a7686913c2f5726449ace9b2ae4f",
+    "outputs/formal-v1/ANALYSIS.json": "sha256:957cb0d718ca9f14b92015c67580ffb3a93c4e34e328cba5165c47c01ef0a21c",
+    "REPORT.md": "sha256:9e2bfcd14388cfd7afbdc16b0a1a7b1ae68d02464e6c577b50ff4ba553e53a6d",
+    "REPORT_20261013_132200.md": "sha256:9e2bfcd14388cfd7afbdc16b0a1a7b1ae68d02464e6c577b50ff4ba553e53a6d",
+    "independent_audit.py": "sha256:76b131ad491e900b3a617035d43669b743f778b1694b86e615aba8f2a1535a9a",
+    "independent_audit.json": "sha256:73b74d8ed79fb7799290687d053875b2e9afbc81d5dcec57bd77d7a01de19097"
+  },
+  "unregistered_dynamic_dependencies": [
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/appearance-1/verify_appearance.py",
+      "import_evidence": "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/appearance-variation-1/verify_variation.py:34",
+      "audit_time_sha256": "846988bdf587c3a432b301ff62efd04157abeb0dff5998ad5b5fd57f37c6ea58",
+      "hash_provenance": "post-hoc audit only; not part of pre-run SOURCE_FREEZE"
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/recovery-1/verify_baseline.py",
+      "import_evidence": "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/appearance-1/verify_appearance.py:36",
+      "audit_time_sha256": "151adc2b02a3e8fe497a02e776bbb256836b4900fab71bf2a83455f666eb2f19",
+      "hash_provenance": "post-hoc audit only; not part of pre-run SOURCE_FREEZE"
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/ablation-1/verify_ablation.py",
+      "import_evidence": "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/appearance-1/verify_appearance.py:39",
+      "audit_time_sha256": "97822fc792e50d356a0abe07f46be5841e51524bffbfac3c3a5007a8bb88f11e",
+      "hash_provenance": "post-hoc audit only; not part of pre-run SOURCE_FREEZE"
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/point-feasibility-1/verify_point.py",
+      "import_evidence": "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/independent-anchors-1/verify_anchors.py:37",
+      "audit_time_sha256": "80f2092847829fea3d8e44f5cf4e03cae460da8655809c7b808d8bf9acca5954",
+      "hash_provenance": "post-hoc audit only; not part of pre-run SOURCE_FREEZE"
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/joint-feasibility-1/verify_polytope.py",
+      "import_evidence": "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/point-feasibility-1/verify_point.py:32",
+      "audit_time_sha256": "96ec770db9788122e77a78223878f3f84c051c4615b87537ae3f2f0055c95a83",
+      "hash_provenance": "post-hoc audit only; not part of pre-run SOURCE_FREEZE"
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/lovelace-structured-view-bias-20261012T022500Z/verify_structured.py",
+      "import_evidence": "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/recovery-1/verify_baseline.py:42",
+      "audit_time_sha256": "7fdd2473574522b03d79107e580d2526c7ed81e5173f81089938e23d809f89ea",
+      "hash_provenance": "post-hoc audit only; not part of pre-run SOURCE_FREEZE"
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/lovelace-observation-bridge-20261011T232502Z/verify_bridge.py",
+      "import_evidence": "/srv/slam-research/grf/map-denoise/runs/lovelace-structured-view-bias-20261012T022500Z/verify_structured.py:37",
+      "audit_time_sha256": "d3a1404814abf39384101e355dd92904eff3edac7ab66f1f960bc7f7c50c773a",
+      "hash_provenance": "post-hoc audit only; not part of pre-run SOURCE_FREEZE"
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/lovelace-view-bias-20261011T092300Z/verify_view_bias.py",
+      "import_evidence": "/srv/slam-research/grf/map-denoise/runs/lovelace-observation-bridge-20261011T232502Z/verify_bridge.py:39",
+      "audit_time_sha256": "1718ba272f8d3b9ef962bb2f6d737467e1b15018c9cb291dc6ea32a9d23bad56",
+      "hash_provenance": "post-hoc audit only; not part of pre-run SOURCE_FREEZE"
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/lovelace-shared-ablation-20261011T055200Z/verify_ablation.py",
+      "import_evidence": "/srv/slam-research/grf/map-denoise/runs/lovelace-view-bias-20261011T092300Z/verify_view_bias.py:33",
+      "audit_time_sha256": "d84c9c5ab5fabd83b8a238eccd040f026865fede586e10e2a56a4e81ec5d3dab",
+      "hash_provenance": "post-hoc audit only; not part of pre-run SOURCE_FREEZE"
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/lovelace-shared-appearance-20261011T052300Z/shared_verification.py",
+      "import_evidence": "/srv/slam-research/grf/map-denoise/runs/lovelace-shared-ablation-20261011T055200Z/verify_ablation.py:35",
+      "audit_time_sha256": "a45a94e6c1ab115365a600730c76a83c0a4189c7231d0393111d79a11387f468",
+      "hash_provenance": "post-hoc audit only; not part of pre-run SOURCE_FREEZE"
+    },
+    {
+      "path": "/srv/slam-research/grf/map-denoise/runs/lovelace-nuisance-20261011T044500Z/verification/arithmetic.py",
+      "import_evidence": "/srv/slam-research/grf/map-denoise/runs/lovelace-shared-appearance-20261011T052300Z/shared_verification.py:35",
+      "audit_time_sha256": "c5d0cba9e9397c87d9cfd0ee87be72f6fd5585ee9d8826aa3e572e3260be0b8b",
+      "hash_provenance": "post-hoc audit only; not part of pre-run SOURCE_FREEZE"
+    }
+  ],
+  "limitations": [
+    "File mtimes and recorded UTCs are supporting chronology, not tamper-proof proof of historical reads.",
+    "No historical manifest/job/receipt hashes are stored; current bytes are hashed and linked contents checked.",
+    "Certificate replay uses the frozen verifier and does not replace independent semantic review of its math.",
+    "The freeze check covers the 56 registered files, not the complete dynamic import closure.",
+    "Development tests have ledger costs but not complete per-run machine-readable CPU receipts.",
+    "Legacy and new rational kernels have different exact observation-transport contracts.",
+    "Semantic reviewer same-family and provisional; deterministic rechecks do not change semantic review status."
+  ],
+  "trace_path": ".aris/traces/experiment-audit/2026-10-13-a14/",
+  "latest_report_text_followup": {
+    "checked_at": "2026-10-13T13:34:05Z",
+    "files": [
+      "REPORT.md",
+      "REPORT_20261013_133200.md"
+    ],
+    "sha256": "7b900d677186ab248493c3dd3481c9533d7d84560aa609736fdefbc4a065c41a",
+    "method": "read-only complete text diff against audited 132200 snapshot",
+    "result": "PASS; state and scope disclosures only; no expanded claims; no rerun"
+  },
+  "audit_hash_snapshot_note": "audited_input_hashes reflects the 13:26:49 review snapshot; current REPORT.md hash is latest_report_text_followup.sha256."
+}
