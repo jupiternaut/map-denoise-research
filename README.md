@@ -1,17 +1,19 @@
 # Map Denoise Research
 
-**多视图证据驱动的多假设几何修订。** 更新于 **2026-10-08**。
+**多视图证据驱动的多假设几何修订。** 更新于 **2026-10-13**。
 
 本仓库保存算法源码、冻结协议、正负结果、测试及修订记录。目前的几何主线是：利用照片与相机标定构造几种可能的表面解释，再决定保留原点还是接受修正。最近已实现收益选择、连续射线位置搜索，以及局部一／双表面逆深度混合回归。
 
-自研方法已支持**有条件的偏移恢复**，尚不是默认开启的通用滤波器；部署默认仍为 `identity`。10月8日最新决策接口实验完成：独立尺度回退＋候选最小损失，使48个新合成场景的每个偏移方向均改善36/48，平均绝对误差60→16.5463mm；正确输入保留47/48，另1例误移0.7317mm，严格零损伤门槛仍未通过。动态覆盖优于固定覆盖，但没有建立超过同规则full9的优势。此前真实旧场景的新证据配简单选择使MSE降低30.19%，仍新增两处好点损伤；10月1日官方COLMAP新物体迁移降低56.92%是成熟方法成绩。Windows / RTX5080交接包仍对应9月22日CPU版本；最新合成CPU试验不是5080或真实迁移验证。
+自研方法已支持**有条件的偏移恢复**，尚不是默认开启的通用滤波器；部署默认仍为 `identity`。10月13日A10在固定36个合成观测上，以连续约束排除＋HULL投影，将288个偏移输入的MSE相对KEEP降低66.35%，153个改善、135个不变、0个恶化；另36个正确输入全部保留。相比A9新增修复31个输入。完整前向检查同时找到9个不同深度、仍解释相同观测的竞争世界，明确区分计算松弛与信息歧义。当前是有限成像族的条件恢复研究，不是新真实场景验证。此前真实旧场景的新证据配简单选择使MSE降低30.19%，仍新增两处好点损伤；10月1日官方COLMAP新物体迁移降低56.92%是成熟方法成绩。Windows / RTX5080交接包仍对应9月22日CPU版本。
 
 ## 从这里开始
 
 | 你想做什么 | 入口 |
 |---|---|
+| 看最新A10：更多修复、计算瓶颈与观测歧义 | [报告](research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/continuous-tightening-1/REPORT.md) · [原始逐项CSV](research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/continuous-tightening-1/outputs/tightening-v1/evaluation/ROWS.csv) · [发布与复核](publication/LOVELACE_20261013.md) |
+| 回看10月10–13日连续实验，避免重复探索 | [研究链导航](publication/LOVELACE_CHAIN_20261013.md) · [A9独立锚点与连续恢复](research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/continuous-anchors-1/REPORT.md) |
 | 看 LOVELACE 数学封闭实验：条件安全证书 | [两阶段源码与复核](research_snapshots/2026-10-08/lovelace-mathematical-closure/README.md) · [连续深度报告](research_snapshots/2026-10-08/lovelace-mathematical-closure/experiment/continuous_world/REPORT.zh.md) · [完整 ZIP](research_snapshots/2026-10-08/lovelace-mathematical-closure/Lovelace-mathematical-closure-stage2-20261008.zip) |
-| 看最新结果：评分信息怎样转成修复 | [完整报告](research_snapshots/2026-10-08/decision-interface-20261008T052305Z/REPORT.md) · [确认原始结果](research_snapshots/2026-10-08/decision-interface-20261008T052305Z/confirmation/evaluation/RESULTS.csv) · [发布与便携核验](publication/DECISION_INTERFACE_20261008.md) |
+| 看10月8日结果：评分信息怎样转成修复 | [完整报告](research_snapshots/2026-10-08/decision-interface-20261008T052305Z/REPORT.md) · [确认原始结果](research_snapshots/2026-10-08/decision-interface-20261008T052305Z/confirmation/evaluation/RESULTS.csv) · [发布与便携核验](publication/DECISION_INTERFACE_20261008.md) |
 | 看本轮预定方案与实际执行 | [冻结计划](planning/decision-interface-20261008/refine-logs/EXPERIMENT_PLAN.md) · [已完成执行表](research_snapshots/2026-10-08/decision-interface-20261008T052305Z/refine-logs/EXPERIMENT_TRACKER.md) |
 | 看前轮混合像素：评分有用，为何行动失败 | [报告](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/REPORT.md) · [原始结果](research_snapshots/2026-10-08/mixed-pixel-20261008T041249Z/evaluation/RESULTS.csv) · [三轮归档与便携核验](publication/MIXED_PIXEL_20261008.md) |
 | 看最新贡献消融：收益究竟来自哪里 | [完整报告](research_snapshots/2026-10-07/selector-attribution-20261007T180539Z/REPORT.md) · [逐项贡献](research_snapshots/2026-10-07/selector-attribution-20261007T180539Z/evaluation/ATTRIBUTION.csv) · [发布与复算](publication/SELECTOR_ATTRIBUTION_20261008.md) |
@@ -28,7 +30,26 @@
 | 阅读当前 CPU 实现 | [包说明](handoffs/v28-windows-5080/reference/package/README.md) · [运行时](handoffs/v28-windows-5080/reference/package/v28_closeout/runtime.py) · [表面假设评分](handoffs/v28-windows-5080/reference/package/v28_closeout/surfacelet.py) |
 | 阅读元研究与历史探索 | [元研究导航](meta_research/README.md) · [V23–V25 / CPR / 精确搜索](PROGRESS_20260916.md) · [V19–V22](PROGRESS_V22.md) |
 
-## 最新进展：接口修复恢复大修复能力，尚未超过同规则full9
+## 最新进展：深度约束细化多修复31个输入，部分歧义需要新观测
+
+目标是**保留有效几何并修复不足**。A10继承A9照片、独立相机/外观锚点与已核验外集，比较端点优先深度细化D与额外相机四分盒DC；每分支同为128次分类、6秒预算上限。只有完整覆盖子域的精确不可行证书才能排除区域，未知与超时部分保留，输出采用HULL投影。36个合成观测来自18组配对实现，并非324个独立场景。
+
+| 方法 | 偏移输入MSE（mm²） | 相对KEEP降低 | 改善／不变／恶化（288） |
+|---|---:|---:|---:|
+| KEEP | 3.406250 | 0% | 0／288／0 |
+| A9：相机＋外观锚点 | 1.570930 | 53.88% | 122／166／0 |
+| **A10 D：增量深度细化** | **1.146123** | **66.35%** | **153／135／0** |
+| A10 DC：另加相机分盒 | 1.148289 | 66.29% | 152／136／0 |
+
+两新臂另有36/36正确输入不动。288个偏移输入含48个负对照，全部仍不变；240个有效输入中D改善153个。A9原118个有效未改善输入里31个首次改善；相对A9总145个输入进一步变好。MSE降幅增加12.47个百分点，A9剩余MSE再降低27.04%。D继承旧计算并新增预算和端点调度，不能将全部增益归因于容差单一因素。
+
+相机分盒并非完全无效：DC比D在36个输入上更好、12个修复得更少，后者集中在2个观测的截止分支。其搜索耗时146.36秒，D为62.63秒；从同一起点重新计算会丢失另一条路线已经得到的排除证据。下一项应从D结果继续累积证据，与同总预算继续D对照，而非按真值选路线。
+
+72个完整前向探针找到9个合法竞争世界（9个观测、5组配对实现），深度与生成世界最大相差2.4874mm，但照片、相机、外观和噪声界均通过独立检查。这是注册模型内的真实歧义，不只是松弛求解没做完；其他63个探针为UNKNOWN。进一步恢复这些歧义需要新信息。**当前建立的是有限族的条件安全恢复与歧义证据，不是自然场景的普适保证。**
+
+本次发布10个运行根及其嵌套A阶段的代码、合成输入/真值、协议、证书、正负结果与更正。报告原件不改；大型记录无损gzip，原运行主机约束保留。便携归档/数值复核入口：`python3 -B publication/verify_lovelace_20261013.py`。完整原求解器重跑仍需路径和环境适配；此次未重建或部署GitBook网页。
+
+## 10月8日进展：接口修复恢复大修复能力，尚未超过同规则full9
 
 固定预测器和候选，分别检查缺失尺度与评分到动作的信息丢失。先用48个独立对象标定，再回放旧36配置，最后在规则冻结后的48个新合成场景确认；四种机制各12个，每个场景有正确及±60mm三个初态，不能按144个独立场景计数。
 

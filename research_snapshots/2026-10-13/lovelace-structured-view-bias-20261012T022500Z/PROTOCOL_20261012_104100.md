@@ -1,0 +1,54 @@
+# 共享视图偏差与公开背景校准：实验协议
+
+日期2026-10-12，Asia/Shanghai；host liekkas。本批新根为/srv/slam-research/grf/map-denoise/runs/lovelace-structured-view-bias-20261012T022500Z。用户已同意继续上轮的C+D；原目标保留有效几何、修复不足。
+
+## 两个问题
+
+C1：把逐测量宽界改为同一视图共享偏差变量，能否在真值覆盖和正确/负控保留下恢复修复？同图像、噪声和动作器，不以实际偏差反校正。
+C2：同信息和同depth树预算的简单背景校准是否已覆盖主要收益？只有联合模型提供额外修复才保留复杂度。校准使用同图像，没有新增视图或标定样本。
+两者允许零收益或反向差异，不把正结论写成通过要求。
+
+## 明确来源
+
+PREV=/srv/slam-research/grf/map-denoise/runs/lovelace-observation-bridge-20261011T232502Z，数据PREV/outputs/bridge-v1。复用其中RBdelta和CBdelta的108历史shared外包及972动作，验证公开图像/初态/511盒/8轮/0.02界与已有VERIFY身份。
+基础公开观测和初态来自/srv/slam-research/grf/map-denoise/runs/lovelace-shared-appearance-20261011T052300Z/outputs/confirmation-v1；原始无偏差图只用于生成身份核对，不作为当前solver额外输入。
+共享几何核为/srv/slam-research/grf/map-denoise/runs/lovelace-shared-ablation-20261011T055200Z/grouped_solver.py及其锁定依赖。新实现只扩观测行/偏差表示，复用其几何、树模式与union/action接口，不编辑旧源码。
+
+## 冻结数据和矩阵
+
+两图像单元raw=R+b、clip=P(R+b)，直接复用前批图像；b=(-.01,0,+.01)只属于生成端，epsilon=.01、beta=.01属于公开界。保持同54基础观测、六模板×三depth×三seed61001/2/3，每图像486初态（432偏移、54正确、偏移含72等色全遮挡负控）。这是同源合成机制回放，不是独立真实场景。
+
+| method | 观测模型 | 求解 |
+|---|---|---|
+| keep | 不处理 | 新动作，0求解 |
+| wide | 历史逐channel界epsilon+beta=.02；历史对clip用对称宽界 | 精确复用PREV/RBdelta、CBdelta |
+| calibrated | 同图像全域保证背景先估每view偏差区间；固定该区间，逐pixel边缘化偏差，再传播3材料约束 | 新求解 |
+| joint | 3共享材料+3共享view偏差同时用全部pixel约束，饱和像素单侧语义 | 新求解 |
+
+raw/clip×54×9×4=3888动作；216新求解、1944新求解方法动作记录，972复用wide动作、972KEEP动作。四方法均含相同公开像素，无额外测量。所有非KEEP保持depth[540,660]、radius公开值、none/partial/full三全场分支、511盒/branch、容差15/32 mm、8轮和原select_action。不要求执行时间相同：报告实际计时、节点与保留宽度；depth预算相同不称严格CPU成本相同。
+
+## 观测方程与必要外包
+
+灰度材料darkness d_k=1-c_k∈[0,1]；每view t_v=beta-b_v∈[0,2beta]。未裁剪观测y=1−ΣA_k d_k+b_v+e，|e|≤epsilon。必要行：ΣA_k d_k+t_v∈[1+beta−y−epsilon,1+beta−y+epsilon]。
+clip y∈(0,1)同上；y=0只保留下界1+beta−epsilon；y=1只保留上界beta+epsilon。不得把饱和读数当作未裁剪读数校准；RGB按pixel共享同d和t，可合并存在的upper取最小、lower取最大。
+depth盒几何系数区间[L_k,U_k]：upper行使用L，lower行使用U，均非负；joint行有六变量，calibrated行固定t区间后upper减t_lo/lower减t_hi，仅保留三材料。直接矛盾或区间lower>upper才排除；有限传播仅必要外包，不称精确可行性。
+generic exact Fraction contractor使用同一确定row顺序；更新和矛盾保存可重放证书。颜色和t先验不能由truth改变。
+
+## 公开背景定义与简化对照
+
+对每pixel，在全depth[540,660]、每branch、全部允许camera误差范围内，三个可见面积上界均0，才保证其前向值f=1。掩码从公开几何生成并落盘；初步公开几何枚举为48pixel（views18/12/18），正式必须独立核验，数字不作为硬写入truth。
+由同图像这些像素的观测行与t先验取交集。边界clip=1只约束t≤beta+epsilon，可能完全不收紧正偏差view；不强行用平均值点估计。空校准区间必须INCOMPATIBLE且计数，不能当KEEP。
+两新方法都先从相同公开背景得到相同T_cal：calibrated固定该区间并边缘化，joint以T_cal初始化每盒的t并联合收紧。这样隔离的是保留共同依赖的增量，不让joint额外花8轮重学已知背景。原t先验仍[0,2beta]，T_cal是同图像的推导，不是额外数据或真实偏差输入。
+
+## 终点和验收
+
+主：每图像/方法432偏移MAE/MSE、改善/同分/损伤及逐初态配对；与wide和calibrated比，改善百分比基准明确。独立列54真depth保留集合覆盖、54正确KEEP、72负控KEEP、INCOMPATIBLE、depth外包/保留集/分支、bias区间、冷缓存solver/selector秒与未决预算叶。分模板和seed均值±sample SD，不把相关初态当独立场景。
+当前现有修正器：中点尝试再证书投影；正确truth含外包时安全。所有3888动作完整落盘读回后才解析truth，私有文件不进入科学接口。
+机械通过条件：生成及复用身份、完整动作计数、树partition、必要行、更新/矛盾证书、mask/calibration、动作、评价和来源不变；机械通过不要求C1/C2正向。
+采用依据：若joint仅与calibrated相同，选简单校准；若joint额外恢复且正确/负控/覆盖保持，才记录该有限模型的增量。任何损伤逐例解释，不通过事后改阈值追赢家。
+
+## 五阶段和预算
+
+M0源码实现；单测raw/clip边界、正负偏差、跨pixel共享与故意不共享、公开mask、校准不读truth、区间交叉证书、保存后评价；非确认夹具2图像×2新方法测时。
+M1非作者完整source/协议审查，same-family/provisional，blocker修复后复核。M2一个CPU固定主批，M2+M3共5400秒同绝对窗口，源码/协议从launch冻结；超时INCOMPLETE不删样本。M3不同作者核验器完整重放，不导入runner/contractor作为核验计算；允许历史几何核复用但标明界限。M4配对分析与报告。
+0GPU/API/安装、0发布/部署、0SSH。所有旧根只读，不运行A+B、E/F、LP、学习器、视图采集或新生成器。若新表示获得正结果，必做的机制删除对照为calibrated；本批已纳入，不自动扩展新网格。

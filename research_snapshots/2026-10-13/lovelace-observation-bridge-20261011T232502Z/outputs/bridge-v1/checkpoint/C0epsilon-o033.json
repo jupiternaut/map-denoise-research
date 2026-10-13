@@ -1,0 +1,4488 @@
+{
+  "observation_id": "C0epsilon-o033",
+  "base_observation_id": "o033",
+  "unit_id": "C0epsilon",
+  "bound": "1/100",
+  "rounds": 8,
+  "reused": false,
+  "arms": {
+    "keep": {
+      "branches": {},
+      "outer": {
+        "domain": [
+          {
+            "numerator": 540,
+            "denominator": 1
+          },
+          {
+            "numerator": 660,
+            "denominator": 1
+          }
+        ],
+        "epsilon": {
+          "numerator": 1,
+          "denominator": 100
+        },
+        "tolerance": {
+          "numerator": 15,
+          "denominator": 32
+        },
+        "max_boxes_per_branch": 511,
+        "evaluated_boxes": 0,
+        "unresolved_budget_leaves": 0,
+        "source_leaves": [],
+        "retained_intervals": [
+          [
+            {
+              "numerator": 540,
+              "denominator": 1
+            },
+            {
+              "numerator": 660,
+              "denominator": 1
+            }
+          ]
+        ],
+        "hull": [
+          {
+            "numerator": 540,
+            "denominator": 1
+          },
+          {
+            "numerator": 660,
+            "denominator": 1
+          }
+        ],
+        "retained_branches": [],
+        "scope": "prior_only_identity_no_image_solver"
+      },
+      "branch_seconds": {},
+      "outer_seconds": 0.0
+    },
+    "shared": {
+      "branches": {
+        "none": {
+          "domain": [
+            {
+              "numerator": 540,
+              "denominator": 1
+            },
+            {
+              "numerator": 660,
+              "denominator": 1
+            }
+          ],
+          "epsilon": {
+            "numerator": 1,
+            "denominator": 100
+          },
+          "tolerance": {
+            "numerator": 15,
+            "denominator": 32
+          },
+          "max_boxes": 511,
+          "evaluated_boxes": 1,
+          "trace": [
+            {
+              "id": 0,
+              "parent": null,
+              "lo": {
+                "numerator": 540,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 660,
+                "denominator": 1
+              },
+              "status": "excluded",
+              "witness_channel": 111,
+              "prediction_interval": [
+                {
+                  "numerator": 431,
+                  "denominator": 440
+                },
+                {
+                  "numerator": 1,
+                  "denominator": 1
+                }
+              ]
+            }
+          ],
+          "retained_ids": [],
+          "hull": null,
+          "shared_tests": 0,
+          "propagation_rounds": 8,
+          "mode": "global_gray",
+          "rounds": 8,
+          "budget": 511,
+          "scope": "necessary_grouped_material_halfspaces_with_conservative_continuous_geometry_bounds"
+        },
+        "partial": {
+          "domain": [
+            {
+              "numerator": 540,
+              "denominator": 1
+            },
+            {
+              "numerator": 660,
+              "denominator": 1
+            }
+          ],
+          "epsilon": {
+            "numerator": 1,
+            "denominator": 100
+          },
+          "tolerance": {
+            "numerator": 15,
+            "denominator": 32
+          },
+          "max_boxes": 511,
+          "evaluated_boxes": 97,
+          "trace": [
+            {
+              "id": 0,
+              "parent": null,
+              "lo": {
+                "numerator": 540,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 660,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                1,
+                2
+              ]
+            },
+            {
+              "id": 1,
+              "parent": 0,
+              "lo": {
+                "numerator": 540,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 600,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                3,
+                4
+              ]
+            },
+            {
+              "id": 2,
+              "parent": 0,
+              "lo": {
+                "numerator": 600,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 660,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                5,
+                6
+              ]
+            },
+            {
+              "id": 3,
+              "parent": 1,
+              "lo": {
+                "numerator": 540,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 570,
+                "denominator": 1
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 22211,
+                      "denominator": 1244160
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 853326,
+                      "denominator": 2075275
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 19711,
+                      "denominator": 98496
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 11647,
+                      "denominator": 90432
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 46
+                }
+              }
+            },
+            {
+              "id": 4,
+              "parent": 1,
+              "lo": {
+                "numerator": 570,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 600,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                7,
+                8
+              ]
+            },
+            {
+              "id": 5,
+              "parent": 2,
+              "lo": {
+                "numerator": 600,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 630,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                9,
+                10
+              ]
+            },
+            {
+              "id": 6,
+              "parent": 2,
+              "lo": {
+                "numerator": 630,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 660,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                11,
+                12
+              ]
+            },
+            {
+              "id": 7,
+              "parent": 4,
+              "lo": {
+                "numerator": 570,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 585,
+                "denominator": 1
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 648427,
+                      "denominator": 2088000
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 941702,
+                      "denominator": 2381275
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 8672521,
+                      "denominator": 24555600
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 46
+                }
+              }
+            },
+            {
+              "id": 8,
+              "parent": 4,
+              "lo": {
+                "numerator": 585,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 600,
+                "denominator": 1
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 147299,
+                      "denominator": 367200
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 111174,
+                      "denominator": 331075
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 32161,
+                      "denominator": 72720
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1207,
+                      "denominator": 2735
+                    }
+                  },
+                  {
+                    "row": 61,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 58741,
+                      "denominator": 121200
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 1541380433,
+                      "denominator": 2190403323
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 260493293177,
+                      "denominator": 389405035200
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 465749,
+                      "denominator": 600210
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 30912297,
+                      "denominator": 43600000
+                    }
+                  },
+                  {
+                    "row": 151,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 153943595659633,
+                      "denominator": 221068483525000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1653327,
+                      "denominator": 2180000
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 226
+                }
+              }
+            },
+            {
+              "id": 9,
+              "parent": 5,
+              "lo": {
+                "numerator": 600,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 615,
+                "denominator": 1
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 199711,
+                      "denominator": 421200
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 81706,
+                      "denominator": 303195
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 230911,
+                      "denominator": 484920
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1537,
+                      "denominator": 3910
+                    }
+                  },
+                  {
+                    "row": 61,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 4003601,
+                      "denominator": 8284050
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 2591060507873,
+                      "denominator": 3504645316800
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1541380433,
+                      "denominator": 2190403323
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 3915049,
+                      "denominator": 4924800
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 812587,
+                      "denominator": 1117250
+                    }
+                  },
+                  {
+                    "row": 151,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 292115626044571,
+                      "denominator": 407871352103625
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 3477104,
+                      "denominator": 4580725
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 226
+                }
+              }
+            },
+            {
+              "id": 10,
+              "parent": 5,
+              "lo": {
+                "numerator": 615,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 630,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                13,
+                14
+              ]
+            },
+            {
+              "id": 11,
+              "parent": 6,
+              "lo": {
+                "numerator": 630,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 645,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                15,
+                16
+              ]
+            },
+            {
+              "id": 12,
+              "parent": 6,
+              "lo": {
+                "numerator": 645,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 660,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                17,
+                18
+              ]
+            },
+            {
+              "id": 13,
+              "parent": 10,
+              "lo": {
+                "numerator": 615,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 1245,
+                "denominator": 2
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 242381,
+                      "denominator": 432000
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 70906,
+                      "denominator": 260525
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 855279697,
+                      "denominator": 1523232000
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 236467,
+                      "denominator": 581110
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 10618569802937,
+                      "denominator": 14018581267200
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 2591060507873,
+                      "denominator": 3504645316800
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 3209247539,
+                      "denominator": 4038336000
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 8193938683,
+                      "denominator": 10856400000
+                    }
+                  },
+                  {
+                    "row": 151,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 983143013520110113,
+                      "denominator": 1321105257545400000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1460975591,
+                      "denominator": 1877252500
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 226
+                }
+              }
+            },
+            {
+              "id": 14,
+              "parent": 10,
+              "lo": {
+                "numerator": 1245,
+                "denominator": 2
+              },
+              "hi": {
+                "numerator": 630,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                19,
+                20
+              ]
+            },
+            {
+              "id": 15,
+              "parent": 11,
+              "lo": {
+                "numerator": 630,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 1275,
+                "denominator": 2
+              },
+              "status": "split",
+              "children": [
+                21,
+                22
+              ]
+            },
+            {
+              "id": 16,
+              "parent": 11,
+              "lo": {
+                "numerator": 1275,
+                "denominator": 2
+              },
+              "hi": {
+                "numerator": 645,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                23,
+                24
+              ]
+            },
+            {
+              "id": 17,
+              "parent": 12,
+              "lo": {
+                "numerator": 645,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 1305,
+                "denominator": 2
+              },
+              "status": "split",
+              "children": [
+                25,
+                26
+              ]
+            },
+            {
+              "id": 18,
+              "parent": 12,
+              "lo": {
+                "numerator": 1305,
+                "denominator": 2
+              },
+              "hi": {
+                "numerator": 660,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                27,
+                28
+              ]
+            },
+            {
+              "id": 19,
+              "parent": 14,
+              "lo": {
+                "numerator": 1245,
+                "denominator": 2
+              },
+              "hi": {
+                "numerator": 2505,
+                "denominator": 4
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 88894601,
+                      "denominator": 147744000
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 22275026,
+                      "denominator": 81124425
+                    }
+                  },
+                  {
+                    "row": 44,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 44010263035231,
+                      "denominator": 44245694592000
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 7304349637,
+                      "denominator": 12015129600
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 132547,
+                      "denominator": 319510
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 42987558895937,
+                      "denominator": 56074325068800
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 10618569802937,
+                      "denominator": 14018581267200
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 25985659417,
+                      "denominator": 32700672000
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 22384214141,
+                      "denominator": 29124800000
+                    }
+                  },
+                  {
+                    "row": 151,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 8062450809426381253,
+                      "denominator": 10632509783618400000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 23946928679,
+                      "denominator": 30399010000
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 226
+                }
+              }
+            },
+            {
+              "id": 20,
+              "parent": 14,
+              "lo": {
+                "numerator": 2505,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 630,
+                "denominator": 1
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 7785029,
+                      "denominator": 12672000
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1666954,
+                      "denominator": 6553925
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 137119693,
+                      "denominator": 223808000
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 73841,
+                      "denominator": 184030
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 75527641217,
+                      "denominator": 97351258800
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 42987558895937,
+                      "denominator": 56074325068800
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 91314293,
+                      "denominator": 114228000
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 33978312149,
+                      "denominator": 43948800000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 504874567,
+                      "denominator": 640920000
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 226
+                }
+              }
+            },
+            {
+              "id": 21,
+              "parent": 15,
+              "lo": {
+                "numerator": 630,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 2535,
+                "denominator": 4
+              },
+              "status": "split",
+              "children": [
+                29,
+                30
+              ]
+            },
+            {
+              "id": 22,
+              "parent": 15,
+              "lo": {
+                "numerator": 2535,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 1275,
+                "denominator": 2
+              },
+              "status": "split",
+              "children": [
+                31,
+                32
+              ]
+            },
+            {
+              "id": 23,
+              "parent": 16,
+              "lo": {
+                "numerator": 1275,
+                "denominator": 2
+              },
+              "hi": {
+                "numerator": 2565,
+                "denominator": 4
+              },
+              "status": "split",
+              "children": [
+                33,
+                34
+              ]
+            },
+            {
+              "id": 24,
+              "parent": 16,
+              "lo": {
+                "numerator": 2565,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 645,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                35,
+                36
+              ]
+            },
+            {
+              "id": 25,
+              "parent": 17,
+              "lo": {
+                "numerator": 645,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 2595,
+                "denominator": 4
+              },
+              "status": "split",
+              "children": [
+                37,
+                38
+              ]
+            },
+            {
+              "id": 26,
+              "parent": 17,
+              "lo": {
+                "numerator": 2595,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 1305,
+                "denominator": 2
+              },
+              "status": "split",
+              "children": [
+                39,
+                40
+              ]
+            },
+            {
+              "id": 27,
+              "parent": 18,
+              "lo": {
+                "numerator": 1305,
+                "denominator": 2
+              },
+              "hi": {
+                "numerator": 2625,
+                "denominator": 4
+              },
+              "status": "split",
+              "children": [
+                41,
+                42
+              ]
+            },
+            {
+              "id": 28,
+              "parent": 18,
+              "lo": {
+                "numerator": 2625,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 660,
+                "denominator": 1
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 207379,
+                      "denominator": 311040
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 494,
+                      "denominator": 14015
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 832335443,
+                      "denominator": 1391461632
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 20954186,
+                      "denominator": 580080375
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 2813,
+                      "denominator": 9980
+                    }
+                  },
+                  {
+                    "row": 61,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 5069812,
+                      "denominator": 17893575
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 114152088499801,
+                      "denominator": 137995409349000
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 4375533455390825,
+                      "denominator": 5378649260599296
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 509534993,
+                      "denominator": 628425000
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 315532609,
+                      "denominator": 405166080
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1329517,
+                      "denominator": 1688192
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 227
+                }
+              }
+            },
+            {
+              "id": 29,
+              "parent": 21,
+              "lo": {
+                "numerator": 630,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 5055,
+                "denominator": 8
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 48851857,
+                      "denominator": 77112000
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 9694482,
+                      "denominator": 37954625
+                    }
+                  },
+                  {
+                    "row": 44,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 6334030137061,
+                      "denominator": 6340005432000
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 106016507,
+                      "denominator": 166670400
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146251,
+                      "denominator": 360830
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 175053034395377,
+                      "denominator": 224297300275200
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 75527641217,
+                      "denominator": 97351258800
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 26456012119,
+                      "denominator": 33094656000
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 2865379419,
+                      "denominator": 3673300000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 6130972071,
+                      "denominator": 7736888125
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 226
+                }
+              }
+            },
+            {
+              "id": 30,
+              "parent": 21,
+              "lo": {
+                "numerator": 5055,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 2535,
+                "denominator": 4
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 400008973,
+                      "denominator": 625536000
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 73049498,
+                      "denominator": 298576525
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 17558213717,
+                      "denominator": 27509760000
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 489631,
+                      "denominator": 1229230
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 44023366546913,
+                      "denominator": 56074325068800
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 175053034395377,
+                      "denominator": 224297300275200
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 106454472787,
+                      "denominator": 132772608000
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1106803611281,
+                      "denominator": 1414732800000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 394702131791,
+                      "denominator": 498103840000
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  },
+                  {
+                    "row": 226,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 222773069870739644160416713,
+                      "denominator": 285200027275984767648000000
+                    }
+                  },
+                  {
+                    "row": 226,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 5724115374391657,
+                      "denominator": 7205550771340800
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 153
+                }
+              }
+            },
+            {
+              "id": 31,
+              "parent": 22,
+              "lo": {
+                "numerator": 2535,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 5085,
+                "denominator": 8
+              },
+              "status": "split",
+              "children": [
+                43,
+                44
+              ]
+            },
+            {
+              "id": 32,
+              "parent": 22,
+              "lo": {
+                "numerator": 5085,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 1275,
+                "denominator": 2
+              },
+              "status": "split",
+              "children": [
+                45,
+                46
+              ]
+            },
+            {
+              "id": 33,
+              "parent": 23,
+              "lo": {
+                "numerator": 1275,
+                "denominator": 2
+              },
+              "hi": {
+                "numerator": 5115,
+                "denominator": 8
+              },
+              "status": "split",
+              "children": [
+                47,
+                48
+              ]
+            },
+            {
+              "id": 34,
+              "parent": 23,
+              "lo": {
+                "numerator": 5115,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 2565,
+                "denominator": 4
+              },
+              "status": "split",
+              "children": [
+                49,
+                50
+              ]
+            },
+            {
+              "id": 35,
+              "parent": 24,
+              "lo": {
+                "numerator": 2565,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 5145,
+                "denominator": 8
+              },
+              "status": "split",
+              "children": [
+                51,
+                52
+              ]
+            },
+            {
+              "id": 36,
+              "parent": 24,
+              "lo": {
+                "numerator": 5145,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 645,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                53,
+                54
+              ]
+            },
+            {
+              "id": 37,
+              "parent": 25,
+              "lo": {
+                "numerator": 645,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 5175,
+                "denominator": 8
+              },
+              "status": "split",
+              "children": [
+                55,
+                56
+              ]
+            },
+            {
+              "id": 38,
+              "parent": 25,
+              "lo": {
+                "numerator": 5175,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 2595,
+                "denominator": 4
+              },
+              "status": "split",
+              "children": [
+                57,
+                58
+              ]
+            },
+            {
+              "id": 39,
+              "parent": 26,
+              "lo": {
+                "numerator": 2595,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 5205,
+                "denominator": 8
+              },
+              "status": "split",
+              "children": [
+                59,
+                60
+              ]
+            },
+            {
+              "id": 40,
+              "parent": 26,
+              "lo": {
+                "numerator": 5205,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 1305,
+                "denominator": 2
+              },
+              "status": "split",
+              "children": [
+                61,
+                62
+              ]
+            },
+            {
+              "id": 41,
+              "parent": 27,
+              "lo": {
+                "numerator": 1305,
+                "denominator": 2
+              },
+              "hi": {
+                "numerator": 5235,
+                "denominator": 8
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 8952829,
+                      "denominator": 13344000
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 4048186,
+                      "denominator": 43568725
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 600172520819,
+                      "denominator": 963494630400
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 422969,
+                      "denominator": 1336770
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 1818218453739297877,
+                      "denominator": 2224580624129433600
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 96040251810921163,
+                      "denominator": 118506855552345600
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 1068498176291,
+                      "denominator": 1325362176000
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 16642355707083,
+                      "denominator": 21242094400000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 105165192231,
+                      "denominator": 132763090000
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 227
+                }
+              }
+            },
+            {
+              "id": 42,
+              "parent": 27,
+              "lo": {
+                "numerator": 5235,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 2625,
+                "denominator": 4
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 6545141,
+                      "denominator": 9722880
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 797198,
+                      "denominator": 10330415
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 866796554483,
+                      "denominator": 1395355852800
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 98347,
+                      "denominator": 318790
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 219508015473862325,
+                      "denominator": 267716771662473216
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1391353189820355701,
+                      "denominator": 1711388401099776000
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 103167397165,
+                      "denominator": 127967053824
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 321335520001,
+                      "denominator": 410188800000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 3384484387,
+                      "denominator": 4272800000
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 227
+                }
+              }
+            },
+            {
+              "id": 43,
+              "parent": 31,
+              "lo": {
+                "numerator": 2535,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 10155,
+                "denominator": 16
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 817294033,
+                      "denominator": 1259712000
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 143677858,
+                      "denominator": 586095825
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 124727369143,
+                      "denominator": 191885414400
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 6821357,
+                      "denominator": 17036810
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 706459352476457,
+                      "denominator": 897189201100800
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 44023366546913,
+                      "denominator": 56074325068800
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 854168965811,
+                      "denominator": 1065332736000
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 371117035679,
+                      "denominator": 472275200000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1588153569431,
+                      "denominator": 1998314440000
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 226
+                }
+              }
+            },
+            {
+              "id": 44,
+              "parent": 31,
+              "lo": {
+                "numerator": 10155,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 5085,
+                "denominator": 8
+              },
+              "status": "split",
+              "children": [
+                63,
+                64
+              ]
+            },
+            {
+              "id": 45,
+              "parent": 32,
+              "lo": {
+                "numerator": 5085,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 10185,
+                "denominator": 16
+              },
+              "status": "split",
+              "children": [
+                65,
+                66
+              ]
+            },
+            {
+              "id": 46,
+              "parent": 32,
+              "lo": {
+                "numerator": 10185,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 1275,
+                "denominator": 2
+              },
+              "status": "split",
+              "children": [
+                67,
+                68
+              ]
+            },
+            {
+              "id": 47,
+              "parent": 33,
+              "lo": {
+                "numerator": 1275,
+                "denominator": 2
+              },
+              "hi": {
+                "numerator": 10215,
+                "denominator": 16
+              },
+              "status": "split",
+              "children": [
+                69,
+                70
+              ]
+            },
+            {
+              "id": 48,
+              "parent": 33,
+              "lo": {
+                "numerator": 10215,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 5115,
+                "denominator": 8
+              },
+              "status": "split",
+              "children": [
+                71,
+                72
+              ]
+            },
+            {
+              "id": 49,
+              "parent": 34,
+              "lo": {
+                "numerator": 5115,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 10245,
+                "denominator": 16
+              },
+              "status": "split",
+              "children": [
+                73,
+                74
+              ]
+            },
+            {
+              "id": 50,
+              "parent": 34,
+              "lo": {
+                "numerator": 10245,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 2565,
+                "denominator": 4
+              },
+              "status": "split",
+              "children": [
+                75,
+                76
+              ]
+            },
+            {
+              "id": 51,
+              "parent": 35,
+              "lo": {
+                "numerator": 2565,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 10275,
+                "denominator": 16
+              },
+              "status": "split",
+              "children": [
+                77,
+                78
+              ]
+            },
+            {
+              "id": 52,
+              "parent": 35,
+              "lo": {
+                "numerator": 10275,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 5145,
+                "denominator": 8
+              },
+              "status": "split",
+              "children": [
+                79,
+                80
+              ]
+            },
+            {
+              "id": 53,
+              "parent": 36,
+              "lo": {
+                "numerator": 5145,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 10305,
+                "denominator": 16
+              },
+              "status": "split",
+              "children": [
+                81,
+                82
+              ]
+            },
+            {
+              "id": 54,
+              "parent": 36,
+              "lo": {
+                "numerator": 10305,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 645,
+                "denominator": 1
+              },
+              "status": "split",
+              "children": [
+                83,
+                84
+              ]
+            },
+            {
+              "id": 55,
+              "parent": 37,
+              "lo": {
+                "numerator": 645,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 10335,
+                "denominator": 16
+              },
+              "status": "split",
+              "children": [
+                85,
+                86
+              ]
+            },
+            {
+              "id": 56,
+              "parent": 37,
+              "lo": {
+                "numerator": 10335,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 5175,
+                "denominator": 8
+              },
+              "status": "split",
+              "children": [
+                87,
+                88
+              ]
+            },
+            {
+              "id": 57,
+              "parent": 38,
+              "lo": {
+                "numerator": 5175,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 10365,
+                "denominator": 16
+              },
+              "status": "split",
+              "children": [
+                89,
+                90
+              ]
+            },
+            {
+              "id": 58,
+              "parent": 38,
+              "lo": {
+                "numerator": 10365,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 2595,
+                "denominator": 4
+              },
+              "status": "split",
+              "children": [
+                91,
+                92
+              ]
+            },
+            {
+              "id": 59,
+              "parent": 39,
+              "lo": {
+                "numerator": 2595,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 10395,
+                "denominator": 16
+              },
+              "status": "split",
+              "children": [
+                93,
+                94
+              ]
+            },
+            {
+              "id": 60,
+              "parent": 39,
+              "lo": {
+                "numerator": 10395,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 5205,
+                "denominator": 8
+              },
+              "status": "split",
+              "children": [
+                95,
+                96
+              ]
+            },
+            {
+              "id": 61,
+              "parent": 40,
+              "lo": {
+                "numerator": 5205,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 10425,
+                "denominator": 16
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 18145393,
+                      "denominator": 26956800
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 2321198,
+                      "denominator": 19142975
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 13922251041203,
+                      "denominator": 21902128496640
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 195067,
+                      "denominator": 584710
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 3459936822895411411,
+                      "denominator": 4258921250057453568
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 5497716024398909533,
+                      "denominator": 6796656792939110400
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 8135450055713,
+                      "denominator": 10120366817280
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 127101505729369,
+                      "denominator": 161739955200000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 267697984751,
+                      "denominator": 336958240000
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 227
+                }
+              }
+            },
+            {
+              "id": 62,
+              "parent": 40,
+              "lo": {
+                "numerator": 10425,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 1305,
+                "denominator": 2
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 3555819,
+                      "denominator": 5273600
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1981846,
+                      "denominator": 17441875
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 96826060547,
+                      "denominator": 152535048192
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 176159,
+                      "denominator": 534270
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 60250895125107443,
+                      "denominator": 74046146253350400
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 183813062319268283,
+                      "denominator": 226881205174370304
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 11331934237,
+                      "denominator": 14096601600
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 885144491081,
+                      "denominator": 1126428672000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 5592985117,
+                      "denominator": 7040179200
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 227
+                }
+              }
+            },
+            {
+              "id": 63,
+              "parent": 44,
+              "lo": {
+                "numerator": 10155,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 20325,
+                "denominator": 32
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1321519847,
+                      "denominator": 2022451200
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 227955022,
+                      "denominator": 928886375
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 804071933933,
+                      "denominator": 1225881354240
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 10887563,
+                      "denominator": 27121190
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 113200520379953,
+                      "denominator": 143550272176128
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 706459352476457,
+                      "denominator": 897189201100800
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 547479667967,
+                      "denominator": 682821550080
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 7146444974639,
+                      "denominator": 9074380800000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 4077660988871,
+                      "denominator": 5123244160000
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 226
+                }
+              }
+            },
+            {
+              "id": 64,
+              "parent": 44,
+              "lo": {
+                "numerator": 20325,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 5085,
+                "denominator": 8
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 73773281,
+                      "denominator": 112742400
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 5342074,
+                      "denominator": 22043125
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 6060360902339,
+                      "denominator": 9241771180032
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1803647,
+                      "denominator": 4512910
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 19681886748977,
+                      "denominator": 24921922252800
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 2787276821821712831,
+                      "denominator": 3536217404786737152
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 7615137913,
+                      "denominator": 9490636800
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 53886764508809,
+                      "denominator": 68410785792000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 340303047613,
+                      "denominator": 427567411200
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 226
+                }
+              }
+            },
+            {
+              "id": 65,
+              "parent": 45,
+              "lo": {
+                "numerator": 5085,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 20355,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 66,
+              "parent": 45,
+              "lo": {
+                "numerator": 20355,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 10185,
+                "denominator": 16
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 67,
+              "parent": 46,
+              "lo": {
+                "numerator": 10185,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 20385,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 68,
+              "parent": 46,
+              "lo": {
+                "numerator": 20385,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 1275,
+                "denominator": 2
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 69,
+              "parent": 47,
+              "lo": {
+                "numerator": 1275,
+                "denominator": 2
+              },
+              "hi": {
+                "numerator": 20415,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 70,
+              "parent": 47,
+              "lo": {
+                "numerator": 20415,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 10215,
+                "denominator": 16
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 71,
+              "parent": 48,
+              "lo": {
+                "numerator": 10215,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 20445,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 72,
+              "parent": 48,
+              "lo": {
+                "numerator": 20445,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 5115,
+                "denominator": 8
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 73,
+              "parent": 49,
+              "lo": {
+                "numerator": 5115,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 20475,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 74,
+              "parent": 49,
+              "lo": {
+                "numerator": 20475,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 10245,
+                "denominator": 16
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 75,
+              "parent": 50,
+              "lo": {
+                "numerator": 10245,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 20505,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 76,
+              "parent": 50,
+              "lo": {
+                "numerator": 20505,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 2565,
+                "denominator": 4
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 77,
+              "parent": 51,
+              "lo": {
+                "numerator": 2565,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 20535,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 78,
+              "parent": 51,
+              "lo": {
+                "numerator": 20535,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 10275,
+                "denominator": 16
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 79,
+              "parent": 52,
+              "lo": {
+                "numerator": 10275,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 20565,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 80,
+              "parent": 52,
+              "lo": {
+                "numerator": 20565,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 5145,
+                "denominator": 8
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 81,
+              "parent": 53,
+              "lo": {
+                "numerator": 5145,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 20595,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 82,
+              "parent": 53,
+              "lo": {
+                "numerator": 20595,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 10305,
+                "denominator": 16
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 83,
+              "parent": 54,
+              "lo": {
+                "numerator": 10305,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 20625,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 84,
+              "parent": 54,
+              "lo": {
+                "numerator": 20625,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 645,
+                "denominator": 1
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 85,
+              "parent": 55,
+              "lo": {
+                "numerator": 645,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 20655,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 86,
+              "parent": 55,
+              "lo": {
+                "numerator": 20655,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 10335,
+                "denominator": 16
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 87,
+              "parent": 56,
+              "lo": {
+                "numerator": 10335,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 20685,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 88,
+              "parent": 56,
+              "lo": {
+                "numerator": 20685,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 5175,
+                "denominator": 8
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 89,
+              "parent": 57,
+              "lo": {
+                "numerator": 5175,
+                "denominator": 8
+              },
+              "hi": {
+                "numerator": 20715,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 90,
+              "parent": 57,
+              "lo": {
+                "numerator": 20715,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 10365,
+                "denominator": 16
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 91,
+              "parent": 58,
+              "lo": {
+                "numerator": 10365,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 20745,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 92,
+              "parent": 58,
+              "lo": {
+                "numerator": 20745,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 2595,
+                "denominator": 4
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 93,
+              "parent": 59,
+              "lo": {
+                "numerator": 2595,
+                "denominator": 4
+              },
+              "hi": {
+                "numerator": 20775,
+                "denominator": 32
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 94,
+              "parent": 59,
+              "lo": {
+                "numerator": 20775,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 10395,
+                "denominator": 16
+              },
+              "status": "retained_tolerance"
+            },
+            {
+              "id": 95,
+              "parent": 60,
+              "lo": {
+                "numerator": 10395,
+                "denominator": 16
+              },
+              "hi": {
+                "numerator": 20805,
+                "denominator": 32
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 840438259,
+                      "denominator": 1246464000
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 63532534,
+                      "denominator": 469558275
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 206949396295977,
+                      "denominator": 322287208038400
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 14690733,
+                      "denominator": 42930890
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 366238276535727301,
+                      "denominator": 452183357354803200
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 111225969573984111,
+                      "denominator": 137635469294796800
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 5167628389051,
+                      "denominator": 6437781504000
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 231500046464379,
+                      "denominator": 294141644800000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1462668926103,
+                      "denominator": 1838385280000
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 227
+                }
+              }
+            },
+            {
+              "id": 96,
+              "parent": 60,
+              "lo": {
+                "numerator": 20805,
+                "denominator": 32
+              },
+              "hi": {
+                "numerator": 5205,
+                "denominator": 8
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 1265617783,
+                      "denominator": 1875456000
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 277122874,
+                      "denominator": 2106637525
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 199707341389877,
+                      "denominator": 311224688640000
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 21876521,
+                      "denominator": 64292930
+                    }
+                  },
+                  {
+                    "row": 74,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 438,
+                      "denominator": 545
+                    }
+                  },
+                  {
+                    "row": 75,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 146,
+                      "denominator": 185
+                    }
+                  },
+                  {
+                    "row": 77,
+                    "variable": 2,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 682,
+                      "denominator": 855
+                    }
+                  },
+                  {
+                    "row": 134,
+                    "variable": 0,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 86242836344894888579,
+                      "denominator": 106396321574742220800
+                    }
+                  },
+                  {
+                    "row": 135,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 219559190722630803821,
+                      "denominator": 271475097225884467200
+                    }
+                  },
+                  {
+                    "row": 136,
+                    "variable": 1,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 811199872841057,
+                      "denominator": 1010578940928000
+                    }
+                  },
+                  {
+                    "row": 137,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 12692563635378841,
+                      "denominator": 16127485132800000
+                    }
+                  },
+                  {
+                    "row": 153,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 26731907202479,
+                      "denominator": 33598927360000
+                    }
+                  },
+                  {
+                    "row": 168,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 4,
+                      "denominator": 5
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 227
+                }
+              }
+            }
+          ],
+          "retained_ids": [
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94
+          ],
+          "hull": [
+            {
+              "numerator": 5085,
+              "denominator": 8
+            },
+            {
+              "numerator": 10395,
+              "denominator": 16
+            }
+          ],
+          "shared_tests": 97,
+          "propagation_rounds": 8,
+          "mode": "global_gray",
+          "rounds": 8,
+          "budget": 511,
+          "scope": "necessary_grouped_material_halfspaces_with_conservative_continuous_geometry_bounds"
+        },
+        "full": {
+          "domain": [
+            {
+              "numerator": 540,
+              "denominator": 1
+            },
+            {
+              "numerator": 660,
+              "denominator": 1
+            }
+          ],
+          "epsilon": {
+            "numerator": 1,
+            "denominator": 100
+          },
+          "tolerance": {
+            "numerator": 15,
+            "denominator": 32
+          },
+          "max_boxes": 511,
+          "evaluated_boxes": 1,
+          "trace": [
+            {
+              "id": 0,
+              "parent": null,
+              "lo": {
+                "numerator": 540,
+                "denominator": 1
+              },
+              "hi": {
+                "numerator": 660,
+                "denominator": 1
+              },
+              "status": "excluded_shared",
+              "group_id": "global",
+              "certificate": {
+                "steps": [
+                  {
+                    "row": 6,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 9,
+                      "denominator": 745
+                    }
+                  },
+                  {
+                    "row": 8,
+                    "variable": 2,
+                    "side": "upper",
+                    "value": {
+                      "numerator": 1,
+                      "denominator": 100
+                    }
+                  },
+                  {
+                    "row": 43,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 2447,
+                      "denominator": 2880
+                    }
+                  },
+                  {
+                    "row": 45,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 350723,
+                      "denominator": 4625280
+                    }
+                  },
+                  {
+                    "row": 59,
+                    "variable": 0,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 37451,
+                      "denominator": 38880
+                    }
+                  },
+                  {
+                    "row": 61,
+                    "variable": 1,
+                    "side": "lower",
+                    "value": {
+                      "numerator": 134099,
+                      "denominator": 770880
+                    }
+                  }
+                ],
+                "contradiction": {
+                  "row": 75
+                }
+              }
+            }
+          ],
+          "retained_ids": [],
+          "hull": null,
+          "shared_tests": 1,
+          "propagation_rounds": 8,
+          "mode": "global_gray",
+          "rounds": 8,
+          "budget": 511,
+          "scope": "necessary_grouped_material_halfspaces_with_conservative_continuous_geometry_bounds"
+        }
+      },
+      "outer": {
+        "domain": [
+          {
+            "numerator": 540,
+            "denominator": 1
+          },
+          {
+            "numerator": 660,
+            "denominator": 1
+          }
+        ],
+        "epsilon": {
+          "numerator": 1,
+          "denominator": 100
+        },
+        "tolerance": {
+          "numerator": 15,
+          "denominator": 32
+        },
+        "max_boxes_per_branch": 511,
+        "evaluated_boxes": 99,
+        "unresolved_budget_leaves": 0,
+        "source_leaves": [
+          {
+            "branch": "partial",
+            "id": 65,
+            "lo": {
+              "numerator": 5085,
+              "denominator": 8
+            },
+            "hi": {
+              "numerator": 20355,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 66,
+            "lo": {
+              "numerator": 20355,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 10185,
+              "denominator": 16
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 67,
+            "lo": {
+              "numerator": 10185,
+              "denominator": 16
+            },
+            "hi": {
+              "numerator": 20385,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 68,
+            "lo": {
+              "numerator": 20385,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 1275,
+              "denominator": 2
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 69,
+            "lo": {
+              "numerator": 1275,
+              "denominator": 2
+            },
+            "hi": {
+              "numerator": 20415,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 70,
+            "lo": {
+              "numerator": 20415,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 10215,
+              "denominator": 16
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 71,
+            "lo": {
+              "numerator": 10215,
+              "denominator": 16
+            },
+            "hi": {
+              "numerator": 20445,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 72,
+            "lo": {
+              "numerator": 20445,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 5115,
+              "denominator": 8
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 73,
+            "lo": {
+              "numerator": 5115,
+              "denominator": 8
+            },
+            "hi": {
+              "numerator": 20475,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 74,
+            "lo": {
+              "numerator": 20475,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 10245,
+              "denominator": 16
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 75,
+            "lo": {
+              "numerator": 10245,
+              "denominator": 16
+            },
+            "hi": {
+              "numerator": 20505,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 76,
+            "lo": {
+              "numerator": 20505,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 2565,
+              "denominator": 4
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 77,
+            "lo": {
+              "numerator": 2565,
+              "denominator": 4
+            },
+            "hi": {
+              "numerator": 20535,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 78,
+            "lo": {
+              "numerator": 20535,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 10275,
+              "denominator": 16
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 79,
+            "lo": {
+              "numerator": 10275,
+              "denominator": 16
+            },
+            "hi": {
+              "numerator": 20565,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 80,
+            "lo": {
+              "numerator": 20565,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 5145,
+              "denominator": 8
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 81,
+            "lo": {
+              "numerator": 5145,
+              "denominator": 8
+            },
+            "hi": {
+              "numerator": 20595,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 82,
+            "lo": {
+              "numerator": 20595,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 10305,
+              "denominator": 16
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 83,
+            "lo": {
+              "numerator": 10305,
+              "denominator": 16
+            },
+            "hi": {
+              "numerator": 20625,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 84,
+            "lo": {
+              "numerator": 20625,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 645,
+              "denominator": 1
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 85,
+            "lo": {
+              "numerator": 645,
+              "denominator": 1
+            },
+            "hi": {
+              "numerator": 20655,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 86,
+            "lo": {
+              "numerator": 20655,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 10335,
+              "denominator": 16
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 87,
+            "lo": {
+              "numerator": 10335,
+              "denominator": 16
+            },
+            "hi": {
+              "numerator": 20685,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 88,
+            "lo": {
+              "numerator": 20685,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 5175,
+              "denominator": 8
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 89,
+            "lo": {
+              "numerator": 5175,
+              "denominator": 8
+            },
+            "hi": {
+              "numerator": 20715,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 90,
+            "lo": {
+              "numerator": 20715,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 10365,
+              "denominator": 16
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 91,
+            "lo": {
+              "numerator": 10365,
+              "denominator": 16
+            },
+            "hi": {
+              "numerator": 20745,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 92,
+            "lo": {
+              "numerator": 20745,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 2595,
+              "denominator": 4
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 93,
+            "lo": {
+              "numerator": 2595,
+              "denominator": 4
+            },
+            "hi": {
+              "numerator": 20775,
+              "denominator": 32
+            }
+          },
+          {
+            "branch": "partial",
+            "id": 94,
+            "lo": {
+              "numerator": 20775,
+              "denominator": 32
+            },
+            "hi": {
+              "numerator": 10395,
+              "denominator": 16
+            }
+          }
+        ],
+        "retained_intervals": [
+          [
+            {
+              "numerator": 5085,
+              "denominator": 8
+            },
+            {
+              "numerator": 10395,
+              "denominator": 16
+            }
+          ]
+        ],
+        "hull": [
+          {
+            "numerator": 5085,
+            "denominator": 8
+          },
+          {
+            "numerator": 10395,
+            "denominator": 16
+          }
+        ],
+        "retained_branches": [
+          "partial"
+        ],
+        "mode": "global_gray",
+        "rounds": 8,
+        "budget": 511,
+        "scope": "union_of_branch_depth_outer_leaves_then_convex_hull"
+      },
+      "branch_seconds": {
+        "none": 0.005822559935040772,
+        "partial": 1.6731109210522845,
+        "full": 0.009685885044746101
+      },
+      "outer_seconds": 1.688719726051204
+    }
+  },
+  "reused_source": null
+}

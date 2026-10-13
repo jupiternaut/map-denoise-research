@@ -1,0 +1,88 @@
+{
+  "methods": [
+    "keep",
+    "channel_wide",
+    "global_shared_wide",
+    "shared_strict"
+  ],
+  "betas": [
+    "1/200",
+    "1/100",
+    "1/50"
+  ],
+  "method_configs": {
+    "keep": {
+      "mode": "identity",
+      "contract_valid": true,
+      "max_boxes": 511,
+      "rounds": 8,
+      "epsilon_by_beta": {
+        "1/200": "3/200",
+        "1/100": "1/50",
+        "1/50": "3/100"
+      }
+    },
+    "channel_wide": {
+      "mode": "channel",
+      "contract_valid": true,
+      "max_boxes": 511,
+      "rounds": 8,
+      "epsilon_by_beta": {
+        "1/200": "3/200",
+        "1/100": "1/50",
+        "1/50": "3/100"
+      }
+    },
+    "global_shared_wide": {
+      "mode": "global_gray",
+      "contract_valid": true,
+      "max_boxes": 511,
+      "rounds": 8,
+      "epsilon_by_beta": {
+        "1/200": "3/200",
+        "1/100": "1/50",
+        "1/50": "3/100"
+      }
+    },
+    "shared_strict": {
+      "mode": "global_gray",
+      "contract_valid": false,
+      "max_boxes": 511,
+      "rounds": 8,
+      "epsilon_by_beta": {
+        "1/200": "1/100",
+        "1/100": "1/100",
+        "1/50": "1/100"
+      }
+    }
+  },
+  "epsilon": "1/100",
+  "tolerance_mm": "15/32",
+  "max_boxes_per_branch": 511,
+  "rounds": 8,
+  "views": 3,
+  "pixels_per_view": 48,
+  "channels": 3,
+  "generator": "clip(base_noisy_value + (-beta,0,+beta)[view],0,1); no preliminary clip",
+  "expected_observations": 162,
+  "expected_tasks": 1458,
+  "expected_decisions": 5832,
+  "expected_per_beta_per_method": {
+    "observations": 54,
+    "correct": 54,
+    "small": 432,
+    "negative_control_small": 72
+  },
+  "allowed_branches": [
+    "none",
+    "partial",
+    "full"
+  ],
+  "cpu_threads": 1,
+  "gpu_count": 0,
+  "wall_time_limit_seconds": 5400,
+  "source_root": "/srv/slam-research/grf/map-denoise/runs/lovelace-shared-appearance-20261011T052300Z/outputs/confirmation-v1",
+  "sampling_note": "same 54 synthetic observations and related states replayed at three beta values; not independent scenes",
+  "cache_policy": "clear all geometry/model caches before each arm/observation; reuse within its three branches",
+  "strict_policy": "intentional contract mismatch: retain all strict coverage failures and harms as diagnostic results"
+}

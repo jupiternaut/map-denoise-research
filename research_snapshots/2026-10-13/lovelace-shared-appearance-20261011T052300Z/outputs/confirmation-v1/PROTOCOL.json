@@ -1,0 +1,129 @@
+{
+  "cases_evaluation_only": [
+    {
+      "case": "uniform_isolated",
+      "rear_branch": "none",
+      "colors": [
+        "1/5",
+        "1/5",
+        "2/5"
+      ]
+    },
+    {
+      "case": "textured_isolated",
+      "rear_branch": "none",
+      "colors": [
+        "1/5",
+        "3/5",
+        "2/5"
+      ]
+    },
+    {
+      "case": "textured_partial",
+      "rear_branch": "partial",
+      "colors": [
+        "1/5",
+        "3/5",
+        "2/5"
+      ]
+    },
+    {
+      "case": "equal_partial",
+      "rear_branch": "partial",
+      "colors": [
+        "1/5",
+        "1/5",
+        "1/5"
+      ]
+    },
+    {
+      "case": "weak_partial",
+      "rear_branch": "partial",
+      "colors": [
+        "3/10",
+        "3/10",
+        "31/100"
+      ]
+    },
+    {
+      "case": "equal_full_negative",
+      "rear_branch": "full",
+      "colors": [
+        "1/5",
+        "1/5",
+        "1/5"
+      ]
+    }
+  ],
+  "truths_evaluation_only": [
+    "6203/11",
+    "7861/13",
+    "9007/14"
+  ],
+  "seeds_evaluation_only": [
+    61001,
+    61002,
+    61003
+  ],
+  "offsets_evaluation_only": [
+    "0",
+    "-1/4",
+    "1/4",
+    "-3/4",
+    "3/4",
+    "-2",
+    "2",
+    "-3",
+    "3"
+  ],
+  "camera_radius_mm": "1/5",
+  "epsilon": "1/100",
+  "tolerance_mm": "15/32",
+  "max_boxes_per_branch": 255,
+  "depth_domain_mm": [
+    "540",
+    "660"
+  ],
+  "expected_observations": 54,
+  "expected_tasks": 486,
+  "expected_decisions": 1944,
+  "methods": [
+    "keep",
+    "channelwise_union",
+    "shared_union",
+    "calibrated_union"
+  ],
+  "expected_correct_tasks": 54,
+  "expected_small_tasks": 432,
+  "allowed_occlusion_branches": [
+    "none",
+    "partial",
+    "full"
+  ],
+  "calibration_sources": [
+    "front-left",
+    "front-right",
+    "rear"
+  ],
+  "calibration_samples_per_observation": 3,
+  "calibration_samples_used_per_method": {
+    "keep": 0,
+    "channelwise_union": 0,
+    "shared_union": 0,
+    "calibrated_union": 3
+  },
+  "random_tape_prefix": "shared-appearance-v1",
+  "random_draw_order": "left pose; right pose; each image RGB channel; front-left, front-right, rear calibration noise",
+  "random_weights": [
+    "-1",
+    "-1/2",
+    "0",
+    "1/2",
+    "1"
+  ],
+  "shared_constraint_max_rounds": 8,
+  "cpu_threads": 1,
+  "gpu_count": 0,
+  "wall_time_limit_seconds": 1800,
+  "information_note": "channelwise_union/shared_union use identical images, [0,1] material priors and branches; calibrated_union alone uses three additional sourced samples"
+}

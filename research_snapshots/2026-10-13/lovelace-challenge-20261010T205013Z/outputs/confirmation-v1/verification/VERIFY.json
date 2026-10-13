@@ -1,0 +1,102 @@
+{
+  "schema": "independent-challenge-verification-v1",
+  "status": "PASS",
+  "output_directory": "/srv/slam-research/grf/map-denoise/runs/lovelace-challenge-20261010T205013Z/outputs/confirmation-v1",
+  "host": "liekkas",
+  "verifier_sha256": "480dc6f37aa4d43b009a80717901dd59ef44fb36353d81f0e58dd3f95ac30d85",
+  "model_source_root": "/srv/slam-research/grf/map-denoise/runs/lovelace-challenge-20261010T205013Z",
+  "independent_arithmetic": true,
+  "limitations": [
+    "Image predictions and sampled enclosures reuse the disclosed source geometry kernel; its mathematical contract is not independently reproved.",
+    "Every recorded exclusion witness is checked for noise conflict, but only a bounded sample is recomputed from model.enclosure.",
+    "Residual outputs, grid membership, tie consistency and all geometric outcomes are checked; residual grid optimality is not rerun.",
+    "Recorded timing is validated as a finite nonnegative value, not independently benchmarked."
+  ],
+  "input_sha256": {
+    "observations.json": "6ba86ad0c404f285ef6406f350d3b33cbc304424f82140692de9641ab52e956a",
+    "tasks.json": "2a080d6175b8f3da8618ccf5c0df7d8cba3fb7a15145bfe19bcc4725895bd0ef",
+    "evaluation/truth.json": "fce2906fd9787ea069b37f32733abf4d7a9c3753bdf556e0c773e189c232f4a7",
+    "decisions.json": "5baab2c18c09f4f9e66f93df3af95f3c27e6c1963f4dfdc318ce06560f1bd176",
+    "outers.json": "a27461e3622f38d25f89787b8097f00fcd5c537355c97f2406dc5e09ea177034",
+    "evaluation/ROWS.json": "ff8b3e5fc2f45f8c943f701e434f118d78ae6acccd5d507b6ca2633b3e3f8031",
+    "evaluation/SUMMARY.json": "0899434425983457c8fa776d172c1fac805d170551f10c17e94f4ca7980b746a"
+  },
+  "counts": {
+    "observation_configurations": 135,
+    "template_count": 5,
+    "task_count": 1215,
+    "decision_count": 4860,
+    "evaluated_boxes": 16181,
+    "unresolved_budget_leaves": 0,
+    "incompatible": 0
+  },
+  "summary_groups_checked": 340,
+  "method_totals": {
+    "keep": {
+      "n": 1215,
+      "improved": 0,
+      "harm": 0,
+      "same": 1215,
+      "moved": 0,
+      "mae_mm_exact": "14",
+      "mse_mm2_exact": "28837/36",
+      "max_error_mm_exact": "60"
+    },
+    "certificate_midpoint": {
+      "n": 1215,
+      "improved": 579,
+      "harm": 0,
+      "same": 636,
+      "moved": 579,
+      "mae_mm_exact": "66539/22680",
+      "mse_mm2_exact": "6513254371/40642560",
+      "max_error_mm_exact": "60"
+    },
+    "certificate_projection": {
+      "n": 1215,
+      "improved": 737,
+      "harm": 0,
+      "same": 478,
+      "moved": 737,
+      "mae_mm_exact": "6143/2592",
+      "mse_mm2_exact": "6613097353/60963840",
+      "max_error_mm_exact": "60"
+    },
+    "pose_profiled_residual": {
+      "n": 1215,
+      "improved": 840,
+      "harm": 12,
+      "same": 363,
+      "moved": 852,
+      "mae_mm_exact": "24602/8505",
+      "mse_mm2_exact": "9538948/59535",
+      "max_error_mm_exact": "60"
+    }
+  },
+  "endpoint_observations": {
+    "projection_accepts_at_least_midpoint": true,
+    "projection_inside_prior_repairs_partial": {
+      "layered_contrast": 149,
+      "layered_same": 162
+    }
+  },
+  "model_checks": {
+    "truth_images_recomputed": 135,
+    "recorded_exclusion_witnesses_checked": 1088,
+    "shared_enclosure_witnesses_recomputed": 216,
+    "witnesses_per_observation_cap": 2
+  },
+  "checks": [
+    "complete registered population and unique task-method associations",
+    "all exact per-decision errors, endpoint gains, midpoint and clamp actions",
+    "all state, offset, prior, template and camera-radius labels",
+    "all trace trees, exact bisections and complete terminal-domain partitions",
+    "truth in retained leaves and reconstructed hull for all 135 observations",
+    "all exclusion witness/noise conflicts and sampled shared-model witness integrity",
+    "all seeded actual poses and all 135 actual bounded-noise truth images",
+    "all six summary grouping families and exact-derived float metrics",
+    "both certificate arms have zero observed harm; projection acceptance contains midpoint",
+    "hidden inside-prior certificate decisions all KEEP"
+  ],
+  "verification_seconds": 2.586507844971493
+}

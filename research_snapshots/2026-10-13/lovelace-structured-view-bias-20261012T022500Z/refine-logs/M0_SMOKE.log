@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/srv/slam-research/grf/map-denoise/runs/lovelace-structured-view-bias-20261012T022500Z/run_structured.py", line 453, in <module>
+    main()
+    ~~~~^^
+  File "/srv/slam-research/grf/map-denoise/runs/lovelace-structured-view-bias-20261012T022500Z/run_structured.py", line 447, in main
+    smoke()
+    ~~~~~^^
+  File "/srv/slam-research/grf/map-denoise/runs/lovelace-structured-view-bias-20261012T022500Z/run_structured.py", line 422, in smoke
+    public, _private = old.generate_observation('smoke_only', 'partial', (Q(1, 4), Q(1, 2), Q(3, 4)),
+                       ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                               Q(600), 99125, 'structured-bias-smoke-only')
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/srv/slam-research/grf/map-denoise/runs/lovelace-nuisance-20261011T044500Z/run_nuisance.py", line 105, in generate_observation
+    offsets = (radius * rng.choice(WEIGHTS), Q(0), radius * rng.choice(WEIGHTS))
+               ~~~~~~~^~~~~~~~~~~~~~~~~~~~~
+TypeError: can't multiply sequence by non-int of type 'Fraction'

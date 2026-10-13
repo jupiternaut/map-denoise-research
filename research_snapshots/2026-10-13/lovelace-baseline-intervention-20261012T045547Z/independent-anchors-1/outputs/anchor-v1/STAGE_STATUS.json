@@ -1,0 +1,46 @@
+{
+  "status": "COMPLETE",
+  "error": null,
+  "seconds": 582.2784004211426,
+  "deadline_epoch": 1791852250.172236,
+  "steps": [
+    {
+      "step": "generation",
+      "command": [
+        "/srv/slam-research/grf/map-denoise/envs/open3d-019/bin/python",
+        "-B",
+        "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/independent-anchors-1/prepare_anchors.py",
+        "--deadline",
+        "1791852250.172236"
+      ],
+      "seconds": 0.0638577938079834,
+      "returncode": 0
+    },
+    {
+      "step": "main",
+      "command": [
+        "/srv/slam-research/grf/map-denoise/envs/open3d-019/bin/python",
+        "-B",
+        "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/independent-anchors-1/run_anchors.py",
+        "--output",
+        "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/independent-anchors-1/outputs/anchor-v1"
+      ],
+      "seconds": 441.5982940196991,
+      "returncode": 0
+    },
+    {
+      "step": "verification",
+      "command": [
+        "/srv/slam-research/grf/map-denoise/envs/open3d-019/bin/python",
+        "-B",
+        "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/independent-anchors-1/verify_anchors.py",
+        "--output",
+        "/srv/slam-research/grf/map-denoise/runs/lovelace-baseline-intervention-20261012T045547Z/independent-anchors-1/outputs/anchor-v1",
+        "--deadline",
+        "1791852250.172236"
+      ],
+      "seconds": 140.61402440071106,
+      "returncode": 0
+    }
+  ]
+}

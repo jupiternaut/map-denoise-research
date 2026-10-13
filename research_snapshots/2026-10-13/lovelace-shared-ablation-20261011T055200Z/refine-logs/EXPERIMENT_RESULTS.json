@@ -1,0 +1,84 @@
+{
+  "status": "COMPLETE_VERIFIED",
+  "host": "liekkas",
+  "root": "/srv/slam-research/grf/map-denoise/runs/lovelace-shared-ablation-20261011T055200Z",
+  "scope": "Same frozen54 synthetic observations replay; not independent scenes or real MVS transfer",
+  "observations": 54,
+  "initial_states_per_arm": 486,
+  "offset_states_per_arm": 432,
+  "correct_states_per_arm": 54,
+  "method_results": [
+    {
+      "method": "keep",
+      "improved": 0,
+      "same": 432,
+      "harm": 0,
+      "mae_model_mm": 1.5,
+      "mse_model_mm2": 3.40625,
+      "mae_reduction_percent": 0
+    },
+    {
+      "method": "channel511",
+      "improved": 0,
+      "same": 432,
+      "harm": 0,
+      "mae_model_mm": 1.5,
+      "mse_model_mm2": 3.40625,
+      "mae_reduction_percent": 0
+    },
+    {
+      "method": "global_gray511",
+      "improved": 115,
+      "same": 317,
+      "harm": 0,
+      "mae_model_mm": 1.1648134489931365,
+      "mse_model_mm2": 2.2665132255457245,
+      "mae_reduction_percent": 22.345770067124235
+    },
+    {
+      "method": "pixel_gray511",
+      "improved": 0,
+      "same": 432,
+      "harm": 0,
+      "mae_model_mm": 1.5,
+      "mse_model_mm2": 3.40625,
+      "mae_reduction_percent": 0
+    },
+    {
+      "method": "view_gray511",
+      "improved": 52,
+      "same": 380,
+      "harm": 0,
+      "mae_model_mm": 1.3976417824074074,
+      "mse_model_mm2": 2.970084006065511,
+      "mae_reduction_percent": 6.823881172839506
+    },
+    {
+      "method": "global_rgb511",
+      "improved": 94,
+      "same": 338,
+      "harm": 0,
+      "mae_model_mm": 1.2395927640068265,
+      "mse_model_mm2": 2.505789633625863,
+      "mae_reduction_percent": 17.3604823995449
+    }
+  ],
+  "all_arms_checks": {
+    "true_depth_covered": 54,
+    "correct_initial_kept": 54,
+    "negative_offset_kept": 72,
+    "unresolved_budget_leaves": 0
+  },
+  "claims": {
+    "C1": "SUPPORTED at fixed depth tolerance, necessary propagation and selector; 255->511 outputs identical432 per corresponding arm",
+    "C2": "Crosspixel sharing and crossview sharing tested; RGB relaxation retains mean gain but has4 better instances than gray"
+  },
+  "verification": "outputs/ablation-v1/verification/VERIFY.json",
+  "analysis": "outputs/analysis-v1",
+  "primary_data": "outputs/ablation-v1/evaluation/ROWS.csv",
+  "next_batch_status": "PLANNED_ONLY",
+  "deployment_default_changed": false,
+  "published": false,
+  "live_experiment_processes": 0
+}
+

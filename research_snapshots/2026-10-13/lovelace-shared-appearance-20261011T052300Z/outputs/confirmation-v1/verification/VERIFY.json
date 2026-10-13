@@ -1,0 +1,86 @@
+{
+  "status": "PASS",
+  "host": "liekkas",
+  "output": "/srv/slam-research/grf/map-denoise/runs/lovelace-shared-appearance-20261011T052300Z/outputs/confirmation-v1",
+  "observations": 54,
+  "tasks": 486,
+  "decisions": 1944,
+  "summary_rows": 360,
+  "paired_rows": 9,
+  "branch_outer_traces": 486,
+  "terminal_partition_leaves": 32491,
+  "all_shared_exclusion_certificates_verified": 988,
+  "exact_propagation_updates_verified": 10690,
+  "shared_kernel_evaluated_boxes_recomputed": 38088,
+  "all_channel_witnesses_recomputed": 877,
+  "source_files_verified": 46,
+  "claims": {
+    "C1": {
+      "status": "PASS",
+      "arms": {
+        "keep": {
+          "coverage": 54,
+          "correct_kept": 54,
+          "harm": 0,
+          "negative_small_kept": 72
+        },
+        "channelwise_union": {
+          "coverage": 54,
+          "correct_kept": 54,
+          "harm": 0,
+          "negative_small_kept": 72
+        },
+        "shared_union": {
+          "coverage": 54,
+          "correct_kept": 54,
+          "harm": 0,
+          "negative_small_kept": 72
+        },
+        "calibrated_union": {
+          "coverage": 54,
+          "correct_kept": 54,
+          "harm": 0,
+          "negative_small_kept": 72
+        }
+      }
+    },
+    "C2": {
+      "status": "SUPPORTED",
+      "informative_small": {
+        "channelwise_union": {
+          "n": 360,
+          "improved": 0,
+          "mae_exact_mm": "3/2"
+        },
+        "shared_union": {
+          "n": 360,
+          "improved": 115,
+          "mae_exact_mm": "723373/658944"
+        }
+      },
+      "negative_result_is_not_verification_failure": true
+    }
+  },
+  "checks": [
+    "exact source lock, registration and complete population",
+    "all regenerated images/poses/RGB noise/sourced calibration",
+    "all shared exclusion rows and exact eight-round propagation proof steps",
+    "all branch trees, BFS budgets and full-domain terminal partitions",
+    "all channel witnesses against regenerated source enclosures",
+    "whole-scene retained depth unions, hulls and true membership",
+    "all frozen hybrid endpoint actions, errors and state/prior labels",
+    "all ROWS/COVERAGE and grouped/paired SUMMARY metrics",
+    "all CSV counterparts and measured timing accounting",
+    "all contract arms true coverage/correct KEEP/zero harm and full negative control"
+  ],
+  "limitations": [
+    "Historical point/enclosure/area kernels are shared; this verifier does not independently prove their geometry soundness.",
+    "Exact exclusion proof sequences are replayed; nonexcluded shared nodes are checked structurally and against channel bounds, without reproducing unrecorded no-contradiction propagation.",
+    "Recorded times are checked and summed, not independently reproduced; costs use a shared geometry cache.",
+    "Function separation and source hashes do not establish operating-system blindness or independent historical timestamps.",
+    "Finite propagation proves necessary-constraint inconsistency only; retained boxes are not guaranteed jointly feasible.",
+    "Synthetic templates/repeated seeds are not independent real scenes or evidence of real-MVS transfer."
+  ],
+  "utc": "2026-10-11T05:36:56.649881+00:00",
+  "verification_seconds": 88.03715066902805
+}

@@ -1,0 +1,52 @@
+# Research Output Manifest
+
+| Timestamp | Skill | File | Stage | Description |
+|-----------|-------|------|-------|-------------|
+| 2026-10-11 05:42 | experiment-plan | AGENTS.md | implementation | 范围与分工 |
+| 2026-10-11 05:42 | experiment-plan | PROTOCOL.md | implementation | 新样本五臂协议 |
+| 2026-10-11 05:42 | experiment-bridge | hybrid.py | implementation | 中点优先与投影补修 |
+| 2026-10-11 05:42 | experiment-plan | idea-stage/docs/research_contract.md | implementation | 研究合同 |
+| 2026-10-11 05:42 | experiment-plan | refine-logs/EXPERIMENT_PLAN.md | implementation | 主张与验收 |
+| 2026-10-11 05:42 | experiment-plan | refine-logs/EXPERIMENT_TRACKER.md | implementation | 初始记录 |
+| 2026-10-11 05:42 | experiment-plan | refine-logs/EXPERIMENT_PLAN_20261011_054217.md | implementation | 初版固定快照 |
+| 2026-10-11 05:42 | experiment-plan | refine-logs/EXPERIMENT_TRACKER_20261011_054217.md | implementation | 初始状态快照 |
+| 2026-10-11 05:48 | experiment-bridge | THEORY.md | implementation | 组合规则条件证明与反例 |
+| 2026-10-11 05:48 | experiment-bridge | test_hybrid.py | implementation | 15项组合单测 |
+| 2026-10-11 05:50 | experiment-bridge | run_hybrid.py | implementation | 同信息五臂一次确认 |
+| 2026-10-11 05:50 | experiment-bridge | test_run_hybrid.py | implementation | 9项运行记录测试 |
+| 2026-10-11 05:50 | experiment-bridge | verification/__init__.py | implementation | 明确新核验package，避免旧namespace导入 |
+| 2026-10-11 05:50 | experiment-bridge | verification/verify_results.py | implementation | 独立算术和完整性核验 |
+| 2026-10-11 05:50 | experiment-bridge | verification/test_verify_results.py | implementation | 14项核验篡改挑战 |
+| 2026-10-11 05:50 | experiment-bridge | author-tests.log | implementation | 根代理38项测试全通过 |
+| 2026-10-11 05:49 | experiment-bridge | COMMANDS.md | implementation | 同主机复现入口 |
+| 2026-10-11 05:49 | experiment-bridge | EXECUTION_NOTES.md | implementation | 路径与审查方式说明 |
+| 2026-10-11 05:55 | experiment-bridge | refine-logs/EXPERIMENT_CODE_REVIEW.md | implementation | 完整fresh-agent检查；同族provisional |
+| 2026-10-11 05:55 | experiment-bridge | refine-logs/EXPERIMENT_CODE_REVIEW_20261011_055500.md | implementation | 代码审查固定快照 |
+| 2026-10-11 05:55 | experiment-plan | refine-logs/EXPERIMENT_PLAN_20261011_055515.md | implementation | 测试与审查通过的计划快照 |
+| 2026-10-11 05:55 | experiment-bridge | smoke.log | implementation | 4.393秒非确认参数冒烟通过 |
+| 2026-10-11 05:56 | experiment-bridge | confirmation.log | experiment | 一次确认全过程 |
+| 2026-10-11 05:56 | experiment-bridge | outputs/confirmation-v1/PROTOCOL.json | experiment | 执行参数固定记录 |
+| 2026-10-11 05:56 | experiment-bridge | outputs/confirmation-v1/SOURCE_LOCK.json | experiment | 科学源绝对路径与哈希 |
+| 2026-10-11 05:56 | experiment-bridge | outputs/confirmation-v1/RUN_STATUS.json | experiment | COMPLETE，无后台任务 |
+| 2026-10-11 05:56 | experiment-bridge | outputs/confirmation-v1/FORECAST_INFO.json | experiment | 五种公开模型预测与缓存索引 |
+| 2026-10-11 05:56 | experiment-bridge | outputs/confirmation-v1/observations.json | experiment | 135配置观测 |
+| 2026-10-11 05:56 | experiment-bridge | outputs/confirmation-v1/tasks.json | experiment | 1215个初态，不含评价 |
+| 2026-10-11 05:56 | experiment-bridge | outputs/confirmation-v1/decisions.json | experiment | 6075选择与组合分支 |
+| 2026-10-11 05:56 | experiment-bridge | outputs/confirmation-v1/outers.json | experiment | 外包和排除见证 |
+| 2026-10-11 05:56 | analyze-results | outputs/confirmation-v1/evaluation/truth.json | experiment | 只供生成与终点评价的真值/随机带 |
+| 2026-10-11 05:56 | analyze-results | outputs/confirmation-v1/evaluation/ROWS.json | experiment | 精确有理数评价行 |
+| 2026-10-11 05:56 | analyze-results | outputs/confirmation-v1/evaluation/ROWS.csv | experiment | 6075行可读原始账本 |
+| 2026-10-11 05:56 | analyze-results | outputs/confirmation-v1/evaluation/SUMMARY.json | experiment | 分层、配对、改善/恶化全汇总 |
+| 2026-10-11 05:56 | analyze-results | outputs/confirmation-v1/TIMING.json | experiment | 全成本分账 |
+| 2026-10-11 05:59 | experiment-bridge | outputs/confirmation-v1/verification/VERIFY.json | experiment | 独立算术验收PASS及其范围 |
+| 2026-10-11 06:06 | analyze-results | REPORT.md | analysis | C1/C2结果、成本、反例与未来方向 |
+| 2026-10-11 06:06 | analyze-results | REPORT_20261011_060600.md | analysis | 正式报告固定快照 |
+| 2026-10-11 06:06 | goal-first-reporting | CHECKPOINT.md | analysis | 已做/未做与续接条件 |
+| 2026-10-11 06:06 | goal-first-reporting | CHECKPOINT_20261011_060600.md | analysis | 完成检查点快照 |
+| 2026-10-11 06:06 | experiment-plan | refine-logs/EXPERIMENT_PLAN.md | analysis | 验收勾选完成 |
+| 2026-10-11 06:06 | experiment-plan | refine-logs/EXPERIMENT_PLAN_20261011_060600.md | analysis | 完成计划快照 |
+| 2026-10-11 06:06 | experiment-bridge | refine-logs/EXPERIMENT_TRACKER.md | analysis | 完成运行与核验状态 |
+| 2026-10-11 06:06 | experiment-bridge | refine-logs/EXPERIMENT_TRACKER_20261011_060600.md | analysis | 完成执行记录快照 |
+| 2026-10-11 06:06 | ablation-planner | refine-logs/ABLATION_PLAN.md | analysis | 必要组件已验收，不追加调参 |
+| 2026-10-11 06:06 | ablation-planner | refine-logs/ABLATION_PLAN_20261011_060600.md | analysis | 完整归因与未来边界快照 |
+| 2026-10-11 06:06 | review-tracing | .aris/traces/ | private-audit | 三类完整审查请求/回复；不公开提交 |

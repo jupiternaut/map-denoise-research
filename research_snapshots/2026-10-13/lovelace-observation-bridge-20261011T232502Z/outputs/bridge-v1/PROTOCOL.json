@@ -1,0 +1,144 @@
+{
+  "units": {
+    "R0epsilon": {
+      "image_kind": "raw",
+      "bound": "1/100",
+      "rounds": 8,
+      "reused": true
+    },
+    "C0epsilon": {
+      "image_kind": "clip",
+      "bound": "1/100",
+      "rounds": 8,
+      "reused": false
+    },
+    "R0delta": {
+      "image_kind": "raw",
+      "bound": "1/50",
+      "rounds": 8,
+      "reused": false
+    },
+    "C0delta": {
+      "image_kind": "clip",
+      "bound": "1/50",
+      "rounds": 8,
+      "reused": false
+    },
+    "RBdelta": {
+      "image_kind": "biased_raw",
+      "bound": "1/50",
+      "rounds": 8,
+      "reused": false
+    },
+    "CBdelta": {
+      "image_kind": "biased_clip",
+      "bound": "1/50",
+      "rounds": 8,
+      "reused": true
+    },
+    "CBdelta4": {
+      "image_kind": "biased_clip",
+      "bound": "1/50",
+      "rounds": 4,
+      "reused": false
+    },
+    "CBdelta16": {
+      "image_kind": "biased_clip",
+      "bound": "1/50",
+      "rounds": 16,
+      "reused": false
+    }
+  },
+  "methods": [
+    "keep",
+    "shared"
+  ],
+  "base_noise_epsilon": "1/100",
+  "bias_magnitude_generation_only": "1/100",
+  "bias_pattern_generation_only": [
+    "-1/100",
+    "0",
+    "1/100"
+  ],
+  "layout": {
+    "views": 3,
+    "pixels_per_view": 48,
+    "channels": 3
+  },
+  "mode": "global_gray",
+  "allowed_branches": [
+    "none",
+    "partial",
+    "full"
+  ],
+  "max_boxes_per_branch": 511,
+  "tolerance_mm": "15/32",
+  "expected_observations": 432,
+  "expected_tasks": 3888,
+  "expected_decisions": 7776,
+  "expected_new_shared_observations": 324,
+  "expected_reused_shared_observations": 108,
+  "expected_new_shared_actions": 2916,
+  "expected_reused_shared_actions": 972,
+  "expected_keep_actions": 3888,
+  "expected_per_unit_method": {
+    "observations": 54,
+    "correct": 54,
+    "small": 432,
+    "negative_small": 72
+  },
+  "contrasts": [
+    [
+      "R0epsilon",
+      "C0epsilon"
+    ],
+    [
+      "R0epsilon",
+      "R0delta"
+    ],
+    [
+      "C0epsilon",
+      "C0delta"
+    ],
+    [
+      "R0delta",
+      "RBdelta"
+    ],
+    [
+      "C0delta",
+      "CBdelta"
+    ],
+    [
+      "RBdelta",
+      "CBdelta"
+    ],
+    [
+      "R0delta",
+      "C0delta"
+    ],
+    [
+      "CBdelta",
+      "CBdelta4"
+    ],
+    [
+      "CBdelta",
+      "CBdelta16"
+    ]
+  ],
+  "cpu_threads": 1,
+  "gpu_count": 0,
+  "wall_time_limit_seconds_main_plus_verification": 5400,
+  "source_root": "/srv/slam-research/grf/map-denoise/runs/lovelace-shared-appearance-20261011T052300Z/outputs/confirmation-v1",
+  "reused_sources": {
+    "R0epsilon": {
+      "output_root": "/srv/slam-research/grf/map-denoise/runs/lovelace-shared-ablation-20261011T055200Z/outputs/ablation-v1",
+      "method": "global_gray511"
+    },
+    "CBdelta": {
+      "output_root": "/srv/slam-research/grf/map-denoise/runs/lovelace-view-bias-20261011T092300Z/outputs/view-bias-v1",
+      "method": "global_shared_wide"
+    }
+  },
+  "cache_policy": "clear all geometry/model caches once before each new shared image solve",
+  "sampling_note": "same 54 base synthetic observations, related initial states and transformations; no new independent scenes"
+}

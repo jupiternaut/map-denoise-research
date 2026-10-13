@@ -1,0 +1,57 @@
+# 执行、核验与复现入口
+
+2026-10-11 10:24 UTC。确切本地主机liekkas，工作目录：
+/srv/slam-research/grf/map-denoise/runs/lovelace-view-bias-20261011T092300Z。
+
+## 本批已完成，不要重跑覆盖封存结果
+
+正式run_view_bias.py出口0，1744.387s；独立verify_view_bias.py出口0，446.835s/PASS。
+正式数据在outputs/view-bias-v1。读REPORT.md与CHECKPOINT.md即可了解结果。
+
+## 已执行命令
+
+```bash
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B \
+  -m unittest test_run_view_bias test_verify_view_bias -q
+```
+
+29项作者与核验反例测试通过。非确认冒烟另跑run_view_bias.py --smoke，不计正式科学主成绩。
+
+固定正式入口（此目录的已有output不可覆盖）：
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B \
+  run_view_bias.py --output outputs/view-bias-v1
+
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B \
+  verify_view_bias.py --output outputs/view-bias-v1
+```
+
+只读算术分析已执行：
+
+```bash
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B analysis/summarize.py
+```
+
+当前脚本输出outputs/analysis-v2并拒绝覆盖。原脚本analysis/summarize_20261011_092900.py及analysis-v1保存，不再以其kept字段报告状态。
+
+分析状态回归在analysis目录执行：
+
+```bash
+/srv/slam-research/grf/map-denoise/envs/colmap-cuda12-421/bin/python -B \
+  -m unittest test_summarize -q
+```
+
+2项PASS，日志refine-logs/analysis-status-tests.log。
+
+## 只读检查封存输入
+
+```bash
+jq -r '.files | to_entries[] | "\(.value)  \(.key)"' \
+  outputs/view-bias-v1/SOURCE_LOCK.json | sha256sum -c --quiet
+jq -r '.files | to_entries[] | "\(.value)  \(.key)"' \
+  outputs/view-bias-v1/INPUTS.json | sha256sum -c --quiet
+```
+
+58份源文件和11份历史输入全匹配。本批没有GPU/API/安装、GitHub/GitBook发布或默认部署更改。

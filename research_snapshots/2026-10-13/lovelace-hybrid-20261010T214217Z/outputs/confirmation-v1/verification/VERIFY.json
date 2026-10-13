@@ -1,0 +1,125 @@
+{
+  "schema": "independent-hybrid-verification-v1",
+  "status": "PASS",
+  "output_directory": "/srv/slam-research/grf/map-denoise/runs/lovelace-hybrid-20261010T214217Z/outputs/confirmation-v1",
+  "host": "liekkas",
+  "verifier_sha256": "deceb7794f0cc8915a82ff175ac25c18f219f484865d83d25124316dbc2ab95c",
+  "arithmetic_helper": "/srv/slam-research/grf/map-denoise/runs/lovelace-challenge-20261010T205013Z/verification/verify_results.py",
+  "model_source_root": "/srv/slam-research/grf/map-denoise/runs/lovelace-challenge-20261010T205013Z",
+  "independent_arithmetic": true,
+  "limitations": [
+    "Image predictions and sampled enclosures reuse the disclosed geometry kernels; their enclosure/physical contracts are not independently reproved.",
+    "Every recorded exclusion witness is checked for noise conflict; a bounded sample is recomputed from the shared enclosure kernel.",
+    "Residual output grid membership, tie consistency and geometric outcomes are checked; finite residual grid optimality is not rerun.",
+    "Stored runtime is checked for finite nonnegative values, not independently benchmarked."
+  ],
+  "input_sha256": {
+    "observations.json": "25e71b61c58e2789805692144f4ce2c589ad0483ede79eb2beea85bcf9926193",
+    "tasks.json": "dd8c9096c6490cc25de54a1aa5ab6f991d1dd1a99ec4e90174fb666ae80b4c38",
+    "evaluation/truth.json": "064a728bd9e7dea8b2a6436ee3bc3e2b0df610d524c9d8026171fbb6f32fe5ba",
+    "decisions.json": "f84fc93f6bf0cea9e9e7f0ae72497c211ddd61404352b7b7d5fe6fd5b4463906",
+    "outers.json": "9aa4567c2c045945efd914b3b64c50ac3630e3200d9cce5437ed7bfead0105fc",
+    "evaluation/ROWS.json": "cbe9ab80c0b52c0cca0ebb7d47c6c38966d86ed007efd3acaf5d3e9cabe8a8ff",
+    "evaluation/SUMMARY.json": "5243fa50010551b55cca0673d1d3c6a448353b6bddfe189f3db36b71b9521bbd",
+    "PROTOCOL.json": "27fb8a8b5bbac041a9461c51432b52fade8fbb0c3c1388bf64d60077710cca1a",
+    "SOURCE_LOCK.json": "1af6d5e6f47383552cee6df4c22bbe8c4b6a1e1114570b21dbd3e17848ff74c2",
+    "RUN_STATUS.json": "f2988c1393ba8c569eacd95357881f23e216a10427cd04b9f6a489293054cfd5",
+    "evaluation/ROWS.csv": "4b566a515a9d326ce1dd1a81892d4e67877b4f22e5104aa4f66a44f347daa69e"
+  },
+  "source_files_checked": 27,
+  "counts": {
+    "observation_configurations": 135,
+    "template_count": 5,
+    "task_count": 1215,
+    "decision_count": 6075,
+    "evaluated_boxes": 16235,
+    "unresolved_budget_leaves": 0,
+    "incompatible": 0
+  },
+  "summary_groups_checked": 425,
+  "method_totals": {
+    "keep": {
+      "n": 1215,
+      "improved": 0,
+      "harm": 0,
+      "same": 1215,
+      "moved": 0,
+      "mae_mm_exact": "14",
+      "mse_mm2_exact": "28837/36",
+      "max_error_mm_exact": "60"
+    },
+    "certificate_midpoint": {
+      "n": 1215,
+      "improved": 567,
+      "harm": 0,
+      "same": 648,
+      "moved": 567,
+      "mae_mm_exact": "8272439/2779920",
+      "mse_mm2_exact": "209241026737/1304709120",
+      "max_error_mm_exact": "60"
+    },
+    "certificate_projection": {
+      "n": 1215,
+      "improved": 757,
+      "harm": 0,
+      "same": 458,
+      "moved": 757,
+      "mae_mm_exact": "241987/101088",
+      "mse_mm2_exact": "552065021699/5088365568",
+      "max_error_mm_exact": "60"
+    },
+    "certificate_hybrid": {
+      "n": 1215,
+      "improved": 757,
+      "harm": 0,
+      "same": 458,
+      "moved": 757,
+      "mae_mm_exact": "1592803/694980",
+      "mse_mm2_exact": "1102674203155/10176731136",
+      "max_error_mm_exact": "60"
+    },
+    "pose_profiled_residual": {
+      "n": 1215,
+      "improved": 851,
+      "harm": 5,
+      "same": 359,
+      "moved": 856,
+      "mae_mm_exact": "1012249/347490",
+      "mse_mm2_exact": "1447620433/9034740",
+      "max_error_mm_exact": "60"
+    }
+  },
+  "information_summary_groups_checked": 550,
+  "paired_groups_checked": 30,
+  "paired_checks": {
+    "tasks_checked": 1215,
+    "hybrid_error_le_midpoint": true,
+    "accepted_midpoint_outputs_preserved": true,
+    "hybrid_MOVE_set_equals_projection": true
+  },
+  "hybrid_branches": {
+    "midpoint": 567,
+    "projection": 190,
+    "keep": 458,
+    "incompatible": 0
+  },
+  "model_checks": {
+    "truth_images_recomputed": 135,
+    "recorded_exclusion_witnesses_checked": 1050,
+    "shared_enclosure_witnesses_recomputed": 216,
+    "witnesses_per_observation_cap": 2
+  },
+  "csv_rows_checked": 6075,
+  "source_lock_unchanged": true,
+  "checks": [
+    "complete 135/1215/6075 new registered population and unique associations",
+    "exact actions, gains, hybrid branches and all geometric evaluation rows",
+    "all trace trees, bisections, terminal-domain partitions and recorded witness conflicts",
+    "truth covered by retained leaves for every observation",
+    "every seeded new pose/noise image and sampled shared-model exclusion intervals",
+    "six aggregation families and CSV equality to JSON",
+    "per-task C1 relations, correct certificate KEEP and hidden inside-prior KEEP",
+    "absolute source inventory equals both frozen trees and remains unchanged"
+  ],
+  "verification_seconds": 3.0954224260058254
+}

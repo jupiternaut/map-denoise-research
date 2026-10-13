@@ -1,0 +1,151 @@
+{
+  "status": "PASS",
+  "mechanical_verification": "PASS",
+  "host": "liekkas",
+  "output": "/srv/slam-research/grf/map-denoise/runs/lovelace-shared-ablation-20261011T055200Z/outputs/ablation-v1",
+  "observations": 54,
+  "tasks": 486,
+  "decisions": 2916,
+  "coverage_rows": 324,
+  "summary_rows": 540,
+  "branch_outer_traces": 810,
+  "terminal_partition_leaves": 66749,
+  "unresolved_budget_leaves": 0,
+  "all_group_exclusion_certificates_verified": 2936,
+  "exact_propagation_updates_verified": 30474,
+  "group_tests_accounted": 7136592,
+  "historical_kernel_evaluated_boxes_recomputed": 132688,
+  "all_channel_witnesses_recomputed": 857,
+  "source_files_verified": 53,
+  "frozen_output_inputs_verified": 8,
+  "claims": {
+    "contract_safety": {
+      "keep": {
+        "coverage": 54,
+        "correct_kept": 54,
+        "harm": 0,
+        "negative_small_kept": 72,
+        "unresolved_budget_leaves": 0
+      },
+      "channel511": {
+        "coverage": 54,
+        "correct_kept": 54,
+        "harm": 0,
+        "negative_small_kept": 72,
+        "unresolved_budget_leaves": 0
+      },
+      "global_gray511": {
+        "coverage": 54,
+        "correct_kept": 54,
+        "harm": 0,
+        "negative_small_kept": 72,
+        "unresolved_budget_leaves": 0
+      },
+      "pixel_gray511": {
+        "coverage": 54,
+        "correct_kept": 54,
+        "harm": 0,
+        "negative_small_kept": 72,
+        "unresolved_budget_leaves": 0
+      },
+      "view_gray511": {
+        "coverage": 54,
+        "correct_kept": 54,
+        "harm": 0,
+        "negative_small_kept": 72,
+        "unresolved_budget_leaves": 0
+      },
+      "global_rgb511": {
+        "coverage": 54,
+        "correct_kept": 54,
+        "harm": 0,
+        "negative_small_kept": 72,
+        "unresolved_budget_leaves": 0
+      }
+    },
+    "C1": {
+      "status": "SUPPORTED",
+      "offset_endpoints": {
+        "keep": {
+          "n": 432,
+          "improved": 0,
+          "same": 432,
+          "harm": 0,
+          "mae_exact_mm": "3/2",
+          "mse_exact_mm2": "109/32"
+        },
+        "channel511": {
+          "n": 432,
+          "improved": 0,
+          "same": 432,
+          "harm": 0,
+          "mae_exact_mm": "3/2",
+          "mse_exact_mm2": "109/32"
+        },
+        "global_gray511": {
+          "n": 432,
+          "improved": 115,
+          "same": 317,
+          "harm": 0,
+          "mae_exact_mm": "4605281/3953664",
+          "mse_exact_mm2": "52189048885/23026139136"
+        },
+        "pixel_gray511": {
+          "n": 432,
+          "improved": 0,
+          "same": 432,
+          "harm": 0,
+          "mae_exact_mm": "3/2",
+          "mse_exact_mm2": "109/32"
+        },
+        "view_gray511": {
+          "n": 432,
+          "improved": 52,
+          "same": 380,
+          "harm": 0,
+          "mae_exact_mm": "19321/13824",
+          "mse_exact_mm2": "17911553411/6030655488"
+        },
+        "global_rgb511": {
+          "n": 432,
+          "improved": 94,
+          "same": 338,
+          "harm": 0,
+          "mae_exact_mm": "3811837/3075072",
+          "mse_exact_mm2": "4442796877705/1773012713472"
+        }
+      },
+      "negative_scientific_result_is_not_mechanical_verification_failure": true
+    },
+    "C2": {
+      "fixed_deletion_comparisons": [
+        "pixel_gray511",
+        "view_gray511",
+        "global_rgb511"
+      ],
+      "endpoint_policy": "report fixed arms; no required per-task error monotonicity"
+    },
+    "scope": "same frozen synthetic input replay, not new independent data or real-scene transfer"
+  },
+  "checks": [
+    "exact host/output identity, source inventory and eight frozen output inputs before/after",
+    "same54 frozen images/truth/tasks regenerated independently from historical point kernels",
+    "all511-budget BFS trees, bisections, full terminal partitions and zero unresolved leaves",
+    "all grouped exclusion rows and exact eight-round proof steps with independent group derivation",
+    "all old channel witnesses recomputed from historical continuous enclosures",
+    "whole-scene branch unions, retained-set truth membership and all frozen endpoint hybrid actions",
+    "all2916 actual-truth scores,324coverage records,540grouped summaries and CSV counterparts",
+    "recorded measured timing accounting and all54 per-arm correct KEEP/coverage,72negative KEEP,zero harm"
+  ],
+  "limitations": [
+    "Mechanical PASS does not imply the scientific C1 result is positive.",
+    "Historical point/enclosure/area kernels are shared; geometry soundness is not independently proved here.",
+    "Exclusion certificates are replayed; retained grouped boxes are not proved jointly feasible.",
+    "Nonexcluded group propagation and prior groups before a contradiction are not replayed; group test counts follow recorded valid group identities and fixed iteration order.",
+    "Measured times are checked and summed, not independently reproduced or used to claim a speed advantage.",
+    "Source/input hashes do not prove operating-system blindness or independent historical timestamps.",
+    "This is same-input synthetic replay with repeated seeds, not new independent scenes or real-MVS transfer."
+  ],
+  "utc": "2026-10-11T06:35:08.644482+00:00",
+  "verification_seconds": 318.3648559440626
+}

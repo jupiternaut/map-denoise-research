@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "host": "liekkas",
+  "output": "/srv/slam-research/grf/map-denoise/runs/lovelace-nuisance-20261011T044500Z/outputs/confirmation-v1",
+  "observations": 54,
+  "tasks": 486,
+  "decisions": 2430,
+  "summary_rows": 135,
+  "branch_outer_traces": 432,
+  "terminal_partition_leaves": 28659,
+  "shared_kernel_evaluated_boxes_recomputed": 32718,
+  "all_exclusion_witnesses_recomputed": 1117,
+  "claims": {
+    "C1": {
+      "status": "PASS",
+      "valid_contract_arms": {
+        "expanded_unanchored": {
+          "covered_observations": 54,
+          "correct_initial_kept": 54,
+          "harm": 0,
+          "negative_control_small_kept": 72
+        },
+        "calibrated_union": {
+          "covered_observations": 54,
+          "correct_initial_kept": 54,
+          "harm": 0,
+          "negative_control_small_kept": 72
+        }
+      }
+    },
+    "C2": {
+      "status": "SUPPORTED",
+      "informative_small_states": {
+        "expanded_unanchored": {
+          "n": 360,
+          "improved": 0,
+          "mae_exact_mm": "3/2"
+        },
+        "calibrated_union": {
+          "n": 360,
+          "improved": 117,
+          "mae_exact_mm": "2791531/2562560"
+        }
+      },
+      "negative_is_scientific_result_not_verification_failure": true
+    }
+  },
+  "source_files_verified": 38,
+  "information_boundary": "public solve/action signatures checked; generator-only truth used for generation and evaluation; not a complete static noninterference proof",
+  "checks": [
+    "exact registration and complete population",
+    "private random tape, poses, RGB noise and three sourced samples",
+    "every branch partition/BFS budget/status/witness",
+    "whole-branch depth union and provenance",
+    "all frozen hybrid endpoint actions",
+    "exact ROWS/COVERAGE and independent grouped SUMMARY",
+    "ROWS/COVERAGE/SUMMARY/TIMING CSV-to-JSON equality",
+    "source-lock absolute inventory and unchanged hashes"
+  ],
+  "limitations": [
+    "Shared ColoredModel point/enclosure kernels are not an independent geometry/enclosure proof.",
+    "Recorded wall times are validated and summed, not reproduced; shared-cache timings are not cold-cache comparisons.",
+    "Conditional safety requires actual-truth coverage; wrong nominal/isolated exclusion and incompatibility are scientific results.",
+    "Channelwise enclosure discards shared-color cross-pixel correlations; wide unanchored outer/KEEP is not proof that original images contain no depth information.",
+    "Sourced appearance samples add information and may tighten computational relaxation; their necessity is not established.",
+    "Six templates and repeated depths/noise are not 54 independent real scenes; no real-MVS migration is tested."
+  ],
+  "utc": "2026-10-11T05:03:25.416075+00:00",
+  "verification_seconds": 76.4081614339957
+}

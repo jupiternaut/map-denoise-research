@@ -1,0 +1,48 @@
+test_fixed_contract_and_separate_inputs (test_run_ablation.RunnerTests.test_fixed_contract_and_separate_inputs) ... ok
+test_historical_input_identity (test_run_ablation.RunnerTests.test_historical_input_identity) ... ok
+test_identity_budget_and_no_solver (test_run_ablation.RunnerTests.test_identity_budget_and_no_solver) ... ok
+test_output_identity_and_no_overwrite (test_run_ablation.RunnerTests.test_output_identity_and_no_overwrite) ... ok
+test_parameters_explicit_and_cache_each_arm (test_run_ablation.RunnerTests.test_parameters_explicit_and_cache_each_arm) ... ok
+test_arm_explicit_parameters_and_no_private_metadata (test_grouped_solver.GroupedSolverTests.test_arm_explicit_parameters_and_no_private_metadata) ... ok
+test_cache_clear_covers_geometry_models_and_projection_data (test_grouped_solver.GroupedSolverTests.test_cache_clear_covers_geometry_models_and_projection_data) ... ok
+test_channel_trace_is_old_solver_with_explicit_parameters (test_grouped_solver.GroupedSolverTests.test_channel_trace_is_old_solver_with_explicit_parameters) ... ok
+test_exact_parameter_and_layout_validation (test_grouped_solver.GroupedSolverTests.test_exact_parameter_and_layout_validation) ... ok
+test_global_rgb_has_three_separate_channel_blocks (test_grouped_solver.GroupedSolverTests.test_global_rgb_has_three_separate_channel_blocks) ... ok
+test_grouped_branch_forwards_error_and_round_limit (test_grouped_solver.GroupedSolverTests.test_grouped_branch_forwards_error_and_round_limit) ... ok
+test_incomplete_contractor_and_zero_rounds_retain (test_grouped_solver.GroupedSolverTests.test_incomplete_contractor_and_zero_rounds_retain) ... ok
+test_propagator_matches_historical_exact_algorithm_without_mutation (test_grouped_solver.GroupedSolverTests.test_propagator_matches_historical_exact_algorithm_without_mutation) ... ok
+test_real_full_negative_complete_511_tree_has_no_unresolved (test_grouped_solver.GroupedSolverTests.test_real_full_negative_complete_511_tree_has_no_unresolved) ... ok
+test_registered_partition_and_gray_row_invariants (test_grouped_solver.GroupedSolverTests.test_registered_partition_and_gray_row_invariants) ... ok
+test_shared_trace_saves_group_and_local_row_certificate (test_grouped_solver.GroupedSolverTests.test_shared_trace_saves_group_and_local_row_certificate) ... ok
+test_sharing_conflict_disappears_when_pixels_or_views_separate (test_grouped_solver.GroupedSolverTests.test_sharing_conflict_disappears_when_pixels_or_views_separate) ... ok
+test_truth_inclusion_every_mode_small_budget_and_old_action (test_grouped_solver.GroupedSolverTests.test_truth_inclusion_every_mode_small_budget_and_old_action) ... ok
+test_zero_budget_preserves_all_modes_and_dynamic_union (test_grouped_solver.GroupedSolverTests.test_zero_budget_preserves_all_modes_and_dynamic_union) ... ok
+test_action_requires_exact_frozen_endpoint_arithmetic (test_verify_ablation.IndependentActionAndAccountingTests.test_action_requires_exact_frozen_endpoint_arithmetic) ... FAIL
+test_evaluation_uses_actual_truth_not_prediction (test_verify_ablation.IndependentActionAndAccountingTests.test_evaluation_uses_actual_truth_not_prediction) ... ok
+test_json_duplicate_keys_and_nonfinite_rejected (test_verify_ablation.IndependentActionAndAccountingTests.test_json_duplicate_keys_and_nonfinite_rejected) ... ok
+test_partial_output_fails_and_verification_directory_is_exclusive (test_verify_ablation.IndependentActionAndAccountingTests.test_partial_output_fails_and_verification_directory_is_exclusive) ... REFUSE: existing verification directory is never overwritten
+ok
+test_exact_group_layout_and_rgb_relaxation (test_verify_ablation.IndependentGroupedRowsTests.test_exact_group_layout_and_rgb_relaxation) ... ok
+test_false_group_row_and_update_rejected (test_verify_ablation.IndependentGroupedRowsTests.test_false_group_row_and_update_rejected) ... ok
+test_invalid_layout_and_noncanonical_rational_rejected (test_verify_ablation.IndependentGroupedRowsTests.test_invalid_layout_and_noncanonical_rational_rejected) ... ok
+test_local_row_numbers_are_not_global_pixel_rows (test_verify_ablation.IndependentGroupedRowsTests.test_local_row_numbers_are_not_global_pixel_rows) ... ok
+test_full511_budget_tree_and_group_costs (test_verify_ablation.IndependentTraceTests.test_full511_budget_tree_and_group_costs) ... ok
+test_group_certificate_in_trace_and_exact_group_counter (test_verify_ablation.IndependentTraceTests.test_group_certificate_in_trace_and_exact_group_counter) ... ok
+test_kernel_witness_is_recomputed (test_verify_ablation.IndependentTraceTests.test_kernel_witness_is_recomputed) ... ok
+test_malicious_counters_budgets_metadata_and_provenance (test_verify_ablation.IndependentTraceTests.test_malicious_counters_budgets_metadata_and_provenance) ... ok
+test_partition_and_unresolved_budget_tampering (test_verify_ablation.IndependentTraceTests.test_partition_and_unresolved_budget_tampering) ... ok
+
+======================================================================
+FAIL: test_action_requires_exact_frozen_endpoint_arithmetic (test_verify_ablation.IndependentActionAndAccountingTests.test_action_requires_exact_frozen_endpoint_arithmetic)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/srv/slam-research/grf/map-denoise/runs/lovelace-shared-ablation-20261011T055200Z/test_verify_ablation.py", line 207, in test_action_requires_exact_frozen_endpoint_arithmetic
+    self.assertEqual(verify.verify_decision(decision, Q(603), (Q(600), Q(601)), 'action'), Q(601))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Fraction(1201, 2) != Fraction(601, 1)
+
+----------------------------------------------------------------------
+Ran 32 tests in 23.800s
+
+FAILED (failures=1)
+{"status": "FAIL", "host": "liekkas", "output": "/srv/slam-research/grf/map-denoise/runs/lovelace-shared-ablation-20261011T055200Z/verifier-unit-zdi06h9a", "error": "VerificationError: INCOMPLETE fixture", "utc": "2026-10-11T05:59:40.866296+00:00", "verification_seconds": 4.7680921852588654e-05}

@@ -1,0 +1,48 @@
+{
+  "seed_evaluation_only": 61004,
+  "random_tape_prefix": "shared-appearance-v1",
+  "unit_id": "clip",
+  "methods": [
+    "keep",
+    "calibrated",
+    "joint"
+  ],
+  "epsilon": "1/100",
+  "beta": "1/100",
+  "camera_radius_mm": "1/5",
+  "depth_domain_mm": [
+    "540",
+    "660"
+  ],
+  "branches": [
+    "none",
+    "partial",
+    "full"
+  ],
+  "rounds": 8,
+  "max_boxes_per_branch": 511,
+  "tolerance_mm": "15/32",
+  "expected_observations": 18,
+  "expected_tasks": 162,
+  "expected_decisions": 486,
+  "expected_cold_solver_calls": 36,
+  "expected_reused_actions": 0,
+  "per_method": {
+    "correct": 18,
+    "shifted": 144,
+    "negative_shifted": 24
+  },
+  "bias_pattern_generation_only": [
+    "-1/100",
+    "0",
+    "1/100"
+  ],
+  "public_auxiliary_calibration_samples": 0,
+  "cpu_threads": 1,
+  "gpu_count": 0,
+  "wall_time_limit_seconds_main_plus_verification": 1800,
+  "cache_policy": "clear frozen geometry caches before every new method/observation, time background preparation",
+  "sampling_note": "one unseen noise/pose seed in the frozen synthetic family; related initial states are not independent scenes",
+  "same_information": "same clipped image; same public geometry; same T_cal; no auxiliary observations",
+  "source_root": "/srv/slam-research/grf/map-denoise/runs/lovelace-structured-view-bias-20261012T022500Z"
+}

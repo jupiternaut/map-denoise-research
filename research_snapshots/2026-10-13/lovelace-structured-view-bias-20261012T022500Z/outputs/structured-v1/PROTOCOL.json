@@ -1,0 +1,53 @@
+{
+  "units": {
+    "raw": "RBdelta",
+    "clip": "CBdelta"
+  },
+  "methods": [
+    "keep",
+    "wide",
+    "calibrated",
+    "joint"
+  ],
+  "epsilon": "1/100",
+  "beta": "1/100",
+  "rounds": 8,
+  "max_boxes_per_branch": 511,
+  "tolerance_mm": "15/32",
+  "depth_domain_mm": [
+    "540",
+    "660"
+  ],
+  "branches": [
+    "none",
+    "partial",
+    "full"
+  ],
+  "expected_observations": 108,
+  "expected_tasks": 972,
+  "expected_decisions": 3888,
+  "expected_new_solver_calls": 216,
+  "expected_new_method_actions": 1944,
+  "expected_reused_actions": 972,
+  "expected_keep_actions": 972,
+  "per_unit_method": {
+    "observations": 54,
+    "correct": 54,
+    "small": 432,
+    "negative_small": 72
+  },
+  "bias_pattern_generation_only": [
+    "-1/100",
+    "0",
+    "1/100"
+  ],
+  "same_information": "same image channels and public model, no auxiliary observations",
+  "calibration": "all-branch/global-depth public guaranteed-background; same T_cal warm-start for both",
+  "noise_model": "raw additive independent bounded error, clip endpoints one-sided",
+  "source_root": "/srv/slam-research/grf/map-denoise/runs/lovelace-observation-bridge-20261011T232502Z/outputs/bridge-v1",
+  "cpu_threads": 1,
+  "gpu_count": 0,
+  "wall_time_limit_seconds_main_plus_verification": 5400,
+  "cache_policy": "clear frozen geometry caches before every new method/observation, time background preparation",
+  "sampling_note": "same54 synthetic source observations; related initial states, not new scenes"
+}

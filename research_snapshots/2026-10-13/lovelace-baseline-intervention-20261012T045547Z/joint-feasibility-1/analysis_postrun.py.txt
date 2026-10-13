@@ -1,0 +1,51 @@
+import json
+from pathlib import Path
+from fractions import Fraction as Q
+from collections import Counter
+p=Path('outputs/polytope-v1')
+L=lambda n:json.loads((p/n).read_text())
+q=lambda x:Q(x['numerator'],x['denominator']) if isinstance(x,dict) else Q(x)
+rows=L('results.json');arms=L('outers.json');tm={t['task_id']:t for t in L('tasks.json')}
+b={(x['task_id'],x['method']):x for x in rows if x['condition']=='box'}
+n={(x['task_id'],x['method']):x for x in rows if x['condition']=='polytope'}
+cells=[];leafcells=[];changed=[]
+avg=lambda v:sum(v,Q(0))/len(v)
+for eta in (0,1):
+ for method in ('calibrated','joint'):
+  ns=[x for x in n.values() if x['variation_index']==eta and x['method']==method]
+  groups={'shifted':[x for x in ns if Q(x['initial_ae_mm'])>0],
+   'primary40':[x for x in ns if x['depth_mm']=='9007/14' and x['case']!='equal_full_negative' and Q(x['initial_ae_mm'])>0],
+   'correct':[x for x in ns if Q(x['initial_ae_mm'])==0]}
+  for group,xs in groups.items():
+   bs=[b[(x['task_id'],method)] for x in xs]
+   oldm,newm=avg([Q(x['se_mm2']) for x in bs]),avg([Q(x['se_mm2']) for x in xs])
+   pair=Counter('better' if Q(y['se_mm2'])<Q(x['se_mm2']) else 'worse' if Q(y['se_mm2'])>Q(x['se_mm2']) else 'same' for x,y in zip(bs,xs))
+   inside={}
+   if group=='primary40':
+    for name in ('box','polytope'):
+     inside[name]=sum((h:=arms[x['observation_id']][name][method]['outer']['hull']) is not None and q(h[0])<=q(tm[x['task_id']]['incumbent'])<=q(h[1]) for x in xs)
+   cells.append({'eta':eta,'method':method,'group':group,'n':len(xs),'old_improved':sum(Q(x['actual_gain_mm2'])>0 for x in bs),'new_improved':sum(Q(x['actual_gain_mm2'])>0 for x in xs),'paired':dict(pair),'old_mse':float(oldm),'new_mse':float(newm),'mse_improvement_percent':float(100*(oldm-newm)/oldm) if oldm else None,'inside':inside})
+  counts=Counter();reasons=Counter();hulls=Counter();changedbranches=0;unchanged_hull_deletions=0;original=0;remaining=0;single=0;ow=[];nw=[];certs=[]
+  for oid,a in arms.items():
+   if not oid.endswith(f'e{eta}'):continue
+   before=a['box'][method];after=a['polytope'][method]
+   oh,nh=before['outer']['hull'],after['outer']['hull']
+   ow.append(q(oh[1])-q(oh[0]));nw.append(q(nh[1])-q(nh[0]))
+   hulls['same' if oh==nh else 'narrower']+=1
+   deleted=0
+   for branch,rr in after['polytope_records'].items():
+    original+=len(before['branches'][branch]['retained_ids']);remaining+=len(after['branches'][branch]['retained_ids'])
+    changedbranches+=before['branches'][branch]['hull']!=after['branches'][branch]['hull']
+    for rr1 in rr:
+     cl=rr1['classification'];counts[cl['status']]+=1;single+=cl['single_row_contradiction']
+     if cl['status']=='UNKNOWN':reasons[cl['reason']]+=1
+     if cl['status']=='CERTIFIED_INFEASIBLE':
+      deleted+=1;certs.append({'oid':oid,'branch':branch,'id':rr1['node_id'],'single':cl['single_row_contradiction'],'margin':str(q(cl['certificate']['margin'])),'hull_changed':oh!=nh})
+   if deleted and oh==nh:unchanged_hull_deletions+=1
+  leafcells.append({'eta':eta,'method':method,'original':original,'remaining':remaining,'counts':dict(counts),'single_row':single,'unknown_reasons':dict(reasons),'hulls':dict(hulls),'branch_hulls_changed':changedbranches,'deletions_with_unchanged_hull_cases':unchanged_hull_deletions,'mean_old_width':float(avg(ow)),'mean_new_width':float(avg(nw)),'certs':certs})
+for k,x in n.items():
+ old=b[k]
+ if x['se_mm2']!=old['se_mm2']:changed.append({'task_id':x['task_id'],'eta':x['variation_index'],'method':x['method'],'case':x['case'],'depth':x['depth_mm'],'old_ae':old['ae_mm'],'new_ae':x['ae_mm'],'old_output':old['output'],'new_output':x['output']})
+receipt=L('verification/VERIFY.json')
+print(json.dumps({'cells':cells,'leaf_cells':leafcells,'changed_results':changed,'status':L('STAGE_STATUS.json'),'timing':L('RUN_STATUS.json'),'verification':{k:receipt[k] for k in ('status','host','output','classification_counts','single_row_contradictions_verified','source_files_verified','input_files_verified')}}))
+
