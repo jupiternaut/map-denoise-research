@@ -1,16 +1,17 @@
 # Map Denoise Research
 
-**多视图证据驱动的多假设几何修订。** 更新于 **2026-10-13**。
+**多视图证据驱动的多假设几何修订。** 更新于 **2026-10-14**。
 
 本仓库保存算法源码、冻结协议、正负结果、测试及修订记录。目前的几何主线是：利用照片与相机标定构造几种可能的表面解释，再决定保留原点还是接受修正。最近已实现收益选择、连续射线位置搜索，以及局部一／双表面逆深度混合回归。
 
-自研方法已支持**有条件的偏移恢复**，尚不是默认开启的通用滤波器；部署默认仍为 `identity`。最新A11–A14开始直接比较数学计算通路：自由构造快法、补回精确证书、再提取旧法有效的联合相机约束。A14在18个新参数合成世界上，108个偏移输入中75个改善、33个不变、0个恶化，另18个正确输入全部保留。相对同批内部旧长流水线，平均冷调用从7.638秒降至0.579秒（快13.18倍），MSE仍高0.20%；这是精度—成本取舍，不是全面精度胜出。当前是有限成像族的条件恢复研究，不是新真实场景验证。此前真实旧场景的新证据配简单选择使MSE降低30.19%，仍新增两处好点损伤；10月1日官方COLMAP新物体迁移降低56.92%是成熟方法成绩。Windows / RTX5080交接包仍对应9月22日CPU版本。
+自研方法已支持**有条件的偏移恢复**，部署默认仍为 `identity`。A11–A14开始比较数学计算通路：自由构造快法、补回精确证书、提取旧法有效的联合相机约束。最新A15在同一批18个模拟世界上补齐纯容差对照，将四盒方法MSE从6.794984降至6.763968 mm²，略低于历史内部旧长流水线的6.781458；108个偏移输入仍为75改善、33不变、0恶化，18个正确输入全部保留。平均冷调用约0.87秒；缓存未带来显著加速。这是旧合成数据上的受控回放，逐输入仍有15个输给旧法，尚未建立真实场景迁移。此前真实旧场景的新证据配简单选择使MSE降低30.19%，仍新增两处好点损伤；10月1日官方COLMAP新物体迁移降低56.92%是成熟方法成绩。Windows / RTX5080交接包仍对应9月22日CPU版本。
 
 ## 从这里开始
 
 | 你想做什么 | 入口 |
 |---|---|
-| 看最新A14：把有效联合约束接到快速认证通路 | [报告](research_snapshots/2026-10-13-method-search/lovelace-joint-boundary-20261013T123336Z/REPORT.md) · [精确诊断](research_snapshots/2026-10-13-method-search/lovelace-joint-boundary-20261013T123336Z/DIAGNOSIS.md) · [推导](research_snapshots/2026-10-13-method-search/lovelace-joint-boundary-20261013T123336Z/JOINT_DERIVATION.md) · [发布与便携复核](publication/LOVELACE_METHODS_20261013.md) |
+| 看最新A15：纯容差改善精度，定位证明复用的实际限制 | [报告](research_snapshots/2026-10-14-proof-reuse/lovelace-proof-reuse-20261014T074405Z/REPORT.md) · [逐输入结果](research_snapshots/2026-10-14-proof-reuse/lovelace-proof-reuse-20261014T074405Z/outputs/tolerance/METRICS.csv) · [开关成本](research_snapshots/2026-10-14-proof-reuse/lovelace-proof-reuse-20261014T074405Z/outputs/switches/PROFILE.json) · [发布与便携复核](publication/LOVELACE_A15_20261014.md) |
+| 回看A14：把有效联合约束接到快速认证通路 | [报告](research_snapshots/2026-10-13-method-search/lovelace-joint-boundary-20261013T123336Z/REPORT.md) · [精确诊断](research_snapshots/2026-10-13-method-search/lovelace-joint-boundary-20261013T123336Z/DIAGNOSIS.md) · [推导](research_snapshots/2026-10-13-method-search/lovelace-joint-boundary-20261013T123336Z/JOINT_DERIVATION.md) · [发布与便携复核](publication/LOVELACE_METHODS_20261013.md) |
 | 看A12自由构造和A13精确认证是否真的有效 | [A12构造方法](research_snapshots/2026-10-13-method-search/lovelace-representation-search-20261013T080031Z/arms/free/METHOD.md) · [A12独立审查与结果](research_snapshots/2026-10-13-method-search/lovelace-representation-search-20261013T080031Z/EXPERIMENT_AUDIT.md) · [A13报告](research_snapshots/2026-10-13-method-search/lovelace-certified-boundary-20261013T093552Z/REPORT.md) |
 | 回看A10：更多修复、计算瓶颈与观测歧义 | [报告](research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/continuous-tightening-1/REPORT.md) · [原始逐项CSV](research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/continuous-tightening-1/outputs/tightening-v1/evaluation/ROWS.csv) · [发布与复核](publication/LOVELACE_20261013.md) |
 | 回看10月10–13日连续实验，避免重复探索 | [研究链导航](publication/LOVELACE_CHAIN_20261013.md) · [A9独立锚点与连续恢复](research_snapshots/2026-10-13/lovelace-baseline-intervention-20261012T045547Z/continuous-anchors-1/REPORT.md) |
@@ -32,7 +33,15 @@
 | 阅读当前 CPU 实现 | [包说明](handoffs/v28-windows-5080/reference/package/README.md) · [运行时](handoffs/v28-windows-5080/reference/package/v28_closeout/runtime.py) · [表面假设评分](handoffs/v28-windows-5080/reference/package/v28_closeout/surfacelet.py) |
 | 阅读元研究与历史探索 | [元研究导航](meta_research/README.md) · [V23–V25 / CPR / 精确搜索](PROGRESS_20260916.md) · [V19–V22](PROGRESS_V22.md) |
 
-## 最新进展：搜索更短的数学通路，而非只增加求解预算
+## A15最新进展：细化停止尺度消除多数比较损失
+
+保持四相机盒的定义、顺序、门控和证书逻辑完全不变，只将深度容差从0.025改成0.001 mm。18世界、108偏移输入的MSE从6.794984降至6.763968 mm²（再降低0.45645%），两臂均18/18正确输入不动、真深度全部覆盖，全部正常达到停止尺度，没有6秒预算截断。旧joint对fine的38个损失全部消除，对legacy@24的52个损失剩15个；平均误差略低于旧长配置，但仍不是逐输入全胜。
+
+72个最终边界单元的四盒都完成离线精确检查：125盒不可行、163盒必要LP可行、0未知。它说明现有松弛仍允许这些边界，不能将必要LP见证当成完整真实成像世界。真实调用链的独立开关中，热盒使四盒浮点LP减少3.45%，冷均值仅观测到约1%下降；父乘子继承实际零命中，因为取证后的节点不再产生后代。所有开关的输出和保留单元一致，未增加损伤。
+
+本轮是同族旧数据回放，三轮重复只测计时。306冷调用、2142预测和288边界对象完整归档，科学结论与原审查限定保留。[A15发布说明、完整报告与标准库复核](publication/LOVELACE_A15_20261014.md)。此次未重建GitBook或更改部署默认。
+
+## A11–A14进展：搜索更短的数学通路
 
 A12让自由构造者从问题契约出发独立实现方法，得到仍属于“深度外集＋HULL”的快法；A13补回精确排除证书，输出与数值快法一致，速度优势仍存在。A14再以精确反例定位快法丢掉的跨像素相机一致性，将旧法已有的四相机域机制紧凑地接回。没有增加观测，也没有换学习器；不是发现新表示族或发明相机分块。
 

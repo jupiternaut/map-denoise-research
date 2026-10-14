@@ -1,0 +1,61 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "WARN",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "reason_code": "replay_scope_timing_and_provenance",
+  "summary": "Independent arithmetic and exact-certificate checks pass; replay only, diagnostic freeze retrospective, cost ledger partial.",
+  "skill": "experiment-audit",
+  "agent_id": "/root/a15_integrity_review",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "ultra",
+  "reviewer_family": "openai",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "status": "ok",
+  "date": "2026-10-14",
+  "project_dir": "/srv/slam-research/grf/map-denoise/runs/lovelace-proof-reuse-20261014T074405Z",
+  "checks": {
+    "gt_provenance": {
+      "status": "pass"
+    },
+    "score_normalization": {
+      "status": "pass"
+    },
+    "result_existence": {
+      "status": "pass"
+    },
+    "dead_code": {
+      "status": "pass",
+      "details": "Inheritance executes but has no eligible ancestors in this tree."
+    },
+    "scope": {
+      "status": "warn",
+      "details": "18 exposed simulation worlds; timing repeats not new worlds"
+    },
+    "eval_type": "simulation_only"
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "impact": "supported",
+      "claim": "Pure tolerance reduces replay MSE and removes historical losses as reported"
+    },
+    {
+      "id": "C2",
+      "impact": "needs_qualifier",
+      "claim": "Hot cuts completed LP calls; 1% cold timing difference modest"
+    },
+    {
+      "id": "C3",
+      "impact": "unsupported",
+      "claim": "Inherited multipliers accelerate this existing search"
+    }
+  ],
+  "resolutions": {
+    "tracker": "updated after review",
+    "diagnostic_freeze": "qualification retained in report",
+    "partial_cost": "label retained; excluded categories listed"
+  },
+  "trace_path": ".aris/traces/experiment-audit/2026-10-14_run01/"
+}
